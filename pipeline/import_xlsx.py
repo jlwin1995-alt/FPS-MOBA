@@ -9,6 +9,10 @@ NOT run here: it lives in site/fps.js and site/moba.js so that editing maps, rou
 
 Writes: site/data/{fps,moba,meta}.json, site/data/log/<slate>.json (+ index.json), site/test/expected.json,
         data/imports/<slate>/ (copies of the workbooks: the raw record).
+
+Re-imports are safe:
+  * the frozen Log is never rewritten: a later import of the same slate only adds Actual / Result to rows that have none (settlement);
+  * a workbook for an OLDER slate than the one on the site updates only that slate's Log, never the live inputs.
 """
 import argparse, json, os, shutil
 import openpyxl
@@ -147,6 +151,34 @@ def import_moba(path):
     return slate, data, expected, table(wv["Log"])
 
 
+LOG_KEY = lambda r: (r.get("Match"), r.get("Player"), r.get("Market"))
+
+
+def merge_log(old, new):
+    """Frozen fields stay as first imported. Actual / Result are taken from the new rows when they hold a value. Rows only in one side are kept."""
+    idx = {LOG_KEY(r): r for r in old}
+    out = list(old)
+    for r in new:
+        k = LOG_KEY(r)
+        if k not in idx:
+            out.append(r)
+            continue
+        o = idx[k]
+        if isinstance(r.get("Actual"), (int, float)) and not isinstance(r.get("Actual"), bool):
+            o["Actual"] = r["Actual"]
+            if r.get("Result") not in (None, ""):
+                o["Result"] = r["Result"]
+    return out
+
+
+def read_json(path, default=None):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return default
+
+
 def dump(path, obj):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -159,26 +191,44 @@ def main():
     ap.add_argument("--fps", required=True)
     ap.add_argument("--moba", required=True)
     ap.add_argument("--site", default="site")
+    ap.add_argument("--imports", default="data/imports")
     a = ap.parse_args()
     s1, fps, ex1, log1 = import_fps(a.fps)
     s2, moba, ex2, log2 = import_moba(a.moba)
     if s1 != s2:
         print(f"warning: the two workbooks are for different slates ({s1} vs {s2})")
-    dump(f"{a.site}/data/fps.json", fps)
-    dump(f"{a.site}/data/moba.json", moba)
-    dump(f"{a.site}/test/expected.json", dict(fps=ex1, moba=ex2))
-    # the frozen Log, per slate, kept apart from the live inputs: re-importing a workbook with Actual typed in fills in the forward record
-    os.makedirs(f"{a.site}/data/log", exist_ok=True)
-    dump(f"{a.site}/data/log/{s1}.json", dict(slate=s1, fps=log1, moba=log2))
+    meta_path = f"{a.site}/data/meta.json"
+    cur = (read_json(meta_path) or {}).get("slate")
+    live = cur is None or s1 >= cur                                     # an older slate only feeds the Log
+    if live:
+        dump(f"{a.site}/data/fps.json", fps)
+        dump(f"{a.site}/data/moba.json", moba)
+        dump(f"{a.site}/test/expected.json", dict(fps=ex1, moba=ex2))
+    else:
+        print(f"note: {s1} is older than the live slate {cur}: only its Log was updated")
+    # the frozen Log, per slate, kept apart from the live inputs
+    lp = f"{a.site}/data/log/{s1}.json"
+    prev = read_json(lp)
+    if prev:
+        log1, log2 = merge_log(prev["fps"], log1), merge_log(prev["moba"], log2)
+    dump(lp, dict(slate=s1, fps=log1, moba=log2))
     idx = sorted(f[:-5] for f in os.listdir(f"{a.site}/data/log") if f.endswith(".json") and f != "index.json")
     dump(f"{a.site}/data/log/index.json", idx)
-    dump(f"{a.site}/data/meta.json", dict(slate=s1, fps_built=fps["built"], moba_built=moba["built"], fps_legs=len(fps["legs"]), moba_legs=len(moba["legs"]),
-                                          fps_matches=len(fps["matches"]), moba_matches=len(moba["matches"]), slates=idx))
+    if live:
+        dump(meta_path, dict(slate=s1, fps_built=fps["built"], moba_built=moba["built"], fps_legs=len(fps["legs"]), moba_legs=len(moba["legs"]),
+                             fps_matches=len(fps["matches"]), moba_matches=len(moba["matches"]), slates=idx))
+    else:
+        meta = read_json(meta_path)
+        meta["slates"] = idx
+        dump(meta_path, meta)
     for src, name in ((a.fps, "fps"), (a.moba, "moba")):
-        d = f"data/imports/{s1}"
-        os.makedirs(d, exist_ok=True)
-        shutil.copyfile(src, f"{d}/{name}.xlsx")
-    print(f"slate {s1}: FPS {len(fps['legs'])} legs / {len(fps['matches'])} matches / {len(fps['players'])} players; MOBA {len(moba['legs'])} legs / {len(moba['matches'])} matches / {len(moba['players'])} players; logs {len(log1)}+{len(log2)}")
+        dst = f"{a.imports}/{s1}/{name}.xlsx"
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        if os.path.abspath(src) != os.path.abspath(dst):                # the workflow imports straight from data/imports
+            shutil.copyfile(src, dst)
+    settled = sum(isinstance(r.get("Actual"), (int, float)) for r in log1 + log2)
+    print(f"slate {s1}{'' if live else ' (log only)'}: FPS {len(fps['legs'])} legs / {len(fps['matches'])} matches / {len(fps['players'])} players; "
+          f"MOBA {len(moba['legs'])} legs / {len(moba['matches'])} matches / {len(moba['players'])} players; log {len(log1)}+{len(log2)}, {settled} settled")
 
 
 if __name__ == "__main__":

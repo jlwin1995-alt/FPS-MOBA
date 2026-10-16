@@ -33,20 +33,29 @@ P(over), P(under), P(push), side and adj value the workbooks computed (299 legs,
 
 ## Each slate
 
-The workbooks are rebuilt from fresh captures (PickFinder, Thunderpick, HLTV) as before. To publish a slate:
+The workbooks are rebuilt from fresh captures (PickFinder, Thunderpick, HLTV) as before. Publishing a slate is one upload:
+
+1. Put the two workbooks in `data/imports/<slate>/` as **`fps.xlsx`** and **`moba.xlsx`** (GitHub: *Add file → Upload files*, both in one commit, or push them).
+2. The **Build slate** workflow (`.github/workflows/slate.yml`) runs on that push: it imports the workbooks, runs the import tests and the model-parity test against the workbooks' own numbers,
+   commits the refreshed `site/data`, and deploys to Pages. If either test fails nothing is committed or deployed.
+3. **Settling.** After the games, upload the same workbooks again with the Log's **Actual** column filled in (same folder, same names). Actuals are added to the frozen Log; the frozen
+   projections are never rewritten, and a later upload with no Actual never erases one. The Scorecard picks them up.
+
+Guarantees (tested in `pipeline/test_import.py`): importing twice changes nothing; a re-upload of an **older** slate only updates that slate's Log (the live inputs stay on the newest slate);
+a slate with only one of the two workbooks waits until the other arrives.
+
+Run it by hand instead:
 
 ```bash
 pip install -r pipeline/requirements.txt          # openpyxl
 python -m pipeline.import_xlsx --fps FPS_Player_Model.xlsx --moba MOBA_Player_Model.xlsx
-node site/test/parity.mjs                         # the port must still match the workbooks
-git add -A && git commit -m "Slate 2026-10-17" && git push
+python -m unittest pipeline.test_import && node site/test/parity.mjs
 ```
 
 The importer writes `site/data/{fps,moba,meta}.json`, one frozen Log per slate in `site/data/log/<slate>.json`, refreshes `site/test/expected.json`, and keeps a copy of both
-workbooks in `data/imports/<slate>/` (the raw record; the dictionary flags raw captures as at risk). After settlement, re-import a workbook whose Log has **Actual** filled in
-and the Scorecard picks it up permanently.
+workbooks in `data/imports/<slate>/` (the raw record).
 
-Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass), so there is no scheduled refresh.
+Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass), so there is no scheduled capture: the upload is the trigger.
 
 `python -m http.server -d site 8000` to run it locally.
 
@@ -54,7 +63,7 @@ Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass)
 
 ```
 site/       index.html · app.js · common.js · stats.js · fps.js · moba.js · dictionary.js · style.css · data/ · test/parity.mjs + expected.json
-pipeline/   import_xlsx.py
+pipeline/   import_xlsx.py · test_import.py
 data/       imports/<slate>/{fps,moba}.xlsx
-.github/    workflows/deploy.yml  (parity test, then GitHub Pages: Settings → Pages → Source: GitHub Actions)
+.github/    workflows/slate.yml (upload workbooks → import, test, commit, deploy) · deploy.yml (site code changes)   Settings → Pages → Source: GitHub Actions
 ```
