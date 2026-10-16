@@ -206,7 +206,7 @@ function logRows() {
       const k = actKey(s, kind, r), a = ACT[k] != null ? ACT[k] : (typeof r.Actual === "number" ? r.Actual : null);
       const line = r.Line, res = a == null ? "" : a > line ? "OVER" : a < line ? "UNDER" : "PUSH";
       out.push({kind, slate: s, k, match: r.Match, player: r.Player, market: r.Market, line, proj: r.Proj, po: r["P(over)"], adj: r["Proj adj"], poAdj: r["P(over) adj"], mapfree: r["Proj map-free"],
-        mapfreeAdj: r["Proj map-free adj"], naive: r["Naive proj"], poNaive: r["P(over) naive"], tp: r["TP book median"], l10: r["PF L10"], maps: r["Maps used"], rounds: r["Rounds used"], actual: a, result: res, local: ACT[k] != null});
+        mapfreeAdj: r["Proj map-free adj"], source: r.Source, note: r.Note, naive: r["Naive proj"], poNaive: r["P(over) naive"], tp: r["TP book median"], l10: r["PF L10"], maps: r["Maps used"], rounds: r["Rounds used"], actual: a, result: res, local: ACT[k] != null});
     }
   }
   return out;
@@ -224,7 +224,8 @@ Pages["Log"] = () => {
     {k: "po", h: "P(over)", f: r => pct1(r.po)}, {k: "side", h: "Side (paper)", l: 1, v: r => Math.abs(N0(r.po) - 0.5), f: r => sidePill(sideOf(r.po, E) === "—" ? "" : sideOf(r.po, E), r.po)},
     {k: "adj", h: "Proj adj", f: r => L(r.adj, 2)}, {k: "naive", h: "Naive", f: r => L(r.naive, 2)}, {k: "tp", h: "TP book", f: r => L(r.tp)}, {k: "l10", h: "PF L10", f: r => hrCell(r.l10)},
     {k: "maps", h: "Maps", l: 1}, {k: "act", h: "Actual", t: "Type the result after settlement. Saved on this device; the permanent route is the workbook's Log, re-imported.",
-      f: r => `<input class="ovr" data-act="${esc(r.k)}" value="${r.actual ?? ""}" size="5">${r.local ? "" : ""}`}, {k: "result", h: "Result", l: 1, f: r => r.result}];
+      f: r => `<input class="ovr" data-act="${esc(r.k)}" value="${r.actual ?? ""}" size="5">${r.local ? "" : ""}`}, {k: "result", h: "Result", l: 1, f: r => r.result},
+    {k: "note", h: "Settlement", l: 1, t: "Where the Actual came from, or why this leg is not settled", v: r => r.actual != null ? "" : (r.note || ""), f: r => r.actual != null ? `<span class="mut">${esc(r.source || (r.local ? "typed here" : ""))}</span>` : `<span class="mut">${esc(r.note || "")}</span>`}];
   const settled = rs.filter(r => r.actual != null).length;
   return `<h2>Log</h2><p class="sub">The projections frozen as values at default settings when each workbook was built — the forward record. ${settled} of ${rs.length} legs settled for ${s}. Type an Actual and the Scorecard picks it up.
     <button id="actclear">clear my typed actuals</button></p>
