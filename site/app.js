@@ -325,7 +325,7 @@ function route() {
 }
 window.addEventListener("hashchange", route);
 (async function init() {
-  const get = async f => (await fetch(`data/${f}.json?v=${Date.now()}`)).json();
+  const get = async f => (await fetch(`data/${f}.json`, {cache: "no-cache"})).json();
   try {
     [D.meta, D.fps, D.moba] = await Promise.all(["meta", "fps", "moba"].map(get));
     await Promise.all(D.meta.slates.map(async s => { D.logs[s] = await get(`log/${s}`); }));
