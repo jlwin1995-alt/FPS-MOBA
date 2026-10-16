@@ -31,6 +31,13 @@ Your edits (Matches, Config, typed Actuals) are saved on your device only and ne
 `site/fps.js` and `site/moba.js` are line-for-line ports of each workbook's Calc and Projections tabs. `node site/test/parity.mjs` reproduces every projection, sigma,
 P(over), P(under), P(push), side and adj value the workbooks computed (299 legs, 3,519 values, worst difference 6e-9; `site/test/expected.json` holds the workbook's numbers). It runs before every deploy.
 
+## PickFinder capture (receiving end)
+
+PickFinder is behind a login, so the capture runs in **your** logged-in tab, not in the cloud. `docs/pickfinder-capture/README.md` is the brief for that session: the exact files and fields to produce,
+the ground rules (you sign in, never route around a block, save after each player), a real worked example, and a prompt to paste.
+This repo is the receiving end: `python -m pipeline.pickfinder --slate <date> --crosscheck` validates `data/raw/pickfinder/<slate>/`, converts it, and compares it with the slate already on the site; pushing the files runs the same validation in **Build slate**.
+It never talks to PickFinder, and a PickFinder-only build (`--build-out`) is written outside `site/data` because it lacks the Thunderpick and HLTV inputs.
+
 ## Results (settling a slate)
 
 After the games, pull the box scores and settle the Log. This runs from any machine with internet, no workbook needed:
@@ -85,7 +92,7 @@ Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass)
 
 ```
 site/       index.html · app.js · common.js · stats.js · fps.js · moba.js · dictionary.js · style.css · data/ · test/parity.mjs + expected.json
-pipeline/   import_xlsx.py · results.py · settle.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
+pipeline/   import_xlsx.py · pickfinder.py · results.py · settle.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
 data/       imports/<slate>/{fps,moba}.xlsx
 .github/    workflows/slate.yml (upload workbooks → import, test, commit, deploy) · deploy.yml (site code changes)   Settings → Pages → Source: GitHub Actions
 ```

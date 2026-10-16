@@ -6,7 +6,7 @@ name: Build slate
 on:
   push:
     branches: [main]
-    paths: ["data/imports/**/*.xlsx"]
+    paths: ["data/imports/**/*.xlsx", "data/raw/pickfinder/**"]
   workflow_dispatch:
     inputs:
       slate:
@@ -57,6 +57,22 @@ jobs:
           echo "slates<<EOF" >> "$GITHUB_OUTPUT"; echo "$dirs" >> "$GITHUB_OUTPUT"; echo "EOF" >> "$GITHUB_OUTPUT"
           echo "Slates: $dirs"
 
+      - name: Validate PickFinder captures
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            dirs="${{ github.event.inputs.slate }}"
+          else
+            before="${{ github.event.before }}"
+            if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then before="HEAD~1"; fi
+            dirs="$(git diff --name-only "$before" "${{ github.sha }}" -- 'data/raw/pickfinder/**' | cut -d/ -f4 | sort -u)"
+          fi
+          for s in $dirs; do
+            [ -f "data/raw/pickfinder/$s/capture.json" ] || continue
+            echo "### PickFinder capture $s" >> "$GITHUB_STEP_SUMMARY"
+            python -m pipeline.pickfinder --slate "$s" --crosscheck | tee -a "$GITHUB_STEP_SUMMARY"
+          done
+
       - name: Import the workbooks
         id: imp
         run: |
@@ -76,7 +92,7 @@ jobs:
       - name: Tests (the import guarantees, then the browser model against the workbooks' own numbers)
         if: steps.imp.outputs.built != ''
         run: |
-          python -m unittest pipeline.test_import pipeline.test_results
+          python -m unittest pipeline.test_import pipeline.test_results pipeline.test_pickfinder
           node site/test/parity.mjs
 
       - name: Commit the built data
