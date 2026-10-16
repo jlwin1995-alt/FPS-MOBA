@@ -1,1 +1,1 @@
-# standard library only
+openpyxl>=3.1
