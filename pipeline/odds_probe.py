@@ -96,6 +96,20 @@ def main():
             seen = sorted(n for n in seen_all if not re.fullmatch(r"[0-9a-f:-]{6,}|\d+", n))     # drop ids, keep market and outcome names
             report[f"{title}_market_names"] = seen[:200]
             report[f"{title}_player_or_kill_markets"] = [n for n in seen if KEYWORDS.search(n)][:50]
+    # raw samples, so a parser can be written against the real structure (one fixture per title that has odds, plus the participant list for CS2)
+    raw = {}
+    for title, sid in ids.items():
+        st, fx, err = call("fixtures", key, sportId=sid, **{"from": today.isoformat(), "to": (today + dt.timedelta(days=2)).isoformat()})
+        rows = fx if isinstance(fx, list) else (fx or {}).get("data", []) if isinstance(fx, dict) else []
+        raw[f"{title}_fixtures_head"] = rows[:3]
+        for fx_row in [r for r in rows if isinstance(r, dict) and r.get("hasOdds")][:1]:
+            st, od, err = call("odds", key, fixtureId=fx_row.get("fixtureId"))
+            raw[f"{title}_odds_sample"] = od
+    for path, kw in (("participants", {"sportId": ids.get("CS2")}), ("markets", {"sportId": ids.get("CS2")}), ("bookmakers", {})):
+        st, d, err = call(path, key, **kw)
+        log(path, st, d, err)
+        raw[f"{path}_head"] = (d[:25] if isinstance(d, list) else d)
+    json.dump(raw, open(a.out.replace(".json", "_raw.json"), "w"), indent=1)
     json.dump(report, open(a.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in report.items() if k.endswith(("_fixtures", "_player_or_kill_markets")) or k == "sport_ids"}, indent=1))
 
