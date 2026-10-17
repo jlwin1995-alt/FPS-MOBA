@@ -112,6 +112,31 @@ def main():
         rows = d if isinstance(d, list) else []
         raw[f"{title}_markets"] = rows
         report[f"{title}_markets"] = dict(total=len(rows), player_props=[m.get("marketName") for m in rows if m.get("playerProp")][:40])
+    # which fixtures actually carry priced player markets? (market names are not in the odds payload, only ids, so match ids against the catalogue)
+    cat = {str(m["marketId"]): m for t in ids for m in raw.get(f"{t}_markets", [])}
+    scan = {}
+    for title, sid in ids.items():
+        st, fx, err = call("fixtures", key, sportId=sid, **{"from": today.isoformat(), "to": (today + dt.timedelta(days=3)).isoformat()})
+        rows = fx if isinstance(fx, list) else (fx or {}).get("data", []) if isinstance(fx, dict) else []
+        out = []
+        for fx_row in [r for r in rows if isinstance(r, dict) and r.get("hasOdds")][:8]:
+            st, od, err = call("odds", key, fixtureId=fx_row.get("fixtureId"))
+            if not od:
+                continue
+            books, example = {}, None
+            for b, bd in od.get("bookmakerOdds", {}).items():
+                for mid, md in bd.get("markets", {}).items():
+                    m = cat.get(mid)
+                    if m and m.get("playerProp"):
+                        books[b] = books.get(b, 0) + 1
+                        if example is None:
+                            example = dict(book=b, market=m["marketName"], period=m["period"], handicap=m["handicap"], raw=md)
+            out.append(dict(fixture=fx_row.get("fixtureId"), teams=[fx_row.get("participant1Name"), fx_row.get("participant2Name")], start=fx_row.get("startTime"),
+                            books_total=len(od.get("bookmakerOdds", {})), player_prop_markets_by_book=books, example=example))
+        scan[title] = out
+        print(title, [(o["teams"], o["books_total"], sum(o["player_prop_markets_by_book"].values())) for o in out])
+    report["player_prop_scan"] = scan
+    raw = {k: v for k, v in raw.items() if not k.endswith("_markets") or k == "CS2_markets"}      # keep the artifact small
     json.dump(raw, open(a.out.replace(".json", "_raw.json"), "w"), indent=1)
     json.dump(report, open(a.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in report.items() if k.endswith(("_fixtures", "_player_or_kill_markets")) or k == "sport_ids"}, indent=1))
