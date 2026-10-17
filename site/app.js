@@ -181,6 +181,11 @@ function marketCheck() {
     {k: "sh", h: "Pinnacle", f: r => r.series.sharp_p1 == null ? "—" : pct0(r.series.sharp_p1)}, {k: "d", h: "Mkt − model (pts)", f: r => diff(r.model.pA, r.series.p1?.p)},
     {k: "m3", h: "P(map 3 played) model / market", t: "Best of 3: from the 2.5 total-maps line. Best of 5: always played.", f: r => (r.model.bo === 5 ? "100% / 100%" : `${pct0(r.model.p3)} / ${r.p_map3?.market ? pct0(r.p_map3.market.p) : "—"}`)},
     ...[1, 2, 3].map(i => ({k: "r" + i, h: `Rounds M${i}: model / market line (P over)`, t: "The market's consensus total-rounds line for the map and the chance of the over", f: r => { const x = r.rounds?.[i]; return `${num(r.model.rounds[i - 1], 1)} / ${x ? `${x.line} (${pct0(x.p_over)})` : "—"}`; }})),
+    {k: "tkm", h: "Team kills per map: model ≈ / market ladder", t: "Model ≈ = the Maps 1-2 kills projections for that team's players, summed and halved (players with a line; n in brackets). Market = the books' team-kills ladder for maps 1 and 2: line (P over). Not yet tested as a forecast: compare with the result after the games.",
+      f: r => ["A", "B"].map(sd => { const m = D.fps.matches.find(x => x.id === r.id), tag = m && (sd === "A" ? m.tag_a : m.tag_b); const ps = compute().rows.filter(x => x.match === r.id && x.team === tag && x.market === "Maps 1-2 Kills");
+        const lad = [1, 2].map(i => r.team_kills?.[i]?.[sd]?.ladder).filter(Boolean); if (!ps.length && !lad.length) return "";
+        const sum = ps.reduce((t, x) => t + (x.proj || 0), 0);
+        return `${sd}: ${ps.length ? `${num(sum / 2, 1)} (${ps.length}) / ` : ""}${lad.map(l => l.map(([ln, p]) => `${ln} (${pct0(p)})`).join(" · ")).join(" | ") || "—"}`; }).filter(Boolean).join("<br>")},
     {k: "ot", h: "Overtime M1", f: r => r.overtime?.["1"]?.yes ? pct0(r.overtime["1"].yes.p) : "—"},
     {k: "pp", h: "Player markets priced", t: "Kill and headshot lines per player, when a bookmaker has posted them (none had on 2026-10-17)", f: r => Object.keys(r.player || {}).length}];
   return `<h3>Market check</h3><p class="sub">Bookmakers via OddsPapi, pulled ${esc(rows[0].captured_utc)}. A second opinion on series strength, how many maps and how long they run; not a bet signal.</p>${table(cols, rows, {id: "mk"})}`;
