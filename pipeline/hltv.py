@@ -17,7 +17,7 @@ from .names import same_team, STOP, norm
 
 def same_team_loose(board_name, *source_names):
     """same_team, plus a capture that uses a shorter name than the board ('Betclic' for 'Betclic Apogee Esports (BCA)'): a source name equal to one whole word of the board name."""
-    if same_team(board_name, *source_names):
+    if same_team(board_name, *source_names) or norm(board_name) in {norm(n) for n in source_names}:       # the second: an alias that gives the board name verbatim
         return True
     words = {norm(w) for w in re.split(r"[^A-Za-z0-9]+", re.sub(r"\(.*?\)", "", board_name or "")) if len(w) >= 5 and w.lower() not in STOP}
     return any(norm(n) in words for n in source_names)
