@@ -11,7 +11,7 @@ until a book does. Nothing here is a bet signal: it is a second opinion on the i
 """
 import argparse, datetime as dt, glob, json, os, re, statistics, sys, time, urllib.error, urllib.parse, urllib.request
 from .names import same_team
-from .results import link_matches, load_board
+from .results import board_start_utc, link_matches, load_board
 
 BASE = "https://api.oddspapi.io/v4"
 SPORTS = {"CS2": 17, "VAL": 61, "LOL": 59, "DOTA": 16}
@@ -63,7 +63,9 @@ def fetch(slate, site="site", imports="data/imports", out="data/raw/odds"):
         for b in board:
             L = links.get(b["id"])
             if not L:
-                print(f"{b['id']}: no fixture found")
+                exp = board_start_utc(slate, b["start"])
+                near = sorted(cands, key=lambda c: abs((c["start"] - exp).total_seconds()))[:4]
+                print(f"{b['id']}: no fixture found (board {b['a']} v {b['b']} at {exp:%m-%d %H:%M} UTC; nearest listed: " + "; ".join(f"{c['t1'][0]} v {c['t2'][0]} {c['start']:%m-%d %H:%M}" for c in near) + f"; {len(cands)} fixtures listed)")
                 continue
             f = L["cand"]["ref"]
             if not f.get("hasOdds"):
@@ -205,6 +207,21 @@ def view(parsed, board_match, participants=None):
             if e:
                 rounds[per[1]] = dict(line=e["line"], p_over=e["over"]["p"], books=e["books"])
     out["rounds"] = rounds
+    # team and match kills per map (a few books post these for CS2 a day out); team 1/2 follow the fixture's order, so map them onto the board's A/B
+    tk, mk = {}, {}
+    for key, ents in parsed["totals"].items():
+        name, per = key.split("|")
+        mm = re.match(r"Kills - Over Under Team ([12])\b", name)
+        e = main_line(ents)
+        if not e or not re.fullmatch(r"p\d", per or ""):
+            continue
+        rec = dict(line=e["line"], p_over=e["over"]["p"], books=e["books"], ladder=[[x["line"], x["over"]["p"]] for x in ents if x.get("over")])
+        if mm:
+            side = "A" if (mm.group(1) == "1") != swapped else "B"
+            tk.setdefault(per[1], {})[side] = rec
+        elif name.startswith("Kills - Over Under") and "Team" not in name:
+            mk[per[1]] = rec
+    out["team_kills"], out["match_kills"] = tk, mk
     out["other_totals"] = {k: main_line(v) for k, v in parsed["totals"].items() if not k.startswith("Total Rounds") and main_line(v)}
     out["player"] = {k: v for k, v in parsed["player"].items()}
     return out

@@ -51,6 +51,14 @@ class Sample(unittest.TestCase):
         self.assertTrue(0.4 < e["over"]["p"] < 0.6)
         self.assertTrue(0.05 < self.p["overtime"]["1"]["yes"]["p"] < 0.4)
 
+    def test_team_kills_are_oriented_to_the_board(self):
+        board = dict(a="Team Vitality (VIT)", b="LOUD (LOUD)", pA=0.4, p3_used=1, bo=5)
+        v = O.view(O.parse(self.raw), board, ["Vitality", "LOUD"])
+        w = O.view(O.parse(self.raw), board, ["LOUD", "Vitality"])
+        self.assertEqual(v["team_kills"].keys(), w["team_kills"].keys())               # present (or both empty for this Valorant sample)
+        for per in v["team_kills"]:
+            self.assertEqual(v["team_kills"][per]["A"], w["team_kills"][per]["B"])
+
     def test_no_player_props_were_priced(self):
         self.assertEqual(self.p["player"], {})
 
