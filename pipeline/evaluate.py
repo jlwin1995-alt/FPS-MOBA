@@ -24,6 +24,10 @@ EXPLORATORY_THROUGH = "2026-10-16"
 BOOT, SEED = 2000, 7
 MIN_MATCHES, MIN_LEGS, MIN_MAPS = 8, 60, 20
 
+# Slip payouts as the user plays them (PrizePicks flex, 5 and 6 picks): {hits: multiple of the stake}. Confirm against the app before relying on the breakeven.
+PAYOUTS = {"5-pick flex": (5, {5: 10, 4: 2, 3: 0.4}), "6-pick flex": (6, {6: 25, 5: 2, 4: 0.4})}
+SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
+
 HYPOTHESES = [
     dict(id="H1", name="The posted rounds total runs high", metric="mean(rounds assumed - rounds played) per map", claim=">0", null=0),
     dict(id="H2", name="The map-specific layer adds information", metric="AUC(model P(over)) - AUC(map-free projection)", claim=">0", null=0),
@@ -31,6 +35,7 @@ HYPOTHESES = [
     dict(id="H4", name="Hit rate rises with the size of the lean", metric="hit rate(lean >= 15 pts) - hit rate(lean < 4 pts)", claim=">0", null=0),
     dict(id="H5", name="The projection is closer to the actual than the posted line", metric="MAE(projection) - MAE(line)", claim="<0", null=0),
     dict(id="H6", name="The round-differential layer adds information", metric="AUC(adj P(over)) - AUC(model P(over))", claim=">0", null=0),
+    dict(id="H7", name="Side calls clear breakeven", metric="side hit rate (P(over) >= 50% = over) - flex breakeven", claim=">0", null=0, after=SIDE_AFTER),
 ]
 
 
@@ -61,6 +66,19 @@ def auc(y, s):
             ranks[order[k]] = (i + j) / 2 + 1
         i = j + 1
     return (sum(ranks[k] for k in range(len(y)) if y[k]) - n1 * (n1 + 1) / 2) / (n1 * n0)
+
+
+def breakeven(n, pay):
+    """Per-leg hit rate at which a flex slip of n picks has expected value 1x the stake."""
+    ev = lambda p: sum(m * math.comb(n, k) * p ** k * (1 - p) ** (n - k) for k, m in pay.items())
+    lo, hi = 0.4, 0.9
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if ev(mid) < 1 else (lo, mid)
+    return round(lo, 4)
+
+
+BREAKEVEN = {k: breakeven(*v) for k, v in PAYOUTS.items()}
 
 
 def boot(fn, clusters, B=BOOT, seed=SEED):
@@ -301,6 +319,16 @@ def summarise(rows, mrows, moba=None):
     if "model adj P(over)" in S:
         pa, po = S["model adj P(over)"], S["model P(over)"]
         hyp["H6"] = (est(lambda idx: _d(auc([y[i] for i in idx], [pa[i] for i in idx]), auc([y[i] for i in idx], [po[i] for i in idx])), cl, len(R)), len(R), MIN_LEGS)
+    hits = [1.0 if (R[i]["po"] >= 0.5) == (y[i] == 1) else 0.0 for i in range(len(R)) if R[i]["po"] is not None]
+    hc = [cl[i] for i in range(len(R)) if R[i]["po"] is not None]
+    be = max(BREAKEVEN.values())
+    if hits:
+        e = est(lambda idx: sum(hits[i] for i in idx) / len(idx) - be, hc, len(hits))
+        rate = sum(hits) / len(hits)
+        out["side"] = dict(n=len(hits), hits=int(sum(hits)), rate=round(rate, 4), wilson=wilson(int(sum(hits)), len(hits)), clustered_ci=None if e["ci"] is None else [round(e["ci"][0] + be, 4), round(e["ci"][1] + be, 4)],
+                           breakeven=BREAKEVEN, headroom=round(rate - be, 4),
+                           legs_to_confirm=None if rate <= be else int((1.96 * 0.5 / (rate - be)) ** 2) + 1)
+        hyp["H7"] = (e, len(hits), MIN_LEGS)
     out["hypotheses"] = []
     for h in HYPOTHESES:
         e, units, minu = hyp.get(h["id"], (dict(value=None, ci=None, n=0), 0, 0))
@@ -361,9 +389,20 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
         [r for s in ss for r in stored[s]["rows"]], [m for s in ss for m in stored[s]["matches"]], [r for s in ss for r in stored[s]["moba"]])
     expl = [s for s in stored if s <= EXPLORATORY_THROUGH]
     conf = [s for s in stored if s > EXPLORATORY_THROUGH]
+    fwd = [s for s in stored if s > SIDE_AFTER]
+
+    def label(summary, ss):
+        """A hypothesis written after a slate cannot be tested on it: H7 reads 'descriptive' for any view that includes such a slate."""
+        for h in (summary or {}).get("hypotheses") or []:
+            if h.get("after") and any(x <= h["after"] for x in ss):
+                h["status"] = "descriptive (declared after this data)"
+        return summary
+    by_slate = {s: label(stored[s]["summary"], [s]) for s in stored}
     report = dict(generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), exploratory_through=EXPLORATORY_THROUGH, hypotheses=HYPOTHESES,
-                  slates=sorted(stored), by_slate={s: stored[s]["summary"] for s in stored}, notes={s: stored[s]["notes"] for s in stored},
-                  exploratory=dict(slates=expl, summary=pooled(expl)) if expl else None, confirmatory=dict(slates=conf, summary=pooled(conf)) if conf else None)
+                  slates=sorted(stored), by_slate=by_slate, notes={s: stored[s]["notes"] for s in stored},
+                  exploratory=dict(slates=expl, summary=label(pooled(expl), expl)) if expl else None, confirmatory=dict(slates=conf, summary=label(pooled(conf), conf)) if conf else None,
+                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, all=(pooled(sorted(stored)) or {}).get("side"),
+                            forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), hypothesis=next((h for h in x["hypotheses"] if h["id"] == "H7"), None)))(pooled(fwd))) if fwd else None))
     write(f"{site}/data/evaluation.json", report)
     return report
 
@@ -375,6 +414,10 @@ def show(s, title):
     e = (s.get("error") or {}).get("all")
     if e:
         print(f"  MAE  line {e['mae_line']}  projection {e['mae_proj']}  map-free {e['mae_map_free']}  adj {e['mae_adj']} | bias projection {e['bias_proj']:+}  line {e['bias_line']:+}")
+    if s.get("side"):
+        d = s["side"]
+        print(f"  side calls: {d['hits']}/{d['n']} = {d['rate']:.1%} (clustered interval {d['clustered_ci']}); breakeven {d['breakeven']}, headroom {d['headroom']:+.1%}"
+              + (f", about {d['legs_to_confirm']} legs to be sure" if d.get("legs_to_confirm") else ""))
     if s.get("counterfactual"):
         c = s["counterfactual"]
         print(f"  with actual maps+rounds: MAE {c['mae_published']} -> {c['mae_actual_inputs']}, bias {c['bias_published']:+} -> {c['bias_actual_inputs']:+}")

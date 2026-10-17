@@ -43,7 +43,7 @@ Matches left at `no player stats at source` can be filled from your own HLTV tab
 python -m pipeline.evaluate --slate <date>     # -> data/evaluation/<date>.json and site/data/evaluation.json (Scorecard > Evaluation)
 ```
 
-Needs `node` (it re-runs the model with the maps and rounds actually played). Hypotheses H1-H6 are pre-declared in `pipeline/evaluate.py`; 2026-10-16 is exploratory (they came from it), every later slate is confirmatory. Commit the two outputs with the settle commit. Do not change a hypothesis after seeing a confirmatory slate.
+Needs `node` (it re-runs the model with the maps and rounds actually played). Hypotheses H1-H6 are pre-declared in `pipeline/evaluate.py`; 2026-10-16 is exploratory (they came from it), every later slate is confirmatory. Commit the two outputs with the settle commit. Do not change a hypothesis after seeing a confirmatory slate. H7 (side calls clear the flex breakeven) was written after 2026-10-17, so only slates after it count toward it; its payouts live in `PAYOUTS` in `pipeline/evaluate.py` and should be checked against the app.
 
 ## Known gaps
 

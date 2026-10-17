@@ -1,0 +1,25 @@
+name: Odds probe
+
+# Read-only check of what OddsPapi offers for CS2 / Valorant / LoL / Dota 2 (in particular whether any kill, headshot or player market exists).
+# Uses the ODDSPAPI_KEY repository secret; writes nothing to the repo. The summary is in the job log and the odds-probe artifact.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pipeline.odds_probe --out odds_probe.json
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: odds-probe
+          path: odds_probe.json
