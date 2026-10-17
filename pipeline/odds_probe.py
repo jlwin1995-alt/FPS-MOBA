@@ -15,16 +15,22 @@ TITLES = {"CS2": 17, "LoL": 18}               # sport ids named in OddsPapi's es
 
 def call(path, key, **params):
     q = urllib.parse.urlencode({**params, "apiKey": key})
-    req = urllib.request.Request(f"{BASE}/{path}?{q}", headers={"User-Agent": "fps-moba-odds-probe", "Accept": "application/json"})
-    time.sleep(0.6)
-    try:
-        with urllib.request.urlopen(req, timeout=40) as r:
-            body = r.read()
-            return r.status, json.loads(body) if body else None, None
-    except urllib.error.HTTPError as e:
-        return e.code, None, e.read()[:300].decode("utf-8", "replace")
-    except (urllib.error.URLError, TimeoutError, ValueError) as e:
-        return None, None, str(e)[:300]
+    for attempt in range(4):
+        req = urllib.request.Request(f"{BASE}/{path}?{q}", headers={"User-Agent": "fps-moba-odds-probe", "Accept": "application/json"})
+        time.sleep(1.5)
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                body = r.read()
+                return r.status, json.loads(body) if body else None, None
+        except urllib.error.HTTPError as e:
+            text = e.read()[:300].decode("utf-8", "replace")
+            if e.code == 429 and attempt < 3:                  # the API says how long to wait; honour it (capped), do not hammer
+                m = re.search(r'"retryMs":\s*(\d+)', text)
+                time.sleep(min(int(m.group(1)) / 1000 if m else 2, 6) + 0.5)
+                continue
+            return e.code, None, text
+        except (urllib.error.URLError, TimeoutError, ValueError) as e:
+            return None, None, str(e)[:300]
 
 
 def shape(x, depth=0):
@@ -80,11 +86,14 @@ def main():
         rows = fx if isinstance(fx, list) else (fx or {}).get("data", []) if isinstance(fx, dict) else []
         with_odds = [r for r in rows if isinstance(r, dict) and r.get("hasOdds")]
         report[f"{title}_fixtures"] = dict(total=len(rows), with_odds=len(with_odds))
-        if with_odds:
-            fid = with_odds[0].get("fixtureId") or with_odds[0].get("id")
+        seen_all = set()
+        for fx_row in with_odds[:3]:
+            fid = fx_row.get("fixtureId") or fx_row.get("id")
             st, od, err = call("odds", key, fixtureId=fid)
             log(f"odds {title} fixture {fid}", st, od, err)
-            seen = sorted(names(od)) if od is not None else []
+            seen_all |= names(od) if od is not None else set()
+        if with_odds:
+            seen = sorted(n for n in seen_all if not re.fullmatch(r"[0-9a-f:-]{6,}|\d+", n))     # drop ids, keep market and outcome names
             report[f"{title}_market_names"] = seen[:200]
             report[f"{title}_player_or_kill_markets"] = [n for n in seen if KEYWORDS.search(n)][:50]
     json.dump(report, open(a.out, "w"), indent=1)
