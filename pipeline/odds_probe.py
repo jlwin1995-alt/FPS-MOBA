@@ -105,10 +105,13 @@ def main():
         for fx_row in [r for r in rows if isinstance(r, dict) and r.get("hasOdds")][:1]:
             st, od, err = call("odds", key, fixtureId=fx_row.get("fixtureId"))
             raw[f"{title}_odds_sample"] = od
-    for path, kw in (("participants", {"sportId": ids.get("CS2")}), ("markets", {"sportId": ids.get("CS2")}), ("bookmakers", {})):
-        st, d, err = call(path, key, **kw)
-        log(path, st, d, err)
-        raw[f"{path}_head"] = (d[:25] if isinstance(d, list) else d)
+    # the full market catalogue per title: marketType, period, handicap and the playerProp flag say exactly what exists
+    for title, sid in ids.items():
+        st, d, err = call("markets", key, sportId=sid)
+        log(f"markets {title}", st, d, err)
+        rows = d if isinstance(d, list) else []
+        raw[f"{title}_markets"] = rows
+        report[f"{title}_markets"] = dict(total=len(rows), player_props=[m.get("marketName") for m in rows if m.get("playerProp")][:40])
     json.dump(raw, open(a.out.replace(".json", "_raw.json"), "w"), indent=1)
     json.dump(report, open(a.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in report.items() if k.endswith(("_fixtures", "_player_or_kill_markets")) or k == "sport_ids"}, indent=1))
