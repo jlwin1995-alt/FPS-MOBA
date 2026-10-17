@@ -92,7 +92,7 @@ jobs:
       - name: Tests (the import guarantees, then the browser model against the workbooks' own numbers)
         if: steps.imp.outputs.built != ''
         run: |
-          python -m unittest pipeline.test_import pipeline.test_results pipeline.test_pickfinder pipeline.test_recalc pipeline.test_evaluate pipeline.test_hltv
+          python -m unittest pipeline.test_import pipeline.test_results pipeline.test_pickfinder pipeline.test_recalc pipeline.test_evaluate pipeline.test_hltv pipeline.test_odds
           node site/test/parity.mjs
 
       - name: Commit the built data

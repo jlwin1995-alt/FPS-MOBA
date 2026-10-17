@@ -166,8 +166,25 @@ Pages["Matches"] = () => {
     {k: "rs", h: "", f: m => mo[m.id] ? `<button data-reset="moba|${esc(m.id)}">reset</button>` : ""}];
   return `<h2>Matches</h2><p class="sub">The shaded cells are yours. FPS: the maps and the rounds expected on each (every projection in the match recalculates). MOBA: P(win) per map, whether maps 2 and 3 get played, and a kill-environment multiplier.
     Edits are saved on this device and never touch the workbook. <button data-reset="fps">reset all FPS</button> <button data-reset="moba">reset all MOBA</button></p>
-    <h3>FPS — CS2 and Valorant</h3>${table(fcols, D.fps.matches, {id: "mf"})}<h3>MOBA — LoL and Dota 2</h3>${table(mcols, D.moba.matches, {id: "mm"})}`;
+    <h3>FPS — CS2 and Valorant</h3>${table(fcols, D.fps.matches, {id: "mf"})}<h3>MOBA — LoL and Dota 2</h3>${table(mcols, D.moba.matches, {id: "mm"})}${marketCheck()}`;
 };
+
+// the bookmakers' view of each match next to the model's inputs (OddsPapi, de-vigged, median across books; pulled by pipeline/odds.py)
+function marketCheck() {
+  const O = D.odds;
+  if (!O || O.slate !== D.meta.slate) return `<h3>Market check</h3><p class="sub">No bookmaker odds pulled for this slate yet (run the <b>Odds</b> workflow once the board is built). Nothing here is a bet signal: it is a second opinion on the inputs.</p>`;
+  const rows = Object.entries(O.matches).map(([id, v]) => ({id, ...v}));
+  if (!rows.length) return "";
+  const mp = (x) => x ? `${pct0(x.p)} <span class="mut">[${pct0(x.lo)}–${pct0(x.hi)}, ${x.n} books]</span>` : "—";
+  const diff = (a, b) => a == null || b == null ? "" : signed((b - a) * 100, 0);
+  const cols = [{k: "id", h: "Match", l: 1}, {k: "mA", h: "Model P(A wins)", f: r => pct0(r.model.pA)}, {k: "kA", h: "Market P(A wins)", t: "Median of the bookmakers' de-vigged prices, team A = the board's first team", f: r => mp(r.series.p1)},
+    {k: "sh", h: "Pinnacle", f: r => r.series.sharp_p1 == null ? "—" : pct0(r.series.sharp_p1)}, {k: "d", h: "Mkt − model (pts)", f: r => diff(r.model.pA, r.series.p1?.p)},
+    {k: "m3", h: "P(map 3 played) model / market", t: "Best of 3: from the 2.5 total-maps line. Best of 5: always played.", f: r => (r.model.bo === 5 ? "100% / 100%" : `${pct0(r.model.p3)} / ${r.p_map3?.market ? pct0(r.p_map3.market.p) : "—"}`)},
+    ...[1, 2, 3].map(i => ({k: "r" + i, h: `Rounds M${i}: model / market line (P over)`, t: "The market's consensus total-rounds line for the map and the chance of the over", f: r => { const x = r.rounds?.[i]; return `${num(r.model.rounds[i - 1], 1)} / ${x ? `${x.line} (${pct0(x.p_over)})` : "—"}`; }})),
+    {k: "ot", h: "Overtime M1", f: r => r.overtime?.["1"]?.yes ? pct0(r.overtime["1"].yes.p) : "—"},
+    {k: "pp", h: "Player markets priced", t: "Kill and headshot lines per player, when a bookmaker has posted them (none had on 2026-10-17)", f: r => Object.keys(r.player || {}).length}];
+  return `<h3>Market check</h3><p class="sub">Bookmakers via OddsPapi, pulled ${esc(rows[0].captured_utc)}. A second opinion on series strength, how many maps and how long they run; not a bet signal.</p>${table(cols, rows, {id: "mk"})}`;
+}
 
 // ---------- Intel: HLTV, vetoes, Thunderpick ladders and book ----------
 function intelBlocks() {
@@ -365,6 +382,7 @@ window.addEventListener("hashchange", route);
     [D.meta, D.fps, D.moba] = await Promise.all(["meta", "fps", "moba"].map(get));
     await Promise.all(D.meta.slates.map(async s => { D.logs[s] = await get(`log/${s}`); }));
     try { D.eval = await get("evaluation"); } catch (e) { D.eval = null; }
+    try { D.odds = await get("odds"); } catch (e) { D.odds = null; }
   } catch (e) { view().innerHTML = `<p class="bad">Could not load data (${esc(e.message)}). Run <code>python -m pipeline.import_xlsx</code>.</p>`; return; }
   document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · MOBA built ${D.meta.moba_built} UTC`;
   const b = document.getElementById("banner");
