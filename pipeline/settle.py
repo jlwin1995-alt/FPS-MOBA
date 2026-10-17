@@ -19,7 +19,7 @@ def apply(log, legs, title_of):
         if r is None:
             n["missing"] += 1
             continue
-        src = SRC.get(title_of(l["match"]), "")
+        src = l.get("source") or SRC.get(title_of(l["match"]), "")
         if l["status"] == "ok":
             line = r.get("Line")
             res = "PUSH" if l["actual"] == line else ("OVER" if l["actual"] > line else "UNDER")

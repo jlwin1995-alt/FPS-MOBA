@@ -187,6 +187,8 @@ def leg_actuals(legs, players, matches):
         field = "hs" if g["code"][0] == "H" else "kills"
         total = sum(r[field] for r in rows)
         extra = dict(team=rows[-1]["team"], maps=[by_n[n]["map"] for n in need], checked=ok)
+        if any(by_n[n].get("site") for n in need):
+            extra["source"] = ", ".join(sorted({by_n[n].get("site") or "bo3.gg" for n in need}))
         # an unverified number is kept apart from `actual` so nothing downstream can mistake it for a settled value
         out.append(dict(rec, status="ok", actual=total, **extra) if ok else dict(rec, status="identity check failed", unverified=total, **extra))
     return out
