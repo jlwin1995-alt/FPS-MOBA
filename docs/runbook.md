@@ -4,8 +4,10 @@
 
 1. Capture and build the two workbooks as usual (PickFinder, Thunderpick, HLTV in your tab).
 2. **Check the Config tab's `SLATE_DATE` in both workbooks is today.** The upload is refused if it isn't.
+   **Check the workbooks hold calculated results.** A workbook saved by a script has formulas but no results, and the importer refuses it (see the table). From a cloud session or any machine with LibreOffice:
+   `python -m pipeline.recalc data/imports/<date>/fps.xlsx data/imports/<date>/moba.xlsx` (keep the untouched originals in `data/imports/<date>/original/`). GitHub's runners are not relied on to have LibreOffice, so recalculate before uploading.
 3. Upload them as **`data/imports/<date>/fps.xlsx`** and **`data/imports/<date>/moba.xlsx`**, both in one commit, to `main` (GitHub: *Add file → Upload files*).
-4. **Build slate** runs (Actions tab). It imports, runs 39 offline tests and the model-parity test, commits the data, deploys. The run's summary shows the import line:
+4. **Build slate** runs (Actions tab). It imports, runs the offline tests and the model-parity test, commits the data, deploys. The run's summary shows the import line:
    `slate <date>: FPS 281 legs ... MOBA 18 legs ... log 281+18, 0 settled`.
 5. Open the site: the header should read `<date> slate`, and the Log tab's slate list should end with today.
 
@@ -15,6 +17,7 @@ If a run goes red, nothing was committed or deployed. The step that failed says 
 |---|---|
 | `the folder is X but the workbooks say Y` | the wrong day's workbook, or `SLATE_DATE` not updated |
 | `the two workbooks are for different slates` | one of the two is from another day |
+| `the FPS workbook has no stored results` | saved without being calculated (formulas, no results); recalculate it as in step 2 and upload again |
 | `needs both fps.xlsx and moba.xlsx` (a notice, not a failure) | the second file has not arrived yet; the run skips until it does |
 | `MISMATCH ...` from the parity test | the model port no longer reproduces the workbook; do not publish, send me the lines |
 

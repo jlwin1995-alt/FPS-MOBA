@@ -126,6 +126,14 @@ class Refusals(unittest.TestCase):
         self.assertIn(SLATE, str(e.exception))
         self.assertFalse(os.path.exists(self.site))
 
+    def test_a_workbook_saved_without_results_is_refused(self):
+        stripped = f"{self.tmp}/fps_stripped.xlsx"
+        openpyxl.load_workbook(FPS).save(stripped)                      # formulas kept, stored results dropped (what a script-built workbook looks like)
+        with self.assertRaises(SystemExit) as e:
+            run(self.site, self.imports, fps=stripped)
+        self.assertIn("no stored results", str(e.exception))
+        self.assertFalse(os.path.exists(self.site))
+
     def test_the_matching_folder_is_accepted(self):
         run(self.site, self.imports, slate=SLATE)
         self.assertTrue(os.path.exists(f"{self.site}/data/meta.json"))

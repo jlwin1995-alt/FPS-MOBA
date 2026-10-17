@@ -62,6 +62,8 @@ Not used, by design: HLTV and Leaguepedia refuse automated access (Cloudflare / 
 
 The one-page procedure (build, settle, what each failure message means) is in `docs/runbook.md`.
 
+A workbook must hold **calculated results**, not just formulas: the importer refuses one saved by a script. `python -m pipeline.recalc <file>` calculates it with LibreOffice (checked on Friday's workbooks: 29,133 FPS and 1,734 MOBA cells reproduced to 5e-9).
+
 ## Each slate
 
 The workbooks are rebuilt from fresh captures (PickFinder, Thunderpick, HLTV) as before. Publishing a slate is one upload:
@@ -94,7 +96,7 @@ Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass)
 
 ```
 site/       index.html · app.js · common.js · stats.js · fps.js · moba.js · dictionary.js · style.css · data/ · test/parity.mjs + expected.json
-pipeline/   import_xlsx.py · pickfinder.py · results.py · settle.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
+pipeline/   import_xlsx.py · recalc.py · pickfinder.py · results.py · settle.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
 data/       imports/<slate>/{fps,moba}.xlsx
 .github/    workflows/slate.yml (upload workbooks → import, test, commit, deploy) · deploy.yml (site code changes)   Settings → Pages → Source: GitHub Actions
 ```

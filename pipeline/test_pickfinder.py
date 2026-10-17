@@ -3,8 +3,8 @@ The round trip uses the real slate on the site: real numbers go out as a capture
 import copy, os, shutil, tempfile, unittest
 from . import pickfinder as PF
 from .pickfinder_example import from_site, write
+from .testing import FRIDAY as SLATE, friday_site
 
-SLATE = PF.jload("site/data/meta.json")["slate"]
 
 
 def codes(cap, level="error"):
@@ -18,7 +18,7 @@ def clone(cap):
 class RoundTrip(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.cap = from_site("site")
+        cls.cap = from_site(friday_site())
         cls.tmp = tempfile.mkdtemp()
         write(cls.cap, os.path.join(cls.tmp, SLATE))
 
@@ -37,7 +37,7 @@ class RoundTrip(unittest.TestCase):
         self.assertEqual(again.meta, self.cap.meta)
 
     def test_converts_back_to_the_workbook_values_exactly(self):
-        r = PF.crosscheck(PF.load(SLATE, self.tmp), "site")
+        r = PF.crosscheck(PF.load(SLATE, self.tmp), friday_site())
         self.assertTrue(r["compared"])
         self.assertEqual((r["differences"], r["missing"], r["extra"]), (0, 0, 0))
         self.assertEqual(r["detail"], [])
@@ -45,17 +45,17 @@ class RoundTrip(unittest.TestCase):
     def test_crosscheck_notices_a_different_slate_and_a_changed_number(self):
         other = clone(self.cap)
         other.meta["slate"] = "2000-01-01"
-        self.assertFalse(PF.crosscheck(other, "site")["compared"])
+        self.assertFalse(PF.crosscheck(other, friday_site())["compared"])
         edited = clone(self.cap)
         edited.legs[0]["line"] += 1
         edited.players[edited.legs[3]["pid"]]["overall"]["maps"] += 0                      # untouched on purpose
-        r = PF.crosscheck(edited, "site")
+        r = PF.crosscheck(edited, friday_site())
         self.assertEqual(r["differences"], 1)
         self.assertIn("line", r["detail"][0])
 
     def test_a_partial_capture_reports_missing_items_apart_from_value_differences(self):
-        part = from_site("site", ["CS2 · AST vs MIBR"])
-        r = PF.crosscheck(part, "site")
+        part = from_site(friday_site(), ["CS2 · AST vs MIBR"])
+        r = PF.crosscheck(part, friday_site())
         self.assertEqual(r["differences"], 0)
         self.assertGreater(r["missing"], 100)
         self.assertEqual(r["extra"], 0)
@@ -85,7 +85,7 @@ class Docs(unittest.TestCase):
 
 class Rejects(unittest.TestCase):
     def setUp(self):
-        self.cap = clone(from_site("site", ["CS2 · AST vs MIBR", "LOL · KC vs MVK"]))
+        self.cap = clone(from_site(friday_site(), ["CS2 · AST vs MIBR", "LOL · KC vs MVK"]))
         self.assertEqual(codes(self.cap), [])
 
     def cs2_player(self):

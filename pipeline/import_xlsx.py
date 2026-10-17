@@ -179,6 +179,14 @@ def read_json(path, default=None):
         return default
 
 
+def require_stored_results(tag, expected):
+    """A workbook saved without calculating holds formulas but no results; importing it would silently drop everything calculated in the sheet."""
+    have = sum(1 for e in expected if isinstance(e.get("proj"), (int, float)) and not isinstance(e.get("proj"), bool))
+    if expected and have < 0.5 * len(expected):
+        raise SystemExit(f"the {tag} workbook has no stored results ({have} of {len(expected)} projections): it was saved without being calculated. "
+                         f"Run `python -m pipeline.recalc <file>` (or open and re-save it in Sheets or Excel) and upload it again. Nothing imported.")
+
+
 def dump(path, obj):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -196,6 +204,8 @@ def main():
     a = ap.parse_args()
     s1, fps, ex1, log1 = import_fps(a.fps)
     s2, moba, ex2, log2 = import_moba(a.moba)
+    require_stored_results("FPS", ex1)
+    require_stored_results("MOBA", ex2)
     if s1 != s2:
         raise SystemExit(f"the two workbooks are for different slates (FPS {s1}, MOBA {s2}): nothing imported")
     if a.slate and a.slate != s1:
