@@ -132,6 +132,22 @@ class Merge(unittest.TestCase):
         self.assertEqual((r["linked"], r["rejected"]), ([self.m["id"]], []))
         self.assertEqual([x["n"] for x in res["titles"]["CS2"][self.m["id"]]["maps"]], [1, 2])
 
+    def test_alias_file_links_a_renamed_team(self):
+        cap, _ = capture(self.m, self.legs)
+        renamed = cap["teams"][0]
+        cap["teams"][0] = "Wholly Different"
+        for mp in cap["maps"]:
+            for pl in mp["players"]:
+                if pl["team"] == renamed:
+                    pl["team"] = "Wholly Different"
+        dump(cap, f"{self.dir}/m.json")
+        r, _ = self.run_apply()
+        self.assertEqual(r["linked"], [])                                # without an alias the name does not link
+        dump({"Wholly Different": renamed}, f"{self.dir}/_aliases.json")
+        r, res = self.run_apply()
+        self.assertEqual(r["linked"], [self.m["id"]])
+        self.assertTrue(any(l["status"] == "ok" for l in res["legs"]))
+
     def test_a_map_capture_for_no_board_match_is_rejected(self):
         cap, _ = capture(self.m, self.legs)
         m = cap["maps"][0]

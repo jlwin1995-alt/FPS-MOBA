@@ -7,11 +7,20 @@ Nothing here talks to HLTV (it refuses automated access and is never routed arou
 A capture is one match:
   {"schema": 1, "source": "hltv.org", "url": "...", "captured_utc": "...", "teams": ["A", "B"],
    "maps": [{"n": 1, "map": "Anubis", "score": [13, 5], "players": [{"name": "stavn", "team": "A", "kills": 19, "hs": 3, "deaths": 9}, ...]}]}
+Names: a team HLTV names differently from the board (a sponsor rename) goes in data/imports/<slate>/hltv/_aliases.json as {"HLTV name": "board name"}.
 Rules: bo3.gg's numbers are never replaced (HLTV only fills a map bo3.gg has no players for, and must agree with bo3.gg on map name and score where both have them);
 every map must pass the same identity checks as bo3.gg's (10 players, 5 per team, kills vs the other side's deaths, headshots <= kills, rounds = score total).
 """
-import argparse, datetime as dt, glob, json, os
-from .names import same_team
+import argparse, datetime as dt, glob, json, os, re
+from .names import same_team, STOP, norm
+
+
+def same_team_loose(board_name, *source_names):
+    """same_team, plus a capture that uses a shorter name than the board ('Betclic' for 'Betclic Apogee Esports (BCA)'): a source name equal to one whole word of the board name."""
+    if same_team(board_name, *source_names):
+        return True
+    words = {norm(w) for w in re.split(r"[^A-Za-z0-9]+", re.sub(r"\(.*?\)", "", board_name or "")) if len(w) >= 5 and w.lower() not in STOP}
+    return any(norm(n) in words for n in source_names)
 from .evaluate import norm_map
 
 
@@ -77,7 +86,7 @@ def assemble(map_caps, board, cs2):
     which rises in play order. -> [(match capture, label)], [leftover map captures]"""
     out, used = [], set()
     for b in board:
-        mine = [(c, p) for c, p in map_caps if (same_team(b["a"], c["teams"][0]) and same_team(b["b"], c["teams"][1])) or (same_team(b["a"], c["teams"][1]) and same_team(b["b"], c["teams"][0]))]
+        mine = [(c, p) for c, p in map_caps if (same_team_loose(b["a"], c["teams"][0]) and same_team_loose(b["b"], c["teams"][1])) or (same_team_loose(b["a"], c["teams"][1]) and same_team_loose(b["b"], c["teams"][0]))]
         if not mine:
             continue
         used |= {id(c) for c, _ in mine}
@@ -102,7 +111,7 @@ def link(board, caps):
     for b in board:
         for cap, path in caps:
             t1, t2 = cap["teams"]
-            if (same_team(b["a"], t1) and same_team(b["b"], t2)) or (same_team(b["a"], t2) and same_team(b["b"], t1)):
+            if (same_team_loose(b["a"], t1) and same_team_loose(b["b"], t2)) or (same_team_loose(b["a"], t2) and same_team_loose(b["b"], t1)):
                 out[b["id"]] = (cap, path)
                 break
     return out
@@ -146,8 +155,19 @@ def apply(slate, imports="data/imports", results_dir="data/results", site="site"
     res = read(path)
     fps, _, _ = load_board(slate, site, imports)
     caps, map_caps, rejected = [], [], []
+    ap = f"{imports}/{slate}/hltv/_aliases.json"                 # {"HLTV name": "board name"} for a team HLTV calls something else (a sponsor rename)
+    alias = read(ap) if os.path.exists(ap) else {}
     for p in sorted(glob.glob(f"{imports}/{slate}/hltv/*.json")):
+        if os.path.basename(p).startswith("_"):
+            continue
         c = read(p)
+        if isinstance(c.get("teams"), list):
+            c["teams"] = [alias.get(t, t) for t in c["teams"]]
+            for pl in c.get("players") or []:
+                pl["team"] = alias.get(pl.get("team"), pl.get("team"))
+            for mp in c.get("maps") or []:
+                for pl in mp.get("players") or []:
+                    pl["team"] = alias.get(pl.get("team"), pl.get("team"))
         is_map = c.get("kind") == "map"
         e = map_problems(c) if is_map else problems(c)
         (rejected.append((p, e)) if e else (map_caps if is_map else caps).append((c, p)))
