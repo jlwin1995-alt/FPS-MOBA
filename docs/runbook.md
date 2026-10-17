@@ -35,6 +35,8 @@ The push to `main` deploys (it touches `site/**`). Run it again later for matche
 Every unsettled leg carries its reason in the Log's *Settlement* column. The usual one is `no player stats at source` (bo3.gg has the maps but no player tables): those need HLTV match-page totals from your tab.
 Or type Actuals on the Log tab (kept in your browser only).
 
+Matches left at `no player stats at source` can be filled from your own HLTV tab: run `docs/hltv-capture/capture.js` on each map's HLTV map-stats page, save the JSON under `data/imports/<date>/hltv/`, then `python -m pipeline.hltv --slate <date>` and `pipeline.settle` again (see `docs/hltv-capture/README.md`). Re-run `pipeline.hltv` after any fresh results pull.
+
 ## Evaluate (after each settle)
 
 ```
