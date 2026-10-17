@@ -35,6 +35,11 @@ class Stats(unittest.TestCase):
         self.assertEqual(E.verdict(up, ">0", 10, 10, 60), "insufficient data")
         self.assertEqual(E.verdict(dict(value=None, ci=None), ">0", 10, 100, 60), "insufficient data")
 
+    def test_flex_breakeven(self):
+        self.assertAlmostEqual(E.BREAKEVEN["5-pick flex"], 0.5425, places=3)
+        self.assertAlmostEqual(E.BREAKEVEN["6-pick flex"], 0.5421, places=3)
+        self.assertAlmostEqual(E.breakeven(2, {2: 3}), 0.5774, places=3)            # a 2-pick power play at 3x
+
     def test_overrides_skips_unfinished_and_roundless(self):
         res = {"titles": {"CS2": {
             "a": dict(status="finished", maps=[dict(n=1, map="Mirage", rounds=21)]),
@@ -73,7 +78,16 @@ class Friday(unittest.TestCase):
 
     def test_exploratory_only(self):
         self.assertIsNone(self.rep["confirmatory"])
-        self.assertTrue(all(h["status"] == "inconclusive" for h in self.s["hypotheses"]))
+        st = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}
+        self.assertTrue(all(st[k] == "inconclusive" for k in ("H1", "H2", "H3", "H4", "H5", "H6")))
+        self.assertTrue(st["H7"].startswith("descriptive"))                  # written after this slate
+
+    def test_side_record(self):
+        d = self.s["side"]
+        self.assertEqual((d["hits"], d["n"]), (93, 176))
+        self.assertAlmostEqual(d["rate"], 0.5284, places=3)
+        self.assertLess(d["headroom"], 0)
+        self.assertIsNone(d["legs_to_confirm"])
 
 
 if __name__ == "__main__":
