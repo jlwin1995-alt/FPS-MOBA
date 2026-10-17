@@ -17,6 +17,21 @@ NEED = {"K1": [1], "H1": [1], "K12": [1, 2], "H12": [1, 2], "K13": [1, 2, 3]}   
 CT = dt.timedelta(hours=5)                                   # board start times are US Central (daylight time in October)
 
 
+def load_board(slate, site="site", imports="data/imports"):
+    """-> (fps, moba, where). The live slate's inputs are on the site; an older slate is read back from its own workbooks in data/imports,
+    so settling Friday after Saturday's build never uses Saturday's board."""
+    with open(f"{site}/data/meta.json", encoding="utf-8") as f:
+        live = json.load(f).get("slate")
+    if live == slate:
+        with open(f"{site}/data/fps.json", encoding="utf-8") as f1, open(f"{site}/data/moba.json", encoding="utf-8") as f2:
+            return json.load(f1), json.load(f2), "site"
+    d = f"{imports}/{slate}"
+    if not (os.path.exists(f"{d}/fps.xlsx") and os.path.exists(f"{d}/moba.xlsx")):
+        raise SystemExit(f"no board for slate {slate}: the site holds {live} and {d}/ has no fps.xlsx + moba.xlsx")
+    from .import_xlsx import import_fps, import_moba
+    return import_fps(f"{d}/fps.xlsx")[1], import_moba(f"{d}/moba.xlsx")[1], "workbooks"
+
+
 def board_start_utc(slate, label):
     """'Fri 03:00' on the slate date -> UTC datetime (the weekday word is ignored: the slate date fixes the day)."""
     hh, mm = label.split()[-1].split(":")
@@ -184,7 +199,8 @@ def main():
     ap.add_argument("--site", default="site")
     ap.add_argument("--out", default="data/results")
     a = ap.parse_args()
-    fps = json.load(open(f"{a.site}/data/fps.json"))
+    fps, moba, where = load_board(a.slate, a.site)
+    print(f"board for {a.slate} read from the {where}")
     res = dict(slate=a.slate, generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), titles={}, legs=[])
     for t in a.titles.split(","):
         if t == "CS2":
@@ -196,7 +212,6 @@ def main():
             res["titles"]["VAL"] = m
             res["legs"] += leg_actuals([g for g in fps["legs"] if g["title"] == "VAL"], fps["players"], m)
         elif t == "LOL":
-            moba = json.load(open(f"{a.site}/data/moba.json"))
             m = pull_lol(a.slate, moba)
             res["titles"]["LOL"] = m
             res["legs"] += leg_actuals([g for g in moba["legs"] if g["match"].startswith("LOL")], moba["players"], m)

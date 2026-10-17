@@ -1,5 +1,5 @@
 """Offline checks of the results logic (no network):  python -m unittest pipeline.test_results -v"""
-import datetime as dt, unittest
+import datetime as dt, json, unittest
 from . import results as R
 from . import settle as S
 from .names import same_team, same_player
@@ -84,6 +84,40 @@ class Linking(unittest.TestCase):
         board = [dict(id="CS2 · A vs B", a="Alpha (AAA)", b="Beta (BBB)", start="Fri 03:00"), dict(id="CS2 · A vs B 2", a="Alpha (AAA)", b="Beta (BBB)", start="Fri 03:00")]
         c = dict(id=1, t1=["Alpha"], t2=["Beta"], start=R.board_start_utc("2026-10-16", "Fri 03:00"))
         self.assertEqual(len(R.link_matches("2026-10-16", board, [c], None)), 1)
+
+
+class Board(unittest.TestCase):
+    """Settling an older slate must read that slate's own board, never the live one."""
+
+    def setUp(self):
+        import os, tempfile
+        self.tmp = tempfile.mkdtemp()
+        os.makedirs(f"{self.tmp}/site/data")
+        self.site = f"{self.tmp}/site"
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.tmp)
+
+    def live(self, slate):
+        json.dump({"slate": slate}, open(f"{self.site}/data/meta.json", "w"))
+
+    def test_an_older_slate_comes_from_its_own_workbooks(self):
+        self.live("2026-10-17")
+        fps, moba, where = R.load_board("2026-10-16", self.site)
+        self.assertEqual((where, fps["slate"], moba["slate"]), ("workbooks", "2026-10-16", "2026-10-16"))
+        self.assertEqual(len(fps["legs"]), 281)
+
+    def test_the_live_slate_comes_from_the_site(self):
+        self.live("2026-10-16")
+        for n in ("fps", "moba"):
+            json.dump({"slate": "2026-10-16", "legs": []}, open(f"{self.site}/data/{n}.json", "w"))
+        self.assertEqual(R.load_board("2026-10-16", self.site)[2], "site")
+
+    def test_no_board_is_an_error_not_a_guess(self):
+        self.live("2026-10-17")
+        with self.assertRaises(SystemExit):
+            R.load_board("2026-01-01", self.site)
 
 
 class Settle(unittest.TestCase):

@@ -60,6 +60,8 @@ Frozen projections are never touched, an Actual already on a row is never overwr
 
 Not used, by design: HLTV and Leaguepedia refuse automated access (Cloudflare / rate limits) and are not routed around, so matches bo3.gg has no player stats for stay unsettled until a second source (an HLTV capture) fills them.
 
+The one-page procedure (build, settle, what each failure message means) is in `docs/runbook.md`.
+
 ## Each slate
 
 The workbooks are rebuilt from fresh captures (PickFinder, Thunderpick, HLTV) as before. Publishing a slate is one upload:

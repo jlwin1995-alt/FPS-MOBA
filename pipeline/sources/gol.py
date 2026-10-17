@@ -42,7 +42,6 @@ def game(gid):
         if mk:
             kills = int(mk.group(1))
         teams.append(dict(side=side, name=nm, result=res, kills=kills, players=[]))
-    tables = re.findall(r"<table class='playersInfosLine[^>]*>(.*?)</table>\s*</div>\s*<div", s, flags=re.S) or re.findall(r"<table class='playersInfosLine.*?(?=<table class='playersInfosLine|$)", s, flags=re.S)
     for i, t in enumerate(re.split(r"(?=<table class='playersInfosLine)", s)[1:3]):
         for mm in re.finditer(r"class='link-blanc'[^>]*title='([^']+?) stats'>(.*?)</a>", t):
             tail = t[mm.end(): mm.end() + 6000]

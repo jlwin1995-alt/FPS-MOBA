@@ -5,7 +5,7 @@
 Used as the living example of the format (it must always validate: pipeline/test_pickfinder.py checks it) and as the round-trip test input:
 real numbers in, the loader must give the same numbers back.
 """
-import argparse, datetime as dt, json, os, re
+import argparse, json, os, re
 from .pickfinder import SCHEMA, Capture, jload
 from .results import board_start_utc
 

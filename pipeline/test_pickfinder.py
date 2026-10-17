@@ -1,6 +1,6 @@
 """Receiving-end checks for a PickFinder capture:  python -m unittest pipeline.test_pickfinder -v
 The round trip uses the real slate on the site: real numbers go out as a capture and must come back unchanged."""
-import copy, json, os, shutil, tempfile, unittest
+import copy, os, shutil, tempfile, unittest
 from . import pickfinder as PF
 from .pickfinder_example import from_site, write
 

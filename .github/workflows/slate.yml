@@ -81,7 +81,7 @@ jobs:
           for s in ${{ steps.find.outputs.slates }}; do
             d="data/imports/$s"
             if [ -f "$d/fps.xlsx" ] && [ -f "$d/moba.xlsx" ]; then
-              python -m pipeline.import_xlsx --fps "$d/fps.xlsx" --moba "$d/moba.xlsx" | tee -a "$GITHUB_STEP_SUMMARY"
+              python -m pipeline.import_xlsx --slate "$s" --fps "$d/fps.xlsx" --moba "$d/moba.xlsx" | tee -a "$GITHUB_STEP_SUMMARY"
               built="$built $s"
             else
               echo "::notice::$s needs both fps.xlsx and moba.xlsx in $d; skipped until the other arrives"

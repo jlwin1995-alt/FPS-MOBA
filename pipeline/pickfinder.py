@@ -15,7 +15,7 @@ Checks (errors stop the slate, warnings are reported):
   * hit rates are in [0,1] (warning when not an exact k/5, k/10, k/15, which catches shifted columns)
   * no duplicate (match, player, market) leg: one player can be in several matches a day, so the match is part of the key
 """
-import argparse, datetime as dt, glob, json, os, re, sys
+import argparse, datetime as dt, glob, json, os, sys
 
 SCHEMA = 1
 TITLES = {"CS2", "VAL", "LOL", "DOTA"}

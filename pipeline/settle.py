@@ -5,7 +5,7 @@
 Only the settlement columns are written (Actual, Result, Source, Note). The frozen projection columns are never touched, an Actual already
 on a row is never overwritten (a disagreement is reported instead), and legs the pull could not settle keep their reason in Note.
 """
-import argparse, json, os
+import argparse, json
 
 SRC = {"CS2": "bo3.gg", "VAL": "vlr.gg", "LOL": "gol.gg", "DOTA": "opendota"}
 
