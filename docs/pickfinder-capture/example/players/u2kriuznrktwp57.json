@@ -1,0 +1,101 @@
+{
+ "pid": "u2kriuznrktwp57",
+ "player": "Sayonara",
+ "title": "VAL",
+ "team": "VIT",
+ "matchup": "VIT vs LOUD",
+ "url": "https://www.pickfinder.app/players/val/u2kriuznrktwp57",
+ "captured_utc": null,
+ "overall": {
+  "maps": 39,
+  "kills_map": 16.18,
+  "kpr": 0.74,
+  "hs": null,
+  "hs_round": null,
+  "kd": 1.19,
+  "rating": null
+ },
+ "map_stats": [
+  {
+   "map": "Split",
+   "n": 9,
+   "kills": 15.1,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.23
+  },
+  {
+   "map": "Haven",
+   "n": 6,
+   "kills": 20.3,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.4
+  },
+  {
+   "map": "Ascent",
+   "n": 6,
+   "kills": 17.5,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.21
+  },
+  {
+   "map": "Lotus",
+   "n": 5,
+   "kills": 15.8,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.22
+  },
+  {
+   "map": "Abyss",
+   "n": 5,
+   "kills": 15.8,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.16
+  },
+  {
+   "map": "Breeze",
+   "n": 3,
+   "kills": 14,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.24
+  },
+  {
+   "map": "Summit",
+   "n": 3,
+   "kills": 15.7,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.96
+  },
+  {
+   "map": "Sunset",
+   "n": 2,
+   "kills": 10.5,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.75
+  }
+ ],
+ "map_picks": {
+  "matchup": "VIT vs LOUD",
+  "maps": [
+   {
+    "map": "Split",
+    "pct": 15
+   },
+   {
+    "map": "Summit",
+    "pct": 15
+   },
+   {
+    "map": "Haven",
+    "pct": 15
+   }
+  ]
+ }
+}

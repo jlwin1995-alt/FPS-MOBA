@@ -1,0 +1,101 @@
+{
+ "pid": "te1wd2zymiyxnqw",
+ "player": "Darker",
+ "title": "VAL",
+ "team": "LOUD",
+ "matchup": "LOUD vs VIT",
+ "url": "https://www.pickfinder.app/players/val/te1wd2zymiyxnqw",
+ "captured_utc": null,
+ "overall": {
+  "maps": 39,
+  "kills_map": 12.82,
+  "kpr": 0.6,
+  "hs": null,
+  "hs_round": null,
+  "kd": 0.85,
+  "rating": null
+ },
+ "map_stats": [
+  {
+   "map": "Summit",
+   "n": 9,
+   "kills": 12.2,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.81
+  },
+  {
+   "map": "Sunset",
+   "n": 8,
+   "kills": 16.3,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.98
+  },
+  {
+   "map": "Lotus",
+   "n": 6,
+   "kills": 12.7,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.03
+  },
+  {
+   "map": "Haven",
+   "n": 6,
+   "kills": 11.7,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.73
+  },
+  {
+   "map": "Split",
+   "n": 3,
+   "kills": 12,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.97
+  },
+  {
+   "map": "Abyss",
+   "n": 3,
+   "kills": 12.3,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.84
+  },
+  {
+   "map": "Ascent",
+   "n": 3,
+   "kills": 10,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.56
+  },
+  {
+   "map": "Breeze",
+   "n": 1,
+   "kills": 11,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.73
+  }
+ ],
+ "map_picks": {
+  "matchup": "LOUD vs VIT",
+  "maps": [
+   {
+    "map": "Split",
+    "pct": 15
+   },
+   {
+    "map": "Summit",
+    "pct": 15
+   },
+   {
+    "map": "Haven",
+    "pct": 15
+   }
+  ]
+ }
+}

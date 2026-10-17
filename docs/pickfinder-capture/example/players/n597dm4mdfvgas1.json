@@ -1,0 +1,85 @@
+{
+ "pid": "n597dm4mdfvgas1",
+ "player": "venomzera",
+ "title": "CS2",
+ "team": "MIBR",
+ "matchup": "MIBR vs AST",
+ "url": "https://www.pickfinder.app/players/cs2/n597dm4mdfvgas1",
+ "captured_utc": null,
+ "overall": {
+  "maps": 36,
+  "kills_map": 13.67,
+  "kpr": 0.62,
+  "hs": 0.612,
+  "hs_round": 0.38,
+  "kd": 0.94,
+  "rating": 1.09
+ },
+ "map_stats": [
+  {
+   "map": "Inferno",
+   "n": 8,
+   "kills": 15.1,
+   "kpr": 0.69,
+   "hs": 0.628,
+   "kd": 1.06
+  },
+  {
+   "map": "Nuke",
+   "n": 7,
+   "kills": 15.6,
+   "kpr": 0.72,
+   "hs": 0.67,
+   "kd": 0.96
+  },
+  {
+   "map": "Ancient",
+   "n": 7,
+   "kills": 12,
+   "kpr": 0.55,
+   "hs": 0.595,
+   "kd": 0.85
+  },
+  {
+   "map": "Mirage",
+   "n": 6,
+   "kills": 12.3,
+   "kpr": 0.58,
+   "hs": 0.649,
+   "kd": 0.9
+  },
+  {
+   "map": "Cache",
+   "n": 6,
+   "kills": 10,
+   "kpr": 0.47,
+   "hs": 0.583,
+   "kd": 0.7
+  },
+  {
+   "map": "Anubis",
+   "n": 2,
+   "kills": 22,
+   "kpr": 0.88,
+   "hs": 0.4320000000000001,
+   "kd": 1.38
+  }
+ ],
+ "map_picks": {
+  "matchup": "MIBR vs AST",
+  "maps": [
+   {
+    "map": "Ancient",
+    "pct": 69
+   },
+   {
+    "map": "Inferno",
+    "pct": 8
+   },
+   {
+    "map": "Mirage",
+    "pct": 8
+   }
+  ]
+ }
+}

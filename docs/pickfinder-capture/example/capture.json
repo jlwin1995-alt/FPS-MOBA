@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "slate": "2026-10-16",
+ "captured_utc": "2026-10-16T06:47:00Z",
+ "source": "pickfinder.app",
+ "tool": "example built from the workbook import",
+ "expected_legs": 37,
+ "notes": [
+  "board.json is the PrizePicks board; one file per player under players/ so a capture can save after each player and resume"
+ ]
+}

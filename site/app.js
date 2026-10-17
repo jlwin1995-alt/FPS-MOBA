@@ -206,7 +206,7 @@ function logRows() {
       const k = actKey(s, kind, r), a = ACT[k] != null ? ACT[k] : (typeof r.Actual === "number" ? r.Actual : null);
       const line = r.Line, res = a == null ? "" : a > line ? "OVER" : a < line ? "UNDER" : "PUSH";
       out.push({kind, slate: s, k, match: r.Match, player: r.Player, market: r.Market, line, proj: r.Proj, po: r["P(over)"], adj: r["Proj adj"], poAdj: r["P(over) adj"], mapfree: r["Proj map-free"],
-        mapfreeAdj: r["Proj map-free adj"], naive: r["Naive proj"], poNaive: r["P(over) naive"], tp: r["TP book median"], l10: r["PF L10"], maps: r["Maps used"], rounds: r["Rounds used"], actual: a, result: res, local: ACT[k] != null});
+        mapfreeAdj: r["Proj map-free adj"], source: r.Source, note: r.Note, naive: r["Naive proj"], poNaive: r["P(over) naive"], tp: r["TP book median"], l10: r["PF L10"], maps: r["Maps used"], rounds: r["Rounds used"], actual: a, result: res, local: ACT[k] != null});
     }
   }
   return out;
@@ -217,14 +217,15 @@ Pages["Log"] = () => {
   const live = {};
   for (const r of compute().rows) live[`${r.kind}|${r.match}|${r.player}|${r.market}`] = r;
   const rs = logRows().filter(r => r.slate === s && (!F.title || (r.match.split(" ")[0] === F.title)) && (!F.market || r.market === F.market) && (!F.q.trim() || (r.player + r.match).toLowerCase().includes(F.q.trim().toLowerCase())));
-  rs.forEach(r => { const l = live[`${r.kind}|${r.match}|${r.player}|${r.market}`]; r.live = l ? l.proj : null; });
+  rs.forEach(r => { const l = s === D.meta.slate ? live[`${r.kind}|${r.match}|${r.player}|${r.market}`] : null; r.live = l ? l.proj : null; });   // an older slate is never judged against today's inputs
   const E = cfg("fps").EDGE_MIN;
   const cols = [{k: "player", h: "Player", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "line", h: "Line", f: r => L(r.line)}, {k: "proj", h: "Proj (frozen)", f: r => L(r.proj, 2)},
-    {k: "live", h: "Proj (live)", t: "What the model says now, with your edits. Equal to the frozen value at the workbook's defaults.", f: r => r.live == null ? "" : Math.abs(r.live - r.proj) > 0.006 ? `<span class="warn">${L(r.live, 2)}</span>` : L(r.live, 2)},
+    {k: "live", h: "Proj (live)", t: "What the model says now, with your edits. Equal to the frozen value at the workbook's defaults. Shown for the live slate only.", f: r => r.live == null ? "" : Math.abs(r.live - r.proj) > 0.006 ? `<span class="warn">${L(r.live, 2)}</span>` : L(r.live, 2)},
     {k: "po", h: "P(over)", f: r => pct1(r.po)}, {k: "side", h: "Side (paper)", l: 1, v: r => Math.abs(N0(r.po) - 0.5), f: r => sidePill(sideOf(r.po, E) === "—" ? "" : sideOf(r.po, E), r.po)},
     {k: "adj", h: "Proj adj", f: r => L(r.adj, 2)}, {k: "naive", h: "Naive", f: r => L(r.naive, 2)}, {k: "tp", h: "TP book", f: r => L(r.tp)}, {k: "l10", h: "PF L10", f: r => hrCell(r.l10)},
     {k: "maps", h: "Maps", l: 1}, {k: "act", h: "Actual", t: "Type the result after settlement. Saved on this device; the permanent route is the workbook's Log, re-imported.",
-      f: r => `<input class="ovr" data-act="${esc(r.k)}" value="${r.actual ?? ""}" size="5">${r.local ? "" : ""}`}, {k: "result", h: "Result", l: 1, f: r => r.result}];
+      f: r => `<input class="ovr" data-act="${esc(r.k)}" value="${r.actual ?? ""}" size="5">${r.local ? "" : ""}`}, {k: "result", h: "Result", l: 1, f: r => r.result},
+    {k: "note", h: "Settlement", l: 1, t: "Where the Actual came from, or why this leg is not settled", v: r => r.actual != null ? "" : (r.note || ""), f: r => r.actual != null ? `<span class="mut">${esc(r.source || (r.local ? "typed here" : ""))}</span>` : `<span class="mut">${esc(r.note || "")}</span>`}];
   const settled = rs.filter(r => r.actual != null).length;
   return `<h2>Log</h2><p class="sub">The projections frozen as values at default settings when each workbook was built — the forward record. ${settled} of ${rs.length} legs settled for ${s}. Type an Actual and the Scorecard picks it up.
     <button id="actclear">clear my typed actuals</button></p>
@@ -259,7 +260,7 @@ Pages["Scorecard"] = () => {
 Pages["Data"] = () => {
   const C = compute(), live = [];
   const nofit = C.rows.filter(r => r.line != null && r.proj == null).length, errs = C.rows.filter(r => [r.proj, r.po].some(x => typeof x === "number" && !Number.isFinite(x))).length;
-  const drift = (() => { let w = 0; const idx = {}; for (const r of C.rows) idx[`${r.kind}|${r.match}|${r.player}|${r.market}`] = r; for (const r of logRows()) { const l = idx[`${r.kind}|${r.match}|${r.player}|${r.market}`]; if (l && l.proj != null && r.proj != null) w = Math.max(w, Math.abs(l.proj - r.proj)); } return w; })();
+  const drift = (() => { let w = 0; const idx = {}; for (const r of C.rows) idx[`${r.kind}|${r.match}|${r.player}|${r.market}`] = r; for (const r of logRows().filter(r => r.slate === D.meta.slate)) { const l = idx[`${r.kind}|${r.match}|${r.player}|${r.market}`]; if (l && l.proj != null && r.proj != null) w = Math.max(w, Math.abs(l.proj - r.proj)); } return w; })();
   live.push(["Legs with no projection (should be 0)", nofit], ["Non-finite projections or probabilities (should be 0)", errs], ["Largest |live Proj − frozen Log Proj| (≈0 at default settings; grows as you edit Matches/Config)", num(drift, 3)]);
   const ck = (name, d) => `<h3>${name}</h3><div class="tw"><table><tbody>${d.checks.filter(c => !c.live).map(c => c.name === "Issue" ? `<tr><td class="l warn">Issue</td><td class="l">${esc(c.value)}</td></tr>` : `<tr><td class="l">${esc(c.name)}</td><td class="l">${esc(c.value ?? "")}</td></tr>`).join("")}</tbody></table></div>`;
   const sect = s => `<h3>${esc(s.name)}</h3><p class="sub">${esc(s.blurb)}</p>` + (s.fields ? `<div class="tw"><table><thead><tr><th class="l">Group</th><th class="l">Fields</th><th class="l">Notes</th></tr></thead><tbody>${

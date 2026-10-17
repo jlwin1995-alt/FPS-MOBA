@@ -1,0 +1,101 @@
+{
+ "pid": "q1vl8rb8l6us1dr",
+ "player": "Jamppi",
+ "title": "VAL",
+ "team": "VIT",
+ "matchup": "VIT vs LOUD",
+ "url": "https://www.pickfinder.app/players/val/q1vl8rb8l6us1dr",
+ "captured_utc": null,
+ "overall": {
+  "maps": 39,
+  "kills_map": 15.15,
+  "kpr": 0.69,
+  "hs": null,
+  "hs_round": null,
+  "kd": 0.96,
+  "rating": null
+ },
+ "map_stats": [
+  {
+   "map": "Split",
+   "n": 9,
+   "kills": 14,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.98
+  },
+  {
+   "map": "Haven",
+   "n": 6,
+   "kills": 18.3,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.06
+  },
+  {
+   "map": "Ascent",
+   "n": 6,
+   "kills": 16.7,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.03
+  },
+  {
+   "map": "Abyss",
+   "n": 5,
+   "kills": 15.4,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.88
+  },
+  {
+   "map": "Lotus",
+   "n": 5,
+   "kills": 11.6,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.82
+  },
+  {
+   "map": "Summit",
+   "n": 3,
+   "kills": 21.7,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.23
+  },
+  {
+   "map": "Breeze",
+   "n": 3,
+   "kills": 8,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.52
+  },
+  {
+   "map": "Sunset",
+   "n": 2,
+   "kills": 15.5,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.07
+  }
+ ],
+ "map_picks": {
+  "matchup": "VIT vs LOUD",
+  "maps": [
+   {
+    "map": "Split",
+    "pct": 15
+   },
+   {
+    "map": "Summit",
+    "pct": 15
+   },
+   {
+    "map": "Haven",
+    "pct": 15
+   }
+  ]
+ }
+}

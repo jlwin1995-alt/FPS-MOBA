@@ -71,7 +71,7 @@ def kv(ws, r0, r1):
 
 
 def import_fps(path):
-    wf, wv = openpyxl.load_workbook(path), openpyxl.load_workbook(path, data_only=True)
+    wv = openpyxl.load_workbook(path, data_only=True)
     cfg = kv(wv["Config"], 4, 15)
     cs = wv["Config"]
     maps = {"CS2": [cs.cell(r, 5).value for r in range(4, 40) if cs.cell(r, 5).value], "VAL": [cs.cell(r, 6).value for r in range(4, 40) if cs.cell(r, 6).value]}
@@ -120,7 +120,7 @@ def import_fps(path):
 
 
 def import_moba(path):
-    wf, wv = openpyxl.load_workbook(path), openpyxl.load_workbook(path, data_only=True)
+    wv = openpyxl.load_workbook(path, data_only=True)
     cfg = kv(wv["Config"], 4, 9)
     slate = str(kv(wv["Config"], 11, 12)["SLATE_DATE"])
     built = kv(wv["Config"], 11, 12).get("BUILT_UTC")
@@ -192,11 +192,14 @@ def main():
     ap.add_argument("--moba", required=True)
     ap.add_argument("--site", default="site")
     ap.add_argument("--imports", default="data/imports")
+    ap.add_argument("--slate", default=None, help="the slate the upload folder is named for; the workbooks must say the same")
     a = ap.parse_args()
     s1, fps, ex1, log1 = import_fps(a.fps)
     s2, moba, ex2, log2 = import_moba(a.moba)
     if s1 != s2:
-        print(f"warning: the two workbooks are for different slates ({s1} vs {s2})")
+        raise SystemExit(f"the two workbooks are for different slates (FPS {s1}, MOBA {s2}): nothing imported")
+    if a.slate and a.slate != s1:
+        raise SystemExit(f"the folder is {a.slate} but the workbooks say {s1} (is this yesterday's workbook, or the Config SLATE_DATE not updated?): nothing imported")
     meta_path = f"{a.site}/data/meta.json"
     cur = (read_json(meta_path) or {}).get("slate")
     live = cur is None or s1 >= cur                                     # an older slate only feeds the Log

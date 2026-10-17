@@ -31,6 +31,37 @@ Your edits (Matches, Config, typed Actuals) are saved on your device only and ne
 `site/fps.js` and `site/moba.js` are line-for-line ports of each workbook's Calc and Projections tabs. `node site/test/parity.mjs` reproduces every projection, sigma,
 P(over), P(under), P(push), side and adj value the workbooks computed (299 legs, 3,519 values, worst difference 6e-9; `site/test/expected.json` holds the workbook's numbers). It runs before every deploy.
 
+## PickFinder capture (receiving end)
+
+PickFinder is behind a login, so the capture runs in **your** logged-in tab, not in the cloud. `docs/pickfinder-capture/README.md` is the brief for that session: the exact files and fields to produce,
+the ground rules (you sign in, never route around a block, save after each player), a real worked example, and a prompt to paste.
+This repo is the receiving end: `python -m pipeline.pickfinder --slate <date> --crosscheck` validates `data/raw/pickfinder/<slate>/`, converts it, and compares it with the slate already on the site; pushing the files runs the same validation in **Build slate**.
+It never talks to PickFinder, and a PickFinder-only build (`--build-out`) is written outside `site/data` because it lacks the Thunderpick and HLTV inputs.
+
+## Results (settling a slate)
+
+After the games, pull the box scores and settle the Log. This runs from any machine with internet, no workbook needed:
+
+```bash
+python -m pipeline.results --slate 2026-10-16 --titles CS2,VAL,LOL     # -> data/results/<slate>.json
+python -m pipeline.settle  --slate 2026-10-16                           # -> adds Actual/Result/Source/Note to site/data/log/<slate>.json
+python -m unittest pipeline.test_results pipeline.test_import && node site/test/parity.mjs
+```
+
+| Title | Source | Check |
+|---|---|---|
+| CS2 | bo3.gg per-map player tables | the match-level table equals the sum over maps; 10 players a map; a team's kills never exceed the other side's deaths (and by at most 10); HS ≤ kills |
+| Valorant | vlr.gg match overview | the all-maps tab equals the sum of the maps (the dictionary's identity); the same kill/death and roster checks |
+| LoL | gol.gg per-game tables | the team kill header equals the sum of its players, per game |
+
+A leg gets an **Actual** only when its match is finished, the player is in the map tables, and the checks pass. Everything else keeps its reason in the Log's *Settlement* column:
+`match not found / not finished` · `void: map not played` (a Bo1 has no map 2) · `no player stats at source` · `did not play` (a stand-in, or a player who missed a map a market needs) · `identity check failed`.
+Frozen projections are never touched, an Actual already on a row is never overwritten (a disagreement is reported), and re-running either step changes nothing.
+
+Not used, by design: HLTV and Leaguepedia refuse automated access (Cloudflare / rate limits) and are not routed around, so matches bo3.gg has no player stats for stay unsettled until a second source (an HLTV capture) fills them.
+
+The one-page procedure (build, settle, what each failure message means) is in `docs/runbook.md`.
+
 ## Each slate
 
 The workbooks are rebuilt from fresh captures (PickFinder, Thunderpick, HLTV) as before. Publishing a slate is one upload:
@@ -63,7 +94,7 @@ Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass)
 
 ```
 site/       index.html · app.js · common.js · stats.js · fps.js · moba.js · dictionary.js · style.css · data/ · test/parity.mjs + expected.json
-pipeline/   import_xlsx.py · test_import.py
+pipeline/   import_xlsx.py · pickfinder.py · results.py · settle.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
 data/       imports/<slate>/{fps,moba}.xlsx
 .github/    workflows/slate.yml (upload workbooks → import, test, commit, deploy) · deploy.yml (site code changes)   Settings → Pages → Source: GitHub Actions
 ```

@@ -1,0 +1,101 @@
+{
+ "pid": "ljkl20ufsb1unwv",
+ "player": "PROFEK",
+ "title": "VAL",
+ "team": "VIT",
+ "matchup": "VIT vs LOUD",
+ "url": "https://www.pickfinder.app/players/val/ljkl20ufsb1unwv",
+ "captured_utc": null,
+ "overall": {
+  "maps": 39,
+  "kills_map": 13.69,
+  "kpr": 0.63,
+  "hs": null,
+  "hs_round": null,
+  "kd": 0.96,
+  "rating": null
+ },
+ "map_stats": [
+  {
+   "map": "Split",
+   "n": 9,
+   "kills": 9.8,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.72
+  },
+  {
+   "map": "Ascent",
+   "n": 6,
+   "kills": 18.5,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.29
+  },
+  {
+   "map": "Haven",
+   "n": 6,
+   "kills": 16.2,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.26
+  },
+  {
+   "map": "Abyss",
+   "n": 5,
+   "kills": 13.4,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.84
+  },
+  {
+   "map": "Lotus",
+   "n": 5,
+   "kills": 8.2,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.58
+  },
+  {
+   "map": "Breeze",
+   "n": 3,
+   "kills": 14.7,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.05
+  },
+  {
+   "map": "Summit",
+   "n": 3,
+   "kills": 16.3,
+   "kpr": null,
+   "hs": null,
+   "kd": 0.98
+  },
+  {
+   "map": "Sunset",
+   "n": 2,
+   "kills": 18.5,
+   "kpr": null,
+   "hs": null,
+   "kd": 1.28
+  }
+ ],
+ "map_picks": {
+  "matchup": "VIT vs LOUD",
+  "maps": [
+   {
+    "map": "Split",
+    "pct": 15
+   },
+   {
+    "map": "Summit",
+    "pct": 15
+   },
+   {
+    "map": "Haven",
+    "pct": 15
+   }
+  ]
+ }
+}

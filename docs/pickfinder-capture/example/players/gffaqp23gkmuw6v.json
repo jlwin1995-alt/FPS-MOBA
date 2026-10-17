@@ -1,0 +1,85 @@
+{
+ "pid": "gffaqp23gkmuw6v",
+ "player": "siuhy",
+ "title": "CS2",
+ "team": "AST",
+ "matchup": "AST vs MIBR",
+ "url": "https://www.pickfinder.app/players/cs2/gffaqp23gkmuw6v",
+ "captured_utc": null,
+ "overall": {
+  "maps": 30,
+  "kills_map": 11.37,
+  "kpr": 0.53,
+  "hs": 0.56,
+  "hs_round": 0.3,
+  "kd": 0.76,
+  "rating": 0.87
+ },
+ "map_stats": [
+  {
+   "map": "Nuke",
+   "n": 8,
+   "kills": 14.5,
+   "kpr": 0.64,
+   "hs": 0.5,
+   "kd": 0.96
+  },
+  {
+   "map": "Dust2",
+   "n": 7,
+   "kills": 11,
+   "kpr": 0.54,
+   "hs": 0.61,
+   "kd": 0.73
+  },
+  {
+   "map": "Inferno",
+   "n": 5,
+   "kills": 10.4,
+   "kpr": 0.48,
+   "hs": 0.519,
+   "kd": 0.7
+  },
+  {
+   "map": "Ancient",
+   "n": 5,
+   "kills": 9.8,
+   "kpr": 0.47,
+   "hs": 0.469,
+   "kd": 0.67
+  },
+  {
+   "map": "Mirage",
+   "n": 4,
+   "kills": 10,
+   "kpr": 0.44,
+   "hs": 0.725,
+   "kd": 0.68
+  },
+  {
+   "map": "Anubis",
+   "n": 1,
+   "kills": 7,
+   "kpr": 0.47,
+   "hs": 1,
+   "kd": 0.54
+  }
+ ],
+ "map_picks": {
+  "matchup": "AST vs MIBR",
+  "maps": [
+   {
+    "map": "Ancient",
+    "pct": 69
+   },
+   {
+    "map": "Inferno",
+    "pct": 8
+   },
+   {
+    "map": "Mirage",
+    "pct": 8
+   }
+  ]
+ }
+}

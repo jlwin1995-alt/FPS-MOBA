@@ -11,10 +11,10 @@ SLATE = "2026-10-16"
 FPS, MOBA = f"data/imports/{SLATE}/fps.xlsx", f"data/imports/{SLATE}/moba.xlsx"
 
 
-def run(site, imports, fps=FPS, moba=MOBA):
+def run(site, imports, fps=FPS, moba=MOBA, slate=None):
     import sys
     argv = sys.argv
-    sys.argv = ["import", "--fps", fps, "--moba", moba, "--site", site, "--imports", imports]
+    sys.argv = ["import", "--fps", fps, "--moba", moba, "--site", site, "--imports", imports] + (["--slate", slate] if slate else [])
     try:
         I.main()
     finally:
@@ -93,6 +93,42 @@ class ImportTest(unittest.TestCase):
         self.assertEqual(meta["slate"], SLATE)
         self.assertEqual(meta["slates"], ["2026-10-15", SLATE])
         self.assertIn("data/log/2026-10-15.json", after)
+
+
+class Refusals(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.site, self.imports = f"{self.tmp}/site", f"{self.tmp}/imports"
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp)
+
+    def relabel(self, src, dst, slate):
+        def f(wb):
+            ws = wb["Config"]
+            for r in range(1, 40):
+                if ws.cell(r, 1).value == "SLATE_DATE":
+                    ws.cell(r, 2).value = slate
+        edited(src, dst, f)
+
+    def test_workbooks_for_different_slates_import_nothing(self):
+        m2 = f"{self.tmp}/m.xlsx"
+        self.relabel(MOBA, m2, "2026-10-17")
+        with self.assertRaises(SystemExit) as e:
+            run(self.site, self.imports, moba=m2)
+        self.assertIn("different slates", str(e.exception))
+        self.assertFalse(os.path.exists(self.site))
+
+    def test_yesterdays_workbook_in_todays_folder_is_refused(self):
+        with self.assertRaises(SystemExit) as e:
+            run(self.site, self.imports, slate="2026-10-17")
+        self.assertIn("2026-10-17", str(e.exception))
+        self.assertIn(SLATE, str(e.exception))
+        self.assertFalse(os.path.exists(self.site))
+
+    def test_the_matching_folder_is_accepted(self):
+        run(self.site, self.imports, slate=SLATE)
+        self.assertTrue(os.path.exists(f"{self.site}/data/meta.json"))
 
 
 if __name__ == "__main__":
