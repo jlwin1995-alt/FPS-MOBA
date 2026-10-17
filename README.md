@@ -60,6 +60,8 @@ Frozen projections are never touched, an Actual already on a row is never overwr
 
 Not used, by design: HLTV and Leaguepedia refuse automated access (Cloudflare / rate limits) and are not routed around, so matches bo3.gg has no player stats for stay unsettled until a second source (an HLTV capture) fills them.
 
+After settling, `python -m pipeline.evaluate --slate <date>` scores the slate (AUC with match-clustered intervals, error vs the posted line, calibration, a counterfactual with the maps/rounds actually played, and pre-declared hypotheses H1-H6) and feeds the Scorecard's Evaluation section.
+
 The one-page procedure (build, settle, what each failure message means) is in `docs/runbook.md`.
 
 A workbook must hold **calculated results**, not just formulas: the importer refuses one saved by a script. `python -m pipeline.recalc <file>` calculates it with LibreOffice (checked on Friday's workbooks: 29,133 FPS and 1,734 MOBA cells reproduced to 5e-9).
@@ -96,7 +98,7 @@ Capture needs a real browser tab (Cloudflare on HLTV, tabs that reload mid-pass)
 
 ```
 site/       index.html · app.js · common.js · stats.js · fps.js · moba.js · dictionary.js · style.css · data/ · test/parity.mjs + expected.json
-pipeline/   import_xlsx.py · recalc.py · pickfinder.py · results.py · settle.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
+pipeline/   import_xlsx.py · recalc.py · pickfinder.py · results.py · settle.py · evaluate.py · sources/{bo3,vlr,gol,http}.py · names.py · test_*.py
 data/       imports/<slate>/{fps,moba}.xlsx
 .github/    workflows/slate.yml (upload workbooks → import, test, commit, deploy) · deploy.yml (site code changes)   Settings → Pages → Source: GitHub Actions
 ```

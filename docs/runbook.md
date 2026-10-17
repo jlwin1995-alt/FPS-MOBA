@@ -35,6 +35,14 @@ The push to `main` deploys (it touches `site/**`). Run it again later for matche
 Every unsettled leg carries its reason in the Log's *Settlement* column. The usual one is `no player stats at source` (bo3.gg has the maps but no player tables): those need HLTV match-page totals from your tab.
 Or type Actuals on the Log tab (kept in your browser only).
 
+## Evaluate (after each settle)
+
+```
+python -m pipeline.evaluate --slate <date>     # -> data/evaluation/<date>.json and site/data/evaluation.json (Scorecard > Evaluation)
+```
+
+Needs `node` (it re-runs the model with the maps and rounds actually played). Hypotheses H1-H6 are pre-declared in `pipeline/evaluate.py`; 2026-10-16 is exploratory (they came from it), every later slate is confirmatory. Commit the two outputs with the settle commit. Do not change a hypothesis after seeing a confirmatory slate.
+
 ## Known gaps
 
 * Capture is manual (your tab). The PickFinder receiving end is built and waiting: `docs/pickfinder-capture/README.md`.
