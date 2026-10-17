@@ -243,6 +243,37 @@ function summarise(rows, kind) {
   return {n: set.length, total: rows.length, sided: sided.length, sidedHits: sided.filter(r => sideOf(r.po, E) === r.result).length, picks: all.length, pickHits: all.filter(r => (r.po >= 0.5 ? "OVER" : "UNDER") === r.result).length,
     mae: mae("proj"), bias: bias("proj"), maeAdj: mae("adj"), maeMapfree: mae("mapfree"), maeMapfreeAdj: mae("mapfreeAdj"), maeNaive: mae("naive")};
 }
+// ---------- Evaluation (written by pipeline/evaluate.py after each settle) ----------
+function evalSection() {
+  const E = D.eval;
+  if (!E || !E.slates || !E.slates.length) return "";
+  const ci = (e, d = 3) => !e || e.value == null ? "" : `${num(e.value, d)}${e.ci ? ` <span class="mut">[${num(e.ci[0], d)}, ${num(e.ci[1], d)}]</span>` : ""}`;
+  const stat = {supported: "good", contradicted: "bad"};
+  const block = (title, ev, note) => {
+    if (!ev || !ev.summary) return `<h4>${title}</h4><p class="sub">${note}</p>`;
+    const S = ev.summary, a = S.auc || {}, all = (S.error || {}).all || {}, cf = S.counterfactual, rd = S.rounds, mp = S.map_picks;
+    const aucRows = Object.keys(a).map(k => [k, a[k]]);
+    const lean = (S.lean_bins || []).map(b => `<tr><td class="l">${esc(b.label)}</td><td>${b.n}</td><td>${pct1(b.rate)} <span class="mut">[${pct0(b.wilson[0])}, ${pct0(b.wilson[1])}]</span></td></tr>`).join("");
+    const cal = (S.calibration || []).map(b => `<tr><td class="l">${pct0(b.lo)}–${pct0(b.hi)}</td><td>${b.n}</td><td>${pct1(b.mean_p)}</td><td>${pct1(b.over_rate)}</td></tr>`).join("");
+    return `<h4>${title}</h4><p class="sub">Slates: ${ev.slates.join(", ")}. ${S.n_settled} settled legs, ${S.n_matches} matches; over-rate ${pct1(S.over_rate)} (always-under would hit ${pct1(S.always_under_hit)}).</p>
+      <div class="two"><div><h5>Ranking (AUC, 0.5 = no skill; match-clustered 95% interval)</h5><div class="tw"><table><tbody>${aucRows.map(([k, v]) => `<tr><td class="l">${esc(k)}</td><td>${ci(v)}</td><td class="mut">n=${v.n}</td></tr>`).join("")}</tbody></table></div>
+      <h5>Error vs the posted line</h5><div class="tw"><table><tbody><tr><td class="l">MAE · posted line</td><td>${num(all.mae_line, 3)}</td></tr><tr><td class="l">MAE · projection</td><td>${num(all.mae_proj, 3)}</td></tr><tr><td class="l">MAE · map-free</td><td>${num(all.mae_map_free, 3)}</td></tr><tr><td class="l">MAE · adj</td><td>${num(all.mae_adj, 3)}</td></tr>
+      <tr><td class="l">Bias · projection / line</td><td>${signed(all.bias_proj, 2)} / ${signed(all.bias_line, 2)}</td></tr><tr><td class="l">Gap slope (1 = fully informative)</td><td>${ci(S.gap_slope)}</td></tr><tr><td class="l">Brier (coin = 0.25)</td><td>${num(S.brier, 4)}</td></tr></tbody></table></div></div>
+      <div><h5>Hit rate by size of lean</h5><div class="tw"><table><thead><tr><th class="l">Lean</th><th>Legs</th><th>Hit rate</th></tr></thead><tbody>${lean}</tbody></table></div>
+      <h5>Calibration</h5><div class="tw"><table><thead><tr><th class="l">P(over)</th><th>Legs</th><th>Mean P</th><th>Went over</th></tr></thead><tbody>${cal}</tbody></table></div></div></div>
+      ${cf ? `<h5>Inputs, not the model</h5><p class="sub">Re-running the model with the maps and rounds actually played (${cf.n} legs): MAE ${num(cf.mae_published, 3)} → ${num(cf.mae_actual_inputs, 3)}, bias ${signed(cf.bias_published, 2)} → ${signed(cf.bias_actual_inputs, 2)}.${
+        rd ? ` Rounds per map assumed ${num(rd.assumed_mean, 1)} (sd ${num(rd.assumed_sd, 2)}) vs played ${num(rd.played_mean, 1)} (sd ${num(rd.played_sd, 1)}), ${rd.n_maps} maps.` : ""}${mp ? ` Map picks right: ${mp.hit}/${mp.total}.` : ""}</p>` : ""}`;
+  };
+  const last = E.slates[E.slates.length - 1], hyp = (E.by_slate[last] || {}).hypotheses || [];
+  const pooled = (E.confirmatory && E.confirmatory.summary ? E.confirmatory : E.exploratory);
+  const hs = (pooled && pooled.summary ? pooled.summary.hypotheses : hyp) || [];
+  return `<h3>Evaluation</h3><p class="sub">Predictive-quality checks, rebuilt by <code>python -m pipeline.evaluate</code> after each settle. Hypotheses H1–H6 were written down after looking at ${E.exploratory_through}, so that slate can only suggest; slates after it are the test. Wide intervals mean “don't know yet”, not “no effect”.</p>
+    <div class="tw"><table><thead><tr><th class="l">Hypothesis</th><th class="l">Metric</th><th>Estimate</th><th>n</th><th class="l">Status</th></tr></thead><tbody>${hs.map(h => `<tr><td class="l">${h.id} ${esc(h.name)}</td><td class="l" style="white-space:normal">${esc(h.metric)}</td><td>${ci({value: h.estimate, ci: h.ci})}</td><td>${h.n}</td><td class="l ${stat[h.status] || "mut"}">${h.status}</td></tr>`).join("")}</tbody></table></div>
+    <p class="sub">Showing ${E.confirmatory && E.confirmatory.summary ? "the confirmatory pool" : "the exploratory slate only — no confirmatory slate has settled yet"}.</p>
+    ${block("Confirmatory (after " + E.exploratory_through + ")", E.confirmatory, "No slate after the exploratory one has settled yet.")}
+    ${block("Exploratory (through " + E.exploratory_through + ")", E.exploratory, "Nothing settled.")}`;
+}
+
 Pages["Scorecard"] = () => {
   const rows = logRows(), S = summarise(rows);
   if (!S.n) return `<h2>Scorecard</h2><div class="banner"><b>No settled legs yet.</b> The Log holds ${rows.length} frozen projections from ${D.meta.slates.length} slate(s) with no Actual. Type results on the <a href="#Log">Log</a> tab (saved on this device), or re-import a workbook whose Log has Actual filled in. Both models are PAPER: this record is how they get scored.</div>`;
@@ -253,7 +284,7 @@ Pages["Scorecard"] = () => {
   return `<h2>Scorecard</h2><p class="sub">Every settled leg of the frozen Log. “Model side” counts only legs where P(over) cleared 50% ± EDGE_MIN; pushes are excluded. A paper ordering, not an edge, until this record says otherwise.</p>
     <div class="cards">${card(S.n, "legs settled")}${card(pc1(S.sidedHits, S.sided), "model side")}${card(pc1(S.pickHits, S.picks), "every leg, P≥50%")}${card(L(S.mae, 2), "MAE · projection")}${card(L(S.maeAdj, 2), "MAE · adj")}</div>
     <div class="two"><div><h3>By market</h3>${table(cols("Market"), grp("m", r => r.market, MARKETS), {id: "sc1"})}</div><div><h3>By slate</h3>${table(cols("Slate"), grp("s", r => r.slate, D.meta.slates), {id: "sc2"})}</div></div>
-    <h3>By title</h3>${table(cols("Title"), grp("t", r => r.match.split(" ")[0], ["CS2", "VAL", "LOL", "DOTA"]), {id: "sc3"})}`;
+    <h3>By title</h3>${table(cols("Title"), grp("t", r => r.match.split(" ")[0], ["CS2", "VAL", "LOL", "DOTA"]), {id: "sc3"})}${evalSection()}`;
 };
 
 // ---------- Data ----------
@@ -330,6 +361,7 @@ window.addEventListener("hashchange", route);
   try {
     [D.meta, D.fps, D.moba] = await Promise.all(["meta", "fps", "moba"].map(get));
     await Promise.all(D.meta.slates.map(async s => { D.logs[s] = await get(`log/${s}`); }));
+    try { D.eval = await get("evaluation"); } catch (e) { D.eval = null; }
   } catch (e) { view().innerHTML = `<p class="bad">Could not load data (${esc(e.message)}). Run <code>python -m pipeline.import_xlsx</code>.</p>`; return; }
   document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · MOBA built ${D.meta.moba_built} UTC`;
   const b = document.getElementById("banner");
