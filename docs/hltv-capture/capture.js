@@ -9,9 +9,11 @@
     if (tables.length !== 2) throw new Error("expected 2 player tables (class stats-table totalstats), found " + tables.length + ". Is this a map-stats page?");
     const scores = [...document.querySelectorAll(".match-info-box .team-left .bold, .match-info-box .team-right .bold")].map(e => num(e.textContent));
     if (scores.length !== 2) throw new Error("could not read the map score");
-    const box = document.querySelector(".match-info-box")?.textContent || "";
-    const map = (box.match(/\b(Ancient|Anubis|Dust2|Inferno|Mirage|Nuke|Overpass|Train|Vertigo|Cache|Cobblestone)\b/) || [])[1];
-    if (!map) throw new Error("could not read the map name");
+    const MAPS = /\b(Ancient|Anubis|Dust2|Inferno|Mirage|Nuke|Overpass|Train|Vertigo|Cache|Cobblestone)\b/;
+    // the map name is looked for in the info boxes, then the page title, then the first map named in the page; null if none (the importer numbers maps without it)
+    const found = [...document.querySelectorAll(".match-info-box"), document.querySelector("title"), document.querySelector(".contentCol")].map(e => ((e && e.textContent.match(MAPS)) || [])[1]).find(Boolean);
+    const map = found || null;
+    if (!map) console.warn("map name not found; texts tried:", [...document.querySelectorAll(".match-info-box")].map(e => e.textContent.trim().slice(0, 80)), document.title);
     const players = [], teams = [];
     for (const t of tables) {
       const team = t.querySelector("th .teamName, th.st-teamname")?.textContent.trim();

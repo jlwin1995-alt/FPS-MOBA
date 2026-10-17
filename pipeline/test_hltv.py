@@ -124,6 +124,14 @@ class Merge(unittest.TestCase):
         self.assertEqual([x["n"] for x in maps], [1, 2])
         self.assertTrue(all(x["players"] for x in maps))
 
+    def test_a_map_capture_without_a_map_name_is_numbered_by_id(self):
+        cap, _ = capture(self.m, self.legs)
+        for i, m in enumerate(cap["maps"]):
+            dump(dict(schema=1, kind="map", url="u", mapstatsid=10 + i, teams=cap["teams"], map=None, score=m["score"], players=m["players"]), f"{self.dir}/n{i}.json")
+        r, res = self.run_apply()
+        self.assertEqual((r["linked"], r["rejected"]), ([self.m["id"]], []))
+        self.assertEqual([x["n"] for x in res["titles"]["CS2"][self.m["id"]]["maps"]], [1, 2])
+
     def test_a_map_capture_for_no_board_match_is_rejected(self):
         cap, _ = capture(self.m, self.legs)
         m = cap["maps"][0]

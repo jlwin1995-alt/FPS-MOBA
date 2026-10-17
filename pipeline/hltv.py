@@ -69,8 +69,6 @@ def map_problems(c):
         bad.append("schema 1 and kind 'map' required")
     if not (isinstance(c.get("teams"), list) and len(c["teams"]) == 2):
         bad.append("teams must be two names")
-    if not c.get("map"):
-        bad.append("no map name")
     return bad + problems(dict(schema=1, teams=c.get("teams"), maps=[dict(n=1, score=c.get("score"), players=c.get("players") or [])]))
 
 
@@ -86,14 +84,14 @@ def assemble(map_caps, board, cs2):
         names = [norm_map(m.get("map")) for m in (cs2.get(b["id"]) or {}).get("maps", [])]
         num, rest = {}, []
         for c, p in mine:
-            nm = norm_map(c["map"])
+            nm = norm_map(c.get("map"))
             (num.__setitem__(names.index(nm) + 1, (c, p)) if nm in names and names.index(nm) + 1 not in num else rest.append((c, p)))
         free = [n for n in range(1, 6) if n not in num]
         for (c, p), n in zip(sorted(rest, key=lambda x: int(x[0].get("mapstatsid") or 0)), free):
             num[n] = (c, p)
         first = next(iter(num.values()))[0]
         cap = dict(schema=1, source="hltv.org", url=first.get("url"), captured_utc=max(c.get("captured_utc") or "" for c, _ in mine), teams=first["teams"],
-                   maps=[dict(n=n, map=c["map"], score=c["score"], players=c["players"]) for n, (c, _) in sorted(num.items())])
+                   maps=[dict(n=n, map=c.get("map"), score=c["score"], players=c["players"]) for n, (c, _) in sorted(num.items())])
         out.append((cap, ",".join(os.path.basename(p) for _, p in mine)))
     return out, [(c, p) for c, p in map_caps if id(c) not in used]
 
@@ -123,13 +121,13 @@ def merge_match(old, cap, path):
             chk.append(next(x for x in old["checks"] if x["map"] == m["n"]))
             continue
         if o:
-            if o.get("map") and norm_map(o["map"]) != norm_map(m.get("map")):
+            if o.get("map") and m.get("map") and norm_map(o["map"]) != norm_map(m.get("map")):
                 c["players_ok"] = False
                 notes.append(f"map {m['n']}: HLTV says {m.get('map')}, bo3.gg says {o['map']}")
             if o.get("score") and sorted(o["score"]) != sorted(m["score"]):
                 c["rounds_ok"] = False
                 notes.append(f"map {m['n']}: HLTV score {m['score']}, bo3.gg score {o['score']}")
-        maps.append(dict(n=m["n"], map=(o or {}).get("map") or f"de_{str(m.get('map') or '').lower()}", rounds=rounds, winner=(o or {}).get("winner"),
+        maps.append(dict(n=m["n"], map=(o or {}).get("map") or (f"de_{str(m['map']).lower()}" if m.get("map") else None), rounds=rounds, winner=(o or {}).get("winner"),
                          score=sorted(m["score"], reverse=True), state="done", site="hltv.org", players=[dict(name=p["name"], alias=p["name"], team=p["team"], kills=p["kills"], hs=p["hs"], deaths=p["deaths"]) for p in m["players"]]))
         chk.append(c)
     maps += list(old_by.values())                             # maps bo3.gg has and the capture lacks keep their (empty) tables
