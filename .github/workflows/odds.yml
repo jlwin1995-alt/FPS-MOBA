@@ -1,0 +1,30 @@
+name: Odds
+
+# Pulls the bookmakers' odds (OddsPapi) for a built slate and saves the raw files as an artifact. Run it close to the first start time, once the board is built.
+# Uses the ODDSPAPI_KEY repository secret; writes nothing to the repo. Download the artifact and commit data/raw/odds/<slate>/ (or ask Claude to), then
+# `python -m pipeline.odds build --slate <slate>` turns it into data/odds/<slate>.json and site/data/odds.json for the Matches tab.
+on:
+  workflow_dispatch:
+    inputs:
+      slate:
+        description: "Slate date, e.g. 2026-10-18"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  odds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pipeline.odds fetch --slate "${{ inputs.slate }}"
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: odds-${{ inputs.slate }}
+          path: data/raw/odds/${{ inputs.slate }}

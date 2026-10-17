@@ -37,6 +37,10 @@ Or type Actuals on the Log tab (kept in your browser only).
 
 Matches left at `no player stats at source` can be filled from your own HLTV tab: run `docs/hltv-capture/capture.js` on each map's HLTV map-stats page, save the JSON under `data/imports/<date>/hltv/`, then `python -m pipeline.hltv --slate <date>` and `pipeline.settle` again (see `docs/hltv-capture/README.md`). Re-run `pipeline.hltv` after any fresh results pull.
 
+## Odds (market check, optional)
+
+After the board is built, near the first start time: run the **Odds** workflow with the slate date (needs the `ODDSPAPI_KEY` secret). It saves the raw bookmaker odds as an artifact; commit it under `data/raw/odds/<slate>/` and run `python -m pipeline.odds build --slate <slate>`. The Matches tab then shows a *Market check*: series win probability, chance of a third map and the per-map rounds line next to the model's inputs. OddsPapi lists player kill/headshot markets but no book had priced them a day out (2026-10-17); they appear in the table if one does.
+
 ## Evaluate (after each settle)
 
 ```
