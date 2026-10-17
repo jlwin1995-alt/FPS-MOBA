@@ -62,6 +62,42 @@ def checks(m):
     return dict(map=m["n"], players_ok=ok_n, kills_vs_deaths_ok=bool(cross), hs_le_kills=all(p["hs"] <= p["kills"] for p in pl), rounds_ok=True)
 
 
+def map_problems(c):
+    """Structural errors in a one-map capture (what capture.js prints on a map-stats page)."""
+    bad = []
+    if c.get("schema") != 1 or c.get("kind") != "map":
+        bad.append("schema 1 and kind 'map' required")
+    if not (isinstance(c.get("teams"), list) and len(c["teams"]) == 2):
+        bad.append("teams must be two names")
+    if not c.get("map"):
+        bad.append("no map name")
+    return bad + problems(dict(schema=1, teams=c.get("teams"), maps=[dict(n=1, score=c.get("score"), players=c.get("players") or [])]))
+
+
+def assemble(map_caps, board, cs2):
+    """One-map captures -> match captures. A map's number comes from bo3.gg's list of the match's maps (by map name); any left over are numbered by HLTV map-stats id,
+    which rises in play order. -> [(match capture, label)], [leftover map captures]"""
+    out, used = [], set()
+    for b in board:
+        mine = [(c, p) for c, p in map_caps if (same_team(b["a"], c["teams"][0]) and same_team(b["b"], c["teams"][1])) or (same_team(b["a"], c["teams"][1]) and same_team(b["b"], c["teams"][0]))]
+        if not mine:
+            continue
+        used |= {id(c) for c, _ in mine}
+        names = [norm_map(m.get("map")) for m in (cs2.get(b["id"]) or {}).get("maps", [])]
+        num, rest = {}, []
+        for c, p in mine:
+            nm = norm_map(c["map"])
+            (num.__setitem__(names.index(nm) + 1, (c, p)) if nm in names and names.index(nm) + 1 not in num else rest.append((c, p)))
+        free = [n for n in range(1, 6) if n not in num]
+        for (c, p), n in zip(sorted(rest, key=lambda x: int(x[0].get("mapstatsid") or 0)), free):
+            num[n] = (c, p)
+        first = next(iter(num.values()))[0]
+        cap = dict(schema=1, source="hltv.org", url=first.get("url"), captured_utc=max(c.get("captured_utc") or "" for c, _ in mine), teams=first["teams"],
+                   maps=[dict(n=n, map=c["map"], score=c["score"], players=c["players"]) for n, (c, _) in sorted(num.items())])
+        out.append((cap, ",".join(os.path.basename(p) for _, p in mine)))
+    return out, [(c, p) for c, p in map_caps if id(c) not in used]
+
+
 def link(board, caps):
     """board match id -> (capture, path). Both teams must match."""
     out = {}
@@ -111,14 +147,20 @@ def apply(slate, imports="data/imports", results_dir="data/results", site="site"
     path = f"{results_dir}/{slate}.json"
     res = read(path)
     fps, _, _ = load_board(slate, site, imports)
-    caps, rejected = [], []
+    caps, map_caps, rejected = [], [], []
     for p in sorted(glob.glob(f"{imports}/{slate}/hltv/*.json")):
         c = read(p)
-        e = problems(c)
-        (rejected.append((p, e)) if e else caps.append((c, p)))
+        is_map = c.get("kind") == "map"
+        e = map_problems(c) if is_map else problems(c)
+        (rejected.append((p, e)) if e else (map_caps if is_map else caps).append((c, p)))
     board = [m for m in fps["matches"] if m["title"] == "CS2"]
-    links = link(board, caps)
     cs2 = res["titles"]["CS2"]
+    built, left = assemble(map_caps, board, cs2)
+    for c, label in built:
+        e = problems(c)
+        (rejected.append((label, e)) if e else caps.append((c, label)))
+    rejected += [(p, ["no board match for these teams"]) for _, p in left]
+    links = link(board, caps)
     notes = {}
     for mid, (cap, p) in links.items():
         cs2[mid], notes[mid] = merge_match(cs2.get(mid), cap, p)

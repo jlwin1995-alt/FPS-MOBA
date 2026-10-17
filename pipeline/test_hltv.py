@@ -112,6 +112,25 @@ class Merge(unittest.TestCase):
         self.assertTrue(all(l["actual"] == 10 for l in h12))
         self.assertEqual(sum(1 for l in res["legs"] if l["match"] == self.m["id"]), len(self.legs))
 
+    def test_one_map_captures_are_joined_and_numbered(self):
+        cap, _ = capture(self.m, self.legs)
+        for i, m in enumerate(reversed(cap["maps"])):                  # saved out of order; the higher map-stats id is the later map
+            one = dict(schema=1, kind="map", source="hltv.org", url="u", mapstatsid=100 + (1 - i), captured_utc="2026-10-17T20:00:00Z", teams=cap["teams"], map=m["map"], score=m["score"], players=m["players"])
+            dump(one, f"{self.dir}/map{i}.json")
+        r, res = self.run_apply()
+        self.assertEqual((r["linked"], r["rejected"]), ([self.m["id"]], []))
+        self.assertTrue(any(l["status"] == "ok" and l["code"] == "K12" for l in res["legs"]))
+        maps = res["titles"]["CS2"][self.m["id"]]["maps"]
+        self.assertEqual([x["n"] for x in maps], [1, 2])
+        self.assertTrue(all(x["players"] for x in maps))
+
+    def test_a_map_capture_for_no_board_match_is_rejected(self):
+        cap, _ = capture(self.m, self.legs)
+        m = cap["maps"][0]
+        dump(dict(schema=1, kind="map", url="u", mapstatsid=1, teams=["Nobody", "Else"], map="Mirage", score=m["score"], players=m["players"]), f"{self.dir}/x.json")
+        r, _ = self.run_apply()
+        self.assertEqual((r["linked"], len(r["rejected"])), ([], 1))
+
     def test_a_failed_check_leaves_legs_unsettled(self):
         cap, _ = capture(self.m, self.legs)
         cap["maps"][0]["players"][0]["kills"] += 25
