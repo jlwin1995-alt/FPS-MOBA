@@ -13,7 +13,7 @@ Everything else is reported with a reason (void, did not play, unmatched, not fi
 import argparse, datetime as dt, json, os
 from .names import same_team, same_player
 
-NEED = {"K1": [1], "H1": [1], "K12": [1, 2], "H12": [1, 2], "K13": [1, 2, 3]}          # maps a market needs
+NEED = {"K1": [1], "H1": [1], "K12": [1, 2], "H12": [1, 2], "K13": [1, 2, 3], "H13": [1, 2, 3]}          # maps a market needs
 CT = dt.timedelta(hours=5)                                   # board start times are US Central (daylight time in October)
 
 
