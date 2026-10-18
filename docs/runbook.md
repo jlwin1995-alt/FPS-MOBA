@@ -49,6 +49,10 @@ python -m pipeline.evaluate --slate <date>     # -> data/evaluation/<date>.json 
 
 Needs `node` (it re-runs the model with the maps and rounds actually played). Hypotheses H1-H6 are pre-declared in `pipeline/evaluate.py`; 2026-10-16 is exploratory (they came from it), every later slate is confirmatory. Commit the two outputs with the settle commit. Do not change a hypothesis after seeing a confirmatory slate. H7 (side calls clear the flex breakeven) was written after 2026-10-17, so only slates after it count toward it; its payouts live in `PAYOUTS` in `pipeline/evaluate.py` and should be checked against the app.
 
+## Play rules (frozen before the games)
+
+`python -m pipeline.plays --slate <date>` writes `data/plays/<date>.json`: the legs each rule in `pipeline/evaluate.py` (`RULES`) selects from the frozen Log. Commit it before the first start; settling never rewrites it. The Projections tab flags the same legs (`PLAY OVER/UNDER`, filter "rule plays only"). Rule `agree10` (base and round-differential models call the same side, both lean >= 10 pts) was found after seeing 2026-10-16 and 2026-10-17, so only slates from 2026-10-18 on test it (H8). The comparison is every leg on the board.
+
 ## Known gaps
 
 * Capture is manual (your tab). The PickFinder receiving end is built and waiting: `docs/pickfinder-capture/README.md`.

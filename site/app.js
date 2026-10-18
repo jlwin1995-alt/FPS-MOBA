@@ -1,7 +1,7 @@
 "use strict";
 const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, slate: "", bmatch: "", imatch: ""};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rule: false, slate: "", bmatch: "", imatch: ""};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -39,7 +39,9 @@ function filters(extra = "") {
     ${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"], ["LOL", "LoL"], ["DOTA", "Dota 2"]], F.title)}
     ${sel("market", "Market", [["", "All"], ...MARKETS.map(m => [m, m])], F.market)}${extra}</div>`;
 }
-const passes = r => (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
+// play rule "agree10": the base and the round-differential models call the same side and both lean at least 10 points (declared before 2026-10-18; mirrors pipeline/evaluate.py)
+const isPlay = r => r.po != null && r.poAdj != null && (r.po >= 0.5) === (r.poAdj >= 0.5) && Math.min(Math.abs(r.po - 0.5), Math.abs(r.poAdj - 0.5)) >= 0.10;
+const passes = r => (!F.rule || isPlay(r)) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
   (!F.side || (F.side === "any" ? r.side === "OVER" || r.side === "UNDER" : r.side === F.side)) && (!F.flagged || r.flags.length) &&
   (!F.q.trim() || (r.player + " " + r.team + " " + r.match).toLowerCase().includes(F.q.trim().toLowerCase()));
 document.addEventListener("input", e => { if (e.target.id === "q") { F.q = e.target.value; render(true, "q"); } });
@@ -47,6 +49,7 @@ document.addEventListener("change", e => {
   const t = e.target, id = t.id;
   if (["title", "market", "match", "side", "slate", "bmatch", "imatch"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
+  else if (id === "rule") { F.rule = t.checked; render(); }
   else if (t.dataset.cfg) {                                        // Config constant
     const [k, name] = t.dataset.cfg.split(":"), v = parseFloat(t.value);
     if (Number.isNaN(v) || v === D[k].config[name]) delete CFGO[k][name]; else CFGO[k][name] = v;
@@ -86,13 +89,14 @@ Pages["Projections"] = () => {
     {k: "po", h: "P(over)", f: r => pct1(r.po)}, {k: "pu", h: "P(under)", f: r => pct1(r.pu)}, {k: "pp", h: "P(push)", t: "A whole-number line shows its push probability separately", f: r => r.pp ? pct1(r.pp) : ""},
     {k: "side", h: "Side (paper)", l: 1, v: r => r.po != null ? Math.abs(r.po - 0.5) : null, f: r => sidePill(r.side, r.po)},
     {k: "poAdj", h: "P(over) adj", f: r => pct1(r.poAdj)}, {k: "sideAdj", h: "Side adj", l: 1, f: r => sidePill(r.sideAdj, r.poAdj)},
+    {k: "play", h: "Rule", t: "agree10: both models call the same side and both lean at least 10 points. Declared before the 2026-10-18 games; judged only on slates from then on.", v: r => isPlay(r) ? 1 : 0, f: r => isPlay(r) ? `<span class="pill lean-strong">PLAY ${r.po >= 0.5 ? "OVER" : "UNDER"}</span>` : ""},
     {k: "tp", h: "TP book", t: "Thunderpick's own kill-line median for this player", f: r => L(r.tp)},
     {k: "avg10", h: "PF avg L10", f: r => L(r.avg10)}, {k: "l5", h: "L5", f: r => hrCell(r.l5)}, {k: "l10", h: "L10", f: r => hrCell(r.l10)}, {k: "l15", h: "L15", f: r => hrCell(r.l15)},
     {k: "h2h", h: "H2H", f: r => esc(r.h2h ?? "")}, {k: "streak", h: "Streak", f: r => r.streak ?? ""},
     {k: "maps", h: "Maps used", l: 1}, {k: "rounds", h: "Rounds used", l: 1}, {k: "flags", h: "Flags", l: 1, f: r => flagPills(r.flags)}];
   return `<h2>Projections</h2><p class="sub">${D.meta.slate} slate · ${rs.length} of ${compute().rows.length} legs. Change maps, rounds, win probabilities or constants on the <a href="#Matches">Matches</a> and <a href="#Config">Config</a> tabs and every number follows.
     ${hasEdits() ? `<b class="warn">Showing your edits, not the workbook defaults.</b>` : ""}</p>
-    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label>`)}
+    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> <label><input type="checkbox" id="rule" ${F.rule ? "checked" : ""}> rule plays only</label>`)}
     ${table(cols, rs, {id: "proj", sort: {key: "side", asc: false}})}`;
 };
 const hasEdits = () => Object.keys(OVR.fps).length || Object.keys(OVR.moba).length || Object.keys(CFGO.fps).length || Object.keys(CFGO.moba).length;
@@ -291,7 +295,7 @@ function evalSection() {
   const hs = (pooled && pooled.summary ? pooled.summary.hypotheses : hyp) || [];
   const SD = E.side, sideRow = (label, d) => !d ? `<tr><td class="l">${label}</td><td colspan="4" class="mut">no slate yet</td></tr>` : `<tr><td class="l">${label}</td><td>${d.hits}/${d.n} = <b>${pct1(d.rate)}</b></td><td class="mut">[${pct1(d.clustered_ci && d.clustered_ci[0])}, ${pct1(d.clustered_ci && d.clustered_ci[1])}]</td><td>${signed(d.headroom * 100, 1)} pts</td><td class="mut">${d.legs_to_confirm ? "≈" + d.legs_to_confirm + " legs to be sure" : "not above breakeven"}</td></tr>`;
   const sideBlock = SD ? `<h4>Side calls vs breakeven</h4><p class="sub">The goal: P(over) ≥ 50% calls over, below calls under, and the hit rate clears the flex breakeven (${Object.entries(SD.breakeven).map(([k, v]) => `${k} ${pct1(v)}`).join(", ")}; payouts to confirm in the app). Size of the win does not matter here. The interval resamples whole matches. The forward test counts only slates after ${SD.declared_after}, when this goal was written down.</p>
-    <div class="tw"><table><thead><tr><th class="l">Record</th><th>Hit rate</th><th>95% interval</th><th>vs breakeven</th><th class="l">Sample</th></tr></thead><tbody>${sideRow("Forward test (after " + SD.declared_after + ")", SD.forward && SD.forward.summary && SD.forward.summary.side)}${sideRow("All settled slates (descriptive)", SD.all)}</tbody></table></div>` : "";
+    <div class="tw"><table><thead><tr><th class="l">Record</th><th>Hit rate</th><th>95% interval</th><th>vs breakeven</th><th class="l">Sample</th></tr></thead><tbody>${sideRow("Forward test (after " + SD.declared_after + ")", SD.forward && SD.forward.summary && SD.forward.summary.side)}${sideRow("All settled slates (descriptive)", SD.all)}${sideRow("Rule agree10, forward test", SD.forward && SD.forward.summary && SD.forward.summary.rules && SD.forward.summary.rules.agree10)}${sideRow("Rule agree10, all slates (descriptive: found after seeing 10-16 and 10-17)", SD.rules_all && SD.rules_all.agree10)}</tbody></table></div>` : "";
   return `<h3>Evaluation</h3>${sideBlock}<p class="sub">Predictive-quality checks, rebuilt by <code>python -m pipeline.evaluate</code> after each settle. Hypotheses H1–H6 were written down after looking at ${E.exploratory_through}, so that slate can only suggest; slates after it are the test. Wide intervals mean “don't know yet”, not “no effect”.</p>
     <div class="tw"><table><thead><tr><th class="l">Hypothesis</th><th class="l">Metric</th><th>Estimate</th><th>n</th><th class="l">Status</th></tr></thead><tbody>${hs.map(h => `<tr><td class="l">${h.id} ${esc(h.name)}</td><td class="l" style="white-space:normal">${esc(h.metric)}</td><td>${ci({value: h.estimate, ci: h.ci})}</td><td>${h.n}</td><td class="l ${stat[h.status] || "mut"}">${h.status}</td></tr>`).join("")}</tbody></table></div>
     <p class="sub">Showing ${E.confirmatory && E.confirmatory.summary ? "the confirmatory pool" : "the exploratory slate only — no confirmatory slate has settled yet"}.</p>
