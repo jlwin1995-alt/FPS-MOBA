@@ -24,6 +24,16 @@ PL = [dict(pid="p1", player="AA1", team="AA")]
 LEG = lambda code, key="p1|M": dict(match="CS2 · AA vs BB", player="AA1", market="Maps 1-2 Kills", code=code, key=key, line=20.5)
 
 
+class Codes(unittest.TestCase):
+    def test_every_market_code_needs_known_maps(self):
+        """Maps 1-3 headshots (a best of 5) once crashed the HLTV merge with a KeyError: every code the board can carry must be known."""
+        import json
+        with open("site/data/fps.json", encoding="utf-8") as f:
+            codes = {g["code"] for g in json.load(f)["legs"]}
+        self.assertLessEqual(codes, set(R.NEED))
+        self.assertEqual(R.NEED["H13"], [1, 2, 3])
+
+
 class Names(unittest.TestCase):
     def test_teams(self):
         self.assertTrue(same_team("Apogee Esports (BCA)", "Betclic Apogee Esports"))
