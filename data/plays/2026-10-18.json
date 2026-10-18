@@ -1,0 +1,274 @@
+{
+ "slate": "2026-10-18",
+ "frozen_utc": "2026-10-18T04:02:58+00:00",
+ "rules": {
+  "agree10": {
+   "name": "Both models agree, both lean >= 10 pts",
+   "n": 29,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 AUR vs FAL",
+     "player": "karrigan",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.2903,
+     "p_over_adj": 0.2881
+    },
+    {
+     "match": "CS2 \u00b7 AUR vs FAL",
+     "player": "karrigan",
+     "market": "Maps 1-2 Kills",
+     "line": 22,
+     "side": "UNDER",
+     "p_over": 0.2993,
+     "p_over_adj": 0.296
+    },
+    {
+     "match": "CS2 \u00b7 AUR vs FAL",
+     "player": "TeSeS",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.3436,
+     "p_over_adj": 0.3425
+    },
+    {
+     "match": "CS2 \u00b7 AUR vs FAL",
+     "player": "Kyousuke",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3859,
+     "p_over_adj": 0.3841
+    },
+    {
+     "match": "CS2 \u00b7 FURIA vs BB",
+     "player": "FalleN",
+     "market": "Maps 1-3 Kills",
+     "line": 37,
+     "side": "UNDER",
+     "p_over": 0.2098,
+     "p_over_adj": 0.2366
+    },
+    {
+     "match": "CS2 \u00b7 FURIA vs BB",
+     "player": "FalleN",
+     "market": "Maps 1-3 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.2864,
+     "p_over_adj": 0.3083
+    },
+    {
+     "match": "CS2 \u00b7 FURIA vs BB",
+     "player": "Magnojez",
+     "market": "Maps 1-3 Kills",
+     "line": 43.5,
+     "side": "OVER",
+     "p_over": 0.7049,
+     "p_over_adj": 0.6404
+    },
+    {
+     "match": "CS2 \u00b7 FURIA vs BB",
+     "player": "yuurih",
+     "market": "Maps 1-3 HS",
+     "line": 19.5,
+     "side": "UNDER",
+     "p_over": 0.3383,
+     "p_over_adj": 0.3637
+    },
+    {
+     "match": "CS2 \u00b7 FURIA vs BB",
+     "player": "yuurih",
+     "market": "Maps 1-3 Kills",
+     "line": 39.5,
+     "side": "UNDER",
+     "p_over": 0.3445,
+     "p_over_adj": 0.3771
+    },
+    {
+     "match": "CS2 \u00b7 FURIA vs BB",
+     "player": "molodoy",
+     "market": "Maps 1-3 HS",
+     "line": 19.5,
+     "side": "UNDER",
+     "p_over": 0.3579,
+     "p_over_adj": 0.3846
+    },
+    {
+     "match": "CS2 \u00b7 NEM vs EYE",
+     "player": "KRIMZ",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "OVER",
+     "p_over": 0.6367,
+     "p_over_adj": 0.6111
+    },
+    {
+     "match": "CS2 \u00b7 NEM vs EYE",
+     "player": "mag1k3Y",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "UNDER",
+     "p_over": 0.366,
+     "p_over_adj": 0.3589
+    },
+    {
+     "match": "CS2 \u00b7 NEM vs EYE",
+     "player": "tex1y",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3694,
+     "p_over_adj": 0.3602
+    },
+    {
+     "match": "CS2 \u00b7 NEM vs EYE",
+     "player": "Sdaim",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.3814,
+     "p_over_adj": 0.3738
+    },
+    {
+     "match": "CS2 \u00b7 NEM vs EYE",
+     "player": "Sdaim",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.3855,
+     "p_over_adj": 0.3749
+    },
+    {
+     "match": "CS2 \u00b7 NEM vs EYE",
+     "player": "Ro1f",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.3888,
+     "p_over_adj": 0.3503
+    },
+    {
+     "match": "CS2 \u00b7 ex-RUSTEC vs NTR",
+     "player": "senka",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "OVER",
+     "p_over": 0.7043,
+     "p_over_adj": 0.7227
+    },
+    {
+     "match": "CS2 \u00b7 ex-RUSTEC vs NTR",
+     "player": "shalfey",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "OVER",
+     "p_over": 0.6964,
+     "p_over_adj": 0.6259
+    },
+    {
+     "match": "CS2 \u00b7 ex-RUSTEC vs NTR",
+     "player": "senka",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "OVER",
+     "p_over": 0.6962,
+     "p_over_adj": 0.71
+    },
+    {
+     "match": "CS2 \u00b7 ex-RUSTEC vs NTR",
+     "player": "youka",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "OVER",
+     "p_over": 0.6917,
+     "p_over_adj": 0.6193
+    },
+    {
+     "match": "CS2 \u00b7 ex-RUSTEC vs NTR",
+     "player": "flouzer",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "OVER",
+     "p_over": 0.627,
+     "p_over_adj": 0.6467
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "erde",
+     "market": "Maps 1-3 Kills",
+     "line": 45.5,
+     "side": "OVER",
+     "p_over": 0.7634,
+     "p_over_adj": 0.7634
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "Chronicle",
+     "market": "Maps 1-3 Kills",
+     "line": 45.5,
+     "side": "OVER",
+     "p_over": 0.6938,
+     "p_over_adj": 0.6938
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "Sayonara",
+     "market": "Maps 1-3 Kills",
+     "line": 45,
+     "side": "OVER",
+     "p_over": 0.6874,
+     "p_over_adj": 0.6874
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "Darker",
+     "market": "Maps 1-3 Kills",
+     "line": 41.5,
+     "side": "UNDER",
+     "p_over": 0.313,
+     "p_over_adj": 0.313
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "luk xo",
+     "market": "Maps 1-3 Kills",
+     "line": 55.5,
+     "side": "OVER",
+     "p_over": 0.6494,
+     "p_over_adj": 0.6494
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "Jamppi",
+     "market": "Maps 1-3 Kills",
+     "line": 44.5,
+     "side": "OVER",
+     "p_over": 0.6486,
+     "p_over_adj": 0.6486
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "tkzin",
+     "market": "Maps 1-3 Kills",
+     "line": 49.5,
+     "side": "UNDER",
+     "p_over": 0.3762,
+     "p_over_adj": 0.3762
+    },
+    {
+     "match": "VAL \u00b7 LOUD vs VIT",
+     "player": "Derke",
+     "market": "Maps 1-3 Kills",
+     "line": 47.5,
+     "side": "OVER",
+     "p_over": 0.6131,
+     "p_over_adj": 0.6131
+    }
+   ]
+  }
+ },
+ "comparison": "every leg on the board (the base model's side)"
+}

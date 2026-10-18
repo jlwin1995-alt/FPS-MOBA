@@ -82,6 +82,17 @@ class Friday(unittest.TestCase):
         self.assertTrue(all(st[k] == "inconclusive" for k in ("H1", "H2", "H3", "H4", "H5", "H6")))
         self.assertTrue(st["H7"].startswith("descriptive"))                  # written after this slate
 
+    def test_agree10_rule_and_h8(self):
+        self.assertTrue(E.agree10(0.70, 0.62))
+        self.assertTrue(E.agree10(0.30, 0.38))
+        self.assertFalse(E.agree10(0.70, 0.55))          # second model leans < 10 pts
+        self.assertFalse(E.agree10(0.60, 0.40))          # the models disagree
+        self.assertFalse(E.agree10(None, 0.7))
+        r = self.s["rules"]["agree10"]
+        self.assertEqual((r["hits"], r["n"]), (35, 55))
+        h8 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H8"]
+        self.assertTrue(h8.startswith("descriptive"))
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
