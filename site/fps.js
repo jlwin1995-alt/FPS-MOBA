@@ -56,6 +56,10 @@ const FPS = (() => {
         if (hsRaw != null) o.hsPct = (o.n * hsRaw + S * hsAll) / (o.n + S);
         if (o.kpr != null && isNum(r)) o.kills = o.kpr * r * Math.pow(r / ref, cfg.KPR_ROUND_ELASTICITY);
         if (o.kills != null && o.hsPct != null) o.hs = o.kills * o.hsPct;
+        if (cfg.PROJ_MODE === 1) {                                       // workbook switch (Config PROJ_MODE): career kills per map, no map names, no rounds; HS through his overall HS%
+          o.kills = P && isNum(P.kills_map) && P.kills_map ? P.kills_map : null;
+          o.hs = o.kills != null && hsAll != null ? o.kills * hsAll : null;
+        }
       }
       out.k.push(o);
     }
@@ -113,6 +117,12 @@ const FPS = (() => {
       const ap = c.hsPct12 == null ? 0 : c.hsPct12;
       const sig = x => x == null ? null : isH ? Math.sqrt(x * (ap * cfg.KILLS_DISPERSION + 1 - ap)) : Math.sqrt(x * cfg.KILLS_DISPERSION);
       const r = {proj, sigma: sig(proj), proj_adj: adj, sigma_adj: sig(adj), diff: proj ? adj / proj : null};
+      // SHADOW "kills per map" projection (see pipeline/kpm.py): career kills/map x the maps that count; no map names, no rounds
+      const Pl = I.players[g.key.split("|")[0]], nm = {K1: 1, H1: 1, K12: 2, H12: 2, K13: 2 + N(m.p3_used), H13: 2 + N(m.p3_used)}[code];
+      if (Pl && isNum(Pl.kills_map) && Pl.kills_map && nm != null && !(isH && !isNum(Pl.hs))) {
+        const kp = Pl.kills_map * nm * (isH ? Pl.hs : 1), ks = Math.sqrt(kp * (isH ? Pl.hs * cfg.KILLS_DISPERSION + 1 - Pl.hs : cfg.KILLS_DISPERSION)), kq = ST_.over_under(g.line, kp, ks);
+        r.proj_kpm = kp; if (kq) r.p_over_kpm = kq.po;
+      }
       const p = ST_.over_under(g.line, proj, r.sigma), q = ST_.over_under(g.line, adj, r.sigma_adj);
       Object.assign(r, p ? {p_over: p.po, p_under: p.pu, p_push: p.push} : {}, q ? {p_over_adj: q.po, p_under_adj: q.pu} : {});
       r.side = p ? ST_.side(p.po, p.pu, cfg.EDGE_MIN) : ""; r.side_adj = q ? ST_.side(q.po, q.pu, cfg.EDGE_MIN) : "";

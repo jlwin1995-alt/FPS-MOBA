@@ -25,7 +25,7 @@ function norm(kind, g, title) {
   const o = g.out || {};
   return {id: `${kind}|${g.key}|${g.code}`, kind, title, match: g.match, key: g.key, code: g.code, player: g.player, team: g.team, market: g.market, line: g.line, tp: g.tp,
     avg10: g.avg10, l5: g.l5, l10: g.l10, l15: g.l15, h2h: g.h2h, streak: g.streak, proj: o.proj, adj: o.proj_adj, naive: o.naive, sigma: o.sigma, po: o.p_over, pu: o.p_under, pp: o.p_push,
-    poAdj: o.p_over_adj, side: o.side || "", sideAdj: o.side_adj || "", poNaive: o.p_over_naive, maps: o.maps, rounds: o.rounds, diff: o.diff, q: o.q,
+    poAdj: o.p_over_adj, side: o.side || "", sideAdj: o.side_adj || "", kpm: o.proj_kpm, poKpm: o.p_over_kpm, poNaive: o.p_over_naive, maps: o.maps, rounds: o.rounds, diff: o.diff, q: o.q,
     flags: kind === "FPS" ? (g.calc ? g.calc.flags : []) : (o.flags || []), exact: g.exact};
 }
 const sidePill = (side, p) => side && side !== "—" ? `<span class="pill ${side === "OVER" ? "lean-strong" : "lean-lean"}" title="PAPER: an ordering, not an edge, until the Log says otherwise">${side} ${pct0(side === "OVER" ? p : 1 - p)}</span>` : `<span class="mut">—</span>`;
@@ -84,6 +84,7 @@ Pages["Projections"] = () => {
   const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1},
     {k: "line", h: "Line", f: r => L(r.line)}, {k: "proj", h: "Proj", t: "Model projection", f: r => L(r.proj)},
     {k: "adj", h: "Proj adj", t: "CS2 round-differential layer (HLTV conditional round margins). PAPER, never scored forward.", f: r => L(r.adj)},
+    {k: "kpm", h: "Proj KPM", t: "SHADOW: career kills per map x the maps that count (no map names, no rounds). Scored side by side with the projection (hypothesis H9); not the published number.", f: r => L(r.kpm)}, {k: "poKpm", h: "P(over) KPM", f: r => pct1(r.poKpm)},
     {k: "naive", h: "Naive", t: "MOBA: his plain average per map, for comparison", f: r => L(r.naive)},
     {k: "dl", h: "Δ", t: "Projection minus line", v: r => r.proj != null && r.line != null ? r.proj - r.line : null, f: r => r.proj != null && r.line != null ? signed(r.proj - r.line) : ""},
     {k: "po", h: "P(over)", f: r => pct1(r.po)}, {k: "pu", h: "P(under)", f: r => pct1(r.pu)}, {k: "pp", h: "P(push)", t: "A whole-number line shows its push probability separately", f: r => r.pp ? pct1(r.pp) : ""},
@@ -283,12 +284,12 @@ function evalSection() {
     const cal = (S.calibration || []).map(b => `<tr><td class="l">${pct0(b.lo)}–${pct0(b.hi)}</td><td>${b.n}</td><td>${pct1(b.mean_p)}</td><td>${pct1(b.over_rate)}</td></tr>`).join("");
     return `<h4>${title}</h4><p class="sub">Slates: ${ev.slates.join(", ")}. ${S.n_settled} settled legs, ${S.n_matches} matches; over-rate ${pct1(S.over_rate)} (always-under would hit ${pct1(S.always_under_hit)}).</p>
       <div class="two"><div><h5>Ranking (AUC, 0.5 = no skill; match-clustered 95% interval)</h5><div class="tw"><table><tbody>${aucRows.map(([k, v]) => `<tr><td class="l">${esc(k)}</td><td>${ci(v)}</td><td class="mut">n=${v.n}</td></tr>`).join("")}</tbody></table></div>
-      <h5>Error vs the posted line</h5><div class="tw"><table><tbody><tr><td class="l">MAE · posted line</td><td>${num(all.mae_line, 3)}</td></tr><tr><td class="l">MAE · projection</td><td>${num(all.mae_proj, 3)}</td></tr><tr><td class="l">MAE · map-free</td><td>${num(all.mae_map_free, 3)}</td></tr><tr><td class="l">MAE · adj</td><td>${num(all.mae_adj, 3)}</td></tr>
+      <h5>Error vs the posted line</h5><div class="tw"><table><tbody><tr><td class="l">MAE · posted line</td><td>${num(all.mae_line, 3)}</td></tr><tr><td class="l">MAE · projection</td><td>${num(all.mae_proj, 3)}</td></tr><tr><td class="l">MAE · map-free</td><td>${num(all.mae_map_free, 3)}</td></tr><tr><td class="l">MAE · adj</td><td>${num(all.mae_adj, 3)}</td></tr><tr><td class="l">MAE · kills per map (shadow)</td><td>${num(all.mae_kpm, 3)}</td></tr>
       <tr><td class="l">Bias · projection / line</td><td>${signed(all.bias_proj, 2)} / ${signed(all.bias_line, 2)}</td></tr><tr><td class="l">Gap slope (1 = fully informative)</td><td>${ci(S.gap_slope)}</td></tr><tr><td class="l">Brier (coin = 0.25)</td><td>${num(S.brier, 4)}</td></tr></tbody></table></div></div>
       <div><h5>Hit rate by size of lean</h5><div class="tw"><table><thead><tr><th class="l">Lean</th><th>Legs</th><th>Hit rate</th></tr></thead><tbody>${lean}</tbody></table></div>
       <h5>Calibration</h5><div class="tw"><table><thead><tr><th class="l">P(over)</th><th>Legs</th><th>Mean P</th><th>Went over</th></tr></thead><tbody>${cal}</tbody></table></div></div></div>
       ${cf ? `<h5>Inputs, not the model</h5><p class="sub">Re-running the model with the maps and rounds actually played (${cf.n} legs): MAE ${num(cf.mae_published, 3)} → ${num(cf.mae_actual_inputs, 3)}, bias ${signed(cf.bias_published, 2)} → ${signed(cf.bias_actual_inputs, 2)}.${
-        rd ? ` Rounds per map assumed ${num(rd.assumed_mean, 1)} (sd ${num(rd.assumed_sd, 2)}) vs played ${num(rd.played_mean, 1)} (sd ${num(rd.played_sd, 1)}), ${rd.n_maps} maps.` : ""}${mp ? ` Map picks right: ${mp.hit}/${mp.total}.` : ""}</p>` : ""}`;
+        rd ? ` Rounds per map assumed ${num(rd.assumed_mean, 1)} (sd ${num(rd.assumed_sd, 2)}) vs played ${num(rd.played_mean, 1)} (sd ${num(rd.played_sd, 1)}), ${rd.n_maps} maps. Rounds-bias check: the long-run mean is ${num(rd.history_mean, 2)} (1,199 maps), so the assumption sits ${signed(rd.assumed_minus_history, 2)} from it and this sample ${signed(rd.played_minus_history, 2)}; ${pct0(rd.share_over_21_5)} of these maps went over 21.5 (history ${pct0(rd.history_share_over_21_5)}).` : ""}${mp ? ` Map picks right: ${mp.hit}/${mp.total}.` : ""}</p>` : ""}`;
   };
   const last = E.slates[E.slates.length - 1], hyp = (E.by_slate[last] || {}).hypotheses || [];
   const pooled = (E.confirmatory && E.confirmatory.summary ? E.confirmatory : E.exploratory);
@@ -339,6 +340,7 @@ const CFGNOTE = {
     EDGE_MIN: "Model side shows OVER/UNDER only past 50% + this. A PAPER column.", DEFAULT_ROUNDS_CS2: "Rounds per CS2 map when Thunderpick posts no ladder (used when the workbook was built).", DEFAULT_ROUNDS_VAL: "Same for Valorant.",
     KPR_ROUND_ELASTICITY: "Kills-per-round dilution on long maps: projection × (rounds ÷ REF)^this. Ships off (0): the slope did not replicate.", REF_ROUNDS_CS2: "Reference CS2 map length for the elasticity.", REF_ROUNDS_VAL: "Same for Valorant.",
     THIN_SAMPLE_MAPS: "Flag a player whose PickFinder sample is below this many maps.", DIFF_WEIGHT: "Round-differential layer (CS2): adjusted kills = base × multiplier^this. 1 = full, 0 = off. Never scored forward.",
+    PROJ_MODE: "0 = the published KPR x rounds projection. 1 = career kills per map (no map names, no rounds; HS through his overall HS%). Added 2026-10-19; the kills-per-map version is also logged beside the projection as Proj KPM whatever this says.",
     KILLS_PER_ROUND_WON: "Team kills per round WON (CS2), from team_kills = a·won + b·lost, R² 0.970 on 47 team-maps.", KILLS_PER_ROUND_LOST: "Team kills per round LOST (CS2). The 2.6× ratio is the whole differential effect."},
   moba: {WL_RATIO_LOL: "LoL kills in map WINS ÷ LOSSES. Median 2.21 on 25 players (range 1.20–4.16).", WL_RATIO_DOTA: "Dota: same quantity, median 1.77 on 28 players (OpenDota, last 40 CM games each).",
     KILLS_DISPERSION_LOL: "Variance ÷ mean of kills WITHIN a known map result (LoL); the win/loss mixture variance is added on top. Judgment, not measured.", KILLS_DISPERSION_DOTA: "Same for Dota, measured: 1.84.",
