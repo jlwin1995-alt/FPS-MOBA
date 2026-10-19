@@ -26,6 +26,8 @@ MIN_MATCHES, MIN_LEGS, MIN_MAPS = 8, 60, 20
 
 # Slip payouts as the user plays them (PrizePicks flex, 5 and 6 picks): {hits: multiple of the stake}. Confirm against the app before relying on the breakeven.
 PAYOUTS = {"5-pick flex": (5, {5: 10, 4: 2, 3: 0.4}), "6-pick flex": (6, {6: 25, 5: 2, 4: 0.4})}
+KPM_AFTER = "2026-10-18"            # H9 (the kills-per-map shadow) was written after this slate: its Log columns were backfilled from the inputs, so earlier slates are descriptive
+HISTORY_ROUNDS = dict(mean=21.96, n=1199, share_over_21_5=0.487, note="CS2 maps, 28 days before 2026-10-16 (bo3.gg); the market prices the over 21.5 at about 49%")
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
@@ -45,6 +47,7 @@ HYPOTHESES = [
     dict(id="H6", name="The round-differential layer adds information", metric="AUC(adj P(over)) - AUC(model P(over))", claim=">0", null=0),
     dict(id="H7", name="Side calls clear breakeven", metric="side hit rate (P(over) >= 50% = over) - flex breakeven", claim=">0", null=0, after=SIDE_AFTER),
     dict(id="H8", name="The agree10 play rule clears breakeven", metric="hit rate of legs where both models agree and both lean >= 10 pts - flex breakeven", claim=">0", null=0, after=SIDE_AFTER),
+    dict(id="H9", name="Kills per map ranks legs better than KPR x rounds", metric="AUC(kills-per-map P(over)) - AUC(model P(over))", claim=">0", null=0, after=KPM_AFTER),
 ]
 
 
@@ -196,7 +199,7 @@ def build(slate, site="site", results_dir="data/results", imports="data/imports"
         c = ((cf or {}).get("legs") or {}).get("|".join(k)) or {}
         g = legs.get(k) or {}
         rows.append(dict(slate=slate, match=r["Match"], cluster=f"{slate}|{r['Match']}", title=r["Match"].split(" ")[0], market=r["Market"], line=r["Line"], act=a, proj=r.get("Proj"),
-                         po=r.get("P(over)"), adj=r.get("Proj adj"), poa=r.get("P(over) adj"), mf=r.get("Proj map-free"), tp=r.get("TP book median"), l10=r.get("PF L10"),
+                         po=r.get("P(over)"), kpm=r.get("Proj KPM"), pkpm=r.get("P(over) KPM"), adj=r.get("Proj adj"), poa=r.get("P(over) adj"), mf=r.get("Proj map-free"), tp=r.get("TP book median"), l10=r.get("PF L10"),
                          avg10=g.get("avg10"), proj_or=c.get("proj_or"), po_or=c.get("p_over_or"), cf=bool(c.get("counterfactual")), n1=c.get("n1")))
     mrows = []
     picks = {m["id"]: m.get("picks_from") or "" for m in fps["matches"]}
@@ -228,7 +231,8 @@ def summarise(rows, mrows, moba=None):
     out["always_under_hit"] = round(1 - sum(y) / len(y), 4)
 
     signals = {"model P(over)": lambda r: r["po"], "model adj P(over)": lambda r: r["poa"], "map-free projection - line": lambda r: (r["mf"] if r["mf"] is not None else r["proj"]) - r["line"],
-               "PF avg L10 - line": lambda r: None if r["avg10"] is None else r["avg10"] - r["line"], "PF L10 hit rate": lambda r: r["l10"]}
+               "PF avg L10 - line": lambda r: None if r["avg10"] is None else r["avg10"] - r["line"], "PF L10 hit rate": lambda r: r["l10"],
+               "kills-per-map P(over) (shadow)": lambda r: r["pkpm"]}
     S = {}
     out["auc"] = {}
     for name, f in signals.items():
@@ -248,8 +252,8 @@ def summarise(rows, mrows, moba=None):
     mae = lambda f, sel: (lambda xs: round(sum(xs) / len(xs), 4) if xs else None)([abs(f(r) - r["act"]) for r in sel if f(r) is not None])
     bias = lambda f, sel: (lambda xs: round(sum(xs) / len(xs), 4) if xs else None)([f(r) - r["act"] for r in sel if f(r) is not None])
     groups = [("all", rows)] + [(m, [r for r in rows if r["market"] == m]) for m in sorted({r["market"] for r in rows})] + [(t, [r for r in rows if r["title"] == t]) for t in sorted({r["title"] for r in rows})]
-    out["error"] = {name: dict(n=len(sel), mae_line=mae(lambda r: r["line"], sel), mae_proj=mae(lambda r: r["proj"], sel), mae_map_free=mae(lambda r: r["mf"], sel), mae_adj=mae(lambda r: r["adj"], sel),
-                               bias_line=bias(lambda r: r["line"], sel), bias_proj=bias(lambda r: r["proj"], sel)) for name, sel in groups if sel}
+    out["error"] = {name: dict(n=len(sel), mae_line=mae(lambda r: r["line"], sel), mae_proj=mae(lambda r: r["proj"], sel), mae_map_free=mae(lambda r: r["mf"], sel), mae_adj=mae(lambda r: r["adj"], sel), mae_kpm=mae(lambda r: r["kpm"], sel),
+                               bias_line=bias(lambda r: r["line"], sel), bias_proj=bias(lambda r: r["proj"], sel), bias_kpm=bias(lambda r: r["kpm"], sel)) for name, sel in groups if sel}
     d = [abs(r["proj"] - r["act"]) - abs(r["line"] - r["act"]) for r in rows]
     out["mae_proj_minus_line"] = est(lambda idx: sum(d[i] for i in idx) / len(idx), allc, len(rows))
 
@@ -298,6 +302,10 @@ def summarise(rows, mrows, moba=None):
         diffs = [u - a for _, u, a in pairs]
         out["rounds"] = dict(n_maps=len(pairs), assumed_mean=round(sum(u for _, u, _ in pairs) / len(pairs), 3), played_mean=round(sum(a for _, _, a in pairs) / len(pairs), 3),
                              mean_error=round(sum(diffs) / len(diffs), 3), mae=round(sum(abs(v) for v in diffs) / len(diffs), 3), assumed_sd=round(_sd([u for _, u, _ in pairs]), 3), played_sd=round(_sd([a for _, _, a in pairs]), 3))
+        # the rounds-bias check: played vs the assumption, and vs the long-run history (a 28-day, 1,199-map sample taken before these slates)
+        pm = out["rounds"]["played_mean"]
+        out["rounds"].update(history_mean=HISTORY_ROUNDS["mean"], played_minus_history=round(pm - HISTORY_ROUNDS["mean"], 3), assumed_minus_history=round(out["rounds"]["assumed_mean"] - HISTORY_ROUNDS["mean"], 3),
+                             share_over_21_5=round(sum(a >= 22 for _, _, a in pairs) / len(pairs), 3), history_share_over_21_5=HISTORY_ROUNDS["share_over_21_5"])
     slots = [(m["picks_from"], u == a) for m in mrows for u, a in zip(m["used_maps"], m["actual_maps"]) if u and a]
     if slots:
         by = defaultdict(lambda: [0, 0])
@@ -315,6 +323,14 @@ def summarise(rows, mrows, moba=None):
     if "model P(over)" in S and "map-free projection - line" in S:
         po, mf = S["model P(over)"], S["map-free projection - line"]
         hyp["H2"] = (est(lambda idx: _d(auc([y[i] for i in idx], [po[i] for i in idx]), auc([y[i] for i in idx], [mf[i] for i in idx])), cl, len(R)), len(R), MIN_LEGS)
+    if "model P(over)" in S and "kills-per-map P(over) (shadow)" in S:
+        po, pk = S["model P(over)"], S["kills-per-map P(over) (shadow)"]
+        both = [i for i in range(len(R)) if po[i] is not None and pk[i] is not None]
+        if len(both) >= 20:
+            def h9(idx):
+                ii = [both[i] for i in idx]
+                return _d(auc([y[i] for i in ii], [pk[i] for i in ii]), auc([y[i] for i in ii], [po[i] for i in ii]))
+            hyp["H9"] = (est(h9, [cl[i] for i in both], len(both)), len(both), MIN_LEGS)
     hyp["H3"] = (out["gap_slope"], len(rows), MIN_LEGS)
     hi_, lo_ = [i for i, r in enumerate(R) if abs(r["po"] - .5) >= .15], [i for i, r in enumerate(R) if abs(r["po"] - .5) < .04]
     hit = lambda r: 1.0 if (r["po"] >= .5) == (r["act"] > r["line"]) else 0.0
@@ -435,7 +451,7 @@ def show(s, title):
         print(f"  AUC {k:38} {v['value']:.3f}  {v['ci']}  n={v['n']}")
     e = (s.get("error") or {}).get("all")
     if e:
-        print(f"  MAE  line {e['mae_line']}  projection {e['mae_proj']}  map-free {e['mae_map_free']}  adj {e['mae_adj']} | bias projection {e['bias_proj']:+}  line {e['bias_line']:+}")
+        print(f"  MAE  line {e['mae_line']}  projection {e['mae_proj']}  map-free {e['mae_map_free']}  adj {e['mae_adj']}  kills-per-map {e.get('mae_kpm')} | bias projection {e['bias_proj']:+}  line {e['bias_line']:+}")
     if s.get("side"):
         d = s["side"]
         print(f"  side calls: {d['hits']}/{d['n']} = {d['rate']:.1%} (clustered interval {d['clustered_ci']}); breakeven {d['breakeven']}, headroom {d['headroom']:+.1%}"
@@ -445,7 +461,7 @@ def show(s, title):
         print(f"  with actual maps+rounds: MAE {c['mae_published']} -> {c['mae_actual_inputs']}, bias {c['bias_published']:+} -> {c['bias_actual_inputs']:+}")
     if s.get("rounds"):
         r = s["rounds"]
-        print(f"  rounds per map: assumed {r['assumed_mean']} (sd {r['assumed_sd']}), played {r['played_mean']} (sd {r['played_sd']}), n={r['n_maps']}")
+        print(f"  rounds per map: assumed {r['assumed_mean']} (sd {r['assumed_sd']}), played {r['played_mean']} (sd {r['played_sd']}), n={r['n_maps']}; history mean {r['history_mean']}: assumed {r['assumed_minus_history']:+}, played {r['played_minus_history']:+}; share over 21.5 {r['share_over_21_5']:.0%} (history {r['history_share_over_21_5']:.0%})")
     if s.get("map_picks"):
         print(f"  map picks right: {s['map_picks']['hit']}/{s['map_picks']['total']}")
     print("  hypotheses:")

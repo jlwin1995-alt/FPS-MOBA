@@ -72,7 +72,7 @@ def kv(ws, r0, r1):
 
 def import_fps(path):
     wv = openpyxl.load_workbook(path, data_only=True)
-    cfg = kv(wv["Config"], 4, 15)
+    cfg = kv(wv["Config"], 4, 16)
     cs = wv["Config"]
     maps = {"CS2": [cs.cell(r, 5).value for r in range(4, 40) if cs.cell(r, 5).value], "VAL": [cs.cell(r, 6).value for r in range(4, 40) if cs.cell(r, 6).value]}
     slate = str(kv(cs, 18, 19)["SLATE_DATE"])
@@ -204,6 +204,8 @@ def main():
     a = ap.parse_args()
     s1, fps, ex1, log1 = import_fps(a.fps)
     s2, moba, ex2, log2 = import_moba(a.moba)
+    from .kpm import add_to_log                                          # the shadow "kills per map" projection, frozen into the Log with the other projections
+    add_to_log(log1, fps)
     require_stored_results("FPS", ex1)
     require_stored_results("MOBA", ex2)
     if s1 != s2:
