@@ -194,20 +194,30 @@ def dump(path, obj):
         f.write("\n")
 
 
+def empty_moba(slate, site="site"):
+    """A slate with no LoL/Dota workbook (CS2-only days): no matches or legs, keeping the previous MOBA config so the Config tab still reads."""
+    prev = read_json(f"{site}/data/moba.json") or {}
+    return dict(slate=slate, built=None, config=prev.get("config", {}), players=[], matches=[], legs=[], gamelog=[], book=[], checks=[])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fps", required=True)
-    ap.add_argument("--moba", required=True)
+    ap.add_argument("--moba", default=None, help="omit on a day with no LoL/Dota workbook: the slate is built with no MOBA legs")
     ap.add_argument("--site", default="site")
     ap.add_argument("--imports", default="data/imports")
     ap.add_argument("--slate", default=None, help="the slate the upload folder is named for; the workbooks must say the same")
     a = ap.parse_args()
     s1, fps, ex1, log1 = import_fps(a.fps)
-    s2, moba, ex2, log2 = import_moba(a.moba)
+    if a.moba:
+        s2, moba, ex2, log2 = import_moba(a.moba)
+    else:
+        s2, moba, ex2, log2 = s1, empty_moba(s1, a.site), [], []
     from .kpm import add_to_log                                          # the shadow "kills per map" projection, frozen into the Log with the other projections
     add_to_log(log1, fps)
     require_stored_results("FPS", ex1)
-    require_stored_results("MOBA", ex2)
+    if a.moba:
+        require_stored_results("MOBA", ex2)
     if s1 != s2:
         raise SystemExit(f"the two workbooks are for different slates (FPS {s1}, MOBA {s2}): nothing imported")
     if a.slate and a.slate != s1:
@@ -230,13 +240,15 @@ def main():
     idx = sorted(f[:-5] for f in os.listdir(f"{a.site}/data/log") if f.endswith(".json") and f != "index.json")
     dump(f"{a.site}/data/log/index.json", idx)
     if live:
-        dump(meta_path, dict(slate=s1, fps_built=fps["built"], moba_built=moba["built"], fps_legs=len(fps["legs"]), moba_legs=len(moba["legs"]),
+        dump(meta_path, dict(slate=s1, fps_built=fps["built"], moba_built=moba["built"] or "no workbook", fps_legs=len(fps["legs"]), moba_legs=len(moba["legs"]),
                              fps_matches=len(fps["matches"]), moba_matches=len(moba["matches"]), slates=idx))
     else:
         meta = read_json(meta_path)
         meta["slates"] = idx
         dump(meta_path, meta)
     for src, name in ((a.fps, "fps"), (a.moba, "moba")):
+        if not src:
+            continue
         dst = f"{a.imports}/{s1}/{name}.xlsx"
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         if os.path.abspath(src) != os.path.abspath(dst):                # the workflow imports straight from data/imports

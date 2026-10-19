@@ -26,10 +26,11 @@ def load_board(slate, site="site", imports="data/imports"):
         with open(f"{site}/data/fps.json", encoding="utf-8") as f1, open(f"{site}/data/moba.json", encoding="utf-8") as f2:
             return json.load(f1), json.load(f2), "site"
     d = f"{imports}/{slate}"
-    if not (os.path.exists(f"{d}/fps.xlsx") and os.path.exists(f"{d}/moba.xlsx")):
-        raise SystemExit(f"no board for slate {slate}: the site holds {live} and {d}/ has no fps.xlsx + moba.xlsx")
-    from .import_xlsx import import_fps, import_moba
-    return import_fps(f"{d}/fps.xlsx")[1], import_moba(f"{d}/moba.xlsx")[1], "workbooks"
+    if not os.path.exists(f"{d}/fps.xlsx"):
+        raise SystemExit(f"no board for slate {slate}: the site holds {live} and {d}/ has no fps.xlsx")
+    from .import_xlsx import import_fps, import_moba, empty_moba
+    moba = import_moba(f"{d}/moba.xlsx")[1] if os.path.exists(f"{d}/moba.xlsx") else empty_moba(slate, site)       # a CS2-only day has no MOBA workbook
+    return import_fps(f"{d}/fps.xlsx")[1], moba, "workbooks"
 
 
 def board_start_utc(slate, label):

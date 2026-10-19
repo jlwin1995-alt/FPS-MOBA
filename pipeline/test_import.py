@@ -14,7 +14,7 @@ FPS, MOBA = f"data/imports/{SLATE}/fps.xlsx", f"data/imports/{SLATE}/moba.xlsx"
 def run(site, imports, fps=FPS, moba=MOBA, slate=None):
     import sys
     argv = sys.argv
-    sys.argv = ["import", "--fps", fps, "--moba", moba, "--site", site, "--imports", imports] + (["--slate", slate] if slate else [])
+    sys.argv = ["import", "--fps", fps] + (["--moba", moba] if moba else []) + ["--site", site, "--imports", imports] + (["--slate", slate] if slate else [])
     try:
         I.main()
     finally:
@@ -137,6 +137,25 @@ class Refusals(unittest.TestCase):
     def test_the_matching_folder_is_accepted(self):
         run(self.site, self.imports, slate=SLATE)
         self.assertTrue(os.path.exists(f"{self.site}/data/meta.json"))
+
+
+class CS2OnlyDay(unittest.TestCase):
+    """A day with no LoL/Dota workbook builds with no MOBA legs, and the board reads back without one."""
+    def test_fps_only_import(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
+        site, imports = f"{tmp}/site", f"{tmp}/imports"
+        run(site, imports, moba=None, slate=SLATE)
+        meta = json.load(open(f"{site}/data/meta.json"))
+        self.assertEqual((meta["slate"], meta["moba_legs"], meta["moba_matches"], meta["fps_legs"] > 0), (SLATE, 0, 0, True))
+        self.assertEqual(json.load(open(f"{site}/data/moba.json"))["legs"], [])
+        self.assertFalse(os.path.exists(f"{imports}/{SLATE}/moba.xlsx"))
+        self.assertEqual(json.load(open(f"{site}/data/log/{SLATE}.json"))["moba"], [])
+        os.makedirs(f"{tmp}/s2/data")
+        json.dump(dict(slate="2099-01-01"), open(f"{tmp}/s2/data/meta.json", "w"))               # a different slate is live: this one is read back from its workbooks
+        from .results import load_board
+        _, moba, where = load_board(SLATE, f"{tmp}/s2", imports)
+        self.assertEqual((where, moba["legs"]), ("workbooks", []))
 
 
 if __name__ == "__main__":
