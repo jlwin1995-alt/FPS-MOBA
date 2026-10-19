@@ -51,7 +51,7 @@ Needs `node` (it re-runs the model with the maps and rounds actually played). Hy
 
 ## Play rules (frozen before the games)
 
-`python -m pipeline.plays --slate <date>` writes `data/plays/<date>.json`: the legs each rule in `pipeline/evaluate.py` (`RULES`) selects from the frozen Log. Commit it before the first start; settling never rewrites it. The Projections tab flags the same legs (`PLAY OVER/UNDER`, filter "rule plays only"). Rule `agree10` (base and round-differential models call the same side, both lean >= 10 pts) was found after seeing 2026-10-16 and 2026-10-17, so only slates from 2026-10-18 on test it (H8). The comparison is every leg on the board.
+`python -m pipeline.plays --slate <date>` writes `data/plays/<date>.json`: the legs each rule in `pipeline/evaluate.py` (`RULES`) selects from the frozen Log. Commit it before the first start; settling never rewrites it. The Projections tab flags the same legs (`PLAY OVER/UNDER`, filter "rule plays only"). Rule `agree10` (base and round-differential models call the same side, both lean >= 10 pts) was found after seeing 2026-10-16 and 2026-10-17, so only slates from 2026-10-18 on test it (H8). The comparison is every leg on the board. Rule `all_under` (take the under on every leg) was added after 2026-10-19 and is scored forward as H10 (slates from 2026-10-20 on); its past record is descriptive only. Plays are frozen automatically when a live slate is imported (the slate workflow commits `data/plays`), so check `data/plays/<date>.json` holds both rules before the first start.
 
 ## Kills-per-map shadow and the PROJ_MODE switch
 

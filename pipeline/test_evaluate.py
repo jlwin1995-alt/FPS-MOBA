@@ -93,6 +93,12 @@ class Friday(unittest.TestCase):
         h8 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H8"]
         self.assertTrue(h8.startswith("descriptive"))
 
+    def test_all_under_rule_and_h10(self):
+        r = self.s["rules"]["all_under"]
+        self.assertEqual((r["hits"], r["n"]), (107, 176))                      # Friday: 107 of the 176 graded legs finished under
+        h10 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H10"]
+        self.assertTrue(h10.startswith("descriptive"))                          # declared after 2026-10-19
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
