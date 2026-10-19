@@ -395,9 +395,9 @@ window.addEventListener("hashchange", route);
     try { D.eval = await get("evaluation"); } catch (e) { D.eval = null; }
     try { D.odds = await get("odds"); } catch (e) { D.odds = null; }
   } catch (e) { view().innerHTML = `<p class="bad">Could not load data (${esc(e.message)}). Run <code>python -m pipeline.import_xlsx</code>.</p>`; return; }
-  document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · MOBA built ${D.meta.moba_built} UTC`;
+  document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · ${D.meta.moba_legs ? `MOBA built ${D.meta.moba_built} UTC` : "no LoL/Dota workbook today"}`;
   const b = document.getElementById("banner");
-  b.innerHTML = `<b>PAPER.</b> ${D.meta.fps_legs} FPS legs (${D.meta.fps_matches} matches) and ${D.meta.moba_legs} MOBA legs (${D.meta.moba_matches} matches). Model side and P(over) are an ordering, not an edge, until the Log has a record.`;
+  b.innerHTML = `<b>PAPER.</b> ${D.meta.fps_legs} FPS legs (${D.meta.fps_matches} matches)${D.meta.moba_legs ? ` and ${D.meta.moba_legs} MOBA legs (${D.meta.moba_matches} matches)` : ""}. Model side and P(over) are an ordering, not an edge, until the Log has a record.`;
   b.hidden = false;
   route();
 })();
