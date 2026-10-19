@@ -237,6 +237,10 @@ def main():
     if prev:
         log1, log2 = merge_log(prev["fps"], log1), merge_log(prev["moba"], log2)
     dump(lp, dict(slate=s1, fps=log1, moba=log2))
+    if live:                                                               # freeze the play-rule selections now, before any game: the file's commit time is the record
+        from .plays import freeze
+        pp, counts = freeze(s1, a.site, os.path.join(os.path.dirname(os.path.normpath(a.imports)), "plays"))
+        print(f"plays {pp}: " + (", ".join(f"{k} {v}" for k, v in counts.items()) if counts else "already frozen, left as it is"))
     idx = sorted(f[:-5] for f in os.listdir(f"{a.site}/data/log") if f.endswith(".json") and f != "index.json")
     dump(f"{a.site}/data/log/index.json", idx)
     if live:

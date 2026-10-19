@@ -150,6 +150,16 @@ class CS2OnlyDay(unittest.TestCase):
         self.assertEqual((meta["slate"], meta["moba_legs"], meta["moba_matches"], meta["fps_legs"] > 0), (SLATE, 0, 0, True))
         self.assertEqual(json.load(open(f"{site}/data/moba.json"))["legs"], [])
         self.assertFalse(os.path.exists(f"{imports}/{SLATE}/moba.xlsx"))
+        plays = f"{tmp}/plays/{SLATE}.json"                                     # the play-rule selections are frozen at import, beside the imports folder
+        self.assertTrue(os.path.exists(plays))
+        frozen = json.load(open(plays))
+        self.assertEqual(frozen["rules"]["all_under"]["n"], fps_legs := json.load(open(f"{site}/data/meta.json"))["fps_legs"])
+        self.assertTrue(all(l["side"] == "UNDER" for l in frozen["rules"]["all_under"]["legs"]))
+        self.assertTrue(all(l["side"] in ("OVER", "UNDER") for l in frozen["rules"]["agree10"]["legs"]))
+        mtime = os.path.getmtime(plays)
+        run(site, imports, moba=None, slate=SLATE)                              # importing again never rewrites a frozen file
+        self.assertEqual(os.path.getmtime(plays), mtime)
+        self.assertGreater(fps_legs, 0)
         self.assertEqual(json.load(open(f"{site}/data/log/{SLATE}.json"))["moba"], [])
         os.makedirs(f"{tmp}/s2/data")
         json.dump(dict(slate="2099-01-01"), open(f"{tmp}/s2/data/meta.json", "w"))               # a different slate is live: this one is read back from its workbooks

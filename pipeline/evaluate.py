@@ -28,6 +28,7 @@ MIN_MATCHES, MIN_LEGS, MIN_MAPS = 8, 60, 20
 PAYOUTS = {"5-pick flex": (5, {5: 10, 4: 2, 3: 0.4}), "6-pick flex": (6, {6: 25, 5: 2, 4: 0.4})}
 KPM_AFTER = "2026-10-18"            # H9 (the kills-per-map shadow) was written after this slate: its Log columns were backfilled from the inputs, so earlier slates are descriptive
 HISTORY_ROUNDS = dict(mean=21.96, n=1199, share_over_21_5=0.487, note="CS2 maps, 28 days before 2026-10-16 (bo3.gg); the market prices the over 21.5 at about 49%")
+UNDER_AFTER = "2026-10-19"          # H10 (every leg under) was written after this slate: lines sit at the mean of a right-skewed distribution, the median result is below them
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
@@ -36,7 +37,8 @@ def agree10(po, poa):
     return po is not None and poa is not None and (po >= 0.5) == (poa >= 0.5) and min(abs(po - 0.5), abs(poa - 0.5)) >= 0.10
 
 
-RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agree10, after=SIDE_AFTER)}
+RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agree10, after=SIDE_AFTER),
+         "all_under": dict(name="Every leg, under", test=lambda po, poa: po is not None, side="under", after=UNDER_AFTER)}
 
 HYPOTHESES = [
     dict(id="H1", name="The posted rounds total runs high", metric="mean(rounds assumed - rounds played) per map", claim=">0", null=0),
@@ -48,6 +50,7 @@ HYPOTHESES = [
     dict(id="H7", name="Side calls clear breakeven", metric="side hit rate (P(over) >= 50% = over) - flex breakeven", claim=">0", null=0, after=SIDE_AFTER),
     dict(id="H8", name="The agree10 play rule clears breakeven", metric="hit rate of legs where both models agree and both lean >= 10 pts - flex breakeven", claim=">0", null=0, after=SIDE_AFTER),
     dict(id="H9", name="Kills per map ranks legs better than KPR x rounds", metric="AUC(kills-per-map P(over)) - AUC(model P(over))", claim=">0", null=0, after=KPM_AFTER),
+    dict(id="H10", name="Taking the under on every leg clears breakeven", metric="hit rate of 'under' on every leg - flex breakeven", claim=">0", null=0, after=UNDER_AFTER),
 ]
 
 
@@ -359,7 +362,7 @@ def summarise(rows, mrows, moba=None):
             idx = [i for i in range(len(R)) if R[i]["po"] is not None and rule["test"](R[i]["po"], R[i]["poa"])]
             if not idx:
                 continue
-            h = [1.0 if (R[i]["po"] >= 0.5) == (y[i] == 1) else 0.0 for i in idx]
+            h = [1.0 if y[i] == 0 else 0.0 for i in idx] if rule.get("side") == "under" else [1.0 if (R[i]["po"] >= 0.5) == (y[i] == 1) else 0.0 for i in idx]
             c = [cl[i] for i in idx]
             er = est(lambda ix, h=h: sum(h[i] for i in ix) / len(ix) - be, c, len(h))
             rt = sum(h) / len(h)
@@ -367,6 +370,8 @@ def summarise(rows, mrows, moba=None):
                                      headroom=round(rt - be, 4), legs_to_confirm=None if rt <= be else int((1.96 * 0.5 / (rt - be)) ** 2) + 1)
             if rid == "agree10":
                 hyp["H8"] = (er, len(h), MIN_LEGS // 2)
+            if rid == "all_under":
+                hyp["H10"] = (er, len(h), MIN_LEGS)
     out["hypotheses"] = []
     for h in HYPOTHESES:
         e, units, minu = hyp.get(h["id"], (dict(value=None, ci=None, n=0), 0, 0))
@@ -428,6 +433,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     expl = [s for s in stored if s <= EXPLORATORY_THROUGH]
     conf = [s for s in stored if s > EXPLORATORY_THROUGH]
     fwd = [s for s in stored if s > SIDE_AFTER]
+    fwd10 = [s for s in stored if s > UNDER_AFTER]
 
     def label(summary, ss):
         """A hypothesis written after a slate cannot be tested on it: H7 reads 'descriptive' for any view that includes such a slate."""
@@ -439,7 +445,8 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     report = dict(generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), exploratory_through=EXPLORATORY_THROUGH, hypotheses=HYPOTHESES,
                   slates=sorted(stored), by_slate=by_slate, notes={s: stored[s]["notes"] for s in stored},
                   exploratory=dict(slates=expl, summary=label(pooled(expl), expl)) if expl else None, confirmatory=dict(slates=conf, summary=label(pooled(conf), conf)) if conf else None,
-                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
+                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
+                            under_forward=dict(slates=fwd10, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H10"]))(pooled(fwd10))) if fwd10 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     write(f"{site}/data/evaluation.json", report)
     return report
