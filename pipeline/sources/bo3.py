@@ -55,7 +55,7 @@ def match_maps(m):
         # a team's kills cannot exceed the other side's deaths; deaths also include bomb, fall and team-kill deaths, so allow a small gap
         cross = ok_n and 0 <= d[ts[1]] - k[ts[0]] <= 10 and 0 <= d[ts[0]] - k[ts[1]] <= 10
         checks.append(dict(map=g["number"], players_ok=ok_n, kills_vs_deaths_ok=bool(cross), hs_le_kills=all(p["hs"] <= p["kills"] for p in players),
-                           rounds_ok=g["rounds_count"] == g["winner_clan_score"] + g["loser_clan_score"]))
+                           rounds_ok=None not in (g["rounds_count"], g["winner_clan_score"], g["loser_clan_score"]) and g["rounds_count"] == g["winner_clan_score"] + g["loser_clan_score"]))
     # second route: the match-level table must equal the sum over maps
     tot = api(f"matches/{m['slug']}/players_stats")
     route2 = {}
