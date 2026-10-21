@@ -188,7 +188,9 @@ def flip(v):
 def view(parsed, board_match, participants=None):
     """The parsed fixture next to what the model assumes for the same match -> one record for the site. p1 is always the board's team A."""
     m = board_match
-    swapped = bool(participants) and same_team(m["a"], participants[1]) and not same_team(m["a"], participants[0])
+    # either board team can give the order away: 'FaZe' does not match 'Faze Clan', but its opponent matches the fixture's first name
+    swapped = bool(participants) and ((same_team(m["a"], participants[1]) and not same_team(m["a"], participants[0]))
+                                      or (same_team(m["b"], participants[0]) and not same_team(m["b"], participants[1])))
     if swapped:
         parsed = dict(parsed, series=flip(parsed["series"]), maps={k: flip(v) for k, v in parsed["maps"].items()})
     s = parsed["series"]

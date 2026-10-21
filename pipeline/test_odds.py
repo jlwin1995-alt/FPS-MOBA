@@ -72,6 +72,10 @@ class Build(unittest.TestCase):
         w = O.view(O.parse(load(SAMPLE)), board, ["LOUD", "Vitality"])
         self.assertTrue(w["swapped"])
         self.assertAlmostEqual(v["series"]["p1"]["p"] + w["series"]["p1"]["p"], 1, places=3)
+        # a board name the fixture spells differently ('FaZe' v 'Faze Clan') is oriented by its opponent
+        odd = dict(board, a="FaZe (FaZe)", b="Vitality")
+        self.assertTrue(O.view(O.parse(load(SAMPLE)), odd, ["Vitality", "Faze Clan"])["swapped"])
+        self.assertFalse(O.view(O.parse(load(SAMPLE)), odd, ["Faze Clan", "Vitality"])["swapped"])
         self.assertEqual(v["model"]["pA"], board["pA"])
         tmp = tempfile.mkdtemp()
         self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
