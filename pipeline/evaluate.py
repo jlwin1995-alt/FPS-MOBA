@@ -29,16 +29,25 @@ PAYOUTS = {"5-pick flex": (5, {5: 10, 4: 2, 3: 0.4}), "6-pick flex": (6, {6: 25,
 KPM_AFTER = "2026-10-18"            # H9 (the kills-per-map shadow) was written after this slate: its Log columns were backfilled from the inputs, so earlier slates are descriptive
 HISTORY_ROUNDS = dict(mean=21.96, n=1199, share_over_21_5=0.487, note="CS2 maps, 28 days before 2026-10-16 (bo3.gg); the market prices the over 21.5 at about 49%")
 UNDER_AFTER = "2026-10-19"          # H10 (every leg under) was written after this slate: lines sit at the mean of a right-skewed distribution, the median result is below them
+CORE_AFTER = "2026-10-21"           # H11 (the under shortlist) was written after this slate; its thresholds were read off 2026-10-16..19, so 10-20 and 10-21 are descriptive too
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
-def agree10(po, poa):
+def agree10(po, poa, **_):
     """Play rule 'agree10' (declared 2026-10-17, first slate it counts on: 2026-10-18): the base and the round-differential models call the same side and both lean >= 10 points."""
     return po is not None and poa is not None and (po >= 0.5) == (poa >= 0.5) and min(abs(po - 0.5), abs(poa - 0.5)) >= 0.10
 
 
+def under_core(po, poa, line=None, market=None, pf=None, **_):
+    """Play rule 'under_core' (H11, declared 2026-10-21): take the UNDER where both models lean under, the base P(over) is below 40%, the line is outside 20-25,
+    the PrizePicks last-10 hit rate is at least 0.3 and below 0.7, and the leg is not a Maps 1-3 kills leg. The cut-offs were read off the 599 legs of 2026-10-16..19."""
+    return (po is not None and poa is not None and line is not None and pf is not None and po < 0.5 and poa < 0.5 and po < 0.40
+            and not 20 <= line < 25 and 0.3 <= pf < 0.7 and market != "Maps 1-3 Kills")
+
+
 RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agree10, after=SIDE_AFTER),
-         "all_under": dict(name="Every leg, under", test=lambda po, poa: po is not None, side="under", after=UNDER_AFTER)}
+         "all_under": dict(name="Every leg, under", test=lambda po, poa, **_: po is not None, side="under", after=UNDER_AFTER),
+         "under_core": dict(name="Under shortlist (both models under, P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, no Maps 1-3 kills)", test=under_core, side="under", after=CORE_AFTER)}
 
 HYPOTHESES = [
     dict(id="H1", name="The posted rounds total runs high", metric="mean(rounds assumed - rounds played) per map", claim=">0", null=0),
@@ -51,6 +60,7 @@ HYPOTHESES = [
     dict(id="H8", name="The agree10 play rule clears breakeven", metric="hit rate of legs where both models agree and both lean >= 10 pts - flex breakeven", claim=">0", null=0, after=SIDE_AFTER),
     dict(id="H9", name="Kills per map ranks legs better than KPR x rounds", metric="AUC(kills-per-map P(over)) - AUC(model P(over))", claim=">0", null=0, after=KPM_AFTER),
     dict(id="H10", name="Taking the under on every leg clears breakeven", metric="hit rate of 'under' on every leg - flex breakeven", claim=">0", null=0, after=UNDER_AFTER),
+    dict(id="H11", name="The under shortlist clears breakeven", metric="hit rate of 'under' on legs both models call under with P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, not Maps 1-3 kills - flex breakeven", claim=">0", null=0, after=CORE_AFTER),
 ]
 
 
@@ -359,7 +369,7 @@ def summarise(rows, mrows, moba=None):
         hyp["H7"] = (e, len(hits), MIN_LEGS)
         out["rules"] = {}
         for rid, rule in RULES.items():
-            idx = [i for i in range(len(R)) if R[i]["po"] is not None and rule["test"](R[i]["po"], R[i]["poa"])]
+            idx = [i for i in range(len(R)) if R[i]["po"] is not None and rule["test"](R[i]["po"], R[i]["poa"], line=R[i]["line"], market=R[i]["market"], pf=R[i]["l10"])]
             if not idx:
                 continue
             h = [1.0 if y[i] == 0 else 0.0 for i in idx] if rule.get("side") == "under" else [1.0 if (R[i]["po"] >= 0.5) == (y[i] == 1) else 0.0 for i in idx]
@@ -372,6 +382,8 @@ def summarise(rows, mrows, moba=None):
                 hyp["H8"] = (er, len(h), MIN_LEGS // 2)
             if rid == "all_under":
                 hyp["H10"] = (er, len(h), MIN_LEGS)
+            if rid == "under_core":
+                hyp["H11"] = (er, len(h), MIN_LEGS // 2)
     out["hypotheses"] = []
     for h in HYPOTHESES:
         e, units, minu = hyp.get(h["id"], (dict(value=None, ci=None, n=0), 0, 0))
@@ -434,6 +446,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     conf = [s for s in stored if s > EXPLORATORY_THROUGH]
     fwd = [s for s in stored if s > SIDE_AFTER]
     fwd10 = [s for s in stored if s > UNDER_AFTER]
+    fwd11 = [s for s in stored if s > CORE_AFTER]
 
     def label(summary, ss):
         """A hypothesis written after a slate cannot be tested on it: H7 reads 'descriptive' for any view that includes such a slate."""
@@ -445,8 +458,9 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     report = dict(generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), exploratory_through=EXPLORATORY_THROUGH, hypotheses=HYPOTHESES,
                   slates=sorted(stored), by_slate=by_slate, notes={s: stored[s]["notes"] for s in stored},
                   exploratory=dict(slates=expl, summary=label(pooled(expl), expl)) if expl else None, confirmatory=dict(slates=conf, summary=label(pooled(conf), conf)) if conf else None,
-                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
+                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, core_after=CORE_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
                             under_forward=dict(slates=fwd10, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H10"]))(pooled(fwd10))) if fwd10 else None,
+                            core_forward=dict(slates=fwd11, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H11"]))(pooled(fwd11))) if fwd11 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     write(f"{site}/data/evaluation.json", report)
     return report

@@ -99,6 +99,19 @@ class Friday(unittest.TestCase):
         h10 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H10"]
         self.assertTrue(h10.startswith("descriptive"))                          # declared after 2026-10-19
 
+    def test_under_core_rule_and_h11(self):
+        ok = dict(line=28.5, market="Maps 1-2 Kills", pf=0.5)
+        self.assertTrue(E.under_core(0.30, 0.35, **ok))
+        self.assertFalse(E.under_core(0.30, 0.55, **ok))                        # the second model leans over
+        self.assertFalse(E.under_core(0.45, 0.40, **ok))                        # base P(over) not below 40%
+        self.assertFalse(E.under_core(0.30, 0.35, **dict(ok, line=22.5)))       # line 20-25
+        self.assertFalse(E.under_core(0.30, 0.35, **dict(ok, pf=0.2)))          # PF L10 too low
+        self.assertFalse(E.under_core(0.30, 0.35, **dict(ok, pf=0.7)))          # ... or 0.7 and up
+        self.assertFalse(E.under_core(0.30, 0.35, **dict(ok, pf=None)))
+        self.assertFalse(E.under_core(0.30, 0.35, **dict(ok, market="Maps 1-3 Kills")))
+        h11 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H11"]
+        self.assertTrue(h11.startswith("descriptive"))                          # declared after 2026-10-21
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
