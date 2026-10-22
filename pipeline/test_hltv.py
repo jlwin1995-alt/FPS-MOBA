@@ -75,6 +75,22 @@ class Pure(unittest.TestCase):
         self.assertFalse(c2["rounds_ok"])
 
 
+    def test_a_bo3_map_that_failed_its_checks_is_replaced_only_by_a_clean_capture(self):
+        cap = self.good()
+        bad = dict(n=1, map="de_mirage", rounds=24, winner="x", score=[13, 11], state="done", players=[dict(name="p", kills=10, hs=11, deaths=1, team="t", alias="p")])
+        old = dict(status="finished", maps=[bad], checks=[dict(map=1, players_ok=True, kills_vs_deaths_ok=True, hs_le_kills=False, rounds_ok=True)])
+        rec, notes = H.merge_match(old, cap, "x.json")
+        self.assertEqual(rec["maps"][0]["site"], "hltv.org")
+        self.assertTrue(any("bo3.gg failed hs_le_kills" in n for n in notes))
+        wrong = dict(cap, maps=[dict(cap["maps"][0], score=[13, 9])])        # disagrees with bo3.gg on the score: bo3.gg's record stays
+        rec2, _ = H.merge_match(old, wrong, "x.json")
+        self.assertIs(rec2["maps"][0], bad)
+        dirty = copy.deepcopy(cap)
+        dirty["maps"][0]["players"][0]["hs"] = 99                             # the capture itself fails hs <= kills
+        rec3, _ = H.merge_match(old, dirty, "x.json")
+        self.assertIs(rec3["maps"][0], bad)
+
+
 class Merge(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
