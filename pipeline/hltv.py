@@ -126,9 +126,16 @@ def merge_match(old, cap, path):
         c = checks(m)
         rounds = sum(m["score"])
         if o and o.get("players"):
-            maps.append(o)                                    # bo3.gg's numbers stay
-            chk.append(next(x for x in old["checks"] if x["map"] == m["n"]))
-            continue
+            oc = next(x for x in old["checks"] if x["map"] == m["n"])
+            failed = [k for k in ("players_ok", "kills_vs_deaths_ok", "hs_le_kills", "rounds_ok") if not oc.get(k)]
+            same = (not o.get("map") or not m.get("map") or norm_map(o["map"]) == norm_map(m["map"])) and (not o.get("score") or sorted(o["score"]) == sorted(m["score"]))
+            if not (failed and same and all(c[k] for k in ("players_ok", "kills_vs_deaths_ok", "hs_le_kills"))):
+                maps.append(o)                                # bo3.gg's numbers stay
+                chk.append(oc)
+                continue
+            # the one exception: bo3.gg's own table for this map failed its identity checks and the capture passes them and agrees on map and score
+            notes.append(f"map {m['n']}: bo3.gg failed {', '.join(failed)}; replaced by the HLTV capture")
+            o = dict(o, players=[])
         if o:
             if o.get("map") and m.get("map") and norm_map(o["map"]) != norm_map(m.get("map")):
                 c["players_ok"] = False

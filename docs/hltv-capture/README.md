@@ -9,6 +9,6 @@ The settle pull leaves a CS2 match as `no player stats at source` when bo3.gg ha
 
 The script does not fetch other pages: HLTV returns 403 to background requests from a page, and that is not worked around. Whole-match captures (`maps: [...]`) are still accepted.
 
-What is checked: bo3.gg numbers are never replaced; a map filled from HLTV must have 10 players (5 per team), kills within 0-10 of the other side's deaths, headshots <= kills, and agree with bo3.gg on map and score. A failure leaves the leg unsettled with the reason.
+What is checked: bo3.gg numbers are never replaced, with one exception: a map whose bo3.gg table failed its own identity checks (for example a player with more headshots than kills) is replaced by a capture that passes them and agrees on map and score, and the leg's source reads `bo3.gg, hltv.org`; a map filled from HLTV must have 10 players (5 per team), kills within 0-10 of the other side's deaths, headshots <= kills, and agree with bo3.gg on map and score. A failure leaves the leg unsettled with the reason.
 
 Run `pipeline.hltv` again after any fresh `pipeline.results` pull (a pull rewrites the results file). The selectors in `capture.js` come from memory of HLTV's map-stats page and have **not** been checked against a live page: if it stops, it prints the classes of the tables it did find so they can be fixed.
