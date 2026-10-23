@@ -7,6 +7,7 @@ Sources (the ones the data dictionary names; HLTV is behind Cloudflare and is ne
   CS2  bo3.gg   per-map player tables, second route = the match-level table
   VAL  vlr.gg   per-map player tables, check = the all-maps tab equals the sum of the maps
   LOL  gol.gg   per-game player kills, check = the team header equals the sum of the players
+  DOTA OpenDota per-game player kills, checks = the team score is within 2 of the players' sum, and each player's kills in his own recent-match list equal the game table
 A leg is only given an Actual when its match is finished, the player is found in the map tables, and the map identities hold.
 Everything else is reported with a reason (void, did not play, unmatched, not finished), never guessed.
 """
@@ -120,6 +121,38 @@ def pull_lol(slate, moba):
     return out
 
 
+def pull_dota(slate, moba, imports="data/imports"):
+    from .sources import opendota
+    board = [m for m in moba["matches"] if m["id"].startswith("DOTA")]
+    if not board:
+        return {}
+    d0 = dt.datetime.fromisoformat(slate).replace(tzinfo=dt.timezone.utc)
+    cands = [dict(id=sr["series_id"], t1=[sr["teams"][0]], t2=[sr["teams"][1]], start=dt.datetime.fromtimestamp(sr["start"], dt.timezone.utc).replace(tzinfo=None), ref=sr)
+             for sr in opendota.pro_series(int((d0 - dt.timedelta(hours=6)).timestamp()))]
+    links = link_matches(slate, board, cands, None)
+    ap = f"{imports}/{slate}/dota_aliases.json"                  # {"board name": "OpenDota name"} for a handle the two spell differently
+    alias = json.load(open(ap, encoding="utf-8")) if os.path.exists(ap) else {}
+    out = {}
+    for b in board:
+        L = links.get(b["id"])
+        if not L:
+            out[b["id"]] = dict(status="not found among finished matches", maps=[])
+            continue
+        sr = L["cand"]["ref"]
+        if not opendota.finished(sr):
+            out[b["id"]] = dict(status="not finished", maps=[], detail=f"wins so far {opendota.wins(sr)} of a best of {sr['bo']}")
+            continue
+        r = opendota.series_maps(sr)
+        for mp in r["maps"]:
+            for p in mp["players"]:
+                for bname, oname in alias.items():
+                    if p["name"] == oname or p.get("alias") == oname:
+                        p["alias"] = bname
+        out[b["id"]] = dict(status="finished", source=dict(site="opendota.com", slug=f"series {sr['series_id']}", score=sorted(opendota.wins(sr).values(), reverse=True), bo=sr["bo"], start=sr["start"]),
+                            linked=dict(how=L["how"], start_gap_h=L["gap_h"], rivals=L["rivals"]), maps=r["maps"], checks=r["checks"], route2=r["route2"])
+    return out
+
+
 def _gol_trlist():
     import urllib.request
     req = urllib.request.Request("https://gol.gg/tournament/ajax.trlist.php", data=b"season=S16", headers={"User-Agent": "Mozilla/5.0"})
@@ -218,6 +251,10 @@ def main():
             m = pull_lol(a.slate, moba)
             res["titles"]["LOL"] = m
             res["legs"] += leg_actuals([g for g in moba["legs"] if g["match"].startswith("LOL")], moba["players"], m)
+        elif t == "DOTA":
+            m = pull_dota(a.slate, moba)
+            res["titles"]["DOTA"] = m
+            res["legs"] += leg_actuals([g for g in moba["legs"] if g["match"].startswith("DOTA")], moba["players"], m)
     os.makedirs(a.out, exist_ok=True)
     path = f"{a.out}/{a.slate}.json"
     json.dump(res, open(path, "w"), separators=(",", ":"), ensure_ascii=False)

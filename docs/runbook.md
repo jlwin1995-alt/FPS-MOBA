@@ -26,10 +26,12 @@ If a run goes red, nothing was committed or deployed. The step that failed says 
 From any machine with internet (works in a cloud session; no workbook needed, it reads that slate's own workbooks):
 
 ```bash
-python -m pipeline.results --slate <date> --titles CS2,VAL,LOL
+python -m pipeline.results --slate <date> --titles CS2,VAL,LOL,DOTA
 python -m pipeline.settle  --slate <date>
 git add data/results site/data/log && git commit -m "Settle <date>" && git push
 ```
+
+Dota comes from OpenDota (`pipeline/sources/opendota.py`): a series is read only once one team has the wins its series type needs, and each player's kills are checked against his own recent-match list. A handle the board and OpenDota spell differently (for example `miCKe` / `m1CKe`) goes in `data/imports/<date>/dota_aliases.json` as `{"board name": "OpenDota name"}`; a player who is on no roster is reported as `did not play`, never guessed.
 
 The push to `main` deploys (it touches `site/**`). Run it again later for matches still playing; settled values never change and re-runs are safe.
 Every unsettled leg carries its reason in the Log's *Settlement* column. The usual one is `no player stats at source` (bo3.gg has the maps but no player tables): those need HLTV match-page totals from your tab.
