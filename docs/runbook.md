@@ -31,7 +31,7 @@ python -m pipeline.settle  --slate <date>
 git add data/results site/data/log && git commit -m "Settle <date>" && git push
 ```
 
-Dota comes from OpenDota (`pipeline/sources/opendota.py`): a series is read only once one team has the wins its series type needs, and each player's kills are checked against his own recent-match list. A handle the board and OpenDota spell differently (for example `miCKe` / `m1CKe`) goes in `data/imports/<date>/dota_aliases.json` as `{"board name": "OpenDota name"}`; a player who is on no roster is reported as `did not play`, never guessed.
+Dota comes from OpenDota (`pipeline/sources/opendota.py`): a series is read only once one team has the wins its series type needs, and each player's kills are checked against his own recent-match list. A LoL team gol.gg names differently from the board (for example `Los Grandes` for `LOS`) goes in `data/imports/<date>/lol_aliases.json` as `{"gol.gg name": "board name"}`. A handle the board and OpenDota spell differently (for example `miCKe` / `m1CKe`) goes in `data/imports/<date>/dota_aliases.json` as `{"board name": "OpenDota name"}`; a player who is on no roster is reported as `did not play`, never guessed.
 
 The push to `main` deploys (it touches `site/**`). Run it again later for matches still playing; settled values never change and re-runs are safe.
 Every unsettled leg carries its reason in the Log's *Settlement* column. The usual one is `no player stats at source` (bo3.gg has the maps but no player tables): those need HLTV match-page totals from your tab.
