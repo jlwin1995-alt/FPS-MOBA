@@ -15,13 +15,13 @@ def series_list(tournament):
     s = get_text(f"{BASE}/tournament/tournament-matchlist/{urllib.parse.quote(tournament)}/")
     out = []
     for r in re.findall(r"<tr[^>]*>(.*?)</tr>", s, flags=re.S):
-        m = re.search(r"stats/(\d+)/page-(summary|preview)/", r)
+        m = re.search(r"stats/(\d+)/page-(summary|preview|game)/", r)       # a best-of-1 (Worlds main event) links straight to its game page
         tds = re.findall(r"<td([^>]*)>(.*?)</td>", r, flags=re.S)
         if not m or len(tds) < 7:
             continue
         left, right = tidy(tds[1][1]), tidy(tds[3][1])
         win = "left" if "text_victory" in tds[1][0] else "right" if "text_victory" in tds[3][0] else None
-        out.append(dict(id=int(m.group(1)), teams=[left, right], winner=win, score=tidy(tds[2][1]), played=m.group(2) == "summary", round=tidy(tds[4][1]), date=tidy(tds[6][1])))
+        out.append(dict(id=int(m.group(1)), teams=[left, right], winner=win, score=tidy(tds[2][1]), played=m.group(2) in ("summary", "game"), single=m.group(2) == "game", round=tidy(tds[4][1]), date=tidy(tds[6][1])))
     return out
 
 
@@ -52,10 +52,10 @@ def game(gid):
     return dict(id=gid, teams=teams, duration=dur.group(1) if dur else None)
 
 
-def series_maps(series_id):
-    """-> {'maps': [...as the other sources...], 'checks': [...], 'route2': {...}}"""
+def series_maps(series_id, single=False):
+    """-> {'maps': [...as the other sources...], 'checks': [...], 'route2': {...}}. `single`: the id is already a game id (a best-of-1 listed by its game page)."""
     maps, checks, mism = [], [], 0
-    for n, gid in enumerate(series_game_ids(series_id), 1):
+    for n, gid in enumerate([series_id] if single else series_game_ids(series_id), 1):
         g = game(gid)
         players = [dict(name=p["name"], alias=None, team=t["name"], kills=p["kills"], hs=None, deaths=p["deaths"]) for t in g["teams"] for p in t["players"]]
         k = {t["name"]: sum(p["kills"] for p in t["players"]) for t in g["teams"]}

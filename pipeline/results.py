@@ -95,7 +95,7 @@ def pull_cs2(slate, fps):
 
 
 # ------------------------------------------------------------------ LoL
-def pull_lol(slate, moba):
+def pull_lol(slate, moba, imports="data/imports"):
     from .sources import gol
     d0 = dt.date.fromisoformat(slate)
     board = [m for m in moba["matches"] if m["id"].startswith("LOL")]
@@ -107,6 +107,10 @@ def pull_lol(slate, moba):
         for sr in gol.series_list(tr):
             if sr["played"]:
                 cands.append(dict(id=sr["id"], t1=[sr["teams"][0]], t2=[sr["teams"][1]], start=dt.datetime.fromisoformat(sr["date"]) + dt.timedelta(hours=18), ref=dict(sr, tournament=tr)))
+    ap = f"{imports}/{slate}/lol_aliases.json"                   # {"gol.gg team name": "board name"} for a team the two spell differently ('Los Grandes' / 'LOS')
+    alias = json.load(open(ap, encoding="utf-8")) if os.path.exists(ap) else {}
+    for c in cands:
+        c["t1"], c["t2"] = [alias.get(x, x) for x in c["t1"]], [alias.get(x, x) for x in c["t2"]]
     links = link_matches(slate, board, cands, None)
     out = {}
     for b in board:
@@ -115,7 +119,7 @@ def pull_lol(slate, moba):
             out[b["id"]] = dict(status="not found among finished matches", maps=[])
             continue
         r = L["cand"]["ref"]
-        d = gol.series_maps(r["id"])
+        d = gol.series_maps(r["id"], single=r.get("single", False))
         out[b["id"]] = dict(status="finished", source=dict(site="gol.gg", slug=f"/game/stats/{r['id']}/page-summary/", score=r["score"], bo=b["bo"], start=r["date"], tournament=r["tournament"]),
                             linked=dict(how=L["how"], start_gap_h=L["gap_h"], rivals=L["rivals"]), maps=d["maps"], checks=d["checks"], route2=d["route2"])
     return out
