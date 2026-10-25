@@ -43,6 +43,7 @@ class Names(unittest.TestCase):
     def test_players(self):
         self.assertTrue(same_player("MartinezSa", "Martinez"))
         self.assertTrue(same_player("luk xo", "Lukxo"))
+        self.assertTrue(same_player("Rose", "Rosé"))                    # accents fold: vlr spells the handle with one
         self.assertFalse(same_player("ab", "abc"))                     # too short to be called a match by containment
 
 
