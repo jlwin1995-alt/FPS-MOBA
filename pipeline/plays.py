@@ -16,7 +16,7 @@ def select(log_rows):
         for r in log_rows:
             po, poa = r.get("P(over)"), r.get("P(over) adj")
             if rule["test"](po, poa, line=r.get("Line"), market=r.get("Market"), pf=r.get("PF L10")):
-                side = "UNDER" if rule.get("side") == "under" else "OVER" if po >= 0.5 else "UNDER"
+                side = "UNDER" if rule.get("side") == "under" else "OVER" if rule.get("side") == "over" else "OVER" if po >= 0.5 else "UNDER"
                 legs.append(dict(match=r["Match"], player=r["Player"], market=r["Market"], line=r["Line"], side=side, p_over=po, p_over_adj=poa))
         legs.sort(key=lambda l: (l["match"], -abs(l["p_over"] - 0.5)))
         out[rid] = dict(name=rule["name"], n=len(legs), legs=legs)
