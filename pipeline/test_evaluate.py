@@ -112,6 +112,15 @@ class Friday(unittest.TestCase):
         h11 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H11"]
         self.assertTrue(h11.startswith("descriptive"))                          # declared after 2026-10-21
 
+    def test_l10_over_rule_and_h12(self):
+        self.assertTrue(E.l10_over(0.4, 0.4, pf=0.8))
+        self.assertTrue(E.l10_over(None, None, pf=1.0))
+        self.assertFalse(E.l10_over(0.9, 0.9, pf=0.7))
+        self.assertFalse(E.l10_over(0.9, 0.9, pf=None))
+        self.assertEqual(E.RULES["l10_over"]["side"], "over")
+        h12 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H12"]
+        self.assertTrue(h12.startswith("descriptive"))                          # declared after 2026-10-24
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
