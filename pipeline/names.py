@@ -1,7 +1,12 @@
 """Name matching between the board (PickFinder / Thunderpick names) and the results sources."""
-import re
+import re, unicodedata
 
-norm = lambda s: re.sub(r"[^a-z0-9]", "", (s or "").lower())
+def _fold(s):
+    """Accents folded to their base letter ('Rosé' -> 'Rose', 'KRÜ' -> 'KRU') so a handle spelled with and without them is the same name."""
+    return "".join(c for c in unicodedata.normalize("NFKD", s or "") if not unicodedata.combining(c))
+
+
+norm = lambda s: re.sub(r"[^a-z0-9]", "", _fold(s).lower())
 STOP = {"team", "esports", "esport", "gaming", "club", "gg"}
 
 
