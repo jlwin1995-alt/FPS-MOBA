@@ -121,6 +121,16 @@ class Friday(unittest.TestCase):
         h12 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H12"]
         self.assertTrue(h12.startswith("descriptive"))                          # declared after 2026-10-24
 
+    def test_agree20_rule_and_h13(self):
+        self.assertTrue(E.agree20(0.72, 0.70))
+        self.assertTrue(E.agree20(0.28, 0.20))
+        self.assertFalse(E.agree20(0.72, 0.65))              # second model leans < 20 pts
+        self.assertFalse(E.agree20(0.75, 0.40))              # the models disagree
+        self.assertFalse(E.agree20(None, 0.8))
+        self.assertNotIn("side", E.RULES["agree20"])         # scored on the model's own side
+        h13 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H13"]
+        self.assertTrue(h13.startswith("descriptive"))       # declared after 2026-10-26
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))

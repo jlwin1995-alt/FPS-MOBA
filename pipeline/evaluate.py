@@ -31,12 +31,18 @@ HISTORY_ROUNDS = dict(mean=21.96, n=1199, share_over_21_5=0.487, note="CS2 maps,
 UNDER_AFTER = "2026-10-19"          # H10 (every leg under) was written after this slate: lines sit at the mean of a right-skewed distribution, the median result is below them
 CORE_AFTER = "2026-10-21"           # H11 (the under shortlist) was written after this slate; its thresholds were read off 2026-10-16..19, so 10-20 and 10-21 are descriptive too
 L10_AFTER = "2026-10-24"            # H12 (last-10 hit rate 0.8+ goes over) was written after this slate: it was read off 2026-10-16..24, so those slates are descriptive
+LEAN20_AFTER = "2026-10-26"         # H13 (both models agree, both lean >= 20 pts) was written after this slate: the cut-off was read off the legs of 2026-10-18..25, so 10-26 is descriptive too
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
 def agree10(po, poa, **_):
     """Play rule 'agree10' (declared 2026-10-17, first slate it counts on: 2026-10-18): the base and the round-differential models call the same side and both lean >= 10 points."""
     return po is not None and poa is not None and (po >= 0.5) == (poa >= 0.5) and min(abs(po - 0.5), abs(poa - 0.5)) >= 0.10
+
+
+def agree20(po, poa, **_):
+    """Play rule 'agree20' (H13, declared 2026-10-27): the base and the round-differential models call the same side and both lean >= 20 points. Read off the settled legs of 2026-10-18..25 (48 of 80 on the agreed side)."""
+    return po is not None and poa is not None and (po >= 0.5) == (poa >= 0.5) and min(abs(po - 0.5), abs(poa - 0.5)) >= 0.20 - 1e-9       # the tolerance keeps a lean of exactly 20 points (0.70 - 0.5 is 0.1999...) in
 
 
 def under_core(po, poa, line=None, market=None, pf=None, **_):
@@ -55,6 +61,7 @@ def l10_over(po, poa, line=None, market=None, pf=None, **_):
 RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agree10, after=SIDE_AFTER),
          "all_under": dict(name="Every leg, under", test=lambda po, poa, **_: po is not None, side="under", after=UNDER_AFTER),
          "under_core": dict(name="Under shortlist (both models under, P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, no Maps 1-3 kills)", test=under_core, side="under", after=CORE_AFTER),
+         "agree20": dict(name="Both models agree, both lean >= 20 pts", test=agree20, after=LEAN20_AFTER),
          "l10_over": dict(name="Over where the last-10 hit rate is 0.8+", test=l10_over, side="over", after=L10_AFTER)}
 
 HYPOTHESES = [
@@ -70,6 +77,7 @@ HYPOTHESES = [
     dict(id="H10", name="Taking the under on every leg clears breakeven", metric="hit rate of 'under' on every leg - flex breakeven", claim=">0", null=0, after=UNDER_AFTER),
     dict(id="H11", name="The under shortlist clears breakeven", metric="hit rate of 'under' on legs both models call under with P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, not Maps 1-3 kills - flex breakeven", claim=">0", null=0, after=CORE_AFTER),
     dict(id="H12", name="Last-10 hit rate 0.8+ goes over and clears breakeven", metric="hit rate of 'over' on legs whose PrizePicks last-10 hit rate is 0.8 or more - flex breakeven", claim=">0", null=0, after=L10_AFTER),
+    dict(id="H13", name="The agree20 play rule clears breakeven", metric="hit rate of legs where both models agree and both lean >= 20 pts - flex breakeven", claim=">0", null=0, after=LEAN20_AFTER),
 ]
 
 
@@ -396,6 +404,8 @@ def summarise(rows, mrows, moba=None):
                 hyp["H11"] = (er, len(h), MIN_LEGS // 2)
             if rid == "l10_over":
                 hyp["H12"] = (er, len(h), MIN_LEGS // 2)
+            if rid == "agree20":
+                hyp["H13"] = (er, len(h), MIN_LEGS // 4)
     out["hypotheses"] = []
     for h in HYPOTHESES:
         e, units, minu = hyp.get(h["id"], (dict(value=None, ci=None, n=0), 0, 0))
@@ -460,6 +470,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     fwd10 = [s for s in stored if s > UNDER_AFTER]
     fwd11 = [s for s in stored if s > CORE_AFTER]
     fwd12 = [s for s in stored if s > L10_AFTER]
+    fwd13 = [s for s in stored if s > LEAN20_AFTER]
 
     def label(summary, ss):
         """A hypothesis written after a slate cannot be tested on it: H7 reads 'descriptive' for any view that includes such a slate."""
@@ -471,10 +482,11 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     report = dict(generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), exploratory_through=EXPLORATORY_THROUGH, hypotheses=HYPOTHESES,
                   slates=sorted(stored), by_slate=by_slate, notes={s: stored[s]["notes"] for s in stored},
                   exploratory=dict(slates=expl, summary=label(pooled(expl), expl)) if expl else None, confirmatory=dict(slates=conf, summary=label(pooled(conf), conf)) if conf else None,
-                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, core_after=CORE_AFTER, l10_after=L10_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
+                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, core_after=CORE_AFTER, l10_after=L10_AFTER, lean20_after=LEAN20_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
                             under_forward=dict(slates=fwd10, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H10"]))(pooled(fwd10))) if fwd10 else None,
                             core_forward=dict(slates=fwd11, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H11"]))(pooled(fwd11))) if fwd11 else None,
                             l10_forward=dict(slates=fwd12, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H12"]))(pooled(fwd12))) if fwd12 else None,
+                            lean20_forward=dict(slates=fwd13, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H13"]))(pooled(fwd13))) if fwd13 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     write(f"{site}/data/evaluation.json", report)
     return report
