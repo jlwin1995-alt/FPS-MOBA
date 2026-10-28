@@ -32,6 +32,7 @@ UNDER_AFTER = "2026-10-19"          # H10 (every leg under) was written after th
 CORE_AFTER = "2026-10-21"           # H11 (the under shortlist) was written after this slate; its thresholds were read off 2026-10-16..19, so 10-20 and 10-21 are descriptive too
 L10_AFTER = "2026-10-24"            # H12 (last-10 hit rate 0.8+ goes over) was written after this slate: it was read off 2026-10-16..24, so those slates are descriptive
 LEAN20_AFTER = "2026-10-26"         # H13 (both models agree, both lean >= 20 pts) was written after this slate: the cut-off was read off the legs of 2026-10-18..25, so 10-26 is descriptive too
+MOBA20_AFTER = "2026-10-27"         # H14 (MOBA legs where the model leans >= 20 points) was written after this slate; read off the 399 settled MOBA legs of 2026-10-16..26, so only slates after 2026-10-27 test it
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
@@ -58,6 +59,13 @@ def l10_over(po, poa, line=None, market=None, pf=None, **_):
     return pf is not None and pf >= 0.8
 
 
+def moba_lean20(po, **_):
+    """Play rule 'moba_lean20' (H14, declared 2026-10-28; MOBA legs): the model's P(over) is 20 points or more away from 50%; the model's own side is scored. Read off the settled legs of 2026-10-16..26 (28 of 35)."""
+    return po is not None and abs(po - 0.5) >= 0.20 - 1e-9
+
+
+MOBA_RULES = {"moba_lean20": dict(name="MOBA: model leans >= 20 pts, model's side", test=moba_lean20, after=MOBA20_AFTER)}
+
 RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agree10, after=SIDE_AFTER),
          "all_under": dict(name="Every leg, under", test=lambda po, poa, **_: po is not None, side="under", after=UNDER_AFTER),
          "under_core": dict(name="Under shortlist (both models under, P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, no Maps 1-3 kills)", test=under_core, side="under", after=CORE_AFTER),
@@ -78,6 +86,7 @@ HYPOTHESES = [
     dict(id="H11", name="The under shortlist clears breakeven", metric="hit rate of 'under' on legs both models call under with P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, not Maps 1-3 kills - flex breakeven", claim=">0", null=0, after=CORE_AFTER),
     dict(id="H12", name="Last-10 hit rate 0.8+ goes over and clears breakeven", metric="hit rate of 'over' on legs whose PrizePicks last-10 hit rate is 0.8 or more - flex breakeven", claim=">0", null=0, after=L10_AFTER),
     dict(id="H13", name="The agree20 play rule clears breakeven", metric="hit rate of legs where both models agree and both lean >= 20 pts - flex breakeven", claim=">0", null=0, after=LEAN20_AFTER),
+    dict(id="H14", name="MOBA model-lean 20+ legs clear breakeven", metric="hit rate of the model's side on Dota and LoL legs where P(over) is 20 or more points from 50% - flex breakeven", claim=">0", null=0, after=MOBA20_AFTER),
 ]
 
 
@@ -406,6 +415,9 @@ def summarise(rows, mrows, moba=None):
                 hyp["H12"] = (er, len(h), MIN_LEGS // 2)
             if rid == "agree20":
                 hyp["H13"] = (er, len(h), MIN_LEGS // 4)
+    mr = moba_rules(moba) if moba else {}
+    if "moba_lean20" in mr:
+        hyp["H14"] = (mr["moba_lean20"]["est"], mr["moba_lean20"]["n"], MIN_LEGS // 4)
     out["hypotheses"] = []
     for h in HYPOTHESES:
         e, units, minu = hyp.get(h["id"], (dict(value=None, ci=None, n=0), 0, 0))
@@ -424,9 +436,26 @@ def _d(a, b):
     return None if a is None or b is None else a - b
 
 
+def moba_rules(rows):
+    """-> {rule id: stats + 'est' (the clustered estimate against breakeven)}: the model's side on settled MOBA legs a rule selects (pushes dropped)."""
+    out, be = {}, max(BREAKEVEN.values())
+    for rid, rule in MOBA_RULES.items():
+        sel = [r for r in rows if r["act"] != r["line"] and r.get("po") is not None and rule["test"](r["po"])]
+        if not sel:
+            continue
+        h = [1.0 if (r["po"] >= 0.5) == (r["act"] > r["line"]) else 0.0 for r in sel]
+        c = [r["cluster"] for r in sel]
+        er = est(lambda ix, h=h: sum(h[i] for i in ix) / len(ix) - be, c, len(h))
+        rt = sum(h) / len(h)
+        out[rid] = dict(name=rule["name"], n=len(h), hits=int(sum(h)), rate=round(rt, 4), wilson=wilson(int(sum(h)), len(h)), clustered_ci=None if er["ci"] is None else [round(er["ci"][0] + be, 4), round(er["ci"][1] + be, 4)],
+                        headroom=round(rt - be, 4), legs_to_confirm=None if rt <= be else int((1.96 * 0.5 / (rt - be)) ** 2) + 1, est=er, matches=len(set(c)))
+    return out
+
+
 def summarise_moba(rows):
     n = len(rows)
     out = dict(n_settled=n)
+    out["rules"] = {k: {a: b for a, b in v.items() if a != "est"} for k, v in moba_rules(rows).items()}
     mae = lambda f: (lambda xs: round(sum(xs) / len(xs), 4) if xs else None)([abs(f(r) - r["act"]) for r in rows if f(r) is not None])
     out.update(mae_line=mae(lambda r: r["line"]), mae_proj=mae(lambda r: r["proj"]), mae_naive=mae(lambda r: r["naive"]))
     if n < 30:
@@ -471,6 +500,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     fwd11 = [s for s in stored if s > CORE_AFTER]
     fwd12 = [s for s in stored if s > L10_AFTER]
     fwd13 = [s for s in stored if s > LEAN20_AFTER]
+    fwd14 = [s for s in stored if s > MOBA20_AFTER]
 
     def label(summary, ss):
         """A hypothesis written after a slate cannot be tested on it: H7 reads 'descriptive' for any view that includes such a slate."""
@@ -482,11 +512,13 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     report = dict(generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), exploratory_through=EXPLORATORY_THROUGH, hypotheses=HYPOTHESES,
                   slates=sorted(stored), by_slate=by_slate, notes={s: stored[s]["notes"] for s in stored},
                   exploratory=dict(slates=expl, summary=label(pooled(expl), expl)) if expl else None, confirmatory=dict(slates=conf, summary=label(pooled(conf), conf)) if conf else None,
-                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, core_after=CORE_AFTER, l10_after=L10_AFTER, lean20_after=LEAN20_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
+                  side=dict(breakeven=BREAKEVEN, payouts={k: v[1] for k, v in PAYOUTS.items()}, declared_after=SIDE_AFTER, under_after=UNDER_AFTER, core_after=CORE_AFTER, l10_after=L10_AFTER, lean20_after=LEAN20_AFTER, moba20_after=MOBA20_AFTER, all=(pooled(sorted(stored)) or {}).get("side"), rules_all=(pooled(sorted(stored)) or {}).get("rules"),
                             under_forward=dict(slates=fwd10, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H10"]))(pooled(fwd10))) if fwd10 else None,
                             core_forward=dict(slates=fwd11, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H11"]))(pooled(fwd11))) if fwd11 else None,
                             l10_forward=dict(slates=fwd12, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H12"]))(pooled(fwd12))) if fwd12 else None,
                             lean20_forward=dict(slates=fwd13, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H13"]))(pooled(fwd13))) if fwd13 else None,
+                            moba_all=((pooled(sorted(stored)) or {}).get("moba") or {}).get("rules"),
+                            moba_forward=dict(slates=fwd14, summary=(lambda x: x and dict(rules=(x.get("moba") or {}).get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H14"]))(pooled(fwd14))) if fwd14 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     write(f"{site}/data/evaluation.json", report)
     return report

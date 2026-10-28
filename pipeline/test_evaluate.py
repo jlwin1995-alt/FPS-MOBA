@@ -131,6 +131,17 @@ class Friday(unittest.TestCase):
         h13 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H13"]
         self.assertTrue(h13.startswith("descriptive"))       # declared after 2026-10-26
 
+    def test_moba_lean20_rule_and_h14(self):
+        self.assertTrue(E.moba_lean20(0.70))
+        self.assertTrue(E.moba_lean20(0.30))
+        self.assertFalse(E.moba_lean20(0.69))
+        self.assertFalse(E.moba_lean20(None))
+        rows = [dict(cluster="a", line=5, act=7, po=0.75), dict(cluster="a", line=5, act=3, po=0.75), dict(cluster="b", line=5, act=3, po=0.20), dict(cluster="b", line=5, act=5, po=0.2), dict(cluster="c", line=5, act=9, po=0.55)]
+        r = E.moba_rules(rows)["moba_lean20"]
+        self.assertEqual((r["hits"], r["n"]), (2, 3))                           # the push and the 55% leg are not in it; over hit, over miss, under hit
+        h14 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H14"]
+        self.assertTrue(h14 in ("insufficient data",) or h14.startswith("descriptive"))      # declared after 2026-10-27
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
