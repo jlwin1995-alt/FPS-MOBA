@@ -3642,5 +3642,38 @@
    ]
   }
  },
- "comparison": "every leg on the board (the base model's side)"
+ "comparison": "every leg on the board (the base model's side)",
+ "moba_rules": {
+  "moba_lean20": {
+   "name": "MOBA: model leans >= 20 pts, model's side",
+   "n": 3,
+   "legs": [
+    {
+     "match": "DOTA \u00b7 TS vs OG",
+     "player": "not me",
+     "market": "Maps 1-2 Kills",
+     "line": 8.5,
+     "side": "OVER",
+     "p_over": 0.713
+    },
+    {
+     "match": "LOL \u00b7 IG vs LY",
+     "player": "JiaQi",
+     "market": "Maps 1-2 Kills",
+     "line": 8.5,
+     "side": "OVER",
+     "p_over": 0.702
+    },
+    {
+     "match": "LOL \u00b7 MKOI vs T1",
+     "player": "Faker",
+     "market": "Maps 1-2 Kills",
+     "line": 7.5,
+     "side": "UNDER",
+     "p_over": 0.2825
+    }
+   ]
+  }
+ },
+ "moba_frozen_utc": "2026-10-28T03:30:35+00:00"
 }
