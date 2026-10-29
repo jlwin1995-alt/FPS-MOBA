@@ -1,0 +1,3627 @@
+{
+ "slate": "2026-10-29",
+ "frozen_utc": "2026-10-29T05:31:49+00:00",
+ "rules": {
+  "agree10": {
+   "name": "Both models agree, both lean >= 10 pts",
+   "n": 66,
+   "legs": [
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "poiii",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "OVER",
+     "p_over": 0.6499,
+     "p_over_adj": 0.6499
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "Gizmy",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.3559,
+     "p_over_adj": 0.3559
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "device",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "OVER",
+     "p_over": 0.6292,
+     "p_over_adj": 0.6292
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "device",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "OVER",
+     "p_over": 0.6018,
+     "p_over_adj": 0.6018
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "Ag1l",
+     "market": "Map 1 HS",
+     "line": 7,
+     "side": "OVER",
+     "p_over": 0.6345,
+     "p_over_adj": 0.6345
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "dav1g",
+     "market": "Map 1 HS",
+     "line": 5.5,
+     "side": "UNDER",
+     "p_over": 0.3684,
+     "p_over_adj": 0.3684
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "sausol",
+     "market": "Map 1 HS",
+     "line": 8,
+     "side": "UNDER",
+     "p_over": 0.3707,
+     "p_over_adj": 0.3707
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "mopoz",
+     "market": "Map 1 Kills",
+     "line": 14,
+     "side": "OVER",
+     "p_over": 0.6174,
+     "p_over_adj": 0.6174
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "dav1g",
+     "market": "Map 1 Kills",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3888,
+     "p_over_adj": 0.3888
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2445,
+     "p_over_adj": 0.1977
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.289,
+     "p_over_adj": 0.247
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Ryu",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "OVER",
+     "p_over": 0.6556,
+     "p_over_adj": 0.6427
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Ryu",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.6322,
+     "p_over_adj": 0.6227
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3697,
+     "p_over_adj": 0.3341
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3919,
+     "p_over_adj": 0.3333
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "esenthial",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "OVER",
+     "p_over": 0.6978,
+     "p_over_adj": 0.6655
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "kensizor",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "OVER",
+     "p_over": 0.6822,
+     "p_over_adj": 0.6545
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "s1zzi",
+     "market": "Maps 1-2 HS",
+     "line": 9,
+     "side": "UNDER",
+     "p_over": 0.3256,
+     "p_over_adj": 0.3033
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zock",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.7685,
+     "p_over_adj": 0.776
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "Divine",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3113,
+     "p_over_adj": 0.3081
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zock",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "OVER",
+     "p_over": 0.6583,
+     "p_over_adj": 0.6698
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zmb",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.3866,
+     "p_over_adj": 0.3788
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "Magnojez",
+     "market": "Maps 1-2 Kills",
+     "line": 31,
+     "side": "OVER",
+     "p_over": 0.7072,
+     "p_over_adj": 0.6126
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "KSCERATO",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3049,
+     "p_over_adj": 0.3382
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "Magnojez",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "OVER",
+     "p_over": 0.6857,
+     "p_over_adj": 0.611
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "d1Ledez",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.3961,
+     "p_over_adj": 0.3212
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.1651,
+     "p_over_adj": 0.2492
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.2052,
+     "p_over_adj": 0.2752
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 HS",
+     "line": 12,
+     "side": "UNDER",
+     "p_over": 0.2181,
+     "p_over_adj": 0.2891
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 HS",
+     "line": 8.5,
+     "side": "UNDER",
+     "p_over": 0.2314,
+     "p_over_adj": 0.2867
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2329,
+     "p_over_adj": 0.3281
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "doc",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2669,
+     "p_over_adj": 0.3782
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.2899,
+     "p_over_adj": 0.392
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "gr1ks",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.2673,
+     "p_over_adj": 0.2729
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "JDC",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.307,
+     "p_over_adj": 0.3112
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "MisteM",
+     "market": "Maps 1-2 Kills",
+     "line": 24.5,
+     "side": "OVER",
+     "p_over": 0.6897,
+     "p_over_adj": 0.6495
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "JDC",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3594,
+     "p_over_adj": 0.3636
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Soulfly",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.3989,
+     "p_over_adj": 0.3641
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "robo",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "OVER",
+     "p_over": 0.7381,
+     "p_over_adj": 0.6481
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.2972,
+     "p_over_adj": 0.2858
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3185,
+     "p_over_adj": 0.301
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "robo",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "OVER",
+     "p_over": 0.6768,
+     "p_over_adj": 0.6014
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "dziugss",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3878,
+     "p_over_adj": 0.3738
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "OVER",
+     "p_over": 0.7772,
+     "p_over_adj": 0.7267
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 HS",
+     "line": 19,
+     "side": "OVER",
+     "p_over": 0.6711,
+     "p_over_adj": 0.6197
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Jcobbb",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.345,
+     "p_over_adj": 0.3533
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Tauson",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "OVER",
+     "p_over": 0.6466,
+     "p_over_adj": 0.6019
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "lenci",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "OVER",
+     "p_over": 0.753,
+     "p_over_adj": 0.6201
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "tomate",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3331,
+     "p_over_adj": 0.3521
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "PKL",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.3737,
+     "p_over_adj": 0.3921
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "torzsi",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3674,
+     "p_over_adj": 0.3563
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "xertioN",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.6276,
+     "p_over_adj": 0.6151
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "XANTARES",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.3812,
+     "p_over_adj": 0.3054
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "XANTARES",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.3929,
+     "p_over_adj": 0.2993
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "matios",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2641,
+     "p_over_adj": 0.2997
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "pesadelo",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.3448,
+     "p_over_adj": 0.3838
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "proSHOW",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "OVER",
+     "p_over": 0.6426,
+     "p_over_adj": 0.6082
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "b1t",
+     "market": "Maps 1-2 HS",
+     "line": 17,
+     "side": "UNDER",
+     "p_over": 0.3488,
+     "p_over_adj": 0.3083
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "saffee",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2187,
+     "p_over_adj": 0.3326
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Tatu",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.2415,
+     "p_over_adj": 0.3579
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "biguzera",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2479,
+     "p_over_adj": 0.3697
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Rkzinho",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.2645,
+     "p_over_adj": 0.3691
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "sibeastw0w",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "OVER",
+     "p_over": 0.7254,
+     "p_over_adj": 0.7254
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "CXIX666",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "OVER",
+     "p_over": 0.6432,
+     "p_over_adj": 0.6432
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "Akeman",
+     "market": "Maps 1-2 Kills",
+     "line": 31,
+     "side": "UNDER",
+     "p_over": 0.3781,
+     "p_over_adj": 0.3781
+    },
+    {
+     "match": "VAL \u00b7 TEC vs WSIG",
+     "player": "Haodong",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.167,
+     "p_over_adj": 0.167
+    }
+   ]
+  },
+  "all_under": {
+   "name": "Every leg, under",
+   "n": 260,
+   "legs": [
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "poiii",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.6499,
+     "p_over_adj": 0.6499
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "Gizmy",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.3559,
+     "p_over_adj": 0.3559
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "device",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.6292,
+     "p_over_adj": 0.6292
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "device",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "UNDER",
+     "p_over": 0.6018,
+     "p_over_adj": 0.6018
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "Gizmy",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.4259,
+     "p_over_adj": 0.4259
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "sirah",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.5544,
+     "p_over_adj": 0.5544
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "rain",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.4494,
+     "p_over_adj": 0.4494
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "poiii",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.5225,
+     "p_over_adj": 0.5225
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "sirah",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.4805,
+     "p_over_adj": 0.4805
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 100T vs Arena Pro",
+     "player": "rain",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.4807,
+     "p_over_adj": 0.4807
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "Ag1l",
+     "market": "Map 1 HS",
+     "line": 7,
+     "side": "UNDER",
+     "p_over": 0.6345,
+     "p_over_adj": 0.6345
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "dav1g",
+     "market": "Map 1 HS",
+     "line": 5.5,
+     "side": "UNDER",
+     "p_over": 0.3684,
+     "p_over_adj": 0.3684
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "sausol",
+     "market": "Map 1 HS",
+     "line": 8,
+     "side": "UNDER",
+     "p_over": 0.3707,
+     "p_over_adj": 0.3707
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "mopoz",
+     "market": "Map 1 Kills",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.6174,
+     "p_over_adj": 0.6174
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "dav1g",
+     "market": "Map 1 Kills",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3888,
+     "p_over_adj": 0.3888
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "mopoz",
+     "market": "Map 1 HS",
+     "line": 8,
+     "side": "UNDER",
+     "p_over": 0.5946,
+     "p_over_adj": 0.5946
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "sausol",
+     "market": "Map 1 Kills",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.4154,
+     "p_over_adj": 0.4154
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "Ag1l",
+     "market": "Map 1 Kills",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.5677,
+     "p_over_adj": 0.5677
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "alex",
+     "market": "Map 1 HS",
+     "line": 6.5,
+     "side": "UNDER",
+     "p_over": 0.4496,
+     "p_over_adj": 0.4496
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "alex",
+     "market": "Map 1 Kills",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.4597,
+     "p_over_adj": 0.4597
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2445,
+     "p_over_adj": 0.1977
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.289,
+     "p_over_adj": 0.247
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Ryu",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.6556,
+     "p_over_adj": 0.6427
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Ryu",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.6322,
+     "p_over_adj": 0.6227
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3697,
+     "p_over_adj": 0.3341
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3919,
+     "p_over_adj": 0.3333
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "onic",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.4413,
+     "p_over_adj": 0.3862
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Staehr",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.553,
+     "p_over_adj": 0.5399
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "zeRRoFIX",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.5321,
+     "p_over_adj": 0.4835
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "cptkurtka023",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.5236,
+     "p_over_adj": 0.4742
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "onic",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.4795,
+     "p_over_adj": 0.4357
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Staehr",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.5205,
+     "p_over_adj": 0.5098
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "zeRRoFIX",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.4823,
+     "p_over_adj": 0.4228
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "phzy",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.4835,
+     "p_over_adj": 0.4711
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "siuhy",
+     "market": "Maps 1-2 Kills",
+     "line": 24.5,
+     "side": "UNDER",
+     "p_over": 0.4919,
+     "p_over_adj": 0.48
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "cptkurtka023",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5078,
+     "p_over_adj": 0.4473
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "esenthial",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.6978,
+     "p_over_adj": 0.6655
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "kensizor",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.6822,
+     "p_over_adj": 0.6545
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "s1zzi",
+     "market": "Maps 1-2 HS",
+     "line": 9,
+     "side": "UNDER",
+     "p_over": 0.3256,
+     "p_over_adj": 0.3033
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "frontales",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.6182,
+     "p_over_adj": 0.5683
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "n0rb3r7",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.6064,
+     "p_over_adj": 0.5401
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "esenthial",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.6031,
+     "p_over_adj": 0.5612
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "alex666",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.401,
+     "p_over_adj": 0.3626
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "Dwushka",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.5822,
+     "p_over_adj": 0.5156
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "kensizor",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5787,
+     "p_over_adj": 0.5407
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "npl",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.4304,
+     "p_over_adj": 0.3942
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "frontales",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.5636,
+     "p_over_adj": 0.4786
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "Dwushka",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5519,
+     "p_over_adj": 0.4661
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "kade0",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.4483,
+     "p_over_adj": 0.3678
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "mizu",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.4502,
+     "p_over_adj": 0.3826
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "n0rb3r7",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5419,
+     "p_over_adj": 0.4558
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "alex666",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.4591,
+     "p_over_adj": 0.4266
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "npl",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.4823,
+     "p_over_adj": 0.438
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "s1zzi",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4828,
+     "p_over_adj": 0.4408
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "mizu",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5151,
+     "p_over_adj": 0.4279
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "kade0",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.4852,
+     "p_over_adj": 0.4197
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zock",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.7685,
+     "p_over_adj": 0.776
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "Divine",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3113,
+     "p_over_adj": 0.3081
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zock",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.6583,
+     "p_over_adj": 0.6698
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zmb",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.3866,
+     "p_over_adj": 0.3788
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zmb",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.4274,
+     "p_over_adj": 0.421
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "pepe",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.4302,
+     "p_over_adj": 0.4389
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "ponter",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.4439,
+     "p_over_adj": 0.4523
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "Alisson ",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4451,
+     "p_over_adj": 0.4392
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "Divine",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.4509,
+     "p_over_adj": 0.445
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "happ",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.451,
+     "p_over_adj": 0.4449
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "ponter",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.5485,
+     "p_over_adj": 0.557
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "Alisson ",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.5294,
+     "p_over_adj": 0.528
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "urban0",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.5247,
+     "p_over_adj": 0.5374
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "pancc",
+     "market": "Maps 1-2 HS",
+     "line": 20.5,
+     "side": "UNDER",
+     "p_over": 0.5224,
+     "p_over_adj": 0.5142
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "pancc",
+     "market": "Maps 1-2 Kills",
+     "line": 32,
+     "side": "UNDER",
+     "p_over": 0.4782,
+     "p_over_adj": 0.4689
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "pepe",
+     "market": "Maps 1-2 Kills",
+     "line": 30,
+     "side": "UNDER",
+     "p_over": 0.5106,
+     "p_over_adj": 0.5232
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "happ",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.4951,
+     "p_over_adj": 0.4878
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "urban0",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.4982,
+     "p_over_adj": 0.51
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "Magnojez",
+     "market": "Maps 1-2 Kills",
+     "line": 31,
+     "side": "UNDER",
+     "p_over": 0.7072,
+     "p_over_adj": 0.6126
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "KSCERATO",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3049,
+     "p_over_adj": 0.3382
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "Magnojez",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.6857,
+     "p_over_adj": 0.611
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "zorte",
+     "market": "Maps 1-2 Kills",
+     "line": 29,
+     "side": "UNDER",
+     "p_over": 0.6767,
+     "p_over_adj": 0.5824
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "FalleN",
+     "market": "Maps 1-2 Kills",
+     "line": 25,
+     "side": "UNDER",
+     "p_over": 0.3737,
+     "p_over_adj": 0.4058
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "KSCERATO",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3742,
+     "p_over_adj": 0.4012
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "YEKINDAR",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.3842,
+     "p_over_adj": 0.4136
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "d1Ledez",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.3961,
+     "p_over_adj": 0.3212
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "zorte",
+     "market": "Maps 1-2 HS",
+     "line": 8.5,
+     "side": "UNDER",
+     "p_over": 0.6013,
+     "p_over_adj": 0.5421
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "s1ren",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.4116,
+     "p_over_adj": 0.3359
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "YEKINDAR",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4119,
+     "p_over_adj": 0.448
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "yuurih",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.433,
+     "p_over_adj": 0.4674
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "molodoy",
+     "market": "Maps 1-2 HS",
+     "line": 12,
+     "side": "UNDER",
+     "p_over": 0.4554,
+     "p_over_adj": 0.4812
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "Boombl4",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "UNDER",
+     "p_over": 0.5427,
+     "p_over_adj": 0.4778
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "Boombl4",
+     "market": "Maps 1-2 Kills",
+     "line": 23.5,
+     "side": "UNDER",
+     "p_over": 0.5336,
+     "p_over_adj": 0.4445
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "FalleN",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.4727,
+     "p_over_adj": 0.4978
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "s1ren",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.4799,
+     "p_over_adj": 0.385
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "yuurih",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.48,
+     "p_over_adj": 0.5054
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "d1Ledez",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.5188,
+     "p_over_adj": 0.4228
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "molodoy",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.49,
+     "p_over_adj": 0.5277
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.1651,
+     "p_over_adj": 0.2492
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.2052,
+     "p_over_adj": 0.2752
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 HS",
+     "line": 12,
+     "side": "UNDER",
+     "p_over": 0.2181,
+     "p_over_adj": 0.2891
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 HS",
+     "line": 8.5,
+     "side": "UNDER",
+     "p_over": 0.2314,
+     "p_over_adj": 0.2867
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2329,
+     "p_over_adj": 0.3281
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "doc",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2669,
+     "p_over_adj": 0.3782
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.2899,
+     "p_over_adj": 0.392
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "doc",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.3191,
+     "p_over_adj": 0.4133
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "rdnzao",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.4109,
+     "p_over_adj": 0.5113
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "rdnzao",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.4721,
+     "p_over_adj": 0.5913
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "gr1ks",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.2673,
+     "p_over_adj": 0.2729
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "JDC",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.307,
+     "p_over_adj": 0.3112
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "MisteM",
+     "market": "Maps 1-2 Kills",
+     "line": 24.5,
+     "side": "UNDER",
+     "p_over": 0.6897,
+     "p_over_adj": 0.6495
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "JDC",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3594,
+     "p_over_adj": 0.3636
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "jottAAA",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.6284,
+     "p_over_adj": 0.5798
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "regali",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.6158,
+     "p_over_adj": 0.5681
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Soulfly",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.3989,
+     "p_over_adj": 0.3641
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "blameF",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.4078,
+     "p_over_adj": 0.4136
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Soulfly",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.5867,
+     "p_over_adj": 0.542
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "tabseN",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.5637,
+     "p_over_adj": 0.5699
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "blameF",
+     "market": "Maps 1-2 Kills",
+     "line": 33.5,
+     "side": "UNDER",
+     "p_over": 0.4407,
+     "p_over_adj": 0.448
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "MisteM",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.5509,
+     "p_over_adj": 0.5156
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "tabseN",
+     "market": "Maps 1-2 HS",
+     "line": 12,
+     "side": "UNDER",
+     "p_over": 0.4525,
+     "p_over_adj": 0.4581
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Kvem",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.5392,
+     "p_over_adj": 0.4907
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "faveN",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.5326,
+     "p_over_adj": 0.5387
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "regali",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.4678,
+     "p_over_adj": 0.4337
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "jottAAA",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.5136,
+     "p_over_adj": 0.4727
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "faveN",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.4943,
+     "p_over_adj": 0.5014
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Kvem",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.5054,
+     "p_over_adj": 0.4657
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "robo",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.7381,
+     "p_over_adj": 0.6481
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.2972,
+     "p_over_adj": 0.2858
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3185,
+     "p_over_adj": 0.301
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "robo",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.6768,
+     "p_over_adj": 0.6014
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Xant3r",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.6727,
+     "p_over_adj": 0.5716
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "syph0",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.6716,
+     "p_over_adj": 0.5704
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "syph0",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.6164,
+     "p_over_adj": 0.5324
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "dziugss",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3878,
+     "p_over_adj": 0.3738
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Dem0N",
+     "market": "Maps 1-2 HS",
+     "line": 20.5,
+     "side": "UNDER",
+     "p_over": 0.611,
+     "p_over_adj": 0.5949
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Xant3r",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.5862,
+     "p_over_adj": 0.5012
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "KaiR0N",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5794,
+     "p_over_adj": 0.4699
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "khaN",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.5596,
+     "p_over_adj": 0.4905
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "dziugss",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.4421,
+     "p_over_adj": 0.4244
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Krabeni",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.4554,
+     "p_over_adj": 0.4399
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "xfl0ud",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.4579,
+     "p_over_adj": 0.4428
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "khaN",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.517,
+     "p_over_adj": 0.4096
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Dem0N",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.4853,
+     "p_over_adj": 0.4653
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "KaiR0N",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.5061,
+     "p_over_adj": 0.4143
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "xfl0ud",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.5059,
+     "p_over_adj": 0.4872
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Krabeni",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.5035,
+     "p_over_adj": 0.4842
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.7772,
+     "p_over_adj": 0.7267
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 HS",
+     "line": 19,
+     "side": "UNDER",
+     "p_over": 0.6711,
+     "p_over_adj": 0.6197
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Jcobbb",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.345,
+     "p_over_adj": 0.3533
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Tauson",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.6466,
+     "p_over_adj": 0.6019
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Tauson",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.6261,
+     "p_over_adj": 0.5665
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Jcobbb",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.404,
+     "p_over_adj": 0.4112
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "frozen",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.4089,
+     "p_over_adj": 0.4154
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Hypex",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.5862,
+     "p_over_adj": 0.5458
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Neityu",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.4276,
+     "p_over_adj": 0.4359
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "frozen",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.4414,
+     "p_over_adj": 0.4491
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Hypex",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.5382,
+     "p_over_adj": 0.4772
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "REZ",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.5331,
+     "p_over_adj": 0.4836
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "JBOEN",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.4716,
+     "p_over_adj": 0.4783
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "JBOEN",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4739,
+     "p_over_adj": 0.4829
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Twistzz",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.5239,
+     "p_over_adj": 0.5314
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Twistzz",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.4798,
+     "p_over_adj": 0.4889
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Neityu",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.5164,
+     "p_over_adj": 0.5237
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "REZ",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.5147,
+     "p_over_adj": 0.452
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "lenci",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.753,
+     "p_over_adj": 0.6201
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "MaxOff",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.7137,
+     "p_over_adj": 0.5758
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "MaxOff",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.6952,
+     "p_over_adj": 0.5825
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "pavv",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.685,
+     "p_over_adj": 0.547
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "tomate",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3331,
+     "p_over_adj": 0.3521
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "lenci",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.6535,
+     "p_over_adj": 0.5431
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "PKL",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.3737,
+     "p_over_adj": 0.3921
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "tomate",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3761,
+     "p_over_adj": 0.4021
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "next",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.6217,
+     "p_over_adj": 0.4785
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "pavv",
+     "market": "Maps 1-2 HS",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.6199,
+     "p_over_adj": 0.5049
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "PKL",
+     "market": "Maps 1-2 Kills",
+     "line": 24.5,
+     "side": "UNDER",
+     "p_over": 0.3811,
+     "p_over_adj": 0.4044
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "next",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.5873,
+     "p_over_adj": 0.4651
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "detr0ittJ",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "UNDER",
+     "p_over": 0.56,
+     "p_over_adj": 0.5781
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "gbb",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.4496,
+     "p_over_adj": 0.4713
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "destiny",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4565,
+     "p_over_adj": 0.4835
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "destiny",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.5274,
+     "p_over_adj": 0.547
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "detr0ittJ",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5255,
+     "p_over_adj": 0.5515
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "gbb",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.5192,
+     "p_over_adj": 0.5472
+    },
+    {
+     "match": "CS2 \u00b7 IMP vs QUIN",
+     "player": "decenty",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.3789,
+     "p_over_adj": 0.431
+    },
+    {
+     "match": "CS2 \u00b7 IMP vs QUIN",
+     "player": "saadzin",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.435,
+     "p_over_adj": 0.4877
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "torzsi",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3674,
+     "p_over_adj": 0.3563
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "xertioN",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.6276,
+     "p_over_adj": 0.6151
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "XANTARES",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.3812,
+     "p_over_adj": 0.3054
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "xertioN",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.6083,
+     "p_over_adj": 0.593
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "XANTARES",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.3929,
+     "p_over_adj": 0.2993
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "woxic",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.5987,
+     "p_over_adj": 0.534
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "PR",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.4032,
+     "p_over_adj": 0.3899
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "woxic",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5964,
+     "p_over_adj": 0.492
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Wicadia",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.596,
+     "p_over_adj": 0.4885
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "torzsi",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4249,
+     "p_over_adj": 0.4085
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Wicadia",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.427,
+     "p_over_adj": 0.344
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "xelex",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.5712,
+     "p_over_adj": 0.5576
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Jimpphat",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.5687,
+     "p_over_adj": 0.4659
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "kyxsan",
+     "market": "Maps 1-2 Kills",
+     "line": 22.5,
+     "side": "UNDER",
+     "p_over": 0.4434,
+     "p_over_adj": 0.354
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "PR",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.4508,
+     "p_over_adj": 0.4399
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "xelex",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.5437,
+     "p_over_adj": 0.5312
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Spinx",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.459,
+     "p_over_adj": 0.4436
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "kyxsan",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.5325,
+     "p_over_adj": 0.4591
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Jimpphat",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.5216,
+     "p_over_adj": 0.4385
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Spinx",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.4982,
+     "p_over_adj": 0.4854
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "Jeorge",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.3206,
+     "p_over_adj": 0.4503
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "Jeorge",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.341,
+     "p_over_adj": 0.5124
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "Sonic",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.3777,
+     "p_over_adj": 0.5531
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "Grim",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.3839,
+     "p_over_adj": 0.5682
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "hallzerk",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.4106,
+     "p_over_adj": 0.5929
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "nitr0",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.4147,
+     "p_over_adj": 0.5833
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "hallzerk",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.4292,
+     "p_over_adj": 0.5569
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "nitr0",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.5561,
+     "p_over_adj": 0.6829
+    },
+    {
+     "match": "CS2 \u00b7 NRG vs Tactical Chaos",
+     "player": "Grim",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.4865,
+     "p_over_adj": 0.6316
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "matios",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2641,
+     "p_over_adj": 0.2997
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "pesadelo",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.3448,
+     "p_over_adj": 0.3838
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "cerolzin",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.6493,
+     "p_over_adj": 0.5989
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "puni",
+     "market": "Maps 1-2 Kills",
+     "line": 22.5,
+     "side": "UNDER",
+     "p_over": 0.6438,
+     "p_over_adj": 0.5963
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "proSHOW",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.6426,
+     "p_over_adj": 0.6082
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "WOOD7",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.3757,
+     "p_over_adj": 0.4148
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "naitte",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3763,
+     "p_over_adj": 0.4174
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "vinaabEAST",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.621,
+     "p_over_adj": 0.58
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "naitte",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.3818,
+     "p_over_adj": 0.4158
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "Tuurtle",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3835,
+     "p_over_adj": 0.4249
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "matios",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.4004,
+     "p_over_adj": 0.4323
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "proSHOW",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.5959,
+     "p_over_adj": 0.5407
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "puni",
+     "market": "Maps 1-2 HS",
+     "line": 13,
+     "side": "UNDER",
+     "p_over": 0.425,
+     "p_over_adj": 0.3844
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "vinaabEAST",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.5689,
+     "p_over_adj": 0.5152
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "pesadelo",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.4387,
+     "p_over_adj": 0.4703
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "bnc",
+     "market": "Maps 1-2 HS",
+     "line": 13,
+     "side": "UNDER",
+     "p_over": 0.4662,
+     "p_over_adj": 0.4243
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "Tuurtle",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.533,
+     "p_over_adj": 0.5663
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "bnc",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.5215,
+     "p_over_adj": 0.4682
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "cerolzin",
+     "market": "Maps 1-2 HS",
+     "line": 13,
+     "side": "UNDER",
+     "p_over": 0.507,
+     "p_over_adj": 0.4649
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "WOOD7",
+     "market": "Maps 1-2 HS",
+     "line": 8.5,
+     "side": "UNDER",
+     "p_over": 0.5058,
+     "p_over_adj": 0.5308
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "b1t",
+     "market": "Maps 1-2 HS",
+     "line": 17,
+     "side": "UNDER",
+     "p_over": 0.3488,
+     "p_over_adj": 0.3083
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "w0nderful",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.6272,
+     "p_over_adj": 0.5735
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "w0nderful",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.6268,
+     "p_over_adj": 0.5908
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "ropz",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.6151,
+     "p_over_adj": 0.5844
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "ZywOo",
+     "market": "Maps 1-2 Kills",
+     "line": 35,
+     "side": "UNDER",
+     "p_over": 0.6141,
+     "p_over_adj": 0.5809
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "jL",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.5777,
+     "p_over_adj": 0.5485
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "ropz",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.5715,
+     "p_over_adj": 0.5467
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "ZywOo",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.4327,
+     "p_over_adj": 0.4084
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "jL",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.4331,
+     "p_over_adj": 0.4087
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "b1t",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.4355,
+     "p_over_adj": 0.3843
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "mezii",
+     "market": "Maps 1-2 Kills",
+     "line": 26,
+     "side": "UNDER",
+     "p_over": 0.5637,
+     "p_over_adj": 0.5342
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "Aleksib",
+     "market": "Maps 1-2 Kills",
+     "line": 21,
+     "side": "UNDER",
+     "p_over": 0.5434,
+     "p_over_adj": 0.4969
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "flameZ",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.5399,
+     "p_over_adj": 0.5087
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "Aleksib",
+     "market": "Maps 1-2 HS",
+     "line": 11,
+     "side": "UNDER",
+     "p_over": 0.4639,
+     "p_over_adj": 0.4275
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "flameZ",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.4676,
+     "p_over_adj": 0.4433
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "iM",
+     "market": "Maps 1-2 Kills",
+     "line": 26.5,
+     "side": "UNDER",
+     "p_over": 0.4832,
+     "p_over_adj": 0.4319
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "iM",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.5124,
+     "p_over_adj": 0.4754
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "makazze",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.5052,
+     "p_over_adj": 0.4641
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "makazze",
+     "market": "Maps 1-2 Kills",
+     "line": 28,
+     "side": "UNDER",
+     "p_over": 0.4996,
+     "p_over_adj": 0.4463
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "saffee",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2187,
+     "p_over_adj": 0.3326
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Tatu",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.2415,
+     "p_over_adj": 0.3579
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "biguzera",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2479,
+     "p_over_adj": 0.3697
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Rkzinho",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.2645,
+     "p_over_adj": 0.3691
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Rkzinho",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.282,
+     "p_over_adj": 0.4105
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "biguzera",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.2973,
+     "p_over_adj": 0.4002
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Tatu",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.332,
+     "p_over_adj": 0.4418
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "sibeastw0w",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.7254,
+     "p_over_adj": 0.7254
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "CXIX666",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.6432,
+     "p_over_adj": 0.6432
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "Akeman",
+     "market": "Maps 1-2 Kills",
+     "line": 31,
+     "side": "UNDER",
+     "p_over": 0.3781,
+     "p_over_adj": 0.3781
+    },
+    {
+     "match": "VAL \u00b7 TEC vs WSIG",
+     "player": "Haodong",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.167,
+     "p_over_adj": 0.167
+    }
+   ]
+  },
+  "under_core": {
+   "name": "Under shortlist (both models under, P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, no Maps 1-3 kills)",
+   "n": 47,
+   "legs": [
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "sausol",
+     "market": "Map 1 HS",
+     "line": 8,
+     "side": "UNDER",
+     "p_over": 0.3707,
+     "p_over_adj": 0.3707
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "dav1g",
+     "market": "Map 1 Kills",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3888,
+     "p_over_adj": 0.3888
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2445,
+     "p_over_adj": 0.1977
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.289,
+     "p_over_adj": 0.247
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3697,
+     "p_over_adj": 0.3341
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3919,
+     "p_over_adj": 0.3333
+    },
+    {
+     "match": "CS2 \u00b7 B8 vs HOTU",
+     "player": "s1zzi",
+     "market": "Maps 1-2 HS",
+     "line": 9,
+     "side": "UNDER",
+     "p_over": 0.3256,
+     "p_over_adj": 0.3033
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "Divine",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3113,
+     "p_over_adj": 0.3081
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zmb",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.3866,
+     "p_over_adj": 0.3788
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "KSCERATO",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3049,
+     "p_over_adj": 0.3382
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "FalleN",
+     "market": "Maps 1-2 Kills",
+     "line": 25,
+     "side": "UNDER",
+     "p_over": 0.3737,
+     "p_over_adj": 0.4058
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "KSCERATO",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3742,
+     "p_over_adj": 0.4012
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "YEKINDAR",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.3842,
+     "p_over_adj": 0.4136
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "d1Ledez",
+     "market": "Maps 1-2 HS",
+     "line": 16,
+     "side": "UNDER",
+     "p_over": 0.3961,
+     "p_over_adj": 0.3212
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.1651,
+     "p_over_adj": 0.2492
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.2052,
+     "p_over_adj": 0.2752
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 HS",
+     "line": 12,
+     "side": "UNDER",
+     "p_over": 0.2181,
+     "p_over_adj": 0.2891
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 HS",
+     "line": 8.5,
+     "side": "UNDER",
+     "p_over": 0.2314,
+     "p_over_adj": 0.2867
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2329,
+     "p_over_adj": 0.3281
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "doc",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2669,
+     "p_over_adj": 0.3782
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.2899,
+     "p_over_adj": 0.392
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "doc",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.3191,
+     "p_over_adj": 0.4133
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "gr1ks",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.2673,
+     "p_over_adj": 0.2729
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "JDC",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.307,
+     "p_over_adj": 0.3112
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "JDC",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.3594,
+     "p_over_adj": 0.3636
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Soulfly",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.3989,
+     "p_over_adj": 0.3641
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.2972,
+     "p_over_adj": 0.2858
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "UNDER",
+     "p_over": 0.3185,
+     "p_over_adj": 0.301
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "Jcobbb",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.345,
+     "p_over_adj": 0.3533
+    },
+    {
+     "match": "CS2 \u00b7 GLS vs PCY",
+     "player": "tomate",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3761,
+     "p_over_adj": 0.4021
+    },
+    {
+     "match": "CS2 \u00b7 IMP vs QUIN",
+     "player": "decenty",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.3789,
+     "p_over_adj": 0.431
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "torzsi",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3674,
+     "p_over_adj": 0.3563
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "XANTARES",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.3929,
+     "p_over_adj": 0.2993
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "matios",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2641,
+     "p_over_adj": 0.2997
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "pesadelo",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.3448,
+     "p_over_adj": 0.3838
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "WOOD7",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "UNDER",
+     "p_over": 0.3757,
+     "p_over_adj": 0.4148
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "naitte",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3763,
+     "p_over_adj": 0.4174
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "naitte",
+     "market": "Maps 1-2 HS",
+     "line": 18,
+     "side": "UNDER",
+     "p_over": 0.3818,
+     "p_over_adj": 0.4158
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "Tuurtle",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.3835,
+     "p_over_adj": 0.4249
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "b1t",
+     "market": "Maps 1-2 HS",
+     "line": 17,
+     "side": "UNDER",
+     "p_over": 0.3488,
+     "p_over_adj": 0.3083
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "saffee",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2187,
+     "p_over_adj": 0.3326
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Tatu",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.2415,
+     "p_over_adj": 0.3579
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Rkzinho",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.2645,
+     "p_over_adj": 0.3691
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Rkzinho",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.282,
+     "p_over_adj": 0.4105
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "biguzera",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.2973,
+     "p_over_adj": 0.4002
+    },
+    {
+     "match": "CS2 \u00b7 paiN vs NCP",
+     "player": "Tatu",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.332,
+     "p_over_adj": 0.4418
+    },
+    {
+     "match": "VAL \u00b7 TEC vs WSIG",
+     "player": "Haodong",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.167,
+     "p_over_adj": 0.167
+    }
+   ]
+  },
+  "agree20": {
+   "name": "Both models agree, both lean >= 20 pts",
+   "n": 13,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.2445,
+     "p_over_adj": 0.1977
+    },
+    {
+     "match": "CS2 \u00b7 AST vs ICE",
+     "player": "Dawy",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "UNDER",
+     "p_over": 0.289,
+     "p_over_adj": 0.247
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "zock",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.7685,
+     "p_over_adj": 0.776
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.1651,
+     "p_over_adj": 0.2492
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "koala",
+     "market": "Maps 1-2 HS",
+     "line": 15,
+     "side": "UNDER",
+     "p_over": 0.2052,
+     "p_over_adj": 0.2752
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "Gafolo",
+     "market": "Maps 1-2 HS",
+     "line": 12,
+     "side": "UNDER",
+     "p_over": 0.2181,
+     "p_over_adj": 0.2891
+    },
+    {
+     "match": "CS2 \u00b7 DEN vs Low Cortisol",
+     "player": "maxxkor",
+     "market": "Maps 1-2 HS",
+     "line": 8.5,
+     "side": "UNDER",
+     "p_over": 0.2314,
+     "p_over_adj": 0.2867
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "gr1ks",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.2673,
+     "p_over_adj": 0.2729
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "SunPayus",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "UNDER",
+     "p_over": 0.2972,
+     "p_over_adj": 0.2858
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "OVER",
+     "p_over": 0.7772,
+     "p_over_adj": 0.7267
+    },
+    {
+     "match": "CS2 \u00b7 TdP vs ALKA",
+     "player": "matios",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2641,
+     "p_over_adj": 0.2997
+    },
+    {
+     "match": "VAL \u00b7 KBG vs UR",
+     "player": "sibeastw0w",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "OVER",
+     "p_over": 0.7254,
+     "p_over_adj": 0.7254
+    },
+    {
+     "match": "VAL \u00b7 TEC vs WSIG",
+     "player": "Haodong",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.167,
+     "p_over_adj": 0.167
+    }
+   ]
+  },
+  "l10_over": {
+   "name": "Over where the last-10 hit rate is 0.8+",
+   "n": 11,
+   "legs": [
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "mopoz",
+     "market": "Map 1 Kills",
+     "line": 14,
+     "side": "OVER",
+     "p_over": 0.6174,
+     "p_over_adj": 0.6174
+    },
+    {
+     "match": "CS2 [NO MARKET] \u00b7 IS vs ZOTIX",
+     "player": "mopoz",
+     "market": "Map 1 HS",
+     "line": 8,
+     "side": "OVER",
+     "p_over": 0.5946,
+     "p_over_adj": 0.5946
+    },
+    {
+     "match": "CS2 \u00b7 BAR vs BHE",
+     "player": "urban0",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "OVER",
+     "p_over": 0.5247,
+     "p_over_adj": 0.5374
+    },
+    {
+     "match": "CS2 \u00b7 BB vs FURIA",
+     "player": "zorte",
+     "market": "Maps 1-2 Kills",
+     "line": 29,
+     "side": "OVER",
+     "p_over": 0.6767,
+     "p_over_adj": 0.5824
+    },
+    {
+     "match": "CS2 \u00b7 EF vs BIG",
+     "player": "Kvem",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "OVER",
+     "p_over": 0.5392,
+     "p_over_adj": 0.4907
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "Xant3r",
+     "market": "Maps 1-2 Kills",
+     "line": 27,
+     "side": "OVER",
+     "p_over": 0.6727,
+     "p_over_adj": 0.5716
+    },
+    {
+     "match": "CS2 \u00b7 FUT vs NEMI",
+     "player": "syph0",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "OVER",
+     "p_over": 0.6716,
+     "p_over_adj": 0.5704
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "OVER",
+     "p_over": 0.7772,
+     "p_over_adj": 0.7267
+    },
+    {
+     "match": "CS2 \u00b7 FaZe vs GL",
+     "player": "FL4MUS",
+     "market": "Maps 1-2 HS",
+     "line": 19,
+     "side": "OVER",
+     "p_over": 0.6711,
+     "p_over_adj": 0.6197
+    },
+    {
+     "match": "CS2 \u00b7 MOUZ vs AUR",
+     "player": "Jimpphat",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "OVER",
+     "p_over": 0.5687,
+     "p_over_adj": 0.4659
+    },
+    {
+     "match": "CS2 \u00b7 VIT vs NAVI",
+     "player": "w0nderful",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "OVER",
+     "p_over": 0.6268,
+     "p_over_adj": 0.5908
+    }
+   ]
+  }
+ },
+ "moba_rules": {
+  "moba_lean20": {
+   "name": "MOBA: model leans >= 20 pts, model's side",
+   "n": 1,
+   "legs": [
+    {
+     "match": "LOL \u00b7 KC vs CFO",
+     "player": "Kyeahoo",
+     "market": "Maps 1-2 Kills",
+     "line": 7,
+     "side": "UNDER",
+     "p_over": 0.2315
+    }
+   ]
+  }
+ },
+ "moba_frozen_utc": "2026-10-29T05:31:49+00:00",
+ "comparison": "every leg on the board (the base model's side)"
+}
