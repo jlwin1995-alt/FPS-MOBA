@@ -73,7 +73,23 @@ def link_matches(slate, board, cands, team_names):
 
 
 # ------------------------------------------------------------------ CS2
-def pull_cs2(slate, fps):
+def apply_player_fixes(match_id, maps, fixes):
+    """A map's table that bo3.gg labels with the wrong player (a stand-in's name on the real player's seat). `fixes` rows: {match, map, from, to, why}; the rename is recorded on the match so it shows in the results file."""
+    done = []
+    for f in fixes:
+        if f["match"] != match_id:
+            continue
+        for mp in maps:
+            if mp["n"] != f["map"]:
+                continue
+            for p in mp["players"]:
+                if p["name"] == f["from"]:
+                    p["name"], p["alias"] = f["to"], f["to"]
+                    done.append(dict(f))
+    return done
+
+
+def pull_cs2(slate, fps, imports="data/imports"):
     from .sources import bo3
     d0 = dt.datetime.fromisoformat(slate)
     ms = list(bo3.finished_matches((d0 - dt.timedelta(hours=6)).strftime("%Y-%m-%dT%H:%M"), (d0 + dt.timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M")))
@@ -89,8 +105,10 @@ def pull_cs2(slate, fps):
             continue
         m = L["cand"]["ref"]
         r = bo3.match_maps(m)
+        fx = f"{imports}/{slate}/bo3_fixes.json"                  # [{"match", "map", "from", "to", "why"}]: bo3.gg names a stand-in on a map where the real player (same kills on HLTV) played
+        applied = apply_player_fixes(b["id"], r["maps"], json.load(open(fx, encoding="utf-8")) if os.path.exists(fx) else [])
         out[b["id"]] = dict(status="finished", source=dict(site="bo3.gg", slug=m["slug"], score=[m["team1_score"], m["team2_score"]], bo=m["bo_type"], start=m["start_date"]),
-                            linked=dict(how=L["how"], start_gap_h=L["gap_h"], rivals=L["rivals"]), maps=r["maps"], checks=r["checks"], route2=r["route2"])
+                            linked=dict(how=L["how"], start_gap_h=L["gap_h"], rivals=L["rivals"]), maps=r["maps"], checks=r["checks"], route2=r["route2"], **(dict(player_fixes=applied) if applied else {}))
     return out
 
 
