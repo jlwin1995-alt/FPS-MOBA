@@ -1,0 +1,4 @@
+[
+ {"match": "CS2 · TL vs LGC", "map": 1, "from": "oSee", "to": "malbsMd", "why": "bo3.gg lists oSee with 18 kills on map 1; the HLTV roster for that map has malbsMd with 18 and no oSee (separate results file, 10-24 to 10-29)"},
+ {"match": "CS2 · TS vs FURIA", "map": 2, "from": "sidde", "to": "molodoy", "why": "bo3.gg lists sidde with 17 kills on map 2; the HLTV roster for that map has molodoy with 17 (separate results file, 10-24 to 10-29)"}
+]

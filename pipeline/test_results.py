@@ -40,6 +40,15 @@ class Names(unittest.TestCase):
         self.assertTrue(same_team("Eternal Fire (EF)", "Eternal Fire"))
         self.assertFalse(same_team("Team Liquid (TL)", "Team Vitality"))
 
+    def test_a_mislabelled_seat_is_renamed_only_where_the_fix_says(self):
+        from .results import apply_player_fixes
+        maps = [dict(n=1, players=[dict(name="oSee", alias="oSee")]), dict(n=2, players=[dict(name="oSee", alias="oSee")])]
+        fx = [dict(match="M", map=1, **{"from": "oSee"}, to="malbsMd", why="same kills on HLTV")]
+        done = apply_player_fixes("M", maps, fx)
+        self.assertEqual([p["name"] for mp in maps for p in mp["players"]], ["malbsMd", "oSee"])        # map 2 untouched
+        self.assertEqual(len(done), 1)
+        self.assertEqual(apply_player_fixes("other", maps, fx), [])
+
     def test_players(self):
         self.assertTrue(same_player("MartinezSa", "Martinez"))
         self.assertTrue(same_player("luk xo", "Lukxo"))
