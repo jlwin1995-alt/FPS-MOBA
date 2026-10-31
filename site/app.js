@@ -1,7 +1,7 @@
 "use strict";
 const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rule: false, slate: "", bmatch: "", imatch: ""};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rule: "", slate: "", bmatch: "", imatch: ""};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -33,23 +33,23 @@ const flagPills = fl => (fl || []).map(t => `<span class="pill q" title="${esc(t
 
 // ---------- filters ----------
 const sel = (id, label, opts, cur) => `<label>${label} <select id="${id}">${opts.map(([v, t]) => `<option value="${esc(v)}" ${cur === v ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
-const MARKETS = ["Map 1 Kills", "Map 1 HS", "Maps 1-2 Kills", "Maps 1-2 HS", "Maps 1-3 Kills"];
+const MARKETS = ["Map 1 Kills", "Map 1 HS", "Maps 1-2 Kills", "Maps 1-2 HS", "Maps 1-3 Kills", "Maps 1-3 HS"];
 function filters(extra = "") {
   return `<div class="bar"><input id="q" placeholder="Search player / team / match" value="${esc(F.q)}">
     ${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"], ["LOL", "LoL"], ["DOTA", "Dota 2"]], F.title)}
     ${sel("market", "Market", [["", "All"], ...MARKETS.map(m => [m, m])], F.market)}${extra}</div>`;
 }
-// play rule "agree10": the base and the round-differential models call the same side and both lean at least 10 points (declared before 2026-10-18; mirrors pipeline/evaluate.py)
-const isPlay = r => r.po != null && r.poAdj != null && (r.po >= 0.5) === (r.poAdj >= 0.5) && Math.min(Math.abs(r.po - 0.5), Math.abs(r.poAdj - 0.5)) >= 0.10;
-const passes = r => (!F.rule || isPlay(r)) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
+// which registered play rules each leg falls under (site/rules.js mirrors pipeline/evaluate.py; the frozen record is data/plays/<slate>.json)
+const rulesOf = r => r._rules || (r._rules = Rules.of(r));
+const rulePills = r => rulesOf(r).map(x => `<span class="pill ${x.side === "OVER" ? "lean-strong" : "lean-lean"}" title="${esc(x.h + " · " + x.name + " · " + x.side)}">${x.h} ${x.side === "OVER" ? "O" : "U"}</span>`).join(" ");
+const passes = r => (!F.rule || (F.rule === "any" ? rulesOf(r).length > 0 : rulesOf(r).some(x => x.id === F.rule))) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
   (!F.side || (F.side === "any" ? r.side === "OVER" || r.side === "UNDER" : r.side === F.side)) && (!F.flagged || r.flags.length) &&
   (!F.q.trim() || (r.player + " " + r.team + " " + r.match).toLowerCase().includes(F.q.trim().toLowerCase()));
 document.addEventListener("input", e => { if (e.target.id === "q") { F.q = e.target.value; render(true, "q"); } });
 document.addEventListener("change", e => {
   const t = e.target, id = t.id;
-  if (["title", "market", "match", "side", "slate", "bmatch", "imatch"].includes(id)) { F[id] = t.value; render(); }
+  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rule"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
-  else if (id === "rule") { F.rule = t.checked; render(); }
   else if (t.dataset.cfg) {                                        // Config constant
     const [k, name] = t.dataset.cfg.split(":"), v = parseFloat(t.value);
     if (Number.isNaN(v) || v === D[k].config[name]) delete CFGO[k][name]; else CFGO[k][name] = v;
@@ -81,7 +81,7 @@ const hrCell = x => x == null || x === "" ? "" : pct0(x);
 const Pages = {};
 Pages["Projections"] = () => {
   const rs = compute().rows.filter(passes);
-  const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1},
+  const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "play", h: "Rules", l: 1, t: "The registered play rules this leg falls under (H8 agree10, H10 every under, H11 under shortlist, H12 last-10 0.8+ over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs). Filled = OVER, outlined = UNDER. Judged only on slates after each rule's declaration date; the frozen lists are data/plays/<slate>.json.", v: r => rulesOf(r).length, f: r => rulePills(r)},
     {k: "line", h: "Line", f: r => L(r.line)}, {k: "proj", h: "Proj", t: "Model projection", f: r => L(r.proj)},
     {k: "adj", h: "Proj adj", t: "CS2 round-differential layer (HLTV conditional round margins). PAPER, never scored forward.", f: r => L(r.adj)},
     {k: "kpm", h: "Proj KPM", t: "SHADOW: career kills per map x the maps that count (no map names, no rounds). Scored side by side with the projection (hypothesis H9); not the published number.", f: r => L(r.kpm)}, {k: "poKpm", h: "P(over) KPM", f: r => pct1(r.poKpm)},
@@ -90,14 +90,13 @@ Pages["Projections"] = () => {
     {k: "po", h: "P(over)", f: r => pct1(r.po)}, {k: "pu", h: "P(under)", f: r => pct1(r.pu)}, {k: "pp", h: "P(push)", t: "A whole-number line shows its push probability separately", f: r => r.pp ? pct1(r.pp) : ""},
     {k: "side", h: "Side (paper)", l: 1, v: r => r.po != null ? Math.abs(r.po - 0.5) : null, f: r => sidePill(r.side, r.po)},
     {k: "poAdj", h: "P(over) adj", f: r => pct1(r.poAdj)}, {k: "sideAdj", h: "Side adj", l: 1, f: r => sidePill(r.sideAdj, r.poAdj)},
-    {k: "play", h: "Rule", t: "agree10: both models call the same side and both lean at least 10 points. Declared before the 2026-10-18 games; judged only on slates from then on.", v: r => isPlay(r) ? 1 : 0, f: r => isPlay(r) ? `<span class="pill lean-strong">PLAY ${r.po >= 0.5 ? "OVER" : "UNDER"}</span>` : ""},
     {k: "tp", h: "TP book", t: "Thunderpick's own kill-line median for this player", f: r => L(r.tp)},
     {k: "avg10", h: "PF avg L10", f: r => L(r.avg10)}, {k: "l5", h: "L5", f: r => hrCell(r.l5)}, {k: "l10", h: "L10", f: r => hrCell(r.l10)}, {k: "l15", h: "L15", f: r => hrCell(r.l15)},
     {k: "h2h", h: "H2H", f: r => esc(r.h2h ?? "")}, {k: "streak", h: "Streak", f: r => r.streak ?? ""},
     {k: "maps", h: "Maps used", l: 1}, {k: "rounds", h: "Rounds used", l: 1}, {k: "flags", h: "Flags", l: 1, f: r => flagPills(r.flags)}];
   return `<h2>Projections</h2><p class="sub">${D.meta.slate} slate · ${rs.length} of ${compute().rows.length} legs. Change maps, rounds, win probabilities or constants on the <a href="#Matches">Matches</a> and <a href="#Config">Config</a> tabs and every number follows.
     ${hasEdits() ? `<b class="warn">Showing your edits, not the workbook defaults.</b>` : ""}</p>
-    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> <label><input type="checkbox" id="rule" ${F.rule ? "checked" : ""}> rule plays only</label>`)}
+    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("rule", "Rule", [["", "All legs"], ["any", "Any rule"], ...Rules.list.map(x => [x.id, `${x.h} · ${x.id} (${compute().rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length})`])], F.rule)}`)}
     ${table(cols, rs, {id: "proj", sort: {key: "side", asc: false}})}`;
 };
 const hasEdits = () => Object.keys(OVR.fps).length || Object.keys(OVR.moba).length || Object.keys(CFGO.fps).length || Object.keys(CFGO.moba).length;

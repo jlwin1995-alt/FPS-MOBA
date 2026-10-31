@@ -33,5 +33,25 @@ Mo.legs.forEach((g, i) => {
   cmp(t + " proj", o.proj, e.proj); cmp(t + " sigma", o.sigma, e.sigma); cmp(t + " p_over", o.p_over, e.p_over); cmp(t + " p_under", o.p_under, e.p_under);
   cmp(t + " p_push", o.p_push, e.p_push); cmp(t + " side", o.side, e.side); cmp(t + " naive", o.naive, e.naive); cmp(t + " p_over_naive", o.p_over_naive, e.p_over_naive);
 });
-console.log(`parity: ${F.legs.length} FPS legs + ${Mo.legs.length} MOBA legs, ${checked} values compared, worst numeric difference ${worst.toExponential(2)}, ${bad} mismatches`);
+// The rules the Projections tab shows per leg must be exactly the legs frozen in data/plays/<slate>.json at import.
+const RULES = req("../rules.js");
+let planned = 0;
+try {
+  const slate = J("../data/meta.json").slate, plays = J(`../../data/plays/${slate}.json`);
+  const key = (m, p, k) => `${m}|${p}|${k}`;
+  const rows = [
+    ...F.legs.map(g => ({k: key(g.match, g.player, g.market), title: g.title, po: g.out.p_over, poAdj: g.out.p_over_adj, line: g.line, market: g.market, l10: g.l10})),
+    ...Mo.legs.map(g => ({k: key(g.match, g.player, g.market), title: g.match.startsWith("DOTA") ? "DOTA" : "LOL", po: g.out.p_over, poAdj: null, line: g.line, market: g.market, l10: g.l10})),
+  ];
+  for (const rule of RULES.list) {
+    const frozen = (plays.rules && plays.rules[rule.id]) || (plays.moba_rules && plays.moba_rules[rule.id]);
+    if (!frozen) continue;                                             // a slate frozen before this rule existed
+    const want = new Map(frozen.legs.map(l => [key(l.match, l.player, l.market), l.side]));
+    const got = new Map(rows.filter(r => rule.scope(r) && rule.test(r)).map(r => [r.k, rule.side(r)]));
+    planned += want.size;
+    for (const [k, sd] of want) if (got.get(k) !== sd) { bad++; if (bad <= 15) console.error(`RULE ${rule.id}: frozen ${sd} for ${k}, site shows ${got.get(k) ?? "nothing"}`); }
+    for (const k of got.keys()) if (!want.has(k)) { bad++; if (bad <= 15) console.error(`RULE ${rule.id}: site shows ${k}, not in the frozen plays`); }
+  }
+} catch (e) { if (e.code !== "ENOENT") throw e; }
+console.log(`parity: ${F.legs.length} FPS legs + ${Mo.legs.length} MOBA legs, ${checked} values compared, worst numeric difference ${worst.toExponential(2)}, ${bad} mismatches, ${planned} frozen play legs matched against the site's rule badges`);
 process.exit(bad ? 1 : 0);
