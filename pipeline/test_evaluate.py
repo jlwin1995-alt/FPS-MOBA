@@ -142,6 +142,16 @@ class Friday(unittest.TestCase):
         h14 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H14"]
         self.assertTrue(h14 in ("insufficient data",) or h14.startswith("descriptive"))      # declared after 2026-10-27
 
+    def test_hs_side_rule_and_h15(self):
+        self.assertTrue(E.hs_side(0.55, 0.5, market="Maps 1-2 HS"))
+        self.assertTrue(E.hs_side(0.30, 0.3, market="Map 1 HS"))
+        self.assertTrue(E.hs_side(0.60, 0.6, market="Maps 1-3 HS"))
+        self.assertFalse(E.hs_side(0.60, 0.6, market="Maps 1-2 Kills"))
+        self.assertFalse(E.hs_side(None, 0.6, market="Maps 1-2 HS"))
+        self.assertNotIn("side", E.RULES["hs_side"])         # scored on the model's own side
+        h15 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H15"]
+        self.assertTrue(h15.startswith("descriptive"))       # declared after 2026-10-30
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
