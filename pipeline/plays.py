@@ -36,6 +36,26 @@ def select_moba(moba_rows):
     return out
 
 
+def add_rules(slate, site="site", out="data/plays"):
+    """Add the FPS rules a plays file lacks (a slate frozen before a rule existed, still before play). The rules already in the file are left exactly as they are; the added ones carry their own freeze time."""
+    path = f"{out}/{slate}.json"
+    with open(path, encoding="utf-8") as f:
+        res = json.load(f)
+    missing = [rid for rid in RULES if rid not in res["rules"]]
+    if not missing:
+        return path, None
+    with open(f"{site}/data/log/{slate}.json", encoding="utf-8") as f:
+        log = json.load(f)["fps"]
+    sel = select(log)
+    now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    for rid in missing:
+        res["rules"][rid] = sel[rid]
+    res["rules_added_utc"] = {**res.get("rules_added_utc", {}), **{rid: now for rid in missing}}
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(res, f, indent=1)
+    return path, {rid: sel[rid]["n"] for rid in missing}
+
+
 def add_moba(slate, site="site", out="data/plays"):
     """Add the MOBA rules to a plays file that has none (a slate frozen before MOBA rules existed). Everything already in the file is left exactly as it is; the MOBA part carries its own freeze time."""
     path = f"{out}/{slate}.json"
@@ -74,8 +94,13 @@ def main():
     ap.add_argument("--site", default="site")
     ap.add_argument("--out", default="data/plays")
     ap.add_argument("--add-moba", action="store_true", help="add the MOBA rules to an existing plays file, leaving what it holds untouched")
+    ap.add_argument("--add-rules", action="store_true", help="add the FPS rules the file lacks, leaving the ones it holds untouched")
     ap.add_argument("--force", action="store_true", help="rewrite an existing file (only to add a rule that did not exist yet; never after the games)")
     a = ap.parse_args()
+    if a.add_rules:
+        path, counts = add_rules(a.slate, a.site, a.out)
+        print(path, counts if counts is not None else "no rule missing: left as it is")
+        return
     if a.add_moba:
         path, counts = add_moba(a.slate, a.site, a.out)
         print(path, counts if counts is not None else "MOBA rules already in the file: left as they are")
