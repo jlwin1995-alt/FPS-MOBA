@@ -23,7 +23,7 @@ If a run goes red, nothing was committed or deployed. The step that failed says 
 
 ## Seeing which legs fall under which rule
 
-The Projections tab has a **Rules** column right after Market: one badge per registered play rule the leg falls under (H8 agree10, H10 every under, H11 under shortlist, H12 last-10 over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs), filled for OVER and outlined for UNDER, with the rule's definition on hover. The **Rule** filter picks one rule (the count of legs is in the list) or "Any rule". `site/rules.js` mirrors `pipeline/evaluate.py`; `node site/test/parity.mjs` checks that it picks exactly the legs frozen in `data/plays/<slate>.json`, and fails if the two ever drift. The badges follow your edits on the Config and Matches tabs; the frozen lists in `data/plays/` are the record.
+The Projections tab has a **Rules** column right after Market: one badge per registered play rule the leg falls under (H8 agree10, H11 under shortlist, H12 last-10 over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs; H10, every leg under, gets no badge because it is every leg, but it is still frozen and scored), filled for OVER and outlined for UNDER, with the rule's definition on hover. The **Rule** filter picks one rule (the count of legs is in the list) or "Any rule". `site/rules.js` mirrors `pipeline/evaluate.py`; `node site/test/parity.mjs` checks that it picks exactly the legs frozen in `data/plays/<slate>.json`, and fails if the two ever drift. The badges follow your edits on the Config and Matches tabs; the frozen lists in `data/plays/` are the record.
 
 ## Settle (after the games, usually next morning)
 

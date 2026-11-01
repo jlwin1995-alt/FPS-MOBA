@@ -9,7 +9,7 @@ const Rules = (() => {
   const list = [
     {id: "agree10", h: "H8", name: "Both models agree on a side, both lean 10+ points", side: modelSide, scope: fps,
       test: r => nn(r.po) && nn(r.poAdj) && (r.po >= 0.5) === (r.poAdj >= 0.5) && Math.min(Math.abs(r.po - 0.5), Math.abs(r.poAdj - 0.5)) >= 0.10},
-    {id: "all_under", h: "H10", name: "Every leg, under", side: () => "UNDER", scope: fps, test: r => nn(r.po)},
+    {id: "all_under", h: "H10", name: "Every leg, under", side: () => "UNDER", scope: fps, test: r => nn(r.po), pill: false},   // still a registered rule (the parity check covers it), but it is every leg, so it gets no badge
     {id: "under_core", h: "H11", name: "Under shortlist: both models under, P(over) below 40%, line outside 20-25, PF L10 0.3-0.7, not Maps 1-3 kills", side: () => "UNDER", scope: fps,
       test: r => nn(r.po) && nn(r.poAdj) && nn(r.line) && nn(r.l10) && r.po < 0.5 && r.poAdj < 0.5 && r.po < 0.40 && !(r.line >= 20 && r.line < 25) && r.l10 >= 0.3 && r.l10 < 0.7 && r.market !== "Maps 1-3 Kills"},
     {id: "agree20", h: "H13", name: "Both models agree on a side, both lean 20+ points", side: modelSide, scope: fps,
@@ -19,7 +19,8 @@ const Rules = (() => {
     {id: "moba_lean20", h: "H14", name: "MOBA: the model leans 20+ points, its own side", side: modelSide, scope: r => !fps(r), test: r => nn(r.po) && Math.abs(r.po - 0.5) >= 0.20 - 1e-9},
   ];
   // -> [{id, h, side, name}] for one row
-  const of = r => list.filter(x => x.scope(r) && x.test(r)).map(x => ({id: x.id, h: x.h, side: x.side(r), name: x.name}));
-  return {list, of};
+  const shown = list.filter(x => x.pill !== false);
+  const of = r => shown.filter(x => x.scope(r) && x.test(r)).map(x => ({id: x.id, h: x.h, side: x.side(r), name: x.name}));
+  return {list, shown, of};
 })();
 if (typeof module !== "undefined") module.exports = Rules;
