@@ -49,6 +49,13 @@ class Names(unittest.TestCase):
         self.assertEqual(len(done), 1)
         self.assertEqual(apply_player_fixes("other", maps, fx), [])
 
+    def test_board_start_uses_the_weekday_and_the_central_clock(self):
+        iso = lambda slate, label: R.board_start_utc(slate, label).isoformat(timespec="minutes")
+        self.assertEqual(iso("2026-10-16", "Fri 03:00"), "2026-10-16T08:00")        # daylight time: +5 hours
+        self.assertEqual(iso("2026-11-01", "Sat 22:00"), "2026-11-01T03:00")        # the evening before the Sunday slate, still daylight time
+        self.assertEqual(iso("2026-11-01", "Sun 05:00"), "2026-11-01T11:00")        # after 02:00 on 11-01 the clock is standard time: +6 hours
+        self.assertEqual(iso("2026-11-02", "Mon 03:00"), "2026-11-02T09:00")
+
     def test_players(self):
         self.assertTrue(same_player("MartinezSa", "Martinez"))
         self.assertTrue(same_player("luk xo", "Lukxo"))

@@ -6,7 +6,10 @@ const Rules = (() => {
   const nn = v => v !== null && v !== undefined && !Number.isNaN(v);
   const modelSide = r => (r.po >= 0.5 ? "OVER" : "UNDER");
   const fps = r => r.title === "CS2" || r.title === "VAL";
-  const list = [
+  // the Log (and so the frozen plays) holds P(over) to 4 decimals; the tests run on those, so a lean of exactly 10 points is decided the same way here
+  const q = v => (nn(v) ? Math.round(v * 1e4) / 1e4 : v);
+  const view = r => ({...r, po: q(r.po), poAdj: q(r.poAdj)});
+  const raw = [
     {id: "agree10", h: "H8", name: "Both models agree on a side, both lean 10+ points", side: modelSide, scope: fps,
       test: r => nn(r.po) && nn(r.poAdj) && (r.po >= 0.5) === (r.poAdj >= 0.5) && Math.min(Math.abs(r.po - 0.5), Math.abs(r.poAdj - 0.5)) >= 0.10},
     {id: "all_under", h: "H10", name: "Every leg, under", side: () => "UNDER", scope: fps, test: r => nn(r.po), pill: false},   // still a registered rule (the parity check covers it), but it is every leg, so it gets no badge
@@ -19,6 +22,7 @@ const Rules = (() => {
     {id: "moba_lean20", h: "H14", name: "MOBA: the model leans 20+ points, its own side", side: modelSide, scope: r => !fps(r), test: r => nn(r.po) && Math.abs(r.po - 0.5) >= 0.20 - 1e-9},
   ];
   // -> [{id, h, side, name}] for one row
+  const list = raw.map(x => ({...x, test: r => x.test(view(r)), side: r => x.side(view(r))}));
   const shown = list.filter(x => x.pill !== false);
   const of = r => shown.filter(x => x.scope(r) && x.test(r)).map(x => ({id: x.id, h: x.h, side: x.side(r), name: x.name}));
   return {list, shown, of};

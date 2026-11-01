@@ -23,6 +23,35 @@ def select(log_rows):
     return out
 
 
+def late_matches(slate, frozen_utc, site="site"):
+    """Board matches whose start is at or before the freeze: their legs were frozen after play began, so they are not a clean pre-play record."""
+    from .results import board_start_utc
+    fz = dt.datetime.fromisoformat(frozen_utc).astimezone(dt.timezone.utc).replace(tzinfo=None)
+    out = []
+    for f in ("fps", "moba"):
+        try:
+            with open(f"{site}/data/{f}.json", encoding="utf-8") as fh:
+                ms = json.load(fh)["matches"]
+        except OSError:
+            continue
+        for m in ms:
+            st = board_start_utc(slate, m["start"])
+            if st <= fz:
+                out.append(dict(match=m["id"], start_utc=st.isoformat(timespec="minutes"), minutes_before_freeze=round((fz - st).total_seconds() / 60)))
+    return out
+
+
+def mark_late(slate, site="site", out="data/plays"):
+    """Record the late matches in an existing plays file (only this key is added; the frozen legs are untouched)."""
+    path = f"{out}/{slate}.json"
+    with open(path, encoding="utf-8") as f:
+        res = json.load(f)
+    res["late_matches"] = late_matches(slate, res["frozen_utc"], site)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(res, f, indent=1)
+    return path, res["late_matches"]
+
+
 def select_moba(moba_rows):
     out = {}
     for rid, rule in MOBA_RULES.items():
@@ -81,7 +110,10 @@ def freeze(slate, site="site", out="data/plays", force=False):
         full = json.load(f)
     log = full["fps"]
     now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
-    res = dict(slate=slate, frozen_utc=now, rules=select(log), moba_rules=select_moba(full.get("moba", [])), moba_frozen_utc=now, comparison="every leg on the board (the base model's side)")
+    res = dict(slate=slate, frozen_utc=now, rules=select(log), moba_rules=select_moba(full.get("moba", [])), moba_frozen_utc=now, comparison="every leg on the board (the base model's side)",
+               late_matches=late_matches(slate, now, site))
+    for m in res["late_matches"]:
+        print(f"WARNING {m['match']} started {m['minutes_before_freeze']} min before the freeze ({m['start_utc']} UTC): its plays are not a clean pre-play record")
     os.makedirs(out, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(res, f, indent=1)
@@ -94,9 +126,14 @@ def main():
     ap.add_argument("--site", default="site")
     ap.add_argument("--out", default="data/plays")
     ap.add_argument("--add-moba", action="store_true", help="add the MOBA rules to an existing plays file, leaving what it holds untouched")
+    ap.add_argument("--mark-late", action="store_true", help="record in an existing plays file which matches had started before its freeze")
     ap.add_argument("--add-rules", action="store_true", help="add the FPS rules the file lacks, leaving the ones it holds untouched")
     ap.add_argument("--force", action="store_true", help="rewrite an existing file (only to add a rule that did not exist yet; never after the games)")
     a = ap.parse_args()
+    if a.mark_late:
+        path, late = mark_late(a.slate, a.site, a.out)
+        print(path, late or "no match started before the freeze")
+        return
     if a.add_rules:
         path, counts = add_rules(a.slate, a.site, a.out)
         print(path, counts if counts is not None else "no rule missing: left as it is")
