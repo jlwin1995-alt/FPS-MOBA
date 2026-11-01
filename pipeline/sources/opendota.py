@@ -2,7 +2,7 @@
 
 Routes: /proMatches lists recent pro games (with a series id and the series type), /matches/<id> has the player table.
 Identity checks, per game: 10 players 5 v 5; the team's kill score is within 2 of the sum of its players' kills (the API's team score counts every kill,
-a player table can miss one); the players' deaths cover the other side's kills. Second route, per player: the kills in the player's own recent-match
+a player table can miss one), or within 6 when all ten players are confirmed by their own match histories; the players' deaths cover the other side's kills. Second route, per player: the kills in the player's own recent-match
 list must equal the kills in the game table; a difference fails the game's player check (a player with no public history is simply not compared).
 A series is "finished" only when one team has the wins its series type needs, so a half-played series is never read as a void map.
 """
@@ -70,7 +70,7 @@ def series_maps(series, route2=True):
         score = {True: m.get("radiant_score"), False: m.get("dire_score")}
         header_ok = all(score[r] is not None and abs(score[r] - k[r]) <= 2 for r in (True, False))
         cross = ok_n and all(d[r] >= k[not r] - 2 for r in (True, False))
-        bad = []
+        bad, verified = [], 0
         if route2 and ok_n:
             for p in players:
                 if not p["account_id"]:
@@ -81,6 +81,12 @@ def series_maps(series, route2=True):
                 compared += 1
                 if rk[row["match_id"]] != p["kills"]:
                     bad.append(p["name"])
+                else:
+                    verified += 1
+        # the header check is a guard against a wrong game or a mixed-up table; when every one of the ten players' kills also equals his own match history, the table is confirmed
+        # by an independent route and a team score a little further off (up to 6) is the API's own counting, not a table error
+        if not header_ok and verified == 10 and not bad and all(score[r] is not None and abs(score[r] - k[r]) <= 6 for r in (True, False)):
+            header_ok = True
         mism += [f"game {n}: {x}" for x in bad]
         maps.append(dict(n=n, map=f"game {n}", rounds=None, winner=names[bool(m["radiant_win"])], score=[score[True], score[False]], state="done", players=[{k_: v for k_, v in p.items() if k_ not in ("account_id", "radiant")} for p in players],
                          match_id=row["match_id"], duration=m.get("duration")))
