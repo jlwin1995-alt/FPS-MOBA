@@ -15,7 +15,9 @@ import argparse, datetime as dt, json, os
 from .names import same_team, same_player
 
 NEED = {"K1": [1], "H1": [1], "K12": [1, 2], "H12": [1, 2], "K13": [1, 2, 3], "H13": [1, 2, 3]}          # maps a market needs
-CT = dt.timedelta(hours=5)                                   # board start times are US Central (daylight time in October)
+from zoneinfo import ZoneInfo
+CHICAGO = ZoneInfo("America/Chicago")                        # the board's clock: US Central, daylight time until 02:00 on 2026-11-01, standard time after
+DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 
 def load_board(slate, site="site", imports="data/imports"):
@@ -35,10 +37,17 @@ def load_board(slate, site="site", imports="data/imports"):
 
 
 def board_start_utc(slate, label):
-    """'Fri 03:00' on the slate date -> UTC datetime (the weekday word is ignored: the slate date fixes the day)."""
-    hh, mm = label.split()[-1].split(":")
-    d = dt.datetime.fromisoformat(slate) + dt.timedelta(hours=int(hh), minutes=int(mm))
-    return d + CT
+    """'Fri 03:00' on the slate date -> naive UTC datetime. The weekday names the day: the one within three days of the slate date that has that weekday, so 'Sat 22:00' on the Sunday slate is the evening before.
+    The clock is US Central, daylight or standard as the date says (the change was 2026-11-01 02:00)."""
+    parts = label.split()
+    hh, mm = parts[-1].split(":")
+    base = dt.date.fromisoformat(slate)
+    day = base
+    if len(parts) > 1 and parts[0][:3].title() in DAYS:
+        wd = DAYS.index(parts[0][:3].title())
+        day = next((base + dt.timedelta(days=o) for o in (0, -1, 1, -2, 2, -3, 3) if (base + dt.timedelta(days=o)).weekday() == wd), base)
+    local = dt.datetime(day.year, day.month, day.day, int(hh), int(mm), tzinfo=CHICAGO)
+    return local.astimezone(dt.timezone.utc).replace(tzinfo=None)
 
 
 def iso_utc(s):
