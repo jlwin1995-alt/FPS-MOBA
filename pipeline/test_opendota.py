@@ -54,6 +54,13 @@ class Series(unittest.TestCase):
         self.assertFalse(r["checks"][0]["players_ok"])
         self.assertGreater(r["route2"]["mismatched"], 0)
 
+    def test_a_header_gap_of_three_passes_when_every_player_is_confirmed_by_his_history(self):
+        row = dict(game(1, 1, True), radiant_score=28)                         # players sum to 25: a gap of 3
+        r = self._maps([dict(match_id=1, kills=5)], [row])
+        self.assertTrue(r["checks"][0]["rounds_ok"])
+        r2 = self._maps([], [row])                                             # no histories to confirm them: the header check stands
+        self.assertFalse(r2["checks"][0]["rounds_ok"])
+
     def test_team_score_far_from_the_players_sum_fails_the_header_check(self):
         row = dict(game(1, 1, True), radiant_score=40)                         # players sum to 25
         r = self._maps([], [row])
