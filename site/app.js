@@ -81,7 +81,7 @@ const hrCell = x => x == null || x === "" ? "" : pct0(x);
 const Pages = {};
 Pages["Projections"] = () => {
   const rs = compute().rows.filter(passes);
-  const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "play", h: "Rules", l: 1, t: "The registered play rules this leg falls under (H8 agree10, H10 every under, H11 under shortlist, H12 last-10 0.8+ over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs). Filled = OVER, outlined = UNDER. Judged only on slates after each rule's declaration date; the frozen lists are data/plays/<slate>.json.", v: r => rulesOf(r).length, f: r => rulePills(r)},
+  const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "play", h: "Rules", l: 1, t: "The registered play rules this leg falls under (H8 agree10, H11 under shortlist, H12 last-10 0.8+ over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs). Filled = OVER, outlined = UNDER. Judged only on slates after each rule's declaration date; the frozen lists are data/plays/<slate>.json.", v: r => rulesOf(r).length, f: r => rulePills(r)},
     {k: "line", h: "Line", f: r => L(r.line)}, {k: "proj", h: "Proj", t: "Model projection", f: r => L(r.proj)},
     {k: "adj", h: "Proj adj", t: "CS2 round-differential layer (HLTV conditional round margins). PAPER, never scored forward.", f: r => L(r.adj)},
     {k: "kpm", h: "Proj KPM", t: "SHADOW: career kills per map x the maps that count (no map names, no rounds). Scored side by side with the projection (hypothesis H9); not the published number.", f: r => L(r.kpm)}, {k: "poKpm", h: "P(over) KPM", f: r => pct1(r.poKpm)},
@@ -96,7 +96,7 @@ Pages["Projections"] = () => {
     {k: "maps", h: "Maps used", l: 1}, {k: "rounds", h: "Rounds used", l: 1}, {k: "flags", h: "Flags", l: 1, f: r => flagPills(r.flags)}];
   return `<h2>Projections</h2><p class="sub">${D.meta.slate} slate · ${rs.length} of ${compute().rows.length} legs. Change maps, rounds, win probabilities or constants on the <a href="#Matches">Matches</a> and <a href="#Config">Config</a> tabs and every number follows.
     ${hasEdits() ? `<b class="warn">Showing your edits, not the workbook defaults.</b>` : ""}</p>
-    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("rule", "Rule", [["", "All legs"], ["any", "Any rule"], ...Rules.list.map(x => [x.id, `${x.h} · ${x.id} (${compute().rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length})`])], F.rule)}`)}
+    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("rule", "Rule", [["", "All legs"], ["any", "Any rule"], ...Rules.shown.map(x => [x.id, `${x.h} · ${x.id} (${compute().rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length})`])], F.rule)}`)}
     ${table(cols, rs, {id: "proj", sort: {key: "side", asc: false}})}`;
 };
 const hasEdits = () => Object.keys(OVR.fps).length || Object.keys(OVR.moba).length || Object.keys(CFGO.fps).length || Object.keys(CFGO.moba).length;
