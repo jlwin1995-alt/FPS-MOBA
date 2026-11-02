@@ -14,7 +14,7 @@ Everything else is reported with a reason (void, did not play, unmatched, not fi
 import argparse, datetime as dt, json, os
 from .names import same_team, same_player
 
-NEED = {"K1": [1], "H1": [1], "K12": [1, 2], "H12": [1, 2], "K13": [1, 2, 3], "H13": [1, 2, 3]}          # maps a market needs
+NEED = {"K1": [1], "H1": [1], "K2": [2], "H2": [2], "K3": [3], "H3": [3], "K12": [1, 2], "H12": [1, 2], "K13": [1, 2, 3], "H13": [1, 2, 3]}          # maps a market needs
 from zoneinfo import ZoneInfo
 CHICAGO = ZoneInfo("America/Chicago")                        # the board's clock: US Central, daylight time until 02:00 on 2026-11-01, standard time after
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]

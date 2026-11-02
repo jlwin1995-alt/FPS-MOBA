@@ -9,7 +9,7 @@ The same arithmetic is in site/fps.js (calcAll, `out.kpm`) so the Projections ta
 """
 import argparse, json, math
 
-N_MAPS = {"K1": 1, "H1": 1, "K12": 2, "H12": 2}
+N_MAPS = {"K1": 1, "H1": 1, "K2": 1, "H2": 1, "K12": 2, "H12": 2}
 
 
 def norm_cdf(x):
