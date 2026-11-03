@@ -20,7 +20,7 @@ import argparse, datetime as dt, glob, json, os, sys
 SCHEMA = 1
 TITLES = {"CS2", "VAL", "LOL", "DOTA"}
 FPS_TITLES, MOBA_TITLES = {"CS2", "VAL"}, {"LOL", "DOTA"}
-CODE = {"Map 1 Kills": "K1", "Maps 1-2 Kills": "K12", "Maps 1-3 Kills": "K13", "Map 1 HS": "H1", "Maps 1-2 HS": "H12"}
+CODE = {"Map 1 Kills": "K1", "Map 2 Kills": "K2", "Maps 1-2 Kills": "K12", "Maps 1-3 Kills": "K13", "Map 1 HS": "H1", "Map 2 HS": "H2", "Maps 1-2 HS": "H12"}
 KILL_TOL = 0.06                     # weighted kills/map vs overall: the workbook's own data differs by up to 0.036 from rounding
 RECENCY_DAYS = 120
 GRAIN = {"l5": 5, "l10": 10, "l15": 15}

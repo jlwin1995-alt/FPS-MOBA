@@ -74,6 +74,12 @@ class Legs(unittest.TestCase):
         self.assertEqual(self.run_leg("K12", m)["actual"], 17)
         self.assertEqual(self.run_leg("H12", m)["actual"], 2)
 
+    def test_a_map_two_market_reads_only_map_two(self):
+        m = match([mp(1, game_players("AA", "BB")), mp(2, game_players("AA", "BB", 5))])
+        self.assertEqual(self.run_leg("K2", m)["actual"], 6)                      # map 2 alone: base 5 + 1
+        self.assertEqual(self.run_leg("H2", m)["actual"], 1)
+        self.assertTrue(self.run_leg("K2", match([mp(1, game_players("AA", "BB"))]))["status"].startswith("void"))      # a Bo1 has no map 2
+
     def test_bo1_has_no_map_two(self):
         self.assertTrue(self.run_leg("K12", match([mp(1, game_players("AA", "BB"))]))["status"].startswith("void"))
 

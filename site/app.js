@@ -33,7 +33,7 @@ const flagPills = fl => (fl || []).map(t => `<span class="pill q" title="${esc(t
 
 // ---------- filters ----------
 const sel = (id, label, opts, cur) => `<label>${label} <select id="${id}">${opts.map(([v, t]) => `<option value="${esc(v)}" ${cur === v ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
-const MARKETS = ["Map 1 Kills", "Map 1 HS", "Maps 1-2 Kills", "Maps 1-2 HS", "Maps 1-3 Kills", "Maps 1-3 HS"];
+const MARKETS = ["Map 1 Kills", "Map 1 HS", "Map 2 Kills", "Map 2 HS", "Maps 1-2 Kills", "Maps 1-2 HS", "Maps 1-3 Kills", "Maps 1-3 HS"];
 function filters(extra = "") {
   return `<div class="bar"><input id="q" placeholder="Search player / team / match" value="${esc(F.q)}">
     ${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"], ["LOL", "LoL"], ["DOTA", "Dota 2"]], F.title)}
