@@ -473,6 +473,67 @@ def summarise_moba(rows):
     return out
 
 
+# ----------------------------------------------------------------------------------------------- rolling breakdown by rule
+RULE_ORDER = [("agree10", "H8"), ("all_under", "H10"), ("under_core", "H11"), ("l10_over", "H12"), ("agree20", "H13"), ("hs_side", "H15"), ("moba_lean20", "H14")]
+CUTS = [("All legs", lambda x: True), ("Over calls", lambda x: x["side"] == "OVER"), ("Under calls", lambda x: x["side"] == "UNDER"), ("Kills", lambda x: x["kind"] == "Kills"), ("Headshots", lambda x: x["kind"] == "HS"),
+        ("Kills · over", lambda x: x["kind"] == "Kills" and x["side"] == "OVER"), ("Kills · under", lambda x: x["kind"] == "Kills" and x["side"] == "UNDER"),
+        ("Headshots · over", lambda x: x["kind"] == "HS" and x["side"] == "OVER"), ("Headshots · under", lambda x: x["kind"] == "HS" and x["side"] == "UNDER")]
+
+
+def rule_legs(stored):
+    """Every settled leg each registered rule selects, over all stored slates: {rule id: [{slate, hit, side, kind}]}. Pushes are dropped; the tests are the ones the plays are frozen with."""
+    out = {rid: [] for rid, _ in RULE_ORDER}
+    for s in sorted(stored):
+        for r in stored[s]["rows"]:
+            if r["act"] == r["line"] or r["po"] is None:
+                continue
+            over = r["act"] > r["line"]
+            for rid, rule in RULES.items():
+                if rule["test"](r["po"], r["poa"], line=r["line"], market=r["market"], pf=r["l10"]):
+                    side = "UNDER" if rule.get("side") == "under" else "OVER" if rule.get("side") == "over" else ("OVER" if r["po"] >= 0.5 else "UNDER")
+                    out[rid].append(dict(slate=s, hit=(side == "OVER") == over, side=side, kind="HS" if "HS" in r["market"] else "Kills"))
+        for r in stored[s]["moba"]:
+            if r["act"] == r["line"] or r.get("po") is None:
+                continue
+            over = r["act"] > r["line"]
+            for rid, rule in MOBA_RULES.items():
+                if rule["test"](r["po"]):
+                    side = "OVER" if r["po"] >= 0.5 else "UNDER"
+                    out[rid].append(dict(slate=s, hit=(side == "OVER") == over, side=side, kind="Kills"))
+    return out
+
+
+def breakdown(stored):
+    """Per rule: the hit rate in total and by call side and prop type, over its forward test slates, the last 10 and last 5 of them, and (descriptive) over every slate."""
+    legs = rule_legs(stored)
+    afters = {**{rid: rule["after"] for rid, rule in RULES.items()}, **{rid: rule["after"] for rid, rule in MOBA_RULES.items()}}
+    names = {**{rid: rule["name"] for rid, rule in RULES.items()}, **{rid: rule["name"] for rid, rule in MOBA_RULES.items()}}
+    out = []
+    for rid, h in RULE_ORDER:
+        after = afters[rid]
+        test_slates = sorted(s for s in stored if s > after)
+        win = {"fwd": set(test_slates), "last10": set(test_slates[-10:]), "last5": set(test_slates[-5:]), "all": set(stored)}
+
+        def cell(cut, key):
+            sel = [x for x in legs[rid] if x["slate"] in win[key] and cut(x)]
+            return [sum(1 for x in sel if x["hit"]), len(sel)]
+        rows, kept = [], []
+        for label, cut in CUTS:
+            cells = {k: cell(cut, k) for k in win}
+            if not any(c[1] for c in cells.values()):
+                continue
+            if label == "All legs":
+                kept.append(cells)
+                rows.append(dict(label=label, **cells))
+                continue
+            if any(cells == r_cells for r_cells in kept):      # a one-sided rule: "Under calls" is just "All legs" again, "Kills · under" just "Kills"
+                continue
+            kept.append(cells)
+            rows.append(dict(label=label, **cells))
+        out.append(dict(id=rid, h=h, name=names[rid], after=after, test_slates=len(test_slates), windows={k: len(v) for k, v in win.items()}, rows=rows))
+    return dict(breakeven=max(BREAKEVEN.values()), rules=out)
+
+
 # ----------------------------------------------------------------------------------------------- driver
 def settled_slates(site):
     idx = read_json(f"{site}/data/log/index.json") or []
@@ -532,6 +593,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
                             moba_forward=dict(slates=fwd14, summary=(lambda x: x and dict(rules=(x.get("moba") or {}).get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H14"]))(pooled(fwd14))) if fwd14 else None,
                             hs_forward=dict(slates=fwd15, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H15"]))(pooled(fwd15))) if fwd15 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
+    report["breakdown"] = breakdown(stored)
     write(f"{site}/data/evaluation.json", report)
     return report
 
@@ -566,8 +628,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slate")
     ap.add_argument("--all", action="store_true")
+    ap.add_argument("--pooled", action="store_true", help="rebuild only the pooled views and the breakdown from the stored per-slate files (fast)")
     ap.add_argument("--site", default="site")
     a = ap.parse_args()
+    if a.pooled:
+        run([], a.site)
+        print("pooled views and the rolling breakdown rebuilt from the stored slates")
+        return
     slates = settled_slates(a.site) if a.all or not a.slate else [a.slate]
     if not slates:
         raise SystemExit("no slate has settled legs yet")

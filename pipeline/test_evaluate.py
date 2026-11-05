@@ -152,6 +152,22 @@ class Friday(unittest.TestCase):
         h15 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H15"]
         self.assertTrue(h15.startswith("descriptive"))       # declared after 2026-10-30
 
+    def test_the_rolling_breakdown_agrees_with_the_rule_records(self):
+        bd = {r["id"]: r for r in self.rep["breakdown"]["rules"]}
+        for rid in ("agree10", "all_under", "under_core", "agree20", "l10_over", "hs_side"):
+            rec = self.s["rules"].get(rid)
+            row = next(x for x in bd[rid]["rows"] if x["label"] == "All legs") if bd[rid]["rows"] else None
+            if rec is None:
+                self.assertTrue(row is None or row["all"][1] == 0)
+                continue
+            self.assertEqual(row["all"], [rec["hits"], rec["n"]])                 # the descriptive column over every slate is the rule's record
+        for r in bd.values():                                                      # a cut never has more legs than the whole, and over plus under is the whole
+            whole = next((x for x in r["rows"] if x["label"] == "All legs"), None)
+            for x in r["rows"]:
+                for k in ("fwd", "last10", "last5", "all"):
+                    self.assertLessEqual(x[k][1], whole[k][1])
+                    self.assertLessEqual(x[k][0], x[k][1])
+
     def test_side_record(self):
         d = self.s["side"]
         self.assertEqual((d["hits"], d["n"]), (93, 176))
