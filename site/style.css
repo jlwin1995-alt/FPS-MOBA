@@ -59,3 +59,5 @@ details summary{cursor:pointer;list-style:none}details summary::-webkit-details-
 tr.lean-strong-row td:first-child{box-shadow:inset 3px 0 0 var(--acc)}tr.lean-lean-row td:first-child{box-shadow:inset 3px 0 0 var(--line)}
 
 .pill.start{color:var(--acc);border-color:var(--acc);font-weight:600}.pill.bkp{color:var(--mut)}
+
+.rsel{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center}.rchip{display:inline-flex;gap:4px;align-items:center;padding:2px 8px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:.9em}.rchip.on{background:var(--acc);color:var(--bg);border-color:transparent}.rchip.on .mut{color:var(--bg);opacity:.75}.rchip input{margin:0}
