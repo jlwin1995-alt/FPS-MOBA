@@ -1,7 +1,7 @@
 "use strict";
-const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Data", "Config", "Methodology"];
+const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Players", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rule: "", slate: "", bmatch: "", imatch: ""};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rule: "", slate: "", bmatch: "", imatch: "", perf: "", pl: "flag", plmin: "8"};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -41,14 +41,19 @@ function filters(extra = "") {
 }
 // which registered play rules each leg falls under (site/rules.js mirrors pipeline/evaluate.py; the frozen record is data/plays/<slate>.json)
 const rulesOf = r => r._rules || (r._rules = Rules.of(r));
+// player over/under-performer record (pipeline/players.py -> data/players.json): descriptive, see the Players tab
+const sg = x => `${x > 0 ? "+" : ""}${(x * 100).toFixed(1)}%`;
+const perfOf = r => { if (!D.players) return null; const m = D.players._m || (D.players._m = new Map(D.players.players.map(p => [`${p.title}|${p.player}`, p]))); return m.get(`${r.title}|${String(r.player).trim()}`) || null; };
+const perfPill = r => { const p = perfOf(r); if (!p || !p.flag) return ""; const o = p.flag === "OVER";
+  return ` <span class="pill ${o ? "lean-strong" : "lean-lean"}" title="${esc(`${o ? "Over" : "Under"}-performer: ${p.matches} matches, ${sg(p.err_vs_line)} vs the line (shrunk ${sg(p.shrunk_vs_line)}), ${sg(p.err_vs_proj ?? 0)} vs our projection, over ${pct0(p.over_rate)} of legs. A record, not a signal: the next-slate test shows no persistence (Players tab).`)}">${o ? "▲ over" : "▼ under"}-perf</span>`; };
 const rulePills = r => rulesOf(r).map(x => `<span class="pill ${x.side === "OVER" ? "lean-strong" : "lean-lean"}" title="${esc(x.h + " · " + x.name + " · " + x.side)}">${x.h} ${x.side === "OVER" ? "O" : "U"}</span>`).join(" ");
 const passes = r => (!F.rule || (F.rule === "any" ? rulesOf(r).length > 0 : rulesOf(r).some(x => x.id === F.rule))) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
-  (!F.side || (F.side === "any" ? r.side === "OVER" || r.side === "UNDER" : r.side === F.side)) && (!F.flagged || r.flags.length) &&
+  (!F.side || (F.side === "any" ? r.side === "OVER" || r.side === "UNDER" : r.side === F.side)) && (!F.flagged || r.flags.length) && (!F.perf || (perfOf(r) || {}).flag === F.perf) &&
   (!F.q.trim() || (r.player + " " + r.team + " " + r.match).toLowerCase().includes(F.q.trim().toLowerCase()));
 document.addEventListener("input", e => { if (e.target.id === "q") { F.q = e.target.value; render(true, "q"); } });
 document.addEventListener("change", e => {
   const t = e.target, id = t.id;
-  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rule"].includes(id)) { F[id] = t.value; render(); }
+  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rule", "perf", "pl", "plmin"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
   else if (t.dataset.cfg) {                                        // Config constant
     const [k, name] = t.dataset.cfg.split(":"), v = parseFloat(t.value);
@@ -81,7 +86,7 @@ const hrCell = x => x == null || x === "" ? "" : pct0(x);
 const Pages = {};
 Pages["Projections"] = () => {
   const rs = compute().rows.filter(passes);
-  const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "play", h: "Rules", l: 1, t: "The registered play rules this leg falls under (H8 agree10, H11 under shortlist, H12 last-10 0.8+ over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs). Filled = OVER, outlined = UNDER. Judged only on slates after each rule's declaration date; the frozen lists are data/plays/<slate>.json.", v: r => rulesOf(r).length, f: r => rulePills(r)},
+  const cols = [{k: "player", h: "Player", l: 1, f: r => esc(r.player) + perfPill(r)}, {k: "title", h: "Title", l: 1}, {k: "team", h: "Team", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "play", h: "Rules", l: 1, t: "The registered play rules this leg falls under (H8 agree10, H11 under shortlist, H12 last-10 0.8+ over, H13 agree20, H14 MOBA lean 20+, H15 headshot legs). Filled = OVER, outlined = UNDER. Judged only on slates after each rule's declaration date; the frozen lists are data/plays/<slate>.json.", v: r => rulesOf(r).length, f: r => rulePills(r)},
     {k: "line", h: "Line", f: r => L(r.line)}, {k: "proj", h: "Proj", t: "Model projection", f: r => L(r.proj)},
     {k: "adj", h: "Proj adj", t: "CS2 round-differential layer (HLTV conditional round margins). PAPER, never scored forward.", f: r => L(r.adj)},
     {k: "kpm", h: "Proj KPM", t: "SHADOW: career kills per map x the maps that count (no map names, no rounds). Scored side by side with the projection (hypothesis H9); not the published number.", f: r => L(r.kpm)}, {k: "poKpm", h: "P(over) KPM", f: r => pct1(r.poKpm)},
@@ -96,7 +101,7 @@ Pages["Projections"] = () => {
     {k: "maps", h: "Maps used", l: 1}, {k: "rounds", h: "Rounds used", l: 1}, {k: "flags", h: "Flags", l: 1, f: r => flagPills(r.flags)}];
   return `<h2>Projections</h2><p class="sub">${D.meta.slate} slate · ${rs.length} of ${compute().rows.length} legs. Change maps, rounds, win probabilities or constants on the <a href="#Matches">Matches</a> and <a href="#Config">Config</a> tabs and every number follows.
     ${hasEdits() ? `<b class="warn">Showing your edits, not the workbook defaults.</b>` : ""}</p>
-    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("rule", "Rule", [["", "All legs"], ["any", "Any rule"], ...Rules.shown.map(x => [x.id, `${x.h} · ${x.id} (${compute().rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length})`])], F.rule)}`)}
+    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("perf", "Performer", [["", "All"], ["OVER", "Over-performers"], ["UNDER", "Under-performers"]], F.perf)} ${sel("rule", "Rule", [["", "All legs"], ["any", "Any rule"], ...Rules.shown.map(x => [x.id, `${x.h} · ${x.id} (${compute().rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length})`])], F.rule)}`)}
     ${table(cols, rs, {id: "proj", sort: {key: "side", asc: false}})}`;
 };
 const hasEdits = () => Object.keys(OVR.fps).length || Object.keys(OVR.moba).length || Object.keys(CFGO.fps).length || Object.keys(CFGO.moba).length;
@@ -336,6 +341,32 @@ Pages["Data"] = () => {
     <div class="two"><div>${ck("FPS workbook · Data_Checks", D.fps)}</div><div>${ck("MOBA workbook · Data_Checks", D.moba)}</div></div><div class="doc">${DICT.map(sect).join("")}</div>`;
 };
 
+// ---------- Players: who beats or misses the line ----------
+Pages["Players"] = () => {
+  const P = D.players;
+  if (!P) return `<h2>Players</h2><div class="banner">No player record yet. Run <code>python -m pipeline.players</code>.</div>`;
+  const min = +F.plmin || 3, q = F.q.trim().toLowerCase();
+  const rs = P.players.filter(p => p.matches >= min && (!F.title || p.title === F.title) && (F.pl !== "flag" || p.flag) && (F.pl !== "OVER" && F.pl !== "UNDER" || p.flag === F.pl) && (!q || p.player.toLowerCase().includes(q)));
+  const w = P.walk_forward.over_rate_of_legs, wc = k => `${w[k].over} of ${w[k].n} (${pct0(w[k].rate)})`;
+  const cols = [{k: "player", h: "Player", l: 1}, {k: "title", h: "Title", l: 1},
+    {k: "flag", h: "Tag", l: 1, v: p => p.flag === "OVER" ? 1 : p.flag === "UNDER" ? -1 : 0, f: p => p.flag ? `<span class="pill ${p.flag === "OVER" ? "lean-strong" : "lean-lean"}">${p.flag === "OVER" ? "▲ over" : "▼ under"}-perf</span>` : ""},
+    {k: "matches", h: "Matches", t: "Player-matches graded (legs of one game count once)"}, {k: "legs", h: "Legs"}, {k: "or", h: "Over rate", t: "Share of graded legs that went over the line", v: p => p.over_rate, f: p => pct0(p.over_rate)},
+    {k: "el", h: "vs line", t: "Mean of actual / line - 1 over his matches", v: p => p.err_vs_line, f: p => sg(p.err_vs_line)},
+    {k: "ep", h: "vs proj", t: "Mean of actual / our published projection - 1: our projection's bias on him", v: p => p.err_vs_proj, f: p => p.err_vs_proj == null ? "" : sg(p.err_vs_proj)},
+    {k: "sh", h: "Shrunk vs line", t: `Pulled toward zero by n / (n + ${P.shrink.shrink_k}): fitted on this data, a short hot streak is mostly noise`, v: p => p.shrunk_vs_line, f: p => sg(p.shrunk_vs_line)},
+    {k: "z", h: "z", t: "Shrunk error divided by its standard error; sorted by size, the tag needs |z| of 1.5 and 8+ matches", v: p => p.z == null ? null : Math.abs(p.z), f: p => p.z == null ? "" : num(p.z, 2)},
+    {k: "kk", h: "Kills vs line", v: p => p.K && p.K.err_vs_line, f: p => p.K ? `${sg(p.K.err_vs_line)} <span class="mut">(${p.K.matches})</span>` : ""},
+    {k: "hh", h: "HS vs line", v: p => p.HS && p.HS.err_vs_line, f: p => p.HS ? `${sg(p.HS.err_vs_line)} <span class="mut">(${p.HS.matches})</span>` : ""}];
+  return `<h2>Players</h2><p class="sub">Every settled leg of the Log (${P.slates[0]} to ${P.slates[1]}, ${P.legs} legs), by player: how far his results land from the line and from our projection. Built by <code>python -m pipeline.players</code>. Descriptive.</p>
+    <div class="banner"><b>Read this before using a tag.</b> The tag only describes the past. Walking forward through the slates, flagging each player from earlier slates only and scoring his next legs: flagged over-performers went over ${wc("OVER")}, flagged under-performers ${wc("UNDER")}, everyone else ${wc("NONE")}. If the tag carried over, those two numbers would be far apart; they are not. The line already prices these players. Nothing here is a registered rule.</div>
+    <div class="bar"><input id="q" placeholder="Search player" value="${esc(F.q)}">
+      ${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"], ["LOL", "LoL"], ["DOTA", "Dota 2"]], F.title)}
+      ${sel("pl", "Show", [["flag", "Tagged players"], ["OVER", "Over-performers"], ["UNDER", "Under-performers"], ["all", "Everyone"]], F.pl)}
+      ${sel("plmin", "Min matches", [["3", "3"], ["5", "5"], ["8", "8"], ["12", "12"], ["20", "20"]], F.plmin)}</div>
+    <p class="sub">${rs.length} players. Errors are relative (+20% = 20% more than the line). The estimated spread of true differences between players is ${pct0(P.shrink.tau)} against ${pct0(P.shrink.within_sd)} of noise per match.</p>
+    ${table(cols, rs, {id: "pl", sort: {key: "z", asc: false}})}`;
+};
+
 // ---------- Config ----------
 const CFGNOTE = {
   fps: {SHRINK_MAPS: "Maps of the player's OWN overall KPR mixed into each per-map KPR. 0 = trust the per-map number fully; 20 = nearly ignore maps. Judgment, not measured (per-map samples are 3–9 maps).",
@@ -397,6 +428,7 @@ window.addEventListener("hashchange", route);
     await Promise.all(D.meta.slates.map(async s => { D.logs[s] = await get(`log/${s}`); }));
     try { D.eval = await get("evaluation"); } catch (e) { D.eval = null; }
     try { D.odds = await get("odds"); } catch (e) { D.odds = null; }
+    try { D.players = await get("players"); } catch (e) { D.players = null; }
   } catch (e) { view().innerHTML = `<p class="bad">Could not load data (${esc(e.message)}). Run <code>python -m pipeline.import_xlsx</code>.</p>`; return; }
   document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · ${D.meta.moba_legs ? `MOBA built ${D.meta.moba_built} UTC` : "no LoL/Dota workbook today"}`;
   const b = document.getElementById("banner");

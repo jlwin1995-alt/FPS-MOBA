@@ -73,3 +73,8 @@ Every import logs `Proj KPM` / `P(over) KPM` (career kills per map x the maps th
 * Dota is wired to the model but not to results (the OpenDota source is not connected yet; none on the board lately).
 * HLTV and Leaguepedia refuse automated access and are not worked around.
 * Both models are PAPER. The Scorecard is the first forward record, not proof.
+
+
+## Player over/under-performer log
+
+`python -m pipeline.players` (a second, no network) reads every settled leg in `site/data/log` and writes `data/players/players.json` (and a slim `site/data/players.json` for the Players tab and the over/under-perf tag on Projections): per player, the matches, the mean error against the line and against the published projection (actual / line - 1, actual / projection - 1, averaged per player-match so legs of one game count once), the share of legs over, kills and headshots apart, and an empirical-Bayes shrunk estimate toward zero. A player is flagged with at least 8 matches and a shrunk error 1.5 standard errors from zero. The same run walks forward through the slates and scores the next slate's legs of the players flagged by the slates before it, which is the test of whether a flag means anything. It is descriptive logging; a play rule would be declared in `pipeline/evaluate.py` first. Re-run it after each settle (it takes about a second).
