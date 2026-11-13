@@ -1,7 +1,7 @@
 "use strict";
 const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Players", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rule: "", slate: "", bmatch: "", imatch: "", perf: "", pl: "flag", plmin: "8"};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", slate: "", bmatch: "", imatch: "", perf: "", pl: "flag", plmin: "8"};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -47,14 +47,21 @@ const perfOf = r => { if (!D.players) return null; const m = D.players._m || (D.
 const perfPill = r => { const p = perfOf(r); if (!p || !p.flag) return ""; const o = p.flag === "OVER";
   return ` <span class="pill ${o ? "lean-strong" : "lean-lean"}" title="${esc(`${o ? "Over" : "Under"}-performer: ${p.matches} matches, ${sg(p.err_vs_line)} vs the line (shrunk ${sg(p.shrunk_vs_line)}), ${sg(p.err_vs_proj ?? 0)} vs our projection, over ${pct0(p.over_rate)} of legs. A record, not a signal: the next-slate test shows no persistence (Players tab).`)}">${o ? "▲ over" : "▼ under"}-perf</span>`; };
 const rulePills = r => rulesOf(r).map(x => `<span class="pill ${x.side === "OVER" ? "lean-strong" : "lean-lean"}" title="${esc(x.h + " · " + x.name + " · " + x.side)}">${x.h} ${x.side === "OVER" ? "O" : "U"}</span>`).join(" ");
-const passes = r => (!F.rule || (F.rule === "any" ? rulesOf(r).length > 0 : rulesOf(r).some(x => x.id === F.rule))) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
+// rule selector: any number of rules ticked; "all" keeps legs that fall under every ticked rule, "any" legs under at least one
+const ruleOk = r => { if (!F.rules.length) return true; const ids = rulesOf(r).map(x => x.id); return F.rmode === "any" ? F.rules.some(i => ids.includes(i)) : F.rules.every(i => ids.includes(i)); };
+const ruleChips = () => { const rows = compute().rows;
+  return `<span class="rsel"><b>Rules</b> ${Rules.shown.map(x => { const n = rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length;
+    return `<label class="rchip ${F.rules.includes(x.id) ? "on" : ""}" title="${esc(x.name)}"><input type="checkbox" data-rule="${x.id}" ${F.rules.includes(x.id) ? "checked" : ""}> ${x.h} <span class="mut">${n}</span></label>`; }).join("")}
+    ${sel("rmode", "Match", [["all", "all ticked"], ["any", "any ticked"]], F.rmode)}${F.rules.length ? ` <button data-rclear="1">clear</button>` : ""}</span>`; };
+const passes = r => ruleOk(r) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
   (!F.side || (F.side === "any" ? r.side === "OVER" || r.side === "UNDER" : r.side === F.side)) && (!F.flagged || r.flags.length) && (!F.perf || (perfOf(r) || {}).flag === F.perf) &&
   (!F.q.trim() || (r.player + " " + r.team + " " + r.match).toLowerCase().includes(F.q.trim().toLowerCase()));
 document.addEventListener("input", e => { if (e.target.id === "q") { F.q = e.target.value; render(true, "q"); } });
 document.addEventListener("change", e => {
   const t = e.target, id = t.id;
-  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rule", "perf", "pl", "plmin"].includes(id)) { F[id] = t.value; render(); }
+  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rmode", "perf", "pl", "plmin"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
+  else if (t.dataset.rule) { F.rules = t.checked ? [...new Set([...F.rules, t.dataset.rule])] : F.rules.filter(i => i !== t.dataset.rule); render(true); }
   else if (t.dataset.cfg) {                                        // Config constant
     const [k, name] = t.dataset.cfg.split(":"), v = parseFloat(t.value);
     if (Number.isNaN(v) || v === D[k].config[name]) delete CFGO[k][name]; else CFGO[k][name] = v;
@@ -75,6 +82,7 @@ document.addEventListener("change", e => {
 document.addEventListener("click", e => {
   const b = e.target.closest("button[data-reset]");
   if (b) { const [kind, id] = b.dataset.reset.split("|"); if (id) delete OVR[kind][id]; else OVR[kind] = {}; store.set("ovr", OVR); bump(); render(true); }
+  if (e.target.dataset.rclear) { F.rules = []; render(true); }
   if (e.target.id === "cfgreset") { CFGO = {fps: {}, moba: {}}; store.set("cfg", CFGO); bump(); render(true); }
   if (e.target.id === "actclear") { ACT = {}; store.set("act", ACT); render(true); }
   const a = e.target.closest("a[data-go]"); if (a) { e.preventDefault(); F[a.dataset.f] = a.dataset.go; location.hash = a.dataset.tab; }
@@ -101,7 +109,7 @@ Pages["Projections"] = () => {
     {k: "maps", h: "Maps used", l: 1}, {k: "rounds", h: "Rounds used", l: 1}, {k: "flags", h: "Flags", l: 1, f: r => flagPills(r.flags)}];
   return `<h2>Projections</h2><p class="sub">${D.meta.slate} slate · ${rs.length} of ${compute().rows.length} legs. Change maps, rounds, win probabilities or constants on the <a href="#Matches">Matches</a> and <a href="#Config">Config</a> tabs and every number follows.
     ${hasEdits() ? `<b class="warn">Showing your edits, not the workbook defaults.</b>` : ""}</p>
-    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("perf", "Performer", [["", "All"], ["OVER", "Over-performers"], ["UNDER", "Under-performers"]], F.perf)} ${sel("rule", "Rule", [["", "All legs"], ["any", "Any rule"], ...Rules.shown.map(x => [x.id, `${x.h} · ${x.id} (${compute().rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length})`])], F.rule)}`)}
+    ${filters(sel("side", "Side", [["", "All"], ["any", "Any side"], ["OVER", "OVER"], ["UNDER", "UNDER"]], F.side) + `<label><input type="checkbox" id="flagged" ${F.flagged ? "checked" : ""}> flagged only</label> ${sel("perf", "Performer", [["", "All"], ["OVER", "Over-performers"], ["UNDER", "Under-performers"]], F.perf)} ${ruleChips()}`)}
     ${table(cols, rs, {id: "proj", sort: {key: "side", asc: false}})}`;
 };
 const hasEdits = () => Object.keys(OVR.fps).length || Object.keys(OVR.moba).length || Object.keys(CFGO.fps).length || Object.keys(CFGO.moba).length;
