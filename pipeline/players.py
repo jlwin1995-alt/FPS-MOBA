@@ -131,6 +131,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--min-n", type=int, default=8)
     ap.add_argument("--out", default="data/players/players.json")
+    ap.add_argument("--site", default="site/data/players.json", help="slim copy for the site (players with at least 3 matches); '' to skip")
     a = ap.parse_args()
     legs = settled_legs()
     obs = observations(legs)
@@ -141,6 +142,11 @@ def main():
                players=len(rows), min_n=a.min_n, shrink=par, walk_forward=wf, flagged=[r for r in rows if r["flag"]], table=rows)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     json.dump(rep, open(a.out, "w"), indent=1)
+    if a.site:
+        keep = ("player", "title", "matches", "legs", "over_rate", "err_vs_line", "err_vs_proj", "shrunk_vs_line", "z", "flag", "K", "HS")
+        slim = dict(slates=rep["slates"], legs=rep["legs"], min_n=a.min_n, shrink=par, walk_forward=wf,
+                    players=[{k: r[k] for k in keep if k in r} for r in rows if r["matches"] >= 3])
+        json.dump(slim, open(a.site, "w"), separators=(",", ":"), ensure_ascii=False)
     print(f"{len(legs)} graded legs, {len(obs)} player-match observations, {len(rows)} players; shrink: {par}")
     print("walk-forward (legs of flagged players on the next slate, over rate):", json.dumps(wf["over_rate_of_legs"]), "corr(past shrunk error, next error) =", wf["corr_past_vs_next"], f"on {wf['pairs']} pairs")
     print(f"\nflagged (>= {a.min_n} matches, |z| >= 1.5): {len(rep['flagged'])}")
