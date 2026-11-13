@@ -1,7 +1,7 @@
 "use strict";
 const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Players", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", slate: "", bmatch: "", imatch: "", perf: "", pl: "flag", plmin: "8"};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", rsame: false, slate: "", bmatch: "", imatch: "", perf: "", pl: "flag", plmin: "8"};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -48,11 +48,13 @@ const perfPill = r => { const p = perfOf(r); if (!p || !p.flag) return ""; const
   return ` <span class="pill ${o ? "lean-strong" : "lean-lean"}" title="${esc(`${o ? "Over" : "Under"}-performer: ${p.matches} matches, ${sg(p.err_vs_line)} vs the line (shrunk ${sg(p.shrunk_vs_line)}), ${sg(p.err_vs_proj ?? 0)} vs our projection, over ${pct0(p.over_rate)} of legs. A record, not a signal: the next-slate test shows no persistence (Players tab).`)}">${o ? "▲ over" : "▼ under"}-perf</span>`; };
 const rulePills = r => rulesOf(r).map(x => `<span class="pill ${x.side === "OVER" ? "lean-strong" : "lean-lean"}" title="${esc(x.h + " · " + x.name + " · " + x.side)}">${x.h} ${x.side === "OVER" ? "O" : "U"}</span>`).join(" ");
 // rule selector: any number of rules ticked; "all" keeps legs that fall under every ticked rule, "any" legs under at least one
-const ruleOk = r => { if (!F.rules.length) return true; const ids = rulesOf(r).map(x => x.id); return F.rmode === "any" ? F.rules.some(i => ids.includes(i)) : F.rules.every(i => ids.includes(i)); };
+const ruleOk = r => { if (!F.rules.length) return true; const ids = rulesOf(r).map(x => x.id); if (F.rmode === "any") return F.rules.some(i => ids.includes(i));
+  if (!F.rules.every(i => ids.includes(i))) return false;
+  return !F.rsame || new Set(F.rules.map(i => rulesOf(r).find(x => x.id === i).side)).size === 1; };
 const ruleChips = () => { const rows = compute().rows;
   return `<span class="rsel"><b>Rules</b> ${Rules.shown.map(x => { const n = rows.filter(r => rulesOf(r).some(y => y.id === x.id)).length;
     return `<label class="rchip ${F.rules.includes(x.id) ? "on" : ""}" title="${esc(x.name)}"><input type="checkbox" data-rule="${x.id}" ${F.rules.includes(x.id) ? "checked" : ""}> ${x.h} <span class="mut">${n}</span></label>`; }).join("")}
-    ${sel("rmode", "Match", [["all", "all ticked"], ["any", "any ticked"]], F.rmode)}${F.rules.length ? ` <button data-rclear="1">clear</button>` : ""}</span>`; };
+    ${sel("rmode", "Match", [["all", "all ticked"], ["any", "any ticked"]], F.rmode)}${F.rmode === "all" && F.rules.length > 1 ? ` <label title="Keep a leg only when every ticked rule calls the same side on it"><input type="checkbox" id="rsame" ${F.rsame ? "checked" : ""}> same side</label>` : ""}${F.rules.length ? ` <button data-rclear="1">clear</button>` : ""}</span>`; };
 const passes = r => ruleOk(r) && (!F.title || r.title === F.title) && (!F.market || r.market === F.market) && (!F.match || r.match === F.match) &&
   (!F.side || (F.side === "any" ? r.side === "OVER" || r.side === "UNDER" : r.side === F.side)) && (!F.flagged || r.flags.length) && (!F.perf || (perfOf(r) || {}).flag === F.perf) &&
   (!F.q.trim() || (r.player + " " + r.team + " " + r.match).toLowerCase().includes(F.q.trim().toLowerCase()));
@@ -61,6 +63,7 @@ document.addEventListener("change", e => {
   const t = e.target, id = t.id;
   if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rmode", "perf", "pl", "plmin"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
+  else if (id === "rsame") { F.rsame = t.checked; render(true); }
   else if (t.dataset.rule) { F.rules = t.checked ? [...new Set([...F.rules, t.dataset.rule])] : F.rules.filter(i => i !== t.dataset.rule); render(true); }
   else if (t.dataset.cfg) {                                        // Config constant
     const [k, name] = t.dataset.cfg.split(":"), v = parseFloat(t.value);
