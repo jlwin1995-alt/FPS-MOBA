@@ -152,6 +152,17 @@ class Friday(unittest.TestCase):
         h15 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}["H15"]
         self.assertTrue(h15.startswith("descriptive"))       # declared after 2026-10-30
 
+    def test_l10_hs_over_rule_and_h16(self):
+        self.assertTrue(E.l10_hs_over(0.55, 0.5, market="Maps 1-2 HS", pf=0.8))
+        self.assertTrue(E.l10_hs_over(0.50, 0.5, market="Map 1 HS", pf=0.9))
+        self.assertFalse(E.l10_hs_over(0.45, 0.5, market="Maps 1-2 HS", pf=0.9))          # the model leans under
+        self.assertFalse(E.l10_hs_over(0.60, 0.6, market="Maps 1-2 Kills", pf=0.9))       # not a headshot leg
+        self.assertFalse(E.l10_hs_over(0.60, 0.6, market="Maps 1-2 HS", pf=0.79))         # last-10 below 0.8
+        self.assertFalse(E.l10_hs_over(0.60, 0.6, market="Maps 1-2 HS", pf=None))
+        self.assertEqual(E.RULES["l10_hs_over"]["side"], "over")
+        h16 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}.get("H16")
+        self.assertTrue(h16 is None or h16.startswith("descriptive"))                     # declared after 2026-11-13
+
     def test_the_rolling_breakdown_agrees_with_the_rule_records(self):
         bd = {r["id"]: r for r in self.rep["breakdown"]["rules"]}
         for rid in ("agree10", "all_under", "under_core", "agree20", "l10_over", "hs_side"):

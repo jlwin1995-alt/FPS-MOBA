@@ -34,6 +34,7 @@ L10_AFTER = "2026-10-24"            # H12 (last-10 hit rate 0.8+ goes over) was 
 LEAN20_AFTER = "2026-10-26"         # H13 (both models agree, both lean >= 20 pts) was written after this slate: the cut-off was read off the legs of 2026-10-18..25, so 10-26 is descriptive too
 MOBA20_AFTER = "2026-10-27"         # H14 (MOBA legs where the model leans >= 20 points) was written after this slate; read off the 399 settled MOBA legs of 2026-10-16..26, so only slates after 2026-10-27 test it
 HS_AFTER = "2026-10-30"             # H15 (the model's side on headshot legs) was written after this slate; read off the 1,203 settled HS legs of 2026-10-16..30, so only slates after 2026-10-30 test it
+HSOVER_AFTER = "2026-11-13"         # H16 (headshot overs where the last-10 hit rate is 0.8+ and the model leans over) was declared 2026-11-14 after a combination sweep over the forward slates of 2026-10-18..11-13, so only slates after 2026-11-13 test it
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
@@ -65,6 +66,12 @@ def l10_over(po, poa, line=None, market=None, pf=None, **_):
     return pf is not None and pf >= 0.8
 
 
+def l10_hs_over(po, poa, line=None, market=None, pf=None, **_):
+    """Play rule 'l10_hs_over' (H16, declared 2026-11-14): take the OVER on a headshot leg where the base model's own side is over (P(over) >= 50%) and the PrizePicks last-10 hit rate is 0.8 or higher,
+    i.e. H15's over side and H12 together. Found by sweeping every combination of H8/H11/H12/H13/H15 over the forward slates (17 of 31 over, 54.8%, CI 34-74%); a multiple-comparison pick on a small sample, so a test, not a finding."""
+    return po is not None and po >= 0.5 and market is not None and "HS" in market and pf is not None and pf >= 0.8
+
+
 def moba_lean20(po, **_):
     """Play rule 'moba_lean20' (H14, declared 2026-10-28; MOBA legs): the model's P(over) is 20 points or more away from 50%; the model's own side is scored. Read off the settled legs of 2026-10-16..26 (28 of 35)."""
     return po is not None and abs(po - 0.5) >= 0.20 - 1e-9
@@ -77,7 +84,8 @@ RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agr
          "under_core": dict(name="Under shortlist (both models under, P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, no Maps 1-3 kills)", test=under_core, side="under", after=CORE_AFTER),
          "agree20": dict(name="Both models agree, both lean >= 20 pts", test=agree20, after=LEAN20_AFTER),
          "hs_side": dict(name="Headshot legs, the model's side", test=hs_side, after=HS_AFTER),
-         "l10_over": dict(name="Over where the last-10 hit rate is 0.8+", test=l10_over, side="over", after=L10_AFTER)}
+         "l10_over": dict(name="Over where the last-10 hit rate is 0.8+", test=l10_over, side="over", after=L10_AFTER),
+         "l10_hs_over": dict(name="Headshot over where the model leans over and the last-10 hit rate is 0.8+", test=l10_hs_over, side="over", after=HSOVER_AFTER)}
 
 HYPOTHESES = [
     dict(id="H1", name="The posted rounds total runs high", metric="mean(rounds assumed - rounds played) per map", claim=">0", null=0),
@@ -95,6 +103,7 @@ HYPOTHESES = [
     dict(id="H13", name="The agree20 play rule clears breakeven", metric="hit rate of legs where both models agree and both lean >= 20 pts - flex breakeven", claim=">0", null=0, after=LEAN20_AFTER),
     dict(id="H14", name="MOBA model-lean 20+ legs clear breakeven", metric="hit rate of the model's side on Dota and LoL legs where P(over) is 20 or more points from 50% - flex breakeven", claim=">0", null=0, after=MOBA20_AFTER),
     dict(id="H15", name="The model's side on headshot legs clears breakeven", metric="hit rate of the base model's side on every headshot leg - flex breakeven", claim=">0", null=0, after=HS_AFTER),
+    dict(id="H16", name="Headshot overs with last-10 0.8+ and a model over lean clear breakeven", metric="hit rate of 'over' on headshot legs where P(over) >= 50% and the PrizePicks last-10 hit rate is 0.8 or more - flex breakeven", claim=">0", null=0, after=HSOVER_AFTER),
 ]
 
 
@@ -425,6 +434,8 @@ def summarise(rows, mrows, moba=None):
                 hyp["H13"] = (er, len(h), MIN_LEGS // 4)
             if rid == "hs_side":
                 hyp["H15"] = (er, len(h), MIN_LEGS // 2)
+            if rid == "l10_hs_over":
+                hyp["H16"] = (er, len(h), MIN_LEGS // 4)
     mr = moba_rules(moba) if moba else {}
     if "moba_lean20" in mr:
         hyp["H14"] = (mr["moba_lean20"]["est"], mr["moba_lean20"]["n"], MIN_LEGS // 4)
@@ -474,7 +485,7 @@ def summarise_moba(rows):
 
 
 # ----------------------------------------------------------------------------------------------- rolling breakdown by rule
-RULE_ORDER = [("agree10", "H8"), ("all_under", "H10"), ("under_core", "H11"), ("l10_over", "H12"), ("agree20", "H13"), ("hs_side", "H15"), ("moba_lean20", "H14")]
+RULE_ORDER = [("agree10", "H8"), ("all_under", "H10"), ("under_core", "H11"), ("l10_over", "H12"), ("agree20", "H13"), ("hs_side", "H15"), ("l10_hs_over", "H16"), ("moba_lean20", "H14")]
 CUTS = [("All legs", lambda x: True), ("Over calls", lambda x: x["side"] == "OVER"), ("Under calls", lambda x: x["side"] == "UNDER"), ("Kills", lambda x: x["kind"] == "Kills"), ("Headshots", lambda x: x["kind"] == "HS"),
         ("Kills · over", lambda x: x["kind"] == "Kills" and x["side"] == "OVER"), ("Kills · under", lambda x: x["kind"] == "Kills" and x["side"] == "UNDER"),
         ("Headshots · over", lambda x: x["kind"] == "HS" and x["side"] == "OVER"), ("Headshots · under", lambda x: x["kind"] == "HS" and x["side"] == "UNDER")]
@@ -573,6 +584,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
     fwd13 = [s for s in stored if s > LEAN20_AFTER]
     fwd14 = [s for s in stored if s > MOBA20_AFTER]
     fwd15 = [s for s in stored if s > HS_AFTER]
+    fwd16 = [s for s in stored if s > HSOVER_AFTER]
 
     def label(summary, ss):
         """A hypothesis written after a slate cannot be tested on it: H7 reads 'descriptive' for any view that includes such a slate."""
@@ -591,6 +603,7 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
                             lean20_forward=dict(slates=fwd13, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H13"]))(pooled(fwd13))) if fwd13 else None,
                             moba_all=((pooled(sorted(stored)) or {}).get("moba") or {}).get("rules"),
                             moba_forward=dict(slates=fwd14, summary=(lambda x: x and dict(rules=(x.get("moba") or {}).get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H14"]))(pooled(fwd14))) if fwd14 else None,
+                            hsover_forward=dict(slates=fwd16, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H16"]))(pooled(fwd16))) if fwd16 else None, hsover_after=HSOVER_AFTER,
                             hs_forward=dict(slates=fwd15, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H15"]))(pooled(fwd15))) if fwd15 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     report["breakdown"] = breakdown(stored)

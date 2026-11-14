@@ -2692,6 +2692,39 @@
      "p_over_adj": 0.5275
     }
    ]
+  },
+  "l10_hs_over": {
+   "name": "Headshot over where the model leans over and the last-10 hit rate is 0.8+",
+   "n": 3,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 FORZE.R vs Nice Try",
+     "player": "HeCkBNk",
+     "market": "Map 3 HS",
+     "line": 9.5,
+     "side": "OVER",
+     "p_over": 0.5809,
+     "p_over_adj": 0.5807
+    },
+    {
+     "match": "CS2 \u00b7 TS vs MOUZ",
+     "player": "Spinx",
+     "market": "Maps 1-2 HS",
+     "line": 17,
+     "side": "OVER",
+     "p_over": 0.5566,
+     "p_over_adj": 0.436
+    },
+    {
+     "match": "CS2 \u00b7 TS vs MOUZ",
+     "player": "torzsi",
+     "market": "Maps 1-2 HS",
+     "line": 10,
+     "side": "OVER",
+     "p_over": 0.5035,
+     "p_over_adj": 0.4074
+    }
+   ]
   }
  },
  "moba_rules": {
@@ -2728,5 +2761,8 @@
  },
  "moba_frozen_utc": "2026-11-14T00:29:57+00:00",
  "comparison": "every leg on the board (the base model's side)",
- "late_matches": []
+ "late_matches": [],
+ "rules_added_utc": {
+  "l10_hs_over": "2026-11-14T05:21:51+00:00"
+ }
 }
