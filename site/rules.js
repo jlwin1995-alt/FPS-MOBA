@@ -20,6 +20,8 @@ const Rules = (() => {
     {id: "l10_over", h: "H12", name: "Over where the PrizePicks last-10 hit rate is 0.8 or more", side: () => "OVER", scope: fps, test: r => nn(r.l10) && r.l10 >= 0.8},
     {id: "hs_side", h: "H15", name: "Headshot leg, the model's own side", side: modelSide, scope: fps, test: r => nn(r.po) && String(r.market || "").includes("HS")},
     {id: "l10_hs_over", h: "H16", name: "Headshot over: the model leans over and the PrizePicks last-10 hit rate is 0.8 or more", side: () => "OVER", scope: fps, test: r => nn(r.po) && r.po >= 0.5 && String(r.market || "").includes("HS") && nn(r.l10) && r.l10 >= 0.8},
+    {id: "lean25_l10_over", h: "H17", name: "Over: the model leans over 25+ points, both models agree on over, and the PrizePicks last-10 hit rate is 0.8 or more", side: () => "OVER", scope: fps,
+      test: r => nn(r.po) && nn(r.poAdj) && nn(r.l10) && r.po >= 0.75 - 1e-9 && r.poAdj >= 0.5 && r.l10 >= 0.8},
     {id: "moba_lean20", h: "H14", name: "MOBA: the model leans 20+ points, its own side", side: modelSide, scope: r => !fps(r), test: r => nn(r.po) && Math.abs(r.po - 0.5) >= 0.20 - 1e-9},
   ];
   // -> [{id, h, side, name}] for one row

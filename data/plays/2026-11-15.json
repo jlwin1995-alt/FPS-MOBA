@@ -3355,6 +3355,39 @@
      "p_over_adj": 0.5435
     }
    ]
+  },
+  "lean25_l10_over": {
+   "name": "Over where the model leans over 25+ pts, both models agree and the last-10 hit rate is 0.8+",
+   "n": 3,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PRV vs 33",
+     "player": "shg",
+     "market": "Maps 1-2 Kills",
+     "line": 23.5,
+     "side": "OVER",
+     "p_over": 0.8755,
+     "p_over_adj": 0.8051
+    },
+    {
+     "match": "CS2 \u00b7 PRV vs 33",
+     "player": "shg",
+     "market": "Maps 1-2 HS",
+     "line": 13,
+     "side": "OVER",
+     "p_over": 0.8218,
+     "p_over_adj": 0.7537
+    },
+    {
+     "match": "CS2 \u00b7 PRV vs 33",
+     "player": "executor",
+     "market": "Maps 1-2 Kills",
+     "line": 23.5,
+     "side": "OVER",
+     "p_over": 0.8048,
+     "p_over_adj": 0.7144
+    }
+   ]
   }
  },
  "moba_rules": {
@@ -3366,5 +3399,8 @@
  },
  "moba_frozen_utc": "2026-11-15T04:26:04+00:00",
  "comparison": "every leg on the board (the base model's side)",
- "late_matches": []
+ "late_matches": [],
+ "rules_added_utc": {
+  "lean25_l10_over": "2026-11-15T05:16:25+00:00"
+ }
 }
