@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244421/fnatic-vs-faze",
+ "captured_utc": "2026-11-16T02:03:21Z",
+ "teams": [
+  "FaZe",
+  "fnatic"
+ ],
+ "map": null,
+ "mapstatsid": 244421,
+ "score": [
+  13,
+  7
+ ],
+ "players": [
+  {
+   "name": "frozen",
+   "team": "FaZe",
+   "kills": 23,
+   "hs": 12,
+   "deaths": 9
+  },
+  {
+   "name": "Twistzz",
+   "team": "FaZe",
+   "kills": 16,
+   "hs": 11,
+   "deaths": 11
+  },
+  {
+   "name": "JBOEN",
+   "team": "FaZe",
+   "kills": 19,
+   "hs": 9,
+   "deaths": 10
+  },
+  {
+   "name": "Neityu",
+   "team": "FaZe",
+   "kills": 11,
+   "hs": 6,
+   "deaths": 11
+  },
+  {
+   "name": "jcobbb",
+   "team": "FaZe",
+   "kills": 7,
+   "hs": 4,
+   "deaths": 15
+  },
+  {
+   "name": "cairne",
+   "team": "fnatic",
+   "kills": 17,
+   "hs": 9,
+   "deaths": 16
+  },
+  {
+   "name": "mazay",
+   "team": "fnatic",
+   "kills": 18,
+   "hs": 11,
+   "deaths": 14
+  },
+  {
+   "name": "fEAR",
+   "team": "fnatic",
+   "kills": 9,
+   "hs": 4,
+   "deaths": 16
+  },
+  {
+   "name": "jambo",
+   "team": "fnatic",
+   "kills": 5,
+   "hs": 3,
+   "deaths": 13
+  },
+  {
+   "name": "jackasmo",
+   "team": "fnatic",
+   "kills": 6,
+   "hs": 2,
+   "deaths": 17
+  }
+ ]
+}

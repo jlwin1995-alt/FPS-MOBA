@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244438/eternal-fire-vs-100-thieves",
+ "captured_utc": "2026-11-16T02:03:21Z",
+ "teams": [
+  "100 Thieves",
+  "Eternal Fire"
+ ],
+ "map": null,
+ "mapstatsid": 244438,
+ "score": [
+  13,
+  8
+ ],
+ "players": [
+  {
+   "name": "sirah",
+   "team": "100 Thieves",
+   "kills": 20,
+   "hs": 14,
+   "deaths": 14
+  },
+  {
+   "name": "device",
+   "team": "100 Thieves",
+   "kills": 18,
+   "hs": 5,
+   "deaths": 10
+  },
+  {
+   "name": "rain",
+   "team": "100 Thieves",
+   "kills": 13,
+   "hs": 8,
+   "deaths": 15
+  },
+  {
+   "name": "poiii",
+   "team": "100 Thieves",
+   "kills": 11,
+   "hs": 9,
+   "deaths": 12
+  },
+  {
+   "name": "Gizmy",
+   "team": "100 Thieves",
+   "kills": 17,
+   "hs": 10,
+   "deaths": 16
+  },
+  {
+   "name": "soulfly",
+   "team": "Eternal Fire",
+   "kills": 16,
+   "hs": 6,
+   "deaths": 15
+  },
+  {
+   "name": "MisteM",
+   "team": "Eternal Fire",
+   "kills": 10,
+   "hs": 5,
+   "deaths": 14
+  },
+  {
+   "name": "Kvem",
+   "team": "Eternal Fire",
+   "kills": 16,
+   "hs": 7,
+   "deaths": 17
+  },
+  {
+   "name": "regali",
+   "team": "Eternal Fire",
+   "kills": 16,
+   "hs": 7,
+   "deaths": 16
+  },
+  {
+   "name": "jottAAA",
+   "team": "Eternal Fire",
+   "kills": 9,
+   "hs": 7,
+   "deaths": 17
+  }
+ ]
+}
