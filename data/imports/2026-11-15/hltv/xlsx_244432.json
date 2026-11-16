@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244432/33-vs-parivision",
+ "captured_utc": "2026-11-16T02:03:21Z",
+ "teams": [
+  "33",
+  "PARIVISION"
+ ],
+ "map": "Ancient",
+ "mapstatsid": 244432,
+ "score": [
+  13,
+  11
+ ],
+ "players": [
+  {
+   "name": "shg",
+   "team": "33",
+   "kills": 16,
+   "hs": 11,
+   "deaths": 16
+  },
+  {
+   "name": "bluewh1te",
+   "team": "33",
+   "kills": 16,
+   "hs": 10,
+   "deaths": 15
+  },
+  {
+   "name": "executor",
+   "team": "33",
+   "kills": 14,
+   "hs": 6,
+   "deaths": 11
+  },
+  {
+   "name": "z1Nny",
+   "team": "33",
+   "kills": 19,
+   "hs": 9,
+   "deaths": 18
+  },
+  {
+   "name": "Raijin",
+   "team": "33",
+   "kills": 13,
+   "hs": 6,
+   "deaths": 18
+  },
+  {
+   "name": "xiELO",
+   "team": "PARIVISION",
+   "kills": 16,
+   "hs": 7,
+   "deaths": 18
+  },
+  {
+   "name": "FL1T",
+   "team": "PARIVISION",
+   "kills": 13,
+   "hs": 6,
+   "deaths": 13
+  },
+  {
+   "name": "Jame",
+   "team": "PARIVISION",
+   "kills": 21,
+   "hs": 7,
+   "deaths": 14
+  },
+  {
+   "name": "HObbit",
+   "team": "PARIVISION",
+   "kills": 15,
+   "hs": 9,
+   "deaths": 14
+  },
+  {
+   "name": "zweih",
+   "team": "PARIVISION",
+   "kills": 13,
+   "hs": 8,
+   "deaths": 19
+  }
+ ]
+}
