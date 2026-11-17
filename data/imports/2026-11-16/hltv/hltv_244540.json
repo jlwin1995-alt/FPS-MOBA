@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244540/heroic-vs-parivision",
+ "mapstatsid": 244540,
+ "captured_utc": "2026-11-17T03:31:09.567Z",
+ "teams": [
+  "HEROIC",
+  "PARIVISION"
+ ],
+ "map": "Cache",
+ "score": [
+  13,
+  5
+ ],
+ "players": [
+  {
+   "name": "susp",
+   "team": "HEROIC",
+   "kills": 19,
+   "hs": 10,
+   "deaths": 10
+  },
+  {
+   "name": "nilo",
+   "team": "HEROIC",
+   "kills": 18,
+   "hs": 13,
+   "deaths": 9
+  },
+  {
+   "name": "Chr1zN",
+   "team": "HEROIC",
+   "kills": 15,
+   "hs": 7,
+   "deaths": 9
+  },
+  {
+   "name": "Brollan",
+   "team": "HEROIC",
+   "kills": 11,
+   "hs": 8,
+   "deaths": 11
+  },
+  {
+   "name": "MartinezSa",
+   "team": "HEROIC",
+   "kills": 6,
+   "hs": 2,
+   "deaths": 8
+  },
+  {
+   "name": "FL1T",
+   "team": "PARIVISION",
+   "kills": 12,
+   "hs": 3,
+   "deaths": 13
+  },
+  {
+   "name": "HObbit",
+   "team": "PARIVISION",
+   "kills": 8,
+   "hs": 7,
+   "deaths": 12
+  },
+  {
+   "name": "xiELO",
+   "team": "PARIVISION",
+   "kills": 10,
+   "hs": 9,
+   "deaths": 16
+  },
+  {
+   "name": "Jame",
+   "team": "PARIVISION",
+   "kills": 11,
+   "hs": 4,
+   "deaths": 14
+  },
+  {
+   "name": "zweih",
+   "team": "PARIVISION",
+   "kills": 6,
+   "hs": 4,
+   "deaths": 14
+  }
+ ]
+}

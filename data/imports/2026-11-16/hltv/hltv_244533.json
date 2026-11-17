@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244533/magic-vs-eternal-fire",
+ "mapstatsid": 244533,
+ "captured_utc": "2026-11-17T03:30:08.527Z",
+ "teams": [
+  "magic",
+  "Eternal Fire"
+ ],
+ "map": "Ancient",
+ "score": [
+  13,
+  7
+ ],
+ "players": [
+  {
+   "name": "tenzy",
+   "team": "magic",
+   "kills": 25,
+   "hs": 16,
+   "deaths": 8
+  },
+  {
+   "name": "MaSvAl",
+   "team": "magic",
+   "kills": 17,
+   "hs": 9,
+   "deaths": 11
+  },
+  {
+   "name": "sFade8",
+   "team": "magic",
+   "kills": 17,
+   "hs": 12,
+   "deaths": 12
+  },
+  {
+   "name": "AW",
+   "team": "magic",
+   "kills": 13,
+   "hs": 8,
+   "deaths": 12
+  },
+  {
+   "name": "lattykk",
+   "team": "magic",
+   "kills": 9,
+   "hs": 3,
+   "deaths": 9
+  },
+  {
+   "name": "jottAAA",
+   "team": "Eternal Fire",
+   "kills": 13,
+   "hs": 7,
+   "deaths": 16
+  },
+  {
+   "name": "regali",
+   "team": "Eternal Fire",
+   "kills": 11,
+   "hs": 5,
+   "deaths": 15
+  },
+  {
+   "name": "MisteM",
+   "team": "Eternal Fire",
+   "kills": 8,
+   "hs": 3,
+   "deaths": 16
+  },
+  {
+   "name": "Kvem",
+   "team": "Eternal Fire",
+   "kills": 12,
+   "hs": 7,
+   "deaths": 18
+  },
+  {
+   "name": "soulfly",
+   "team": "Eternal Fire",
+   "kills": 8,
+   "hs": 5,
+   "deaths": 16
+  }
+ ]
+}
