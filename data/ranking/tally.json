@@ -2200,10 +2200,81 @@
      "rate": 0.7059
     }
    }
+  },
+  "2026-11-17": {
+   "legs": 177,
+   "graded": 0,
+   "open": 177,
+   "all": {
+    "hits": 0,
+    "n": 0,
+    "rate": null
+   },
+   "top": {
+    "10": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "20": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "30": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    }
+   },
+   "bucket": {
+    "0-10": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "10-15": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "15-20": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "20-25": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "25+": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    }
+   },
+   "h8_def": {
+    "all": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "over": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "under": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    }
+   }
   }
  },
  "cumulative": {
-  "slates": 31,
+  "slates": 32,
   "all": {
    "hits": 2149,
    "n": 4139,
