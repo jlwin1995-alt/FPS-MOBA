@@ -148,6 +148,35 @@ def top12(rows):
     return out
 
 
+def top12_record(slates, plays_dir="data/plays", site="site"):
+    """H18's forward record: every settled leg of each slate's frozen top-12 list (data/plays/<slate>.json) on slates after TOP12_AFTER, scored on the list's side; pushes and unsettled legs are dropped.
+    -> dict(slates, n, hits, rate, wilson, clustered_ci, headroom, by_slate) or None before any slate qualifies."""
+    be = max(BREAKEVEN.values())
+    hits, cl, by = [], [], {}
+    for s in sorted(x for x in slates if x > TOP12_AFTER):
+        plays = read_json(f"{plays_dir}/{s}.json")
+        log = read_json(f"{site}/data/log/{s}.json")
+        if not plays or not log or "top12" not in plays.get("rules", {}):
+            continue
+        idx = {(r["Match"], r["Player"], r["Market"], r["Line"]): r for r in log["fps"]}
+        h = n = 0
+        for l in plays["rules"]["top12"]["legs"]:
+            r = idx.get((l["match"], l["player"], l["market"], l["line"]))
+            if r and r.get("Result") in ("OVER", "UNDER"):
+                ok = 1.0 if r["Result"] == l["side"] else 0.0
+                hits.append(ok)
+                cl.append(f"{s}|{l['match']}")
+                h += ok
+                n += 1
+        by[s] = dict(hits=int(h), n=n, listed=plays["rules"]["top12"]["n"])
+    if not hits:
+        return None
+    e = est(lambda ix: sum(hits[i] for i in ix) / len(ix) - be, cl, len(hits))
+    rate = sum(hits) / len(hits)
+    return dict(slates=sorted(by), n=len(hits), hits=int(sum(hits)), rate=round(rate, 4), wilson=wilson(int(sum(hits)), len(hits)),
+                clustered_ci=None if e["ci"] is None else [round(e["ci"][0] + be, 4), round(e["ci"][1] + be, 4)], headroom=round(rate - be, 4), by_slate=by)
+
+
 SLATE_RULES = {"top12": dict(name="Daily top-12 shortlist (H8/H16 legs, all rules agree, lean 15+, scored on frozen cell rates, 2 per match)", select=top12, after=TOP12_AFTER)}
 
 
@@ -677,6 +706,8 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
                             hs_forward=dict(slates=fwd15, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H15"]))(pooled(fwd15))) if fwd15 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     report["breakdown"] = breakdown(stored)
+    report["side"]["top12_forward"] = top12_record(sorted(stored), site=site)
+    report["side"]["top12_after"] = TOP12_AFTER
     write(f"{site}/data/evaluation.json", report)
     return report
 

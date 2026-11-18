@@ -175,6 +175,31 @@ class Friday(unittest.TestCase):
         h17 = {h["id"]: h["status"] for h in self.rep["by_slate"]["2026-10-16"]["hypotheses"]}.get("H17")
         self.assertTrue(h17 is None or h17.startswith("descriptive"))
 
+    def test_top12_shortlist_h18(self):
+        def row(match, player, market, po, poa, pf, line=20.5):
+            return {"Match": match, "Player": player, "Market": market, "Line": line, "P(over)": po, "P(over) adj": poa, "PF L10": pf}
+        rows = [row("m1", "a", "Maps 1-2 Kills", 0.80, 0.70, 0.5),      # H8 over, lean 30
+                row("m1", "b", "Maps 1-2 Kills", 0.75, 0.65, 0.5),      # H8 over, lean 25
+                row("m1", "c", "Maps 1-2 Kills", 0.70, 0.60, 0.5),      # H8 over, lean 20: a third leg of m1 is dropped (2 per match)
+                row("m2", "a", "Maps 1-2 Kills", 0.66, 0.62, 0.5),       # player a again, weaker: dropped (one leg per player)
+                row("m2", "d", "Maps 1-2 Kills", 0.60, 0.58, 0.5),      # lean 10 < 15: not eligible
+                row("m2", "e", "Maps 1-2 Kills", 0.75, 0.45, 0.5),      # adjusted model on the other side: not eligible
+                row("m3", "f", "Maps 1-2 Kills", 0.22, 0.20, 0.9),      # H8 under with L10 0.9: H8 is under, no rule says over; eligible, lean 28
+                row("m3", "g", "Maps 1-2 Kills", 0.28, 0.26, 0.9)]
+        got = E.top12(rows)
+        names = [(c["row"]["Match"], c["row"]["Player"]) for c in got]
+        self.assertIn(("m1", "a"), names)
+        self.assertEqual(sum(1 for m, _ in names if m == "m1"), 2)
+        self.assertNotIn(("m1", "c"), names)
+        self.assertEqual(sum(1 for _, p in names if p == "a"), 1)
+        self.assertNotIn(("m2", "d"), names)
+        self.assertNotIn(("m2", "e"), names)
+        self.assertTrue(all(c["lean"] >= 15 for c in got) and len(got) <= 12)
+        self.assertEqual([c["score"] for c in got], sorted((c["score"] for c in got), reverse=True))
+        self.assertEqual(E.top12(rows)[0]["row"]["Player"], got[0]["row"]["Player"])         # deterministic
+        for c in got:
+            self.assertEqual(len({c["side"]}), 1)
+
     def test_the_rolling_breakdown_agrees_with_the_rule_records(self):
         bd = {r["id"]: r for r in self.rep["breakdown"]["rules"]}
         for rid in ("agree10", "all_under", "under_core", "agree20", "l10_over", "hs_side"):
