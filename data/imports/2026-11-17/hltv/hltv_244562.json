@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244562/magic-vs-heroic",
+ "mapstatsid": 244562,
+ "captured_utc": "2026-11-18T06:06:22.183Z",
+ "teams": [
+  "magic",
+  "HEROIC"
+ ],
+ "map": "Ancient",
+ "score": [
+  13,
+  4
+ ],
+ "players": [
+  {
+   "name": "MaSvAl",
+   "team": "magic",
+   "kills": 22,
+   "hs": 4,
+   "deaths": 8
+  },
+  {
+   "name": "sFade8",
+   "team": "magic",
+   "kills": 13,
+   "hs": 8,
+   "deaths": 10
+  },
+  {
+   "name": "tenzy",
+   "team": "magic",
+   "kills": 15,
+   "hs": 9,
+   "deaths": 10
+  },
+  {
+   "name": "AW",
+   "team": "magic",
+   "kills": 10,
+   "hs": 3,
+   "deaths": 10
+  },
+  {
+   "name": "lattykk",
+   "team": "magic",
+   "kills": 9,
+   "hs": 2,
+   "deaths": 7
+  },
+  {
+   "name": "nilo",
+   "team": "HEROIC",
+   "kills": 13,
+   "hs": 7,
+   "deaths": 15
+  },
+  {
+   "name": "MartinezSa",
+   "team": "HEROIC",
+   "kills": 13,
+   "hs": 6,
+   "deaths": 12
+  },
+  {
+   "name": "susp",
+   "team": "HEROIC",
+   "kills": 6,
+   "hs": 3,
+   "deaths": 13
+  },
+  {
+   "name": "Brollan",
+   "team": "HEROIC",
+   "kills": 7,
+   "hs": 3,
+   "deaths": 14
+  },
+  {
+   "name": "Chr1zN",
+   "team": "HEROIC",
+   "kills": 5,
+   "hs": 3,
+   "deaths": 15
+  }
+ ]
+}

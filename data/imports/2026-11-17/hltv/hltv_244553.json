@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244553/100-thieves-vs-fnatic",
+ "mapstatsid": 244553,
+ "captured_utc": "2026-11-18T06:05:20.869Z",
+ "teams": [
+  "fnatic",
+  "100 Thieves"
+ ],
+ "map": "Ancient",
+ "score": [
+  13,
+  5
+ ],
+ "players": [
+  {
+   "name": "cairne",
+   "team": "fnatic",
+   "kills": 22,
+   "hs": 12,
+   "deaths": 7
+  },
+  {
+   "name": "mazay",
+   "team": "fnatic",
+   "kills": 15,
+   "hs": 10,
+   "deaths": 8
+  },
+  {
+   "name": "jambo",
+   "team": "fnatic",
+   "kills": 15,
+   "hs": 9,
+   "deaths": 9
+  },
+  {
+   "name": "jackasmo",
+   "team": "fnatic",
+   "kills": 11,
+   "hs": 9,
+   "deaths": 10
+  },
+  {
+   "name": "fEAR",
+   "team": "fnatic",
+   "kills": 6,
+   "hs": 0,
+   "deaths": 9
+  },
+  {
+   "name": "device",
+   "team": "100 Thieves",
+   "kills": 12,
+   "hs": 7,
+   "deaths": 15
+  },
+  {
+   "name": "sirah",
+   "team": "100 Thieves",
+   "kills": 11,
+   "hs": 8,
+   "deaths": 12
+  },
+  {
+   "name": "Gizmy",
+   "team": "100 Thieves",
+   "kills": 6,
+   "hs": 4,
+   "deaths": 13
+  },
+  {
+   "name": "rain",
+   "team": "100 Thieves",
+   "kills": 6,
+   "hs": 5,
+   "deaths": 15
+  },
+  {
+   "name": "poiii",
+   "team": "100 Thieves",
+   "kills": 7,
+   "hs": 4,
+   "deaths": 14
+  }
+ ]
+}
