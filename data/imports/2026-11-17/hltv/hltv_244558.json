@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244558/fnatic-vs-100-thieves",
+ "mapstatsid": 244558,
+ "captured_utc": "2026-11-18T06:05:36.490Z",
+ "teams": [
+  "fnatic",
+  "100 Thieves"
+ ],
+ "map": "Dust2",
+ "score": [
+  10,
+  13
+ ],
+ "players": [
+  {
+   "name": "cairne",
+   "team": "fnatic",
+   "kills": 19,
+   "hs": 11,
+   "deaths": 16
+  },
+  {
+   "name": "jackasmo",
+   "team": "fnatic",
+   "kills": 14,
+   "hs": 10,
+   "deaths": 17
+  },
+  {
+   "name": "jambo",
+   "team": "fnatic",
+   "kills": 13,
+   "hs": 7,
+   "deaths": 14
+  },
+  {
+   "name": "mazay",
+   "team": "fnatic",
+   "kills": 13,
+   "hs": 7,
+   "deaths": 17
+  },
+  {
+   "name": "fEAR",
+   "team": "fnatic",
+   "kills": 9,
+   "hs": 5,
+   "deaths": 17
+  },
+  {
+   "name": "sirah",
+   "team": "100 Thieves",
+   "kills": 25,
+   "hs": 15,
+   "deaths": 14
+  },
+  {
+   "name": "rain",
+   "team": "100 Thieves",
+   "kills": 18,
+   "hs": 8,
+   "deaths": 12
+  },
+  {
+   "name": "Gizmy",
+   "team": "100 Thieves",
+   "kills": 19,
+   "hs": 10,
+   "deaths": 14
+  },
+  {
+   "name": "device",
+   "team": "100 Thieves",
+   "kills": 12,
+   "hs": 2,
+   "deaths": 14
+  },
+  {
+   "name": "poiii",
+   "team": "100 Thieves",
+   "kills": 6,
+   "hs": 2,
+   "deaths": 15
+  }
+ ]
+}
