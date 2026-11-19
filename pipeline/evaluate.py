@@ -36,6 +36,7 @@ MOBA20_AFTER = "2026-10-27"         # H14 (MOBA legs where the model leans >= 20
 HS_AFTER = "2026-10-30"             # H15 (the model's side on headshot legs) was written after this slate; read off the 1,203 settled HS legs of 2026-10-16..30, so only slates after 2026-10-30 test it
 HSOVER_AFTER = "2026-11-13"         # H16 (headshot overs where the last-10 hit rate is 0.8+ and the model leans over) was declared 2026-11-14 after a combination sweep over the forward slates of 2026-10-18..11-13, so only slates after 2026-11-13 test it
 LEAN25_AFTER = "2026-11-14"         # H17 (strong-lean overs with last-10 0.8+) was declared 2026-11-15 after reading the settled legs of 2026-10-16..11-14, so only slates after 2026-11-14 test it
+TOP12_AFTER = "2026-11-17"          # H18 (the daily top-12 shortlist) was declared 2026-11-18 after a look at the settled legs and rule records of 2026-10-16..11-17, so only slates after 2026-11-17 test it
 SIDE_AFTER = "2026-10-17"          # H7 was written after this slate: only later slates can test it
 
 
@@ -96,6 +97,89 @@ RULES = {"agree10": dict(name="Both models agree, both lean >= 10 pts", test=agr
          "l10_hs_over": dict(name="Headshot over where the model leans over and the last-10 hit rate is 0.8+", test=l10_hs_over, side="over", after=HSOVER_AFTER),
          "lean25_l10_over": dict(name="Over where the model leans over 25+ pts, both models agree and the last-10 hit rate is 0.8+", test=lean25_l10_over, side="over", after=LEAN25_AFTER)}
 
+TOP12_CELLS = {   # forward hit rate of each rule on each (side, prop type) cell, frozen from the evaluation through 2026-11-17 (the rate the daily shortlist scores against); never updated
+    "agree10": {"OVER": {"Kills": 0.5233, "Headshots": 0.5176}, "UNDER": {"Kills": 0.5417, "Headshots": 0.5424}},
+    "under_core": {"OVER": {"Kills": 0.5243, "Headshots": 0.5248}, "UNDER": {"Kills": 0.5243, "Headshots": 0.5248}},
+    "l10_over": {"OVER": {"Kills": 0.5043, "Headshots": 0.5612}, "UNDER": {"Kills": 0.5043, "Headshots": 0.5612}},
+    "agree20": {"OVER": {"Kills": 0.4667, "Headshots": 0.8182}, "UNDER": {"Kills": 0.5439, "Headshots": 0.4694}},
+    "hs_side": {"OVER": {"Kills": 0.5092, "Headshots": 0.5092}, "UNDER": {"Kills": 0.4926, "Headshots": 0.4926}},
+    "l10_hs_over": {"OVER": {"Kills": 0.8, "Headshots": 0.8}, "UNDER": {"Kills": 0.8, "Headshots": 0.8}},
+    "lean25_l10_over": {"OVER": {"Kills": 0.6667, "Headshots": 1.0}, "UNDER": {"Kills": 0.6667, "Headshots": 1.0}},
+}
+
+
+def top12(rows):
+    """Slate rule 'top12' (H18, declared 2026-11-18): a daily shortlist of at most 12 FPS legs, taken in order of a fixed score and scored on the side every rule on the leg agrees on.
+    Eligible: the leg is on agree10 (H8) or l10_hs_over (H16), every registered per-leg rule that selects it takes the same side, the adjusted model is on that side too, and the base lean is 15+ points.
+    Score = lean in points + 100 x the sum over the leg's rules of (that rule's frozen forward hit rate on the leg's side and prop type - 50%). Greedy by score (ties: match, player, market),
+    at most 2 legs per match and 1 per player. `rows` are Log rows (Match, Player, Market, Line, P(over), P(over) adj, PF L10). -> [{row, side, lean, score, rules}] best first."""
+    cand = []
+    for r in rows:
+        po, poa, line, mk, pf = r.get("P(over)"), r.get("P(over) adj"), r.get("Line"), r.get("Market"), r.get("PF L10")
+        if po is None or poa is None or mk is None:
+            continue
+        rs = {}
+        for rid, rule in RULES.items():
+            if rid == "all_under":
+                continue
+            if rule["test"](po, poa, line=line, market=mk, pf=pf):
+                rs[rid] = "UNDER" if rule.get("side") == "under" else "OVER" if rule.get("side") == "over" else ("OVER" if po >= 0.5 else "UNDER")
+        sides = set(rs.values())
+        if len(sides) != 1 or not ("agree10" in rs or "l10_hs_over" in rs):
+            continue
+        side = sides.pop()
+        lean = abs(po - 0.5) * 100
+        if (poa >= 0.5) != (po >= 0.5) or lean < 15 - 1e-9:
+            continue
+        kind = "Headshots" if "HS" in mk else "Kills"
+        score = lean + 100 * sum(TOP12_CELLS[rid][side][kind] - 0.5 for rid in rs)
+        cand.append(dict(row=r, side=side, lean=round(lean, 2), score=round(score, 3), rules=sorted(rs)))
+    cand.sort(key=lambda c: (-c["score"], c["row"]["Match"], c["row"]["Player"], c["row"]["Market"]))
+    out, per, players = [], {}, set()
+    for c in cand:
+        m, p = c["row"]["Match"], c["row"]["Player"]
+        if per.get(m, 0) >= 2 or p in players:
+            continue
+        out.append(c)
+        per[m] = per.get(m, 0) + 1
+        players.add(p)
+        if len(out) == 12:
+            break
+    return out
+
+
+def top12_record(slates, plays_dir="data/plays", site="site"):
+    """H18's forward record: every settled leg of each slate's frozen top-12 list (data/plays/<slate>.json) on slates after TOP12_AFTER, scored on the list's side; pushes and unsettled legs are dropped.
+    -> dict(slates, n, hits, rate, wilson, clustered_ci, headroom, by_slate) or None before any slate qualifies."""
+    be = max(BREAKEVEN.values())
+    hits, cl, by = [], [], {}
+    for s in sorted(x for x in slates if x > TOP12_AFTER):
+        plays = read_json(f"{plays_dir}/{s}.json")
+        log = read_json(f"{site}/data/log/{s}.json")
+        if not plays or not log or "top12" not in plays.get("rules", {}):
+            continue
+        idx = {(r["Match"], r["Player"], r["Market"], r["Line"]): r for r in log["fps"]}
+        h = n = 0
+        for l in plays["rules"]["top12"]["legs"]:
+            r = idx.get((l["match"], l["player"], l["market"], l["line"]))
+            if r and r.get("Result") in ("OVER", "UNDER"):
+                ok = 1.0 if r["Result"] == l["side"] else 0.0
+                hits.append(ok)
+                cl.append(f"{s}|{l['match']}")
+                h += ok
+                n += 1
+        by[s] = dict(hits=int(h), n=n, listed=plays["rules"]["top12"]["n"])
+    if not hits:
+        return None
+    e = est(lambda ix: sum(hits[i] for i in ix) / len(ix) - be, cl, len(hits))
+    rate = sum(hits) / len(hits)
+    return dict(slates=sorted(by), n=len(hits), hits=int(sum(hits)), rate=round(rate, 4), wilson=wilson(int(sum(hits)), len(hits)),
+                clustered_ci=None if e["ci"] is None else [round(e["ci"][0] + be, 4), round(e["ci"][1] + be, 4)], headroom=round(rate - be, 4), by_slate=by)
+
+
+SLATE_RULES = {"top12": dict(name="Daily top-12 shortlist (H8/H16 legs, all rules agree, lean 15+, scored on frozen cell rates, 2 per match)", select=top12, after=TOP12_AFTER)}
+
+
 HYPOTHESES = [
     dict(id="H1", name="The posted rounds total runs high", metric="mean(rounds assumed - rounds played) per map", claim=">0", null=0),
     dict(id="H2", name="The map-specific layer adds information", metric="AUC(model P(over)) - AUC(map-free projection)", claim=">0", null=0),
@@ -114,6 +198,7 @@ HYPOTHESES = [
     dict(id="H15", name="The model's side on headshot legs clears breakeven", metric="hit rate of the base model's side on every headshot leg - flex breakeven", claim=">0", null=0, after=HS_AFTER),
     dict(id="H16", name="Headshot overs with last-10 0.8+ and a model over lean clear breakeven", metric="hit rate of 'over' on headshot legs where P(over) >= 50% and the PrizePicks last-10 hit rate is 0.8 or more - flex breakeven", claim=">0", null=0, after=HSOVER_AFTER),
     dict(id="H17", name="Strong-lean overs with last-10 0.8+ clear breakeven", metric="hit rate of 'over' on legs where P(over) >= 75%, the round-differential model also calls over and the PrizePicks last-10 hit rate is 0.8 or more - flex breakeven", claim=">0", null=0, after=LEAN25_AFTER),
+    dict(id="H18", name="The daily top-12 shortlist clears breakeven", metric="hit rate of the shortlist's side (the side all rules on the leg agree on) over the 12 legs a fixed score picks each slate - flex breakeven", claim=">0", null=0, after=TOP12_AFTER),
 ]
 
 
@@ -621,6 +706,8 @@ def run(slates, site="site", results_dir="data/results", imports="data/imports",
                             hs_forward=dict(slates=fwd15, summary=(lambda x: x and dict(rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] == "H15"]))(pooled(fwd15))) if fwd15 else None,
                             forward=dict(slates=fwd, summary=(lambda x: x and dict(side=x.get("side"), rules=x.get("rules"), hypotheses=[h for h in x["hypotheses"] if h["id"] in ("H7", "H8")]))(pooled(fwd))) if fwd else None))
     report["breakdown"] = breakdown(stored)
+    report["side"]["top12_forward"] = top12_record(sorted(stored), site=site)
+    report["side"]["top12_after"] = TOP12_AFTER
     write(f"{site}/data/evaluation.json", report)
     return report
 

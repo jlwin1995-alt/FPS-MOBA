@@ -40,9 +40,16 @@ try {
   const slate = J("../data/meta.json").slate, plays = J(`../../data/plays/${slate}.json`);
   const key = (m, p, k) => `${m}|${p}|${k}`;
   const rows = [
-    ...F.legs.map(g => ({k: key(g.match, g.player, g.market), title: g.title, po: g.out.p_over, poAdj: g.out.p_over_adj, line: g.line, market: g.market, l10: g.l10})),
+    ...F.legs.map(g => ({k: key(g.match, g.player, g.market), match: g.match, player: g.player, title: g.title, po: g.out.p_over, poAdj: g.out.p_over_adj, line: g.line, market: g.market, l10: g.l10})),
     ...Mo.legs.map(g => ({k: key(g.match, g.player, g.market), title: g.match.startsWith("DOTA") ? "DOTA" : "LOL", po: g.out.p_over, poAdj: null, line: g.line, market: g.market, l10: g.l10})),
   ];
+  if (plays.rules && plays.rules.top12) {                              // H18: the slate-level shortlist the site mirrors must be exactly the frozen top 12
+    const want = new Map(plays.rules.top12.legs.map(l => [key(l.match, l.player, l.market), l.side]));
+    const got = new Map(RULES.top12(rows).map(c => [c.r.k, c.side]));
+    planned += want.size;
+    for (const [k, sd] of want) if (got.get(k) !== sd) { bad++; if (bad <= 15) console.error(`RULE top12: frozen ${sd} for ${k}, site shows ${got.get(k) ?? "nothing"}`); }
+    for (const k of got.keys()) if (!want.has(k)) { bad++; if (bad <= 15) console.error(`RULE top12: site shows ${k}, not in the frozen plays`); }
+  }
   for (const rule of RULES.list) {
     const frozen = (plays.rules && plays.rules[rule.id]) || (plays.moba_rules && plays.moba_rules[rule.id]);
     if (!frozen) continue;                                             // a slate frozen before this rule existed

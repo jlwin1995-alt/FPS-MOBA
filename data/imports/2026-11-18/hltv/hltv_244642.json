@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244642/bbl-vs-envy",
+ "mapstatsid": 244642,
+ "captured_utc": "2026-11-19T03:25:03.227Z",
+ "teams": [
+  "BBL",
+  "Envy"
+ ],
+ "map": "Ancient",
+ "score": [
+  18,
+  22
+ ],
+ "players": [
+  {
+   "name": "NickyB",
+   "team": "BBL",
+   "kills": 29,
+   "hs": 16,
+   "deaths": 31
+  },
+  {
+   "name": "salazar",
+   "team": "BBL",
+   "kills": 28,
+   "hs": 10,
+   "deaths": 26
+  },
+  {
+   "name": "leakz",
+   "team": "BBL",
+   "kills": 23,
+   "hs": 12,
+   "deaths": 26
+  },
+  {
+   "name": "MistR",
+   "team": "BBL",
+   "kills": 23,
+   "hs": 11,
+   "deaths": 29
+  },
+  {
+   "name": "IceBerg",
+   "team": "BBL",
+   "kills": 20,
+   "hs": 12,
+   "deaths": 35
+  },
+  {
+   "name": "Lucky",
+   "team": "Envy",
+   "kills": 42,
+   "hs": 19,
+   "deaths": 19
+  },
+  {
+   "name": "Maka",
+   "team": "Envy",
+   "kills": 30,
+   "hs": 9,
+   "deaths": 23
+  },
+  {
+   "name": "misutaaa",
+   "team": "Envy",
+   "kills": 29,
+   "hs": 11,
+   "deaths": 29
+  },
+  {
+   "name": "Graviti",
+   "team": "Envy",
+   "kills": 29,
+   "hs": 18,
+   "deaths": 26
+  },
+  {
+   "name": "Kursy",
+   "team": "Envy",
+   "kills": 16,
+   "hs": 10,
+   "deaths": 31
+  }
+ ]
+}

@@ -6,7 +6,7 @@ Reads the slate's frozen Log (projections as values at default settings) and app
 its commit time is the record that the selection was made before play. Settling never rewrites it.
 """
 import argparse, datetime as dt, json, os
-from .evaluate import RULES, MOBA_RULES
+from .evaluate import RULES, MOBA_RULES, SLATE_RULES
 
 
 def select(log_rows):
@@ -20,6 +20,10 @@ def select(log_rows):
                 legs.append(dict(match=r["Match"], player=r["Player"], market=r["Market"], line=r["Line"], side=side, p_over=po, p_over_adj=poa))
         legs.sort(key=lambda l: (l["match"], -abs(l["p_over"] - 0.5)))
         out[rid] = dict(name=rule["name"], n=len(legs), legs=legs)
+    for rid, rule in SLATE_RULES.items():       # slate rules pick from the whole board (H18 top12); the legs are kept in score order with their score and rules
+        picked = rule["select"](log_rows)
+        out[rid] = dict(name=rule["name"], n=len(picked), legs=[dict(match=c["row"]["Match"], player=c["row"]["Player"], market=c["row"]["Market"], line=c["row"]["Line"], side=c["side"],
+                                                                   p_over=c["row"]["P(over)"], p_over_adj=c["row"]["P(over) adj"], lean=c["lean"], score=c["score"], rules=c["rules"]) for c in picked])
     return out
 
 
@@ -70,7 +74,7 @@ def add_rules(slate, site="site", out="data/plays"):
     path = f"{out}/{slate}.json"
     with open(path, encoding="utf-8") as f:
         res = json.load(f)
-    missing = [rid for rid in RULES if rid not in res["rules"]]
+    missing = [rid for rid in {**RULES, **SLATE_RULES} if rid not in res["rules"]]
     if not missing:
         return path, None
     with open(f"{site}/data/log/{slate}.json", encoding="utf-8") as f:

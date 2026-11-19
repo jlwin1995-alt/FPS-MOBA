@@ -3027,6 +3027,198 @@
    "name": "Over where the model leans over 25+ pts, both models agree and the last-10 hit rate is 0.8+",
    "n": 0,
    "legs": []
+  },
+  "top12": {
+   "name": "Daily top-12 shortlist (H8/H16 legs, all rules agree, lean 15+, scored on frozen cell rates, 2 per match)",
+   "n": 12,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 FORZE.R vs G2.A",
+     "player": "Junyme",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "OVER",
+     "p_over": 0.6922,
+     "p_over_adj": 0.6353,
+     "lean": 19.22,
+     "score": 58.02,
+     "rules": [
+      "agree10",
+      "hs_side",
+      "l10_hs_over",
+      "l10_over"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 NXS vs IS",
+     "player": "mopoz",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.2539,
+     "p_over_adj": 0.2551,
+     "lean": 24.61,
+     "score": 35.6,
+     "rules": [
+      "agree10",
+      "agree20",
+      "under_core"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 BBL vs ENVY",
+     "player": "Lucky",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.2582,
+     "p_over_adj": 0.2564,
+     "lean": 24.18,
+     "score": 35.17,
+     "rules": [
+      "agree10",
+      "agree20",
+      "under_core"
+     ]
+    },
+    {
+     "match": "VAL \u00b7 TEC vs KBG",
+     "player": "sibeastw0w",
+     "market": "Maps 1-2 Kills",
+     "line": 31.5,
+     "side": "OVER",
+     "p_over": 0.8451,
+     "p_over_adj": 0.8451,
+     "lean": 34.51,
+     "score": 33.51,
+     "rules": [
+      "agree10",
+      "agree20"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 UNiTY vs GL",
+     "player": "M1key",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "OVER",
+     "p_over": 0.8196,
+     "p_over_adj": 0.7166,
+     "lean": 31.96,
+     "score": 30.96,
+     "rules": [
+      "agree10",
+      "agree20"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 UNiTY vs GL",
+     "player": "KWERTZZ",
+     "market": "Maps 1-2 HS",
+     "line": 18.5,
+     "side": "OVER",
+     "p_over": 0.7387,
+     "p_over_adj": 0.6322,
+     "lean": 23.87,
+     "score": 26.55,
+     "rules": [
+      "agree10",
+      "hs_side"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 ICE vs SNG",
+     "player": "headtr1ck",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.3077,
+     "p_over_adj": 0.3426,
+     "lean": 19.23,
+     "score": 25.21,
+     "rules": [
+      "agree10",
+      "hs_side",
+      "under_core"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 NXS vs IS",
+     "player": "alex",
+     "market": "Maps 1-2 HS",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3087,
+     "p_over_adj": 0.3098,
+     "lean": 19.13,
+     "score": 25.11,
+     "rules": [
+      "agree10",
+      "hs_side",
+      "under_core"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 APG vs BIG",
+     "player": "ultimate",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "OVER",
+     "p_over": 0.7233,
+     "p_over_adj": 0.6567,
+     "lean": 22.33,
+     "score": 25.09,
+     "rules": [
+      "agree10",
+      "l10_over"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 NIP vs LG",
+     "player": "lux",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "OVER",
+     "p_over": 0.7506,
+     "p_over_adj": 0.7005,
+     "lean": 25.06,
+     "score": 24.06,
+     "rules": [
+      "agree10",
+      "agree20"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 ICE vs SNG",
+     "player": "Dawy",
+     "market": "Maps 1-2 Kills",
+     "line": 32.5,
+     "side": "UNDER",
+     "p_over": 0.3338,
+     "p_over_adj": 0.3929,
+     "lean": 16.62,
+     "score": 23.22,
+     "rules": [
+      "agree10",
+      "under_core"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 FORZE.R vs G2.A",
+     "player": "SHiNE",
+     "market": "Maps 1-2 HS",
+     "line": 11.5,
+     "side": "OVER",
+     "p_over": 0.7036,
+     "p_over_adj": 0.6488,
+     "lean": 20.36,
+     "score": 23.04,
+     "rules": [
+      "agree10",
+      "hs_side"
+     ]
+    }
+   ]
   }
  },
  "moba_rules": {
@@ -3038,5 +3230,8 @@
  },
  "moba_frozen_utc": "2026-11-18T06:08:28+00:00",
  "comparison": "every leg on the board (the base model's side)",
- "late_matches": []
+ "late_matches": [],
+ "rules_added_utc": {
+  "top12": "2026-11-18T07:45:27+00:00"
+ }
 }
