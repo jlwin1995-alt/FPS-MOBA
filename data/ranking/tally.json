@@ -2413,10 +2413,81 @@
      "rate": 0.1111
     }
    }
+  },
+  "2026-11-20": {
+   "legs": 74,
+   "graded": 0,
+   "open": 74,
+   "all": {
+    "hits": 0,
+    "n": 0,
+    "rate": null
+   },
+   "top": {
+    "10": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "20": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "30": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    }
+   },
+   "bucket": {
+    "0-10": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "10-15": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "15-20": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "20-25": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "25+": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    }
+   },
+   "h8_def": {
+    "all": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "over": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    },
+    "under": {
+     "hits": 0,
+     "n": 0,
+     "rate": null
+    }
+   }
   }
  },
  "cumulative": {
-  "slates": 34,
+  "slates": 35,
   "all": {
    "hits": 2332,
    "n": 4535,
