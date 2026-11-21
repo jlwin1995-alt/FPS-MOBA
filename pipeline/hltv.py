@@ -54,14 +54,15 @@ def problems(cap):
     return bad
 
 
-def checks(m):
-    """The identity checks bo3.gg's maps get, for one captured map."""
+def checks(m, accept_sub=False):
+    """The identity checks bo3.gg's maps get, for one captured map. `accept_sub` (only when a per-slate _accept.json names this match and map) lets 11 players through when one team lists six:
+    a player replaced mid-map is on the page twice. Every other check, the kills-vs-deaths one included, still runs over all eleven."""
     pl = m["players"]
     teams = {}
     for p in pl:
         teams.setdefault(p["team"], []).append(p)
     ts = list(teams)
-    ok_n = len(pl) == 10 and len(teams) == 2 and all(len(v) == 5 for v in teams.values())
+    ok_n = (len(pl) == 10 and len(teams) == 2 and all(len(v) == 5 for v in teams.values())) or (accept_sub and len(pl) == 11 and len(teams) == 2 and sorted(len(v) for v in teams.values()) == [5, 6])
     if ok_n:
         k = {t: sum(x["kills"] for x in v) for t, v in teams.items()}
         d = {t: sum(x["deaths"] for x in v) for t, v in teams.items()}
@@ -117,13 +118,15 @@ def link(board, caps):
     return out
 
 
-def merge_match(old, cap, path):
+def merge_match(old, cap, path, accept=()):
     """-> (new match record, notes). `old` is bo3.gg's record or None."""
     notes, maps, chk = [], [], []
     old_by = {m["n"]: m for m in (old or {}).get("maps", [])}
     for m in sorted(cap["maps"], key=lambda x: x["n"]):
         o = old_by.pop(m["n"], None)
-        c = checks(m)
+        c = checks(m, accept_sub=m["n"] in accept)
+        if m["n"] in accept and len(m["players"]) == 11:
+            notes.append(f"map {m['n']}: 11 players accepted (a player replaced mid-map is on the page twice); named in _accept.json")
         rounds = sum(m["score"])
         if o and o.get("players"):
             oc = next(x for x in old["checks"] if x["map"] == m["n"])
@@ -180,6 +183,10 @@ def apply(slate, imports="data/imports", results_dir="data/results", site="site"
         (rejected.append((p, e)) if e else (map_caps if is_map else caps).append((c, p)))
     board = [m for m in fps["matches"] if m["title"] == "CS2"]
     cs2 = res["titles"]["CS2"]
+    accepted = {}                                                 # _accept.json: [{"match": "CS2 · A vs B", "map": 1, "why": "..."}]: 11 players on one map (a mid-map substitution), approved by hand, per match and map
+    ap2 = f"{imports}/{slate}/hltv/_accept.json"
+    for e in (read(ap2) if os.path.exists(ap2) else []):
+        accepted.setdefault(e["match"], set()).add(int(e["map"]))
     built, left = assemble(map_caps, board, cs2)
     for c, label in built:
         e = problems(c)
@@ -188,7 +195,7 @@ def apply(slate, imports="data/imports", results_dir="data/results", site="site"
     links = link(board, caps)
     notes = {}
     for mid, (cap, p) in links.items():
-        cs2[mid], notes[mid] = merge_match(cs2.get(mid), cap, p)
+        cs2[mid], notes[mid] = merge_match(cs2.get(mid), cap, p, accepted.get(mid, ()))
     res["legs"] = [l for l in res["legs"] if not (l["match"] in links)] + leg_actuals([g for g in fps["legs"] if g["title"] == "CS2" and g["match"] in links], fps["players"], cs2)
     res["hltv_merged"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     with open(path, "w", encoding="utf-8") as f:

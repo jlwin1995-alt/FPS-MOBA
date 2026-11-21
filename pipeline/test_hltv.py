@@ -190,5 +190,37 @@ class Merge(unittest.TestCase):
         self.assertEqual([l["status"] for l in res["legs"]], ["no player stats at source"])
 
 
+
+class ElevenPlayers(unittest.TestCase):
+    """A player replaced mid-map is on a map-stats page twice (11 players, one team lists six): refused by default, accepted only when asked for, and nothing else is relaxed."""
+    @staticmethod
+    def _map(extra_deaths=0):
+        a = [dict(name=f"a{i}", team="A", kills=10 + i, hs=5, deaths=10) for i in range(5)] + [dict(name="a_sub", team="A", kills=0, hs=0, deaths=1)]
+        b = [dict(name=f"b{i}", team="B", kills=9 + i, hs=4, deaths=10) for i in range(5)]
+        ka, kb = sum(p["kills"] for p in a), sum(p["kills"] for p in b)
+        for p, d in zip(a, [kb // 5 + (1 if i < kb % 5 else 0) for i in range(5)] + [0]):
+            p["deaths"] = d
+        for p, d in zip(b, [ka // 5 + (1 if i < ka % 5 else 0) for i in range(5)]):
+            p["deaths"] = d + extra_deaths
+        return dict(n=1, score=[13, 5], players=a + b)
+
+    def test_eleven_players_are_refused_unless_asked_for(self):
+        m = self._map()
+        self.assertFalse(H.checks(m)["players_ok"])
+        self.assertTrue(H.checks(m, accept_sub=True)["players_ok"])
+
+    def test_the_other_checks_still_run_over_all_eleven(self):
+        m = self._map(extra_deaths=40)                       # a team's deaths far from the other side's kills
+        self.assertFalse(H.checks(m, accept_sub=True)["kills_vs_deaths_ok"])
+        m = self._map()
+        m["players"][0]["hs"] = m["players"][0]["kills"] + 1  # more headshots than kills
+        self.assertFalse(H.checks(m, accept_sub=True)["hs_le_kills"])
+
+    def test_it_does_not_accept_other_sizes(self):
+        m = self._map()
+        m["players"] = m["players"][:-1]                     # 10 players but 6 + 4
+        self.assertFalse(H.checks(m, accept_sub=True)["players_ok"])
+
+
 if __name__ == "__main__":
     unittest.main()
