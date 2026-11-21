@@ -1,0 +1,96 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244707/nemesis-vs-33",
+ "mapstatsid": 244707,
+ "captured_utc": "2026-11-21T01:27:00Z",
+ "teams": [
+  "Nemesis",
+  "33"
+ ],
+ "map": "Nuke",
+ "score": [
+  13,
+  3
+ ],
+ "players": [
+  {
+   "name": "mag1k3Y",
+   "team": "Nemesis",
+   "kills": 23,
+   "hs": 7,
+   "deaths": 10
+  },
+  {
+   "name": "r3salt",
+   "team": "Nemesis",
+   "kills": 8,
+   "hs": 5,
+   "deaths": 12
+  },
+  {
+   "name": "SELLTER",
+   "team": "Nemesis",
+   "kills": 6,
+   "hs": 2,
+   "deaths": 12
+  },
+  {
+   "name": "heis999",
+   "team": "Nemesis",
+   "kills": 4,
+   "hs": 2,
+   "deaths": 11
+  },
+  {
+   "name": "Sdaim",
+   "team": "Nemesis",
+   "kills": 5,
+   "hs": 1,
+   "deaths": 15
+  },
+  {
+   "name": "tex1y",
+   "team": "Nemesis",
+   "kills": 0,
+   "hs": 0,
+   "deaths": 1
+  },
+  {
+   "name": "z1Nny",
+   "team": "33",
+   "kills": 16,
+   "hs": 10,
+   "deaths": 7
+  },
+  {
+   "name": "bluewh1te",
+   "team": "33",
+   "kills": 14,
+   "hs": 9,
+   "deaths": 10
+  },
+  {
+   "name": "shg",
+   "team": "33",
+   "kills": 11,
+   "hs": 7,
+   "deaths": 12
+  },
+  {
+   "name": "executor",
+   "team": "33",
+   "kills": 10,
+   "hs": 4,
+   "deaths": 7
+  },
+  {
+   "name": "Raijin",
+   "team": "33",
+   "kills": 10,
+   "hs": 7,
+   "deaths": 11
+  }
+ ]
+}
