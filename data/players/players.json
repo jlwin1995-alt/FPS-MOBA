@@ -3,14 +3,14 @@
   "2026-10-16",
   "2026-11-21"
  ],
- "legs": 5504,
- "observations": 5222,
+ "legs": 5521,
+ "observations": 5239,
  "players": 780,
  "min_n": 8,
  "shrink": {
   "tau": 0.1665,
-  "within_sd": 0.371,
-  "shrink_k": 4.97
+  "within_sd": 0.3709,
+  "shrink_k": 4.96
  },
  "walk_forward": {
   "over_rate_of_legs": {
@@ -25,13 +25,13 @@
     "rate": 0.533
    },
    "NONE": {
-    "over": 2512,
-    "n": 5006,
+    "over": 2519,
+    "n": 5022,
     "rate": 0.502
    }
   },
-  "corr_past_vs_next": 0.031,
-  "pairs": 3938
+  "corr_past_vs_next": 0.029,
+  "pairs": 3955
  },
  "flagged": [
   {
@@ -43,7 +43,7 @@
    "err_vs_line": 0.6695,
    "se_line": 0.2401,
    "err_vs_proj": 0.4704,
-   "shrunk_vs_line": 0.4613,
+   "shrunk_vs_line": 0.4614,
    "z": 4.97,
    "K": {
     "matches": 11,
@@ -60,7 +60,7 @@
    "err_vs_line": 0.5136,
    "se_line": 0.191,
    "err_vs_proj": 0.2937,
-   "shrunk_vs_line": 0.3539,
+   "shrunk_vs_line": 0.354,
    "z": 3.81,
    "K": {
     "matches": 11,
@@ -77,7 +77,7 @@
    "err_vs_line": 0.4106,
    "se_line": 0.248,
    "err_vs_proj": 0.2285,
-   "shrunk_vs_line": 0.2743,
+   "shrunk_vs_line": 0.2744,
    "z": 2.86,
    "K": {
     "matches": 10,
@@ -94,7 +94,7 @@
    "err_vs_line": 0.3663,
    "se_line": 0.1902,
    "err_vs_proj": 0.0546,
-   "shrunk_vs_line": 0.2524,
+   "shrunk_vs_line": 0.2525,
    "z": 2.72,
    "K": {
     "matches": 11,
@@ -128,28 +128,11 @@
    "err_vs_line": 0.396,
    "se_line": 0.2738,
    "err_vs_proj": 0.3389,
-   "shrunk_vs_line": 0.2552,
+   "shrunk_vs_line": 0.2553,
    "z": 2.57,
    "K": {
     "matches": 9,
     "err_vs_line": 0.396
-   },
-   "flag": "OVER"
-  },
-  {
-   "player": "tOfu",
-   "title": "DOTA",
-   "matches": 8,
-   "legs": 8,
-   "over_rate": 0.875,
-   "err_vs_line": 0.3945,
-   "se_line": 0.1584,
-   "err_vs_proj": 0.0613,
-   "shrunk_vs_line": 0.2434,
-   "z": 2.36,
-   "K": {
-    "matches": 8,
-    "err_vs_line": 0.3945
    },
    "flag": "OVER"
   },
@@ -162,11 +145,28 @@
    "err_vs_line": 0.3186,
    "se_line": 0.1638,
    "err_vs_proj": 0.2455,
-   "shrunk_vs_line": 0.2195,
-   "z": 2.36,
+   "shrunk_vs_line": 0.2196,
+   "z": 2.37,
    "K": {
     "matches": 11,
     "err_vs_line": 0.3186
+   },
+   "flag": "OVER"
+  },
+  {
+   "player": "tOfu",
+   "title": "DOTA",
+   "matches": 8,
+   "legs": 8,
+   "over_rate": 0.875,
+   "err_vs_line": 0.3945,
+   "se_line": 0.1584,
+   "err_vs_proj": 0.0613,
+   "shrunk_vs_line": 0.2435,
+   "z": 2.36,
+   "K": {
+    "matches": 8,
+    "err_vs_line": 0.3945
    },
    "flag": "OVER"
   },
@@ -179,7 +179,7 @@
    "err_vs_line": 0.3361,
    "se_line": 0.0974,
    "err_vs_proj": 0.2274,
-   "shrunk_vs_line": 0.2246,
+   "shrunk_vs_line": 0.2247,
    "z": 2.34,
    "K": {
     "matches": 5,
@@ -221,7 +221,7 @@
    "err_vs_line": -0.3152,
    "se_line": 0.0757,
    "err_vs_proj": -0.3488,
-   "shrunk_vs_line": -0.2106,
+   "shrunk_vs_line": -0.2107,
    "z": -2.2,
    "K": {
     "matches": 5,
@@ -284,7 +284,7 @@
    "err_vs_line": 0.3034,
    "se_line": 0.0944,
    "err_vs_proj": 0.2486,
-   "shrunk_vs_line": 0.2027,
+   "shrunk_vs_line": 0.2028,
    "z": 2.11,
    "K": {
     "matches": 5,
@@ -305,7 +305,7 @@
    "err_vs_line": -0.2604,
    "se_line": 0.1131,
    "err_vs_proj": -0.2369,
-   "shrunk_vs_line": -0.1842,
+   "shrunk_vs_line": -0.1843,
    "z": -2.05,
    "K": {
     "matches": 6,
@@ -326,7 +326,7 @@
    "err_vs_line": 0.2872,
    "se_line": 0.0514,
    "err_vs_proj": 0.2769,
-   "shrunk_vs_line": 0.1919,
+   "shrunk_vs_line": 0.192,
    "z": 2.0,
    "K": {
     "matches": 5,
@@ -347,7 +347,7 @@
    "err_vs_line": 0.2186,
    "se_line": 0.072,
    "err_vs_proj": 0.2044,
-   "shrunk_vs_line": 0.1642,
+   "shrunk_vs_line": 0.1643,
    "z": 1.98,
    "K": {
     "matches": 8,
@@ -452,7 +452,7 @@
    "err_vs_line": -0.3023,
    "se_line": 0.0915,
    "err_vs_proj": -0.3293,
-   "shrunk_vs_line": -0.1865,
+   "shrunk_vs_line": -0.1866,
    "z": -1.81,
    "K": {
     "matches": 4,
@@ -473,7 +473,7 @@
    "err_vs_line": -0.2094,
    "se_line": 0.0474,
    "err_vs_proj": -0.2065,
-   "shrunk_vs_line": -0.1545,
+   "shrunk_vs_line": -0.1546,
    "z": -1.81,
    "K": {
     "matches": 7,
@@ -494,7 +494,7 @@
    "err_vs_line": -0.2073,
    "se_line": 0.0655,
    "err_vs_proj": -0.1672,
-   "shrunk_vs_line": -0.153,
+   "shrunk_vs_line": -0.1531,
    "z": -1.8,
    "K": {
     "matches": 7,
@@ -587,7 +587,7 @@
    "err_vs_line": -0.2841,
    "se_line": 0.1338,
    "err_vs_proj": -0.169,
-   "shrunk_vs_line": -0.1753,
+   "shrunk_vs_line": -0.1754,
    "z": -1.7,
    "K": {
     "matches": 8,
@@ -625,7 +625,7 @@
    "err_vs_line": 0.2224,
    "se_line": 0.085,
    "err_vs_proj": 0.2095,
-   "shrunk_vs_line": 0.1532,
+   "shrunk_vs_line": 0.1533,
    "z": 1.65,
    "K": {
     "matches": 6,
@@ -667,7 +667,7 @@
    "err_vs_line": -0.2494,
    "se_line": 0.1078,
    "err_vs_proj": -0.2236,
-   "shrunk_vs_line": -0.1607,
+   "shrunk_vs_line": -0.1608,
    "z": -1.62,
    "K": {
     "matches": 5,
@@ -730,7 +730,7 @@
    "err_vs_line": -0.1571,
    "se_line": 0.0456,
    "err_vs_proj": -0.088,
-   "shrunk_vs_line": -0.1231,
+   "shrunk_vs_line": -0.1232,
    "z": -1.59,
    "K": {
     "matches": 9,
@@ -768,7 +768,7 @@
    "err_vs_line": -0.2218,
    "se_line": 0.1171,
    "err_vs_proj": -0.2682,
-   "shrunk_vs_line": -0.1482,
+   "shrunk_vs_line": -0.1483,
    "z": -1.55,
    "K": {
     "matches": 5,
@@ -789,7 +789,7 @@
    "err_vs_line": 0.2178,
    "se_line": 0.0679,
    "err_vs_proj": 0.2044,
-   "shrunk_vs_line": 0.1455,
+   "shrunk_vs_line": 0.1456,
    "z": 1.52,
    "K": {
     "matches": 5,
@@ -810,7 +810,7 @@
    "err_vs_line": -0.1502,
    "se_line": 0.0631,
    "err_vs_proj": -0.1248,
-   "shrunk_vs_line": -0.1177,
+   "shrunk_vs_line": -0.1178,
    "z": -1.52,
    "K": {
     "matches": 9,
@@ -875,7 +875,7 @@
    "err_vs_line": 0.6695,
    "se_line": 0.2401,
    "err_vs_proj": 0.4704,
-   "shrunk_vs_line": 0.4613,
+   "shrunk_vs_line": 0.4614,
    "z": 4.97,
    "K": {
     "matches": 11,
@@ -892,7 +892,7 @@
    "err_vs_line": 0.5136,
    "se_line": 0.191,
    "err_vs_proj": 0.2937,
-   "shrunk_vs_line": 0.3539,
+   "shrunk_vs_line": 0.354,
    "z": 3.81,
    "K": {
     "matches": 11,
@@ -909,7 +909,7 @@
    "err_vs_line": 3.0,
    "se_line": null,
    "err_vs_proj": 1.7778,
-   "shrunk_vs_line": 0.5029,
+   "shrunk_vs_line": 0.5034,
    "z": 3.31,
    "K": {
     "matches": 1,
@@ -926,8 +926,8 @@
    "err_vs_line": 1.1389,
    "se_line": 1.1925,
    "err_vs_proj": 0.66,
-   "shrunk_vs_line": 0.429,
-   "z": 3.26,
+   "shrunk_vs_line": 0.4292,
+   "z": 3.27,
    "K": {
     "matches": 3,
     "err_vs_line": 1.1389
@@ -943,8 +943,8 @@
    "err_vs_line": 1.0556,
    "se_line": 0.6407,
    "err_vs_proj": 0.5912,
-   "shrunk_vs_line": 0.3976,
-   "z": 3.02,
+   "shrunk_vs_line": 0.3978,
+   "z": 3.03,
    "K": {
     "matches": 3,
     "err_vs_line": 1.0556
@@ -960,7 +960,7 @@
    "err_vs_line": -1.0,
    "se_line": null,
    "err_vs_proj": -1.0,
-   "shrunk_vs_line": -0.3766,
+   "shrunk_vs_line": -0.3769,
    "z": -2.87,
    "K": {
     "matches": 3,
@@ -977,7 +977,7 @@
    "err_vs_line": 0.4106,
    "se_line": 0.248,
    "err_vs_proj": 0.2285,
-   "shrunk_vs_line": 0.2743,
+   "shrunk_vs_line": 0.2744,
    "z": 2.86,
    "K": {
     "matches": 10,
@@ -994,11 +994,28 @@
    "err_vs_line": 0.9913,
    "se_line": 0.8323,
    "err_vs_proj": 0.5528,
-   "shrunk_vs_line": 0.3734,
+   "shrunk_vs_line": 0.3736,
    "z": 2.84,
    "K": {
     "matches": 3,
     "err_vs_line": 0.9913
+   },
+   "flag": null
+  },
+  {
+   "player": "Career",
+   "title": "LOL",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 0.5,
+   "err_vs_line": 1.3333,
+   "se_line": 1.6667,
+   "err_vs_proj": 1.1852,
+   "shrunk_vs_line": 0.3831,
+   "z": 2.73,
+   "K": {
+    "matches": 2,
+    "err_vs_line": 1.3333
    },
    "flag": null
   },
@@ -1011,30 +1028,13 @@
    "err_vs_line": 0.3663,
    "se_line": 0.1902,
    "err_vs_proj": 0.0546,
-   "shrunk_vs_line": 0.2524,
+   "shrunk_vs_line": 0.2525,
    "z": 2.72,
    "K": {
     "matches": 11,
     "err_vs_line": 0.3663
    },
    "flag": "OVER"
-  },
-  {
-   "player": "Career",
-   "title": "LOL",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 0.5,
-   "err_vs_line": 1.3333,
-   "se_line": 1.6667,
-   "err_vs_proj": 1.1852,
-   "shrunk_vs_line": 0.3829,
-   "z": 2.72,
-   "K": {
-    "matches": 2,
-    "err_vs_line": 1.3333
-   },
-   "flag": null
   },
   {
    "player": "9Class",
@@ -1062,28 +1062,11 @@
    "err_vs_line": 0.396,
    "se_line": 0.2738,
    "err_vs_proj": 0.3389,
-   "shrunk_vs_line": 0.2552,
+   "shrunk_vs_line": 0.2553,
    "z": 2.57,
    "K": {
     "matches": 9,
     "err_vs_line": 0.396
-   },
-   "flag": "OVER"
-  },
-  {
-   "player": "tOfu",
-   "title": "DOTA",
-   "matches": 8,
-   "legs": 8,
-   "over_rate": 0.875,
-   "err_vs_line": 0.3945,
-   "se_line": 0.1584,
-   "err_vs_proj": 0.0613,
-   "shrunk_vs_line": 0.2434,
-   "z": 2.36,
-   "K": {
-    "matches": 8,
-    "err_vs_line": 0.3945
    },
    "flag": "OVER"
   },
@@ -1096,11 +1079,28 @@
    "err_vs_line": 0.3186,
    "se_line": 0.1638,
    "err_vs_proj": 0.2455,
-   "shrunk_vs_line": 0.2195,
-   "z": 2.36,
+   "shrunk_vs_line": 0.2196,
+   "z": 2.37,
    "K": {
     "matches": 11,
     "err_vs_line": 0.3186
+   },
+   "flag": "OVER"
+  },
+  {
+   "player": "tOfu",
+   "title": "DOTA",
+   "matches": 8,
+   "legs": 8,
+   "over_rate": 0.875,
+   "err_vs_line": 0.3945,
+   "se_line": 0.1584,
+   "err_vs_proj": 0.0613,
+   "shrunk_vs_line": 0.2435,
+   "z": 2.36,
+   "K": {
+    "matches": 8,
+    "err_vs_line": 0.3945
    },
    "flag": "OVER"
   },
@@ -1113,7 +1113,7 @@
    "err_vs_line": 0.3361,
    "se_line": 0.0974,
    "err_vs_proj": 0.2274,
-   "shrunk_vs_line": 0.2246,
+   "shrunk_vs_line": 0.2247,
    "z": 2.34,
    "K": {
     "matches": 5,
@@ -1134,7 +1134,7 @@
    "err_vs_line": 0.7913,
    "se_line": 0.8438,
    "err_vs_proj": 0.6808,
-   "shrunk_vs_line": 0.2981,
+   "shrunk_vs_line": 0.2982,
    "z": 2.27,
    "K": {
     "matches": 3,
@@ -1151,7 +1151,7 @@
    "err_vs_line": 0.7778,
    "se_line": 1.1759,
    "err_vs_proj": 0.5087,
-   "shrunk_vs_line": 0.2929,
+   "shrunk_vs_line": 0.2931,
    "z": 2.23,
    "K": {
     "matches": 3,
@@ -1189,7 +1189,7 @@
    "err_vs_line": -0.3152,
    "se_line": 0.0757,
    "err_vs_proj": -0.3488,
-   "shrunk_vs_line": -0.2106,
+   "shrunk_vs_line": -0.2107,
    "z": -2.2,
    "K": {
     "matches": 5,
@@ -1231,8 +1231,8 @@
    "err_vs_line": 0.7556,
    "se_line": 0.299,
    "err_vs_proj": 0.654,
-   "shrunk_vs_line": 0.2846,
-   "z": 2.16,
+   "shrunk_vs_line": 0.2848,
+   "z": 2.17,
    "K": {
     "matches": 3,
     "err_vs_line": 0.7556
@@ -1269,7 +1269,7 @@
    "err_vs_line": 0.3034,
    "se_line": 0.0944,
    "err_vs_proj": 0.2486,
-   "shrunk_vs_line": 0.2027,
+   "shrunk_vs_line": 0.2028,
    "z": 2.11,
    "K": {
     "matches": 5,
@@ -1290,7 +1290,7 @@
    "err_vs_line": 1.0189,
    "se_line": 0.4327,
    "err_vs_proj": 1.1552,
-   "shrunk_vs_line": 0.2926,
+   "shrunk_vs_line": 0.2928,
    "z": 2.08,
    "K": {
     "matches": 2,
@@ -1307,7 +1307,7 @@
    "err_vs_line": -0.7222,
    "se_line": 0.147,
    "err_vs_proj": -0.7292,
-   "shrunk_vs_line": -0.272,
+   "shrunk_vs_line": -0.2722,
    "z": -2.07,
    "K": {
     "matches": 3,
@@ -1324,7 +1324,7 @@
    "err_vs_line": -0.2604,
    "se_line": 0.1131,
    "err_vs_proj": -0.2369,
-   "shrunk_vs_line": -0.1842,
+   "shrunk_vs_line": -0.1843,
    "z": -2.05,
    "K": {
     "matches": 6,
@@ -1345,11 +1345,28 @@
    "err_vs_line": -1.0,
    "se_line": null,
    "err_vs_proj": -1.0,
-   "shrunk_vs_line": -0.2871,
+   "shrunk_vs_line": -0.2874,
    "z": -2.04,
    "K": {
     "matches": 2,
     "err_vs_line": -1.0
+   },
+   "flag": null
+  },
+  {
+   "player": "Tarzan",
+   "title": "LOL",
+   "matches": 3,
+   "legs": 3,
+   "over_rate": 0.0,
+   "err_vs_line": -0.6996,
+   "se_line": 0.1778,
+   "err_vs_proj": -0.7062,
+   "shrunk_vs_line": -0.2637,
+   "z": -2.01,
+   "K": {
+    "matches": 3,
+    "err_vs_line": -0.6996
    },
    "flag": null
   },
@@ -1362,7 +1379,7 @@
    "err_vs_line": 0.2872,
    "se_line": 0.0514,
    "err_vs_proj": 0.2769,
-   "shrunk_vs_line": 0.1919,
+   "shrunk_vs_line": 0.192,
    "z": 2.0,
    "K": {
     "matches": 5,
@@ -1375,23 +1392,6 @@
    "flag": "OVER"
   },
   {
-   "player": "Tarzan",
-   "title": "LOL",
-   "matches": 3,
-   "legs": 3,
-   "over_rate": 0.0,
-   "err_vs_line": -0.6996,
-   "se_line": 0.1778,
-   "err_vs_proj": -0.7062,
-   "shrunk_vs_line": -0.2635,
-   "z": -2.0,
-   "K": {
-    "matches": 3,
-    "err_vs_line": -0.6996
-   },
-   "flag": null
-  },
-  {
    "player": "Shr",
    "title": "CS2",
    "matches": 2,
@@ -1400,7 +1400,7 @@
    "err_vs_line": 0.9772,
    "se_line": 0.1677,
    "err_vs_proj": 0.8629,
-   "shrunk_vs_line": 0.2806,
+   "shrunk_vs_line": 0.2808,
    "z": 2.0,
    "K": {
     "matches": 1,
@@ -1421,7 +1421,7 @@
    "err_vs_line": 0.2186,
    "se_line": 0.072,
    "err_vs_proj": 0.2044,
-   "shrunk_vs_line": 0.1642,
+   "shrunk_vs_line": 0.1643,
    "z": 1.98,
    "K": {
     "matches": 8,
@@ -1484,7 +1484,7 @@
    "err_vs_line": -0.6742,
    "se_line": 0.2133,
    "err_vs_proj": -0.6341,
-   "shrunk_vs_line": -0.2539,
+   "shrunk_vs_line": -0.2541,
    "z": -1.93,
    "K": {
     "matches": 3,
@@ -1501,7 +1501,7 @@
    "err_vs_line": -0.6667,
    "se_line": 0.1925,
    "err_vs_proj": -0.726,
-   "shrunk_vs_line": -0.2511,
+   "shrunk_vs_line": -0.2513,
    "z": -1.91,
    "K": {
     "matches": 3,
@@ -1539,7 +1539,7 @@
    "err_vs_line": 0.9167,
    "se_line": 0.4167,
    "err_vs_proj": 1.292,
-   "shrunk_vs_line": 0.2632,
+   "shrunk_vs_line": 0.2634,
    "z": 1.87,
    "K": {
     "matches": 2,
@@ -1577,7 +1577,7 @@
    "err_vs_line": 0.5054,
    "se_line": 0.0491,
    "err_vs_proj": 0.5342,
-   "shrunk_vs_line": 0.2255,
+   "shrunk_vs_line": 0.2256,
    "z": 1.82,
    "K": {
     "matches": 2,
@@ -1598,7 +1598,7 @@
    "err_vs_line": -0.3023,
    "se_line": 0.0915,
    "err_vs_proj": -0.3293,
-   "shrunk_vs_line": -0.1865,
+   "shrunk_vs_line": -0.1866,
    "z": -1.81,
    "K": {
     "matches": 4,
@@ -1619,7 +1619,7 @@
    "err_vs_line": -0.2094,
    "se_line": 0.0474,
    "err_vs_proj": -0.2065,
-   "shrunk_vs_line": -0.1545,
+   "shrunk_vs_line": -0.1546,
    "z": -1.81,
    "K": {
     "matches": 7,
@@ -1640,7 +1640,7 @@
    "err_vs_line": -0.2073,
    "se_line": 0.0655,
    "err_vs_proj": -0.1672,
-   "shrunk_vs_line": -0.153,
+   "shrunk_vs_line": -0.1531,
    "z": -1.8,
    "K": {
     "matches": 7,
@@ -1678,7 +1678,7 @@
    "err_vs_line": 0.6186,
    "se_line": 0.7251,
    "err_vs_proj": 0.69,
-   "shrunk_vs_line": 0.233,
+   "shrunk_vs_line": 0.2331,
    "z": 1.77,
    "K": {
     "matches": 3,
@@ -1695,7 +1695,7 @@
    "err_vs_line": 0.6037,
    "se_line": 0.2125,
    "err_vs_proj": 1.0754,
-   "shrunk_vs_line": 0.2274,
+   "shrunk_vs_line": 0.2275,
    "z": 1.73,
    "K": {
     "matches": 3,
@@ -1712,7 +1712,7 @@
    "err_vs_line": 0.8409,
    "se_line": 0.3409,
    "err_vs_proj": 0.719,
-   "shrunk_vs_line": 0.2415,
+   "shrunk_vs_line": 0.2416,
    "z": 1.72,
    "K": {
     "matches": 2,
@@ -1729,7 +1729,7 @@
    "err_vs_line": 0.4778,
    "se_line": 0.0785,
    "err_vs_proj": 0.5173,
-   "shrunk_vs_line": 0.2132,
+   "shrunk_vs_line": 0.2133,
    "z": 1.72,
    "K": {
     "matches": 2,
@@ -1776,6 +1776,27 @@
    "flag": "UNDER"
   },
   {
+   "player": "bsd",
+   "title": "CS2",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 1.0,
+   "err_vs_line": 0.8345,
+   "se_line": 0.2607,
+   "err_vs_proj": 0.8948,
+   "shrunk_vs_line": 0.2398,
+   "z": 1.71,
+   "K": {
+    "matches": 1,
+    "err_vs_line": 0.5738
+   },
+   "HS": {
+    "matches": 1,
+    "err_vs_line": 1.0952
+   },
+   "flag": null
+  },
+  {
    "player": "stanislaw",
    "title": "CS2",
    "matches": 18,
@@ -1805,34 +1826,13 @@
    "err_vs_line": -0.2841,
    "se_line": 0.1338,
    "err_vs_proj": -0.169,
-   "shrunk_vs_line": -0.1753,
+   "shrunk_vs_line": -0.1754,
    "z": -1.7,
    "K": {
     "matches": 8,
     "err_vs_line": -0.2841
    },
    "flag": "UNDER"
-  },
-  {
-   "player": "bsd",
-   "title": "CS2",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 1.0,
-   "err_vs_line": 0.8345,
-   "se_line": 0.2607,
-   "err_vs_proj": 0.8948,
-   "shrunk_vs_line": 0.2396,
-   "z": 1.7,
-   "K": {
-    "matches": 1,
-    "err_vs_line": 0.5738
-   },
-   "HS": {
-    "matches": 1,
-    "err_vs_line": 1.0952
-   },
-   "flag": null
   },
   {
    "player": "Dire",
@@ -1843,7 +1843,7 @@
    "err_vs_line": 0.825,
    "se_line": 0.575,
    "err_vs_proj": 0.1894,
-   "shrunk_vs_line": 0.2369,
+   "shrunk_vs_line": 0.2371,
    "z": 1.69,
    "K": {
     "matches": 2,
@@ -1881,7 +1881,7 @@
    "err_vs_line": 0.2224,
    "se_line": 0.085,
    "err_vs_proj": 0.2095,
-   "shrunk_vs_line": 0.1532,
+   "shrunk_vs_line": 0.1533,
    "z": 1.65,
    "K": {
     "matches": 6,
@@ -1923,8 +1923,8 @@
    "err_vs_line": -0.3327,
    "se_line": 0.1572,
    "err_vs_proj": -0.3577,
-   "shrunk_vs_line": -0.182,
-   "z": -1.62,
+   "shrunk_vs_line": -0.1821,
+   "z": -1.63,
    "K": {
     "matches": 3,
     "err_vs_line": -0.2903
@@ -1944,7 +1944,7 @@
    "err_vs_line": -0.2494,
    "se_line": 0.1078,
    "err_vs_proj": -0.2236,
-   "shrunk_vs_line": -0.1607,
+   "shrunk_vs_line": -0.1608,
    "z": -1.62,
    "K": {
     "matches": 5,
@@ -1965,7 +1965,7 @@
    "err_vs_line": 0.3309,
    "se_line": 0.1081,
    "err_vs_proj": 0.2964,
-   "shrunk_vs_line": 0.1811,
+   "shrunk_vs_line": 0.1812,
    "z": 1.62,
    "K": {
     "matches": 3,
@@ -2028,7 +2028,7 @@
    "err_vs_line": -0.1571,
    "se_line": 0.0456,
    "err_vs_proj": -0.088,
-   "shrunk_vs_line": -0.1231,
+   "shrunk_vs_line": -0.1232,
    "z": -1.59,
    "K": {
     "matches": 9,
@@ -2049,7 +2049,7 @@
    "err_vs_line": 0.4414,
    "se_line": 0.0711,
    "err_vs_proj": 0.4336,
-   "shrunk_vs_line": 0.1969,
+   "shrunk_vs_line": 0.197,
    "z": 1.59,
    "K": {
     "matches": 2,
@@ -2087,7 +2087,7 @@
    "err_vs_line": 0.7648,
    "se_line": 0.0417,
    "err_vs_proj": 0.6691,
-   "shrunk_vs_line": 0.2196,
+   "shrunk_vs_line": 0.2198,
    "z": 1.56,
    "K": {
     "matches": 2,
@@ -2104,7 +2104,7 @@
    "err_vs_line": -0.3629,
    "se_line": 0.1575,
    "err_vs_proj": -0.0364,
-   "shrunk_vs_line": -0.1821,
+   "shrunk_vs_line": -0.1822,
    "z": -1.55,
    "K": {
     "matches": 5,
@@ -2121,7 +2121,7 @@
    "err_vs_line": -0.2218,
    "se_line": 0.1171,
    "err_vs_proj": -0.2682,
-   "shrunk_vs_line": -0.1482,
+   "shrunk_vs_line": -0.1483,
    "z": -1.55,
    "K": {
     "matches": 5,
@@ -2142,7 +2142,7 @@
    "err_vs_line": 1.4,
    "se_line": null,
    "err_vs_proj": 1.1938,
-   "shrunk_vs_line": 0.2347,
+   "shrunk_vs_line": 0.2349,
    "z": 1.55,
    "K": {
     "matches": 1,
@@ -2159,7 +2159,7 @@
    "err_vs_line": 0.2178,
    "se_line": 0.0679,
    "err_vs_proj": 0.2044,
-   "shrunk_vs_line": 0.1455,
+   "shrunk_vs_line": 0.1456,
    "z": 1.52,
    "K": {
     "matches": 5,
@@ -2180,7 +2180,7 @@
    "err_vs_line": -0.5319,
    "se_line": 0.1897,
    "err_vs_proj": -0.6066,
-   "shrunk_vs_line": -0.2003,
+   "shrunk_vs_line": -0.2005,
    "z": -1.52,
    "K": {
     "matches": 3,
@@ -2197,7 +2197,7 @@
    "err_vs_line": -0.1502,
    "se_line": 0.0631,
    "err_vs_proj": -0.1248,
-   "shrunk_vs_line": -0.1177,
+   "shrunk_vs_line": -0.1178,
    "z": -1.52,
    "K": {
     "matches": 9,
@@ -2294,6 +2294,23 @@
    "flag": null
   },
   {
+   "player": "Rein",
+   "title": "DOTA",
+   "matches": 3,
+   "legs": 3,
+   "over_rate": 1.0,
+   "err_vs_line": 0.5111,
+   "se_line": 0.2475,
+   "err_vs_proj": 0.6631,
+   "shrunk_vs_line": 0.1926,
+   "z": 1.47,
+   "K": {
+    "matches": 3,
+    "err_vs_line": 0.5111
+   },
+   "flag": null
+  },
+  {
    "player": "cobrazera",
    "title": "CS2",
    "matches": 26,
@@ -2315,23 +2332,6 @@
    "flag": null
   },
   {
-   "player": "Rein",
-   "title": "DOTA",
-   "matches": 3,
-   "legs": 3,
-   "over_rate": 1.0,
-   "err_vs_line": 0.5111,
-   "se_line": 0.2475,
-   "err_vs_proj": 0.6631,
-   "shrunk_vs_line": 0.1925,
-   "z": 1.46,
-   "K": {
-    "matches": 3,
-    "err_vs_line": 0.5111
-   },
-   "flag": null
-  },
-  {
    "player": "Ex1st",
    "title": "CS2",
    "matches": 16,
@@ -2340,7 +2340,7 @@
    "err_vs_line": 0.1521,
    "se_line": 0.1086,
    "err_vs_proj": 0.1553,
-   "shrunk_vs_line": 0.116,
+   "shrunk_vs_line": 0.1161,
    "z": 1.43,
    "K": {
     "matches": 8,
@@ -2353,6 +2353,27 @@
    "flag": null
   },
   {
+   "player": "n0rb3r7",
+   "title": "CS2",
+   "matches": 6,
+   "legs": 6,
+   "over_rate": 0.833,
+   "err_vs_line": 0.2917,
+   "se_line": 0.1375,
+   "err_vs_proj": 0.2148,
+   "shrunk_vs_line": 0.1597,
+   "z": 1.43,
+   "K": {
+    "matches": 3,
+    "err_vs_line": 0.1655
+   },
+   "HS": {
+    "matches": 3,
+    "err_vs_line": 0.4179
+   },
+   "flag": null
+  },
+  {
    "player": "max",
    "title": "CS2",
    "matches": 12,
@@ -2361,7 +2382,7 @@
    "err_vs_line": -0.1808,
    "se_line": 0.0907,
    "err_vs_proj": -0.17,
-   "shrunk_vs_line": -0.1279,
+   "shrunk_vs_line": -0.128,
    "z": -1.42,
    "K": {
     "matches": 6,
@@ -2374,23 +2395,23 @@
    "flag": null
   },
   {
-   "player": "n0rb3r7",
+   "player": "H4SAN4TOR",
    "title": "CS2",
-   "matches": 6,
-   "legs": 6,
-   "over_rate": 0.833,
-   "err_vs_line": 0.2917,
-   "se_line": 0.1375,
-   "err_vs_proj": 0.2148,
-   "shrunk_vs_line": 0.1596,
-   "z": 1.42,
+   "matches": 10,
+   "legs": 10,
+   "over_rate": 0.6,
+   "err_vs_line": 0.2016,
+   "se_line": 0.1385,
+   "err_vs_proj": 0.142,
+   "shrunk_vs_line": 0.1347,
+   "z": 1.41,
    "K": {
-    "matches": 3,
-    "err_vs_line": 0.1655
+    "matches": 5,
+    "err_vs_line": 0.1161
    },
    "HS": {
-    "matches": 3,
-    "err_vs_line": 0.4179
+    "matches": 5,
+    "err_vs_line": 0.2871
    },
    "flag": null
   },
@@ -2403,7 +2424,7 @@
    "err_vs_line": -0.4912,
    "se_line": 0.0584,
    "err_vs_proj": -0.4522,
-   "shrunk_vs_line": -0.185,
+   "shrunk_vs_line": -0.1851,
    "z": -1.41,
    "K": {
     "matches": 3,
@@ -2420,7 +2441,7 @@
    "err_vs_line": 0.2025,
    "se_line": 0.1151,
    "err_vs_proj": 0.1579,
-   "shrunk_vs_line": 0.1353,
+   "shrunk_vs_line": 0.1354,
    "z": 1.41,
    "K": {
     "matches": 5,
@@ -2433,27 +2454,6 @@
    "flag": null
   },
   {
-   "player": "H4SAN4TOR",
-   "title": "CS2",
-   "matches": 10,
-   "legs": 10,
-   "over_rate": 0.6,
-   "err_vs_line": 0.2016,
-   "se_line": 0.1385,
-   "err_vs_proj": 0.142,
-   "shrunk_vs_line": 0.1347,
-   "z": 1.4,
-   "K": {
-    "matches": 5,
-    "err_vs_line": 0.1161
-   },
-   "HS": {
-    "matches": 5,
-    "err_vs_line": 0.2871
-   },
-   "flag": null
-  },
-  {
    "player": "w0nderful",
    "title": "CS2",
    "matches": 24,
@@ -2462,7 +2462,7 @@
    "err_vs_line": 0.1162,
    "se_line": 0.0511,
    "err_vs_proj": 0.0931,
-   "shrunk_vs_line": 0.0962,
+   "shrunk_vs_line": 0.0963,
    "z": 1.4,
    "K": {
     "matches": 12,
@@ -2483,7 +2483,7 @@
    "err_vs_line": -0.1877,
    "se_line": 0.0724,
    "err_vs_proj": -0.2395,
-   "shrunk_vs_line": -0.1293,
+   "shrunk_vs_line": -0.1294,
    "z": -1.39,
    "K": {
     "matches": 6,
@@ -2504,7 +2504,7 @@
    "err_vs_line": 0.485,
    "se_line": 0.4795,
    "err_vs_proj": 0.3759,
-   "shrunk_vs_line": 0.1827,
+   "shrunk_vs_line": 0.1828,
    "z": 1.39,
    "K": {
     "matches": 3,
@@ -2542,7 +2542,7 @@
    "err_vs_line": 0.3212,
    "se_line": 0.1322,
    "err_vs_proj": 0.3796,
-   "shrunk_vs_line": 0.1612,
+   "shrunk_vs_line": 0.1613,
    "z": 1.37,
    "K": {
     "matches": 5,
@@ -2580,7 +2580,7 @@
    "err_vs_line": -0.2782,
    "se_line": 0.0723,
    "err_vs_proj": -0.2514,
-   "shrunk_vs_line": -0.1522,
+   "shrunk_vs_line": -0.1523,
    "z": -1.36,
    "K": {
     "matches": 3,
@@ -2601,7 +2601,7 @@
    "err_vs_line": -0.4755,
    "se_line": 0.166,
    "err_vs_proj": -0.4564,
-   "shrunk_vs_line": -0.1791,
+   "shrunk_vs_line": -0.1792,
    "z": -1.36,
    "K": {
     "matches": 3,
@@ -2618,7 +2618,7 @@
    "err_vs_line": 0.3767,
    "se_line": 0.3099,
    "err_vs_proj": 0.5014,
-   "shrunk_vs_line": 0.1681,
+   "shrunk_vs_line": 0.1682,
    "z": 1.36,
    "K": {
     "matches": 2,
@@ -2660,7 +2660,7 @@
    "err_vs_line": -0.1324,
    "se_line": 0.0628,
    "err_vs_proj": -0.1132,
-   "shrunk_vs_line": -0.1037,
+   "shrunk_vs_line": -0.1038,
    "z": -1.34,
    "K": {
     "matches": 9,
@@ -2681,7 +2681,7 @@
    "err_vs_line": 0.6571,
    "se_line": 0.0571,
    "err_vs_proj": 0.3828,
-   "shrunk_vs_line": 0.1887,
+   "shrunk_vs_line": 0.1888,
    "z": 1.34,
    "K": {
     "matches": 2,
@@ -2698,7 +2698,7 @@
    "err_vs_line": 0.6538,
    "se_line": 0.0605,
    "err_vs_proj": 0.519,
-   "shrunk_vs_line": 0.1877,
+   "shrunk_vs_line": 0.1879,
    "z": 1.34,
    "K": {
     "matches": 1,
@@ -2719,7 +2719,7 @@
    "err_vs_line": -0.1904,
    "se_line": 0.0603,
    "err_vs_proj": -0.1742,
-   "shrunk_vs_line": -0.1272,
+   "shrunk_vs_line": -0.1273,
    "z": -1.33,
    "K": {
     "matches": 5,
@@ -2761,7 +2761,7 @@
    "err_vs_line": 0.3674,
    "se_line": 0.3081,
    "err_vs_proj": 0.4125,
-   "shrunk_vs_line": 0.1639,
+   "shrunk_vs_line": 0.164,
    "z": 1.32,
    "K": {
     "matches": 4,
@@ -2778,11 +2778,32 @@
    "err_vs_line": 0.6362,
    "se_line": 0.5991,
    "err_vs_proj": 0.5279,
-   "shrunk_vs_line": 0.1827,
+   "shrunk_vs_line": 0.1828,
    "z": 1.3,
    "K": {
     "matches": 2,
     "err_vs_line": 0.6362
+   },
+   "flag": null
+  },
+  {
+   "player": "aragornN",
+   "title": "CS2",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 1.0,
+   "err_vs_line": 0.6338,
+   "se_line": 0.0855,
+   "err_vs_proj": 0.6946,
+   "shrunk_vs_line": 0.1821,
+   "z": 1.3,
+   "K": {
+    "matches": 1,
+    "err_vs_line": 0.7193
+   },
+   "HS": {
+    "matches": 1,
+    "err_vs_line": 0.5484
    },
    "flag": null
   },
@@ -2816,7 +2837,7 @@
    "err_vs_line": -0.6333,
    "se_line": 0.0333,
    "err_vs_proj": -0.6347,
-   "shrunk_vs_line": -0.1819,
+   "shrunk_vs_line": -0.182,
    "z": -1.29,
    "K": {
     "matches": 1,
@@ -2825,27 +2846,6 @@
    "HS": {
     "matches": 1,
     "err_vs_line": -0.6667
-   },
-   "flag": null
-  },
-  {
-   "player": "aragornN",
-   "title": "CS2",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 1.0,
-   "err_vs_line": 0.6338,
-   "se_line": 0.0855,
-   "err_vs_proj": 0.6946,
-   "shrunk_vs_line": 0.182,
-   "z": 1.29,
-   "K": {
-    "matches": 1,
-    "err_vs_line": 0.7193
-   },
-   "HS": {
-    "matches": 1,
-    "err_vs_line": 0.5484
    },
    "flag": null
   },
@@ -2879,7 +2879,7 @@
    "err_vs_line": -0.4476,
    "se_line": 0.1524,
    "err_vs_proj": -0.4608,
-   "shrunk_vs_line": -0.1686,
+   "shrunk_vs_line": -0.1687,
    "z": -1.28,
    "K": {
     "matches": 3,
@@ -2917,7 +2917,7 @@
    "err_vs_line": 0.3522,
    "se_line": 0.0719,
    "err_vs_proj": 0.3007,
-   "shrunk_vs_line": 0.1571,
+   "shrunk_vs_line": 0.1572,
    "z": 1.27,
    "K": {
     "matches": 2,
@@ -2955,32 +2955,11 @@
    "err_vs_line": -0.4444,
    "se_line": 0.1111,
    "err_vs_proj": -0.4599,
-   "shrunk_vs_line": -0.1674,
+   "shrunk_vs_line": -0.1675,
    "z": -1.27,
    "K": {
     "matches": 3,
     "err_vs_line": -0.4444
-   },
-   "flag": null
-  },
-  {
-   "player": "syph0",
-   "title": "CS2",
-   "matches": 15,
-   "legs": 15,
-   "over_rate": 0.533,
-   "err_vs_line": 0.1402,
-   "se_line": 0.135,
-   "err_vs_proj": 0.0261,
-   "shrunk_vs_line": 0.1053,
-   "z": 1.27,
-   "K": {
-    "matches": 7,
-    "err_vs_line": 0.0917
-   },
-   "HS": {
-    "matches": 8,
-    "err_vs_line": 0.1827
    },
    "flag": null
   },
@@ -2993,11 +2972,32 @@
    "err_vs_line": 0.4413,
    "se_line": 0.6129,
    "err_vs_proj": 0.2339,
-   "shrunk_vs_line": 0.1662,
-   "z": 1.26,
+   "shrunk_vs_line": 0.1663,
+   "z": 1.27,
    "K": {
     "matches": 3,
     "err_vs_line": 0.4413
+   },
+   "flag": null
+  },
+  {
+   "player": "syph0",
+   "title": "CS2",
+   "matches": 15,
+   "legs": 15,
+   "over_rate": 0.533,
+   "err_vs_line": 0.1402,
+   "se_line": 0.135,
+   "err_vs_proj": 0.0261,
+   "shrunk_vs_line": 0.1054,
+   "z": 1.27,
+   "K": {
+    "matches": 7,
+    "err_vs_line": 0.0917
+   },
+   "HS": {
+    "matches": 8,
+    "err_vs_line": 0.1827
    },
    "flag": null
   },
@@ -3010,7 +3010,7 @@
    "err_vs_line": 0.1275,
    "se_line": 0.0822,
    "err_vs_proj": 0.1245,
-   "shrunk_vs_line": 0.0986,
+   "shrunk_vs_line": 0.0987,
    "z": 1.25,
    "K": {
     "matches": 9,
@@ -3031,7 +3031,7 @@
    "err_vs_line": -0.1576,
    "se_line": 0.0655,
    "err_vs_proj": -0.1782,
-   "shrunk_vs_line": -0.1114,
+   "shrunk_vs_line": -0.1115,
    "z": -1.24,
    "K": {
     "matches": 6,
@@ -3052,7 +3052,7 @@
    "err_vs_line": -0.2252,
    "se_line": 0.125,
    "err_vs_proj": -0.1348,
-   "shrunk_vs_line": -0.1317,
+   "shrunk_vs_line": -0.1318,
    "z": -1.23,
    "K": {
     "matches": 5,
@@ -3157,7 +3157,7 @@
    "err_vs_line": 0.4222,
    "se_line": 0.212,
    "err_vs_proj": 0.1243,
-   "shrunk_vs_line": 0.159,
+   "shrunk_vs_line": 0.1591,
    "z": 1.21,
    "K": {
     "matches": 3,
@@ -3174,11 +3174,32 @@
    "err_vs_line": -0.5882,
    "se_line": 0.4118,
    "err_vs_proj": -0.6249,
-   "shrunk_vs_line": -0.1689,
+   "shrunk_vs_line": -0.169,
    "z": -1.2,
    "K": {
     "matches": 2,
     "err_vs_line": -0.5882
+   },
+   "flag": null
+  },
+  {
+   "player": "Soulfly",
+   "title": "CS2",
+   "matches": 21,
+   "legs": 21,
+   "over_rate": 0.381,
+   "err_vs_line": -0.1067,
+   "se_line": 0.0466,
+   "err_vs_proj": -0.0699,
+   "shrunk_vs_line": -0.0863,
+   "z": -1.19,
+   "K": {
+    "matches": 11,
+    "err_vs_line": -0.0982
+   },
+   "HS": {
+    "matches": 10,
+    "err_vs_line": -0.116
    },
    "flag": null
   },
@@ -3191,7 +3212,7 @@
    "err_vs_line": 0.5833,
    "se_line": 0.5833,
    "err_vs_proj": 0.5304,
-   "shrunk_vs_line": 0.1675,
+   "shrunk_vs_line": 0.1676,
    "z": 1.19,
    "K": {
     "matches": 2,
@@ -3208,7 +3229,7 @@
    "err_vs_line": -0.1172,
    "se_line": 0.0563,
    "err_vs_proj": -0.1089,
-   "shrunk_vs_line": -0.0918,
+   "shrunk_vs_line": -0.0919,
    "z": -1.19,
    "K": {
     "matches": 9,
@@ -3229,7 +3250,7 @@
    "err_vs_line": -0.4167,
    "se_line": 0.1219,
    "err_vs_proj": -0.4817,
-   "shrunk_vs_line": -0.157,
+   "shrunk_vs_line": -0.1571,
    "z": -1.19,
    "K": {
     "matches": 3,
@@ -3259,27 +3280,6 @@
    "flag": null
   },
   {
-   "player": "Soulfly",
-   "title": "CS2",
-   "matches": 21,
-   "legs": 21,
-   "over_rate": 0.381,
-   "err_vs_line": -0.1067,
-   "se_line": 0.0466,
-   "err_vs_proj": -0.0699,
-   "shrunk_vs_line": -0.0863,
-   "z": -1.18,
-   "K": {
-    "matches": 11,
-    "err_vs_line": -0.0982
-   },
-   "HS": {
-    "matches": 10,
-    "err_vs_line": -0.116
-   },
-   "flag": null
-  },
-  {
    "player": "Aldikon",
    "title": "CS2",
    "matches": 2,
@@ -3288,8 +3288,8 @@
    "err_vs_line": -0.5752,
    "se_line": 0.0038,
    "err_vs_proj": -0.6251,
-   "shrunk_vs_line": -0.1652,
-   "z": -1.17,
+   "shrunk_vs_line": -0.1653,
+   "z": -1.18,
    "K": {
     "matches": 1,
     "err_vs_line": -0.5714
@@ -3309,7 +3309,7 @@
    "err_vs_line": -0.1476,
    "se_line": 0.0557,
    "err_vs_proj": -0.2007,
-   "shrunk_vs_line": -0.1044,
+   "shrunk_vs_line": -0.1045,
    "z": -1.16,
    "K": {
     "matches": 6,
@@ -3351,7 +3351,7 @@
    "err_vs_line": 0.2096,
    "se_line": 0.2741,
    "err_vs_proj": 0.0235,
-   "shrunk_vs_line": 0.1226,
+   "shrunk_vs_line": 0.1227,
    "z": 1.14,
    "K": {
     "matches": 7,
@@ -3368,7 +3368,7 @@
    "err_vs_line": 0.1879,
    "se_line": 0.1511,
    "err_vs_proj": -0.0122,
-   "shrunk_vs_line": 0.1159,
+   "shrunk_vs_line": 0.116,
    "z": 1.13,
    "K": {
     "matches": 4,
@@ -3410,7 +3410,7 @@
    "err_vs_line": 0.5486,
    "se_line": 0.0167,
    "err_vs_proj": 0.3999,
-   "shrunk_vs_line": 0.1575,
+   "shrunk_vs_line": 0.1576,
    "z": 1.12,
    "K": {
     "matches": 1,
@@ -3431,7 +3431,7 @@
    "err_vs_line": 0.2279,
    "se_line": 0.1043,
    "err_vs_proj": 0.2828,
-   "shrunk_vs_line": 0.1247,
+   "shrunk_vs_line": 0.1248,
    "z": 1.11,
    "K": {
     "matches": 3,
@@ -3557,7 +3557,7 @@
    "err_vs_line": -0.3078,
    "se_line": 0.1597,
    "err_vs_proj": -0.4567,
-   "shrunk_vs_line": -0.1373,
+   "shrunk_vs_line": -0.1374,
    "z": -1.11,
    "K": {
     "matches": 4,
@@ -3574,7 +3574,7 @@
    "err_vs_line": -1.0,
    "se_line": null,
    "err_vs_proj": -1.0,
-   "shrunk_vs_line": -0.1676,
+   "shrunk_vs_line": -0.1678,
    "z": -1.1,
    "K": {
     "matches": 1,
@@ -3591,7 +3591,7 @@
    "err_vs_line": -1.0,
    "se_line": null,
    "err_vs_proj": -1.0,
-   "shrunk_vs_line": -0.1676,
+   "shrunk_vs_line": -0.1678,
    "z": -1.1,
    "K": {
     "matches": 1,
@@ -3608,7 +3608,7 @@
    "err_vs_line": 1.0,
    "se_line": null,
    "err_vs_proj": 0.5385,
-   "shrunk_vs_line": 0.1676,
+   "shrunk_vs_line": 0.1678,
    "z": 1.1,
    "K": {
     "matches": 1,
@@ -3625,7 +3625,7 @@
    "err_vs_line": -1.0,
    "se_line": null,
    "err_vs_proj": -1.0,
-   "shrunk_vs_line": -0.1676,
+   "shrunk_vs_line": -0.1678,
    "z": -1.1,
    "K": {
     "matches": 1,
@@ -3684,7 +3684,7 @@
    "err_vs_line": -0.373,
    "se_line": 0.2302,
    "err_vs_proj": -0.4225,
-   "shrunk_vs_line": -0.1405,
+   "shrunk_vs_line": -0.1406,
    "z": -1.07,
    "K": {
     "matches": 3,
@@ -3722,7 +3722,7 @@
    "err_vs_line": -0.2933,
    "se_line": 0.1505,
    "err_vs_proj": -0.2559,
-   "shrunk_vs_line": -0.1309,
+   "shrunk_vs_line": -0.131,
    "z": -1.06,
    "K": {
     "matches": 2,
@@ -3743,7 +3743,7 @@
    "err_vs_line": 0.5195,
    "se_line": 0.1377,
    "err_vs_proj": 0.5251,
-   "shrunk_vs_line": 0.1492,
+   "shrunk_vs_line": 0.1493,
    "z": 1.06,
    "K": {
     "matches": 1,
@@ -3764,7 +3764,7 @@
    "err_vs_line": -0.2917,
    "se_line": 0.0482,
    "err_vs_proj": -0.3019,
-   "shrunk_vs_line": -0.1301,
+   "shrunk_vs_line": -0.1302,
    "z": -1.05,
    "K": {
     "matches": 2,
@@ -3785,7 +3785,7 @@
    "err_vs_line": -0.2126,
    "se_line": 0.0242,
    "err_vs_proj": -0.209,
-   "shrunk_vs_line": -0.1163,
+   "shrunk_vs_line": -0.1164,
    "z": -1.04,
    "K": {
     "matches": 3,
@@ -3848,7 +3848,7 @@
    "err_vs_line": -0.1405,
    "se_line": 0.0831,
    "err_vs_proj": -0.2198,
-   "shrunk_vs_line": -0.0968,
+   "shrunk_vs_line": -0.0969,
    "z": -1.04,
    "K": {
     "matches": 6,
@@ -4012,7 +4012,7 @@
    "err_vs_line": 0.4953,
    "se_line": 0.0199,
    "err_vs_proj": 0.5278,
-   "shrunk_vs_line": 0.1422,
+   "shrunk_vs_line": 0.1423,
    "z": 1.01,
    "K": {
     "matches": 1,
@@ -4033,7 +4033,7 @@
    "err_vs_line": 0.2765,
    "se_line": 0.1957,
    "err_vs_proj": 0.2491,
-   "shrunk_vs_line": 0.1234,
+   "shrunk_vs_line": 0.1235,
    "z": 1.0,
    "K": {
     "matches": 2,
@@ -4054,7 +4054,7 @@
    "err_vs_line": -0.3504,
    "se_line": 0.0171,
    "err_vs_proj": -0.2564,
-   "shrunk_vs_line": -0.132,
+   "shrunk_vs_line": -0.1321,
    "z": -1.0,
    "K": {
     "matches": 3,
@@ -4071,7 +4071,7 @@
    "err_vs_line": 0.1149,
    "se_line": 0.0827,
    "err_vs_proj": 0.0909,
-   "shrunk_vs_line": 0.0848,
+   "shrunk_vs_line": 0.0849,
    "z": 1.0,
    "K": {
     "matches": 7,
@@ -4134,7 +4134,7 @@
    "err_vs_line": 0.2042,
    "se_line": 0.1588,
    "err_vs_proj": 0.1905,
-   "shrunk_vs_line": 0.1117,
+   "shrunk_vs_line": 0.1118,
    "z": 1.0,
    "K": {
     "matches": 3,
@@ -4197,7 +4197,7 @@
    "err_vs_line": 0.1819,
    "se_line": 0.1312,
    "err_vs_proj": 0.0829,
-   "shrunk_vs_line": 0.1064,
+   "shrunk_vs_line": 0.1065,
    "z": 0.99,
    "K": {
     "matches": 7,
@@ -4214,7 +4214,7 @@
    "err_vs_line": -0.2029,
    "se_line": 0.0446,
    "err_vs_proj": -0.1566,
-   "shrunk_vs_line": -0.111,
+   "shrunk_vs_line": -0.1111,
    "z": -0.99,
    "K": {
     "matches": 3,
@@ -4277,7 +4277,7 @@
    "err_vs_line": 0.1249,
    "se_line": 0.0687,
    "err_vs_proj": 0.0616,
-   "shrunk_vs_line": 0.0883,
+   "shrunk_vs_line": 0.0884,
    "z": 0.98,
    "K": {
     "matches": 6,
@@ -4307,6 +4307,23 @@
    "HS": {
     "matches": 2,
     "err_vs_line": 0.3563
+   },
+   "flag": null
+  },
+  {
+   "player": "GUIGO",
+   "title": "LOL",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 0.0,
+   "err_vs_line": -0.4722,
+   "se_line": 0.3056,
+   "err_vs_proj": -0.545,
+   "shrunk_vs_line": -0.1357,
+   "z": -0.97,
+   "K": {
+    "matches": 2,
+    "err_vs_line": -0.4722
    },
    "flag": null
   },
@@ -4361,7 +4378,7 @@
    "err_vs_line": -0.1987,
    "se_line": 0.0357,
    "err_vs_proj": -0.2367,
-   "shrunk_vs_line": -0.1087,
+   "shrunk_vs_line": -0.1088,
    "z": -0.97,
    "K": {
     "matches": 3,
@@ -4382,7 +4399,7 @@
    "err_vs_line": 0.4761,
    "se_line": 0.0848,
    "err_vs_proj": 0.3253,
-   "shrunk_vs_line": 0.1367,
+   "shrunk_vs_line": 0.1368,
    "z": 0.97,
    "K": {
     "matches": 1,
@@ -4395,23 +4412,6 @@
    "flag": null
   },
   {
-   "player": "GUIGO",
-   "title": "LOL",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 0.0,
-   "err_vs_line": -0.4722,
-   "se_line": 0.3056,
-   "err_vs_proj": -0.545,
-   "shrunk_vs_line": -0.1356,
-   "z": -0.96,
-   "K": {
-    "matches": 2,
-    "err_vs_line": -0.4722
-   },
-   "flag": null
-  },
-  {
    "player": "Zeus",
    "title": "LOL",
    "matches": 3,
@@ -4420,7 +4420,7 @@
    "err_vs_line": -0.3333,
    "se_line": 0.5303,
    "err_vs_proj": -0.2595,
-   "shrunk_vs_line": -0.1255,
+   "shrunk_vs_line": -0.1256,
    "z": -0.96,
    "K": {
     "matches": 3,
@@ -4437,7 +4437,7 @@
    "err_vs_line": -0.2654,
    "se_line": 0.1408,
    "err_vs_proj": -0.2564,
-   "shrunk_vs_line": -0.1184,
+   "shrunk_vs_line": -0.1185,
    "z": -0.96,
    "K": {
     "matches": 2,
@@ -4492,7 +4492,7 @@
    "err_vs_line": -0.4667,
    "se_line": 0.1333,
    "err_vs_proj": -0.5457,
-   "shrunk_vs_line": -0.134,
+   "shrunk_vs_line": -0.1341,
    "z": -0.95,
    "K": {
     "matches": 2,
@@ -4509,7 +4509,7 @@
    "err_vs_line": -0.4667,
    "se_line": 0.2667,
    "err_vs_proj": -0.6089,
-   "shrunk_vs_line": -0.134,
+   "shrunk_vs_line": -0.1341,
    "z": -0.95,
    "K": {
     "matches": 2,
@@ -4543,7 +4543,7 @@
    "err_vs_line": 0.4618,
    "se_line": 0.0136,
    "err_vs_proj": 0.4443,
-   "shrunk_vs_line": 0.1326,
+   "shrunk_vs_line": 0.1327,
    "z": 0.94,
    "K": {
     "matches": 1,
@@ -4690,7 +4690,7 @@
    "err_vs_line": -0.4545,
    "se_line": 0.5455,
    "err_vs_proj": -0.4083,
-   "shrunk_vs_line": -0.1305,
+   "shrunk_vs_line": -0.1306,
    "z": -0.93,
    "K": {
     "matches": 2,
@@ -4707,7 +4707,7 @@
    "err_vs_line": -0.8462,
    "se_line": null,
    "err_vs_proj": -0.8466,
-   "shrunk_vs_line": -0.1418,
+   "shrunk_vs_line": -0.142,
    "z": -0.93,
    "K": {
     "matches": 1,
@@ -4808,7 +4808,7 @@
    "err_vs_line": 0.8261,
    "se_line": null,
    "err_vs_proj": 0.7617,
-   "shrunk_vs_line": 0.1385,
+   "shrunk_vs_line": 0.1386,
    "z": 0.91,
    "K": {
     "matches": 1,
@@ -4846,7 +4846,7 @@
    "err_vs_line": -0.4444,
    "se_line": 0.1111,
    "err_vs_proj": -0.3328,
-   "shrunk_vs_line": -0.1276,
+   "shrunk_vs_line": -0.1277,
    "z": -0.91,
    "K": {
     "matches": 2,
@@ -4863,7 +4863,7 @@
    "err_vs_line": -0.4468,
    "se_line": 0.0314,
    "err_vs_proj": -0.4486,
-   "shrunk_vs_line": -0.1283,
+   "shrunk_vs_line": -0.1284,
    "z": -0.91,
    "K": {
     "matches": 1,
@@ -4884,7 +4884,7 @@
    "err_vs_line": 0.25,
    "se_line": 0.3554,
    "err_vs_proj": 0.1422,
-   "shrunk_vs_line": 0.1115,
+   "shrunk_vs_line": 0.1116,
    "z": 0.9,
    "K": {
     "matches": 4,
@@ -4901,7 +4901,7 @@
    "err_vs_line": 0.3111,
    "se_line": 0.4043,
    "err_vs_proj": 0.3209,
-   "shrunk_vs_line": 0.1172,
+   "shrunk_vs_line": 0.1173,
    "z": 0.89,
    "K": {
     "matches": 3,
@@ -4918,7 +4918,7 @@
    "err_vs_line": -0.3122,
    "se_line": 0.326,
    "err_vs_proj": -0.1383,
-   "shrunk_vs_line": -0.1176,
+   "shrunk_vs_line": -0.1177,
    "z": -0.89,
    "K": {
     "matches": 3,
@@ -4977,7 +4977,7 @@
    "err_vs_line": 0.4301,
    "se_line": 0.0523,
    "err_vs_proj": 0.3845,
-   "shrunk_vs_line": 0.1235,
+   "shrunk_vs_line": 0.1236,
    "z": 0.88,
    "K": {
     "matches": 1,
@@ -5015,7 +5015,7 @@
    "err_vs_line": 0.4269,
    "se_line": 0.1731,
    "err_vs_proj": 0.3976,
-   "shrunk_vs_line": 0.1226,
+   "shrunk_vs_line": 0.1227,
    "z": 0.87,
    "K": {
     "matches": 1,
@@ -5078,7 +5078,7 @@
    "err_vs_line": 0.4211,
    "se_line": 0.1579,
    "err_vs_proj": 0.2853,
-   "shrunk_vs_line": 0.1209,
+   "shrunk_vs_line": 0.121,
    "z": 0.86,
    "K": {
     "matches": 1,
@@ -5099,7 +5099,7 @@
    "err_vs_line": -0.7778,
    "se_line": null,
    "err_vs_proj": -0.8426,
-   "shrunk_vs_line": -0.1304,
+   "shrunk_vs_line": -0.1305,
    "z": -0.86,
    "K": {
     "matches": 1,
@@ -5116,7 +5116,7 @@
    "err_vs_line": 0.4167,
    "se_line": 0.0833,
    "err_vs_proj": 0.3377,
-   "shrunk_vs_line": 0.1196,
+   "shrunk_vs_line": 0.1197,
    "z": 0.85,
    "K": {
     "matches": 2,
@@ -5133,7 +5133,7 @@
    "err_vs_line": -0.4167,
    "se_line": 0.0833,
    "err_vs_proj": -0.4758,
-   "shrunk_vs_line": -0.1196,
+   "shrunk_vs_line": -0.1197,
    "z": -0.85,
    "K": {
     "matches": 2,
@@ -5167,7 +5167,7 @@
    "err_vs_line": 0.415,
    "se_line": 0.1608,
    "err_vs_proj": 0.368,
-   "shrunk_vs_line": 0.1192,
+   "shrunk_vs_line": 0.1193,
    "z": 0.85,
    "K": {
     "matches": 1,
@@ -5230,7 +5230,7 @@
    "err_vs_line": 0.0889,
    "se_line": 0.0619,
    "err_vs_proj": 0.1013,
-   "shrunk_vs_line": 0.0678,
+   "shrunk_vs_line": 0.0679,
    "z": 0.84,
    "K": {
     "matches": 8,
@@ -5268,7 +5268,7 @@
    "err_vs_line": 0.4105,
    "se_line": 0.0181,
    "err_vs_proj": 0.2832,
-   "shrunk_vs_line": 0.1179,
+   "shrunk_vs_line": 0.118,
    "z": 0.84,
    "K": {
     "matches": 1,
@@ -5289,7 +5289,7 @@
    "err_vs_line": 0.1184,
    "se_line": 0.0914,
    "err_vs_proj": 0.1402,
-   "shrunk_vs_line": 0.0791,
+   "shrunk_vs_line": 0.0792,
    "z": 0.83,
    "K": {
     "matches": 5,
@@ -5331,7 +5331,7 @@
    "err_vs_line": -0.4061,
    "se_line": 0.0121,
    "err_vs_proj": -0.338,
-   "shrunk_vs_line": -0.1166,
+   "shrunk_vs_line": -0.1167,
    "z": -0.83,
    "K": {
     "matches": 1,
@@ -5390,7 +5390,7 @@
    "err_vs_line": 0.2868,
    "se_line": 0.4665,
    "err_vs_proj": 0.3152,
-   "shrunk_vs_line": 0.108,
+   "shrunk_vs_line": 0.1081,
    "z": 0.82,
    "K": {
     "matches": 3,
@@ -5399,23 +5399,19 @@
    "flag": null
   },
   {
-   "player": "Leakz",
-   "title": "CS2",
-   "matches": 8,
-   "legs": 8,
-   "over_rate": 0.75,
-   "err_vs_line": 0.136,
-   "se_line": 0.0602,
-   "err_vs_proj": 0.2023,
-   "shrunk_vs_line": 0.0839,
-   "z": 0.81,
+   "player": "Rain",
+   "title": "DOTA",
+   "matches": 3,
+   "legs": 3,
+   "over_rate": 0.667,
+   "err_vs_line": 0.2843,
+   "se_line": 0.4267,
+   "err_vs_proj": 0.1867,
+   "shrunk_vs_line": 0.1071,
+   "z": 0.82,
    "K": {
-    "matches": 4,
-    "err_vs_line": 0.0965
-   },
-   "HS": {
-    "matches": 4,
-    "err_vs_line": 0.1754
+    "matches": 3,
+    "err_vs_line": 0.2843
    },
    "flag": null
   },
@@ -5449,28 +5445,11 @@
    "err_vs_line": -0.2817,
    "se_line": 0.3212,
    "err_vs_proj": -0.4186,
-   "shrunk_vs_line": -0.1061,
+   "shrunk_vs_line": -0.1062,
    "z": -0.81,
    "K": {
     "matches": 3,
     "err_vs_line": -0.2817
-   },
-   "flag": null
-  },
-  {
-   "player": "Rain",
-   "title": "DOTA",
-   "matches": 3,
-   "legs": 3,
-   "over_rate": 0.667,
-   "err_vs_line": 0.2843,
-   "se_line": 0.4267,
-   "err_vs_proj": 0.1867,
-   "shrunk_vs_line": 0.1071,
-   "z": 0.81,
-   "K": {
-    "matches": 3,
-    "err_vs_line": 0.2843
    },
    "flag": null
   },
@@ -5483,7 +5462,7 @@
    "err_vs_line": 0.166,
    "se_line": 0.2686,
    "err_vs_proj": 0.3161,
-   "shrunk_vs_line": 0.0908,
+   "shrunk_vs_line": 0.0909,
    "z": 0.81,
    "K": {
     "matches": 6,
@@ -5500,7 +5479,7 @@
    "err_vs_line": -0.1643,
    "se_line": 0.048,
    "err_vs_proj": -0.1906,
-   "shrunk_vs_line": -0.0899,
+   "shrunk_vs_line": -0.09,
    "z": -0.8,
    "K": {
     "matches": 3,
@@ -5521,7 +5500,7 @@
    "err_vs_line": 0.3923,
    "se_line": 0.0363,
    "err_vs_proj": 0.4209,
-   "shrunk_vs_line": 0.1126,
+   "shrunk_vs_line": 0.1127,
    "z": 0.8,
    "K": {
     "matches": 1,
@@ -5542,7 +5521,7 @@
    "err_vs_line": 0.3907,
    "se_line": 0.1649,
    "err_vs_proj": 0.4533,
-   "shrunk_vs_line": 0.1122,
+   "shrunk_vs_line": 0.1123,
    "z": 0.8,
    "K": {
     "matches": 1,
@@ -5584,7 +5563,7 @@
    "err_vs_line": -0.2193,
    "se_line": 0.0917,
    "err_vs_proj": -0.1835,
-   "shrunk_vs_line": -0.0978,
+   "shrunk_vs_line": -0.0979,
    "z": -0.79,
    "K": {
     "matches": 2,
@@ -5605,7 +5584,7 @@
    "err_vs_line": 0.219,
    "se_line": 0.3241,
    "err_vs_proj": 0.2936,
-   "shrunk_vs_line": 0.0977,
+   "shrunk_vs_line": 0.0978,
    "z": 0.79,
    "K": {
     "matches": 4,
@@ -5685,7 +5664,7 @@
    "err_vs_line": -0.381,
    "se_line": 0.0476,
    "err_vs_proj": -0.3628,
-   "shrunk_vs_line": -0.1094,
+   "shrunk_vs_line": -0.1095,
    "z": -0.78,
    "K": {
     "matches": 2,
@@ -5702,7 +5681,7 @@
    "err_vs_line": 0.3822,
    "se_line": 0.1035,
    "err_vs_proj": 0.2548,
-   "shrunk_vs_line": 0.1097,
+   "shrunk_vs_line": 0.1098,
    "z": 0.78,
    "K": {
     "matches": 1,
@@ -5723,32 +5702,11 @@
    "err_vs_line": 0.1794,
    "se_line": 0.142,
    "err_vs_proj": 0.1046,
-   "shrunk_vs_line": 0.09,
+   "shrunk_vs_line": 0.0901,
    "z": 0.77,
    "K": {
     "matches": 5,
     "err_vs_line": 0.1794
-   },
-   "flag": null
-  },
-  {
-   "player": "salazar",
-   "title": "CS2",
-   "matches": 9,
-   "legs": 9,
-   "over_rate": 0.556,
-   "err_vs_line": 0.1181,
-   "se_line": 0.1382,
-   "err_vs_proj": 0.1076,
-   "shrunk_vs_line": 0.0761,
-   "z": 0.77,
-   "K": {
-    "matches": 4,
-    "err_vs_line": 0.0568
-   },
-   "HS": {
-    "matches": 5,
-    "err_vs_line": 0.1671
    },
    "flag": null
   },
@@ -5824,7 +5782,7 @@
    "err_vs_line": 0.2619,
    "se_line": 0.6525,
    "err_vs_proj": 0.3583,
-   "shrunk_vs_line": 0.0986,
+   "shrunk_vs_line": 0.0987,
    "z": 0.75,
    "K": {
     "matches": 3,
@@ -5841,7 +5799,7 @@
    "err_vs_line": -0.68,
    "se_line": null,
    "err_vs_proj": -0.5902,
-   "shrunk_vs_line": -0.114,
+   "shrunk_vs_line": -0.1141,
    "z": -0.75,
    "K": {
     "matches": 1,
@@ -5938,7 +5896,7 @@
    "err_vs_line": 0.1714,
    "se_line": 0.2403,
    "err_vs_proj": 0.1142,
-   "shrunk_vs_line": 0.086,
+   "shrunk_vs_line": 0.0861,
    "z": 0.73,
    "K": {
     "matches": 5,
@@ -6035,7 +5993,7 @@
    "err_vs_line": -0.3537,
    "se_line": 0.0656,
    "err_vs_proj": -0.3362,
-   "shrunk_vs_line": -0.1016,
+   "shrunk_vs_line": -0.1017,
    "z": -0.72,
    "K": {
     "matches": 1,
@@ -6056,7 +6014,7 @@
    "err_vs_line": -0.35,
    "se_line": 0.0293,
    "err_vs_proj": -0.3453,
-   "shrunk_vs_line": -0.1005,
+   "shrunk_vs_line": -0.1006,
    "z": -0.72,
    "K": {
     "matches": 1,
@@ -6161,7 +6119,7 @@
    "err_vs_line": -0.1946,
    "se_line": 0.1402,
    "err_vs_proj": -0.1695,
-   "shrunk_vs_line": -0.0868,
+   "shrunk_vs_line": -0.0869,
    "z": -0.7,
    "K": {
     "matches": 2,
@@ -6224,11 +6182,32 @@
    "err_vs_line": -0.6364,
    "se_line": null,
    "err_vs_proj": -0.734,
-   "shrunk_vs_line": -0.1067,
+   "shrunk_vs_line": -0.1068,
    "z": -0.7,
    "K": {
     "matches": 1,
     "err_vs_line": -0.6364
+   },
+   "flag": null
+  },
+  {
+   "player": "phzy",
+   "title": "CS2",
+   "matches": 6,
+   "legs": 6,
+   "over_rate": 0.333,
+   "err_vs_line": -0.1402,
+   "se_line": 0.14,
+   "err_vs_proj": -0.0962,
+   "shrunk_vs_line": -0.0768,
+   "z": -0.69,
+   "K": {
+    "matches": 4,
+    "err_vs_line": -0.1336
+   },
+   "HS": {
+    "matches": 2,
+    "err_vs_line": -0.1536
    },
    "flag": null
   },
@@ -6241,7 +6220,7 @@
    "err_vs_line": -0.2412,
    "se_line": 0.1836,
    "err_vs_proj": -0.3735,
-   "shrunk_vs_line": -0.0908,
+   "shrunk_vs_line": -0.0909,
    "z": -0.69,
    "K": {
     "matches": 3,
@@ -6372,27 +6351,6 @@
    "flag": null
   },
   {
-   "player": "phzy",
-   "title": "CS2",
-   "matches": 6,
-   "legs": 6,
-   "over_rate": 0.333,
-   "err_vs_line": -0.1402,
-   "se_line": 0.14,
-   "err_vs_proj": -0.0962,
-   "shrunk_vs_line": -0.0767,
-   "z": -0.68,
-   "K": {
-    "matches": 4,
-    "err_vs_line": -0.1336
-   },
-   "HS": {
-    "matches": 2,
-    "err_vs_line": -0.1536
-   },
-   "flag": null
-  },
-  {
    "player": "damyo",
    "title": "CS2",
    "matches": 2,
@@ -6401,7 +6359,7 @@
    "err_vs_line": 0.3333,
    "se_line": 0.1333,
    "err_vs_proj": 0.3379,
-   "shrunk_vs_line": 0.0957,
+   "shrunk_vs_line": 0.0958,
    "z": 0.68,
    "K": {
     "matches": 1,
@@ -6422,7 +6380,7 @@
    "err_vs_line": -0.1897,
    "se_line": 0.1276,
    "err_vs_proj": -0.1546,
-   "shrunk_vs_line": -0.0846,
+   "shrunk_vs_line": -0.0847,
    "z": -0.68,
    "K": {
     "matches": 2,
@@ -6443,7 +6401,7 @@
    "err_vs_line": -0.3275,
    "se_line": 0.0725,
    "err_vs_proj": -0.3958,
-   "shrunk_vs_line": -0.094,
+   "shrunk_vs_line": -0.0941,
    "z": -0.67,
    "K": {
     "matches": 1,
@@ -6464,7 +6422,7 @@
    "err_vs_line": 0.1869,
    "se_line": 0.1371,
    "err_vs_proj": 0.1893,
-   "shrunk_vs_line": 0.0834,
+   "shrunk_vs_line": 0.0835,
    "z": 0.67,
    "K": {
     "matches": 2,
@@ -6485,7 +6443,7 @@
    "err_vs_line": -0.1231,
    "se_line": 0.0535,
    "err_vs_proj": -0.1684,
-   "shrunk_vs_line": -0.072,
+   "shrunk_vs_line": -0.0721,
    "z": -0.67,
    "K": {
     "matches": 4,
@@ -6506,7 +6464,7 @@
    "err_vs_line": 0.3299,
    "se_line": 0.0156,
    "err_vs_proj": 0.3897,
-   "shrunk_vs_line": 0.0947,
+   "shrunk_vs_line": 0.0948,
    "z": 0.67,
    "K": {
     "matches": 1,
@@ -6586,7 +6544,7 @@
    "err_vs_line": -0.3247,
    "se_line": 0.1926,
    "err_vs_proj": -0.3401,
-   "shrunk_vs_line": -0.0932,
+   "shrunk_vs_line": -0.0933,
    "z": -0.66,
    "K": {
     "matches": 1,
@@ -6599,6 +6557,27 @@
    "flag": null
   },
   {
+   "player": "laxiee",
+   "title": "CS2",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 1.0,
+   "err_vs_line": 0.3207,
+   "se_line": 0.094,
+   "err_vs_proj": 0.1691,
+   "shrunk_vs_line": 0.0921,
+   "z": 0.66,
+   "K": {
+    "matches": 1,
+    "err_vs_line": 0.2267
+   },
+   "HS": {
+    "matches": 1,
+    "err_vs_line": 0.4146
+   },
+   "flag": null
+  },
+  {
    "player": "BoBoKa",
    "title": "DOTA",
    "matches": 1,
@@ -6607,7 +6586,7 @@
    "err_vs_line": -0.6,
    "se_line": null,
    "err_vs_proj": -0.6435,
-   "shrunk_vs_line": -0.1006,
+   "shrunk_vs_line": -0.1007,
    "z": -0.66,
    "K": {
     "matches": 1,
@@ -6624,7 +6603,7 @@
    "err_vs_line": 0.6,
    "se_line": null,
    "err_vs_proj": 1.0253,
-   "shrunk_vs_line": 0.1006,
+   "shrunk_vs_line": 0.1007,
    "z": 0.66,
    "K": {
     "matches": 1,
@@ -6700,7 +6679,7 @@
    "err_vs_line": -0.0936,
    "se_line": 0.0578,
    "err_vs_proj": -0.1726,
-   "shrunk_vs_line": -0.0625,
+   "shrunk_vs_line": -0.0626,
    "z": -0.65,
    "K": {
     "matches": 5,
@@ -6721,7 +6700,7 @@
    "err_vs_line": -0.0927,
    "se_line": 0.0601,
    "err_vs_proj": -0.1975,
-   "shrunk_vs_line": -0.0619,
+   "shrunk_vs_line": -0.062,
    "z": -0.65,
    "K": {
     "matches": 5,
@@ -6742,7 +6721,7 @@
    "err_vs_line": 0.1196,
    "se_line": 0.216,
    "err_vs_proj": 0.1194,
-   "shrunk_vs_line": 0.0699,
+   "shrunk_vs_line": 0.07,
    "z": 0.65,
    "K": {
     "matches": 7,
@@ -6759,7 +6738,7 @@
    "err_vs_line": -0.3177,
    "se_line": 0.0897,
    "err_vs_proj": -0.3289,
-   "shrunk_vs_line": -0.0912,
+   "shrunk_vs_line": -0.0913,
    "z": -0.65,
    "K": {
     "matches": 1,
@@ -6772,27 +6751,6 @@
    "flag": null
   },
   {
-   "player": "laxiee",
-   "title": "CS2",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 1.0,
-   "err_vs_line": 0.3207,
-   "se_line": 0.094,
-   "err_vs_proj": 0.1691,
-   "shrunk_vs_line": 0.0921,
-   "z": 0.65,
-   "K": {
-    "matches": 1,
-    "err_vs_line": 0.2267
-   },
-   "HS": {
-    "matches": 1,
-    "err_vs_line": 0.4146
-   },
-   "flag": null
-  },
-  {
    "player": "adai",
    "title": "CS2",
    "matches": 2,
@@ -6801,7 +6759,7 @@
    "err_vs_line": -0.3181,
    "se_line": 0.0748,
    "err_vs_proj": -0.4223,
-   "shrunk_vs_line": -0.0913,
+   "shrunk_vs_line": -0.0914,
    "z": -0.65,
    "K": {
     "matches": 1,
@@ -6822,7 +6780,7 @@
    "err_vs_line": -0.5862,
    "se_line": null,
    "err_vs_proj": -0.5907,
-   "shrunk_vs_line": -0.0983,
+   "shrunk_vs_line": -0.0984,
    "z": -0.65,
    "K": {
     "matches": 1,
@@ -6839,7 +6797,7 @@
    "err_vs_line": 0.5833,
    "se_line": null,
    "err_vs_proj": 0.5768,
-   "shrunk_vs_line": 0.0978,
+   "shrunk_vs_line": 0.0979,
    "z": 0.64,
    "K": {
     "matches": 1,
@@ -6873,7 +6831,7 @@
    "err_vs_line": -0.3111,
    "se_line": 0.0889,
    "err_vs_proj": -0.3897,
-   "shrunk_vs_line": -0.0893,
+   "shrunk_vs_line": -0.0894,
    "z": -0.64,
    "K": {
     "matches": 2,
@@ -6890,7 +6848,7 @@
    "err_vs_line": 0.0916,
    "se_line": 0.1401,
    "err_vs_proj": 0.2069,
-   "shrunk_vs_line": 0.0612,
+   "shrunk_vs_line": 0.0613,
    "z": 0.64,
    "K": {
     "matches": 5,
@@ -6911,7 +6869,7 @@
    "err_vs_line": -0.3118,
    "se_line": 0.1282,
    "err_vs_proj": -0.2831,
-   "shrunk_vs_line": -0.0895,
+   "shrunk_vs_line": -0.0896,
    "z": -0.64,
    "K": {
     "matches": 1,
@@ -6953,7 +6911,7 @@
    "err_vs_line": 0.1756,
    "se_line": 0.0535,
    "err_vs_proj": 0.162,
-   "shrunk_vs_line": 0.0783,
+   "shrunk_vs_line": 0.0784,
    "z": 0.63,
    "K": {
     "matches": 2,
@@ -6962,27 +6920,6 @@
    "HS": {
     "matches": 2,
     "err_vs_line": 0.2393
-   },
-   "flag": null
-  },
-  {
-   "player": "beastik",
-   "title": "CS2",
-   "matches": 12,
-   "legs": 12,
-   "over_rate": 0.667,
-   "err_vs_line": 0.0784,
-   "se_line": 0.0689,
-   "err_vs_proj": -0.0045,
-   "shrunk_vs_line": 0.0554,
-   "z": 0.62,
-   "K": {
-    "matches": 6,
-    "err_vs_line": 0.0397
-   },
-   "HS": {
-    "matches": 6,
-    "err_vs_line": 0.117
    },
    "flag": null
   },
@@ -7033,7 +6970,7 @@
    "err_vs_line": -0.2169,
    "se_line": 0.4974,
    "err_vs_proj": -0.1264,
-   "shrunk_vs_line": -0.0817,
+   "shrunk_vs_line": -0.0818,
    "z": -0.62,
    "K": {
     "matches": 3,
@@ -7050,7 +6987,7 @@
    "err_vs_line": 0.0792,
    "se_line": 0.1278,
    "err_vs_proj": 0.1929,
-   "shrunk_vs_line": 0.056,
+   "shrunk_vs_line": 0.0561,
    "z": 0.62,
    "K": {
     "matches": 6,
@@ -7092,7 +7029,7 @@
    "err_vs_line": -0.5556,
    "se_line": null,
    "err_vs_proj": -0.4624,
-   "shrunk_vs_line": -0.0931,
+   "shrunk_vs_line": -0.0932,
    "z": -0.61,
    "K": {
     "matches": 1,
@@ -7109,7 +7046,7 @@
    "err_vs_line": -0.5556,
    "se_line": null,
    "err_vs_proj": -0.5146,
-   "shrunk_vs_line": -0.0931,
+   "shrunk_vs_line": -0.0932,
    "z": -0.61,
    "K": {
     "matches": 1,
@@ -7126,7 +7063,7 @@
    "err_vs_line": -0.0675,
    "se_line": 0.0488,
    "err_vs_proj": -0.0659,
-   "shrunk_vs_line": -0.0507,
+   "shrunk_vs_line": -0.0508,
    "z": -0.61,
    "K": {
     "matches": 8,
@@ -7185,7 +7122,7 @@
    "err_vs_line": -0.17,
    "se_line": 0.1865,
    "err_vs_proj": -0.0272,
-   "shrunk_vs_line": -0.0758,
+   "shrunk_vs_line": -0.0759,
    "z": -0.61,
    "K": {
     "matches": 4,
@@ -7265,7 +7202,7 @@
    "err_vs_line": 0.0491,
    "se_line": 0.0665,
    "err_vs_proj": -0.0045,
-   "shrunk_vs_line": 0.0406,
+   "shrunk_vs_line": 0.0407,
    "z": 0.59,
    "K": {
     "matches": 13,
@@ -7286,7 +7223,7 @@
    "err_vs_line": -0.5333,
    "se_line": null,
    "err_vs_proj": -0.5703,
-   "shrunk_vs_line": -0.0894,
+   "shrunk_vs_line": -0.0895,
    "z": -0.59,
    "K": {
     "matches": 1,
@@ -7417,7 +7354,7 @@
    "err_vs_line": 0.2857,
    "se_line": 1.2857,
    "err_vs_proj": 0.0345,
-   "shrunk_vs_line": 0.082,
+   "shrunk_vs_line": 0.0821,
    "z": 0.58,
    "K": {
     "matches": 2,
@@ -7434,7 +7371,7 @@
    "err_vs_line": -0.1597,
    "se_line": 0.1883,
    "err_vs_proj": -0.1766,
-   "shrunk_vs_line": -0.0712,
+   "shrunk_vs_line": -0.0713,
    "z": -0.58,
    "K": {
     "matches": 2,
@@ -7497,7 +7434,7 @@
    "err_vs_line": 0.0727,
    "se_line": 0.074,
    "err_vs_proj": 0.1188,
-   "shrunk_vs_line": 0.0514,
+   "shrunk_vs_line": 0.0515,
    "z": 0.57,
    "K": {
     "matches": 6,
@@ -7518,7 +7455,7 @@
    "err_vs_line": -0.2804,
    "se_line": 0.0077,
    "err_vs_proj": -0.2648,
-   "shrunk_vs_line": -0.0805,
+   "shrunk_vs_line": -0.0806,
    "z": -0.57,
    "K": {
     "matches": 1,
@@ -7573,27 +7510,6 @@
    "flag": null
   },
   {
-   "player": "SHOCK",
-   "title": "CS2",
-   "matches": 12,
-   "legs": 12,
-   "over_rate": 0.583,
-   "err_vs_line": 0.0713,
-   "se_line": 0.0705,
-   "err_vs_proj": -0.0116,
-   "shrunk_vs_line": 0.0504,
-   "z": 0.56,
-   "K": {
-    "matches": 6,
-    "err_vs_line": 0.0276
-   },
-   "HS": {
-    "matches": 6,
-    "err_vs_line": 0.1149
-   },
-   "flag": null
-  },
-  {
    "player": "xfl0ud",
    "title": "CS2",
    "matches": 12,
@@ -7644,7 +7560,7 @@
    "err_vs_line": -0.2744,
    "se_line": 0.0381,
    "err_vs_proj": -0.2859,
-   "shrunk_vs_line": -0.0788,
+   "shrunk_vs_line": -0.0789,
    "z": -0.56,
    "K": {
     "matches": 1,
@@ -7665,7 +7581,7 @@
    "err_vs_line": 0.2727,
    "se_line": 0.0727,
    "err_vs_proj": 0.2103,
-   "shrunk_vs_line": 0.0783,
+   "shrunk_vs_line": 0.0784,
    "z": 0.56,
    "K": {
     "matches": 1,
@@ -7707,7 +7623,7 @@
    "err_vs_line": -0.5,
    "se_line": null,
    "err_vs_proj": -0.456,
-   "shrunk_vs_line": -0.0838,
+   "shrunk_vs_line": -0.0839,
    "z": -0.55,
    "K": {
     "matches": 1,
@@ -7724,7 +7640,7 @@
    "err_vs_line": 0.0636,
    "se_line": 0.0768,
    "err_vs_proj": 0.1126,
-   "shrunk_vs_line": 0.0469,
+   "shrunk_vs_line": 0.047,
    "z": 0.55,
    "K": {
     "matches": 7,
@@ -7745,7 +7661,7 @@
    "err_vs_line": 0.1524,
    "se_line": 0.1216,
    "err_vs_proj": 0.16,
-   "shrunk_vs_line": 0.068,
+   "shrunk_vs_line": 0.0681,
    "z": 0.55,
    "K": {
     "matches": 2,
@@ -7808,7 +7724,7 @@
    "err_vs_line": 0.1507,
    "se_line": 0.1415,
    "err_vs_proj": 0.1798,
-   "shrunk_vs_line": 0.0672,
+   "shrunk_vs_line": 0.0673,
    "z": 0.54,
    "K": {
     "matches": 4,
@@ -7846,7 +7762,7 @@
    "err_vs_line": 0.0589,
    "se_line": 0.1017,
    "err_vs_proj": 0.0588,
-   "shrunk_vs_line": 0.0442,
+   "shrunk_vs_line": 0.0443,
    "z": 0.53,
    "K": {
     "matches": 8,
@@ -7930,7 +7846,7 @@
    "err_vs_line": -0.1471,
    "se_line": 0.0546,
    "err_vs_proj": -0.1971,
-   "shrunk_vs_line": -0.0656,
+   "shrunk_vs_line": -0.0657,
    "z": -0.53,
    "K": {
     "matches": 2,
@@ -7951,7 +7867,7 @@
    "err_vs_line": -0.1852,
    "se_line": 0.4271,
    "err_vs_proj": -0.2599,
-   "shrunk_vs_line": -0.0697,
+   "shrunk_vs_line": -0.0698,
    "z": -0.53,
    "K": {
     "matches": 3,
@@ -7968,7 +7884,7 @@
    "err_vs_line": 0.0681,
    "se_line": 0.153,
    "err_vs_proj": 0.0273,
-   "shrunk_vs_line": 0.0481,
+   "shrunk_vs_line": 0.0482,
    "z": 0.53,
    "K": {
     "matches": 6,
@@ -8031,7 +7947,7 @@
    "err_vs_line": -0.1462,
    "se_line": 0.0463,
    "err_vs_proj": -0.1798,
-   "shrunk_vs_line": -0.0652,
+   "shrunk_vs_line": -0.0653,
    "z": -0.53,
    "K": {
     "matches": 2,
@@ -8094,11 +8010,32 @@
    "err_vs_line": -0.1828,
    "se_line": 0.172,
    "err_vs_proj": -0.1776,
-   "shrunk_vs_line": -0.0688,
+   "shrunk_vs_line": -0.0689,
    "z": -0.52,
    "K": {
     "matches": 3,
     "err_vs_line": -0.1828
+   },
+   "flag": null
+  },
+  {
+   "player": "beastik",
+   "title": "CS2",
+   "matches": 14,
+   "legs": 14,
+   "over_rate": 0.643,
+   "err_vs_line": 0.0604,
+   "se_line": 0.0605,
+   "err_vs_proj": -0.0242,
+   "shrunk_vs_line": 0.0446,
+   "z": 0.52,
+   "K": {
+    "matches": 7,
+    "err_vs_line": 0.0159
+   },
+   "HS": {
+    "matches": 7,
+    "err_vs_line": 0.1049
    },
    "flag": null
   },
@@ -8132,7 +8069,7 @@
    "err_vs_line": 0.4694,
    "se_line": null,
    "err_vs_proj": 0.5025,
-   "shrunk_vs_line": 0.0787,
+   "shrunk_vs_line": 0.0788,
    "z": 0.52,
    "K": {
     "matches": 1,
@@ -8170,7 +8107,7 @@
    "err_vs_line": 0.2529,
    "se_line": 0.0805,
    "err_vs_proj": 0.2751,
-   "shrunk_vs_line": 0.0726,
+   "shrunk_vs_line": 0.0727,
    "z": 0.52,
    "K": {
     "matches": 1,
@@ -8191,7 +8128,7 @@
    "err_vs_line": 0.2523,
    "se_line": 0.136,
    "err_vs_proj": 0.2686,
-   "shrunk_vs_line": 0.0724,
+   "shrunk_vs_line": 0.0725,
    "z": 0.52,
    "K": {
     "matches": 1,
@@ -8233,7 +8170,7 @@
    "err_vs_line": 0.2515,
    "se_line": 0.1033,
    "err_vs_proj": 0.248,
-   "shrunk_vs_line": 0.0722,
+   "shrunk_vs_line": 0.0723,
    "z": 0.51,
    "K": {
     "matches": 1,
@@ -8284,6 +8221,23 @@
    "HS": {
     "matches": 1,
     "err_vs_line": 0.2414
+   },
+   "flag": null
+  },
+  {
+   "player": "Loki",
+   "title": "LOL",
+   "matches": 1,
+   "legs": 1,
+   "over_rate": 0.0,
+   "err_vs_line": -0.4483,
+   "se_line": null,
+   "err_vs_proj": -0.4702,
+   "shrunk_vs_line": -0.0752,
+   "z": -0.5,
+   "K": {
+    "matches": 1,
+    "err_vs_line": -0.4483
    },
    "flag": null
   },
@@ -8351,23 +8305,6 @@
    "flag": null
   },
   {
-   "player": "Loki",
-   "title": "LOL",
-   "matches": 1,
-   "legs": 1,
-   "over_rate": 0.0,
-   "err_vs_line": -0.4483,
-   "se_line": null,
-   "err_vs_proj": -0.4702,
-   "shrunk_vs_line": -0.0751,
-   "z": -0.49,
-   "K": {
-    "matches": 1,
-    "err_vs_line": -0.4483
-   },
-   "flag": null
-  },
-  {
    "player": "Ag1l",
    "title": "CS2",
    "matches": 14,
@@ -8418,7 +8355,7 @@
    "err_vs_line": 0.4444,
    "se_line": null,
    "err_vs_proj": 0.5081,
-   "shrunk_vs_line": 0.0745,
+   "shrunk_vs_line": 0.0746,
    "z": 0.49,
    "K": {
     "matches": 1,
@@ -8435,7 +8372,7 @@
    "err_vs_line": 0.4462,
    "se_line": null,
    "err_vs_proj": 0.3074,
-   "shrunk_vs_line": 0.0748,
+   "shrunk_vs_line": 0.0749,
    "z": 0.49,
    "K": {
     "matches": 1,
@@ -8562,7 +8499,7 @@
    "err_vs_line": -0.4286,
    "se_line": null,
    "err_vs_proj": -0.4126,
-   "shrunk_vs_line": -0.0718,
+   "shrunk_vs_line": -0.0719,
    "z": -0.47,
    "K": {
     "matches": 1,
@@ -8579,7 +8516,7 @@
    "err_vs_line": -0.4286,
    "se_line": null,
    "err_vs_proj": -0.4253,
-   "shrunk_vs_line": -0.0718,
+   "shrunk_vs_line": -0.0719,
    "z": -0.47,
    "K": {
     "matches": 1,
@@ -8596,7 +8533,7 @@
    "err_vs_line": 0.4286,
    "se_line": null,
    "err_vs_proj": 0.3149,
-   "shrunk_vs_line": 0.0718,
+   "shrunk_vs_line": 0.0719,
    "z": 0.47,
    "K": {
     "matches": 1,
@@ -8655,7 +8592,7 @@
    "err_vs_line": 0.1312,
    "se_line": 0.0964,
    "err_vs_proj": 0.0535,
-   "shrunk_vs_line": 0.0585,
+   "shrunk_vs_line": 0.0586,
    "z": 0.47,
    "K": {
     "matches": 2,
@@ -8697,7 +8634,7 @@
    "err_vs_line": -0.0656,
    "se_line": 0.0712,
    "err_vs_proj": -0.0476,
-   "shrunk_vs_line": -0.0438,
+   "shrunk_vs_line": -0.0439,
    "z": -0.46,
    "K": {
     "matches": 5,
@@ -8706,6 +8643,27 @@
    "HS": {
     "matches": 5,
     "err_vs_line": -0.1248
+   },
+   "flag": null
+  },
+  {
+   "player": "MoDo",
+   "title": "CS2",
+   "matches": 13,
+   "legs": 13,
+   "over_rate": 0.538,
+   "err_vs_line": 0.056,
+   "se_line": 0.0788,
+   "err_vs_proj": 0.0803,
+   "shrunk_vs_line": 0.0405,
+   "z": 0.46,
+   "K": {
+    "matches": 7,
+    "err_vs_line": -0.023
+   },
+   "HS": {
+    "matches": 6,
+    "err_vs_line": 0.1481
    },
    "flag": null
   },
@@ -8773,7 +8731,7 @@
    "err_vs_line": 0.4182,
    "se_line": null,
    "err_vs_proj": 0.4552,
-   "shrunk_vs_line": 0.0701,
+   "shrunk_vs_line": 0.0702,
    "z": 0.46,
    "K": {
     "matches": 1,
@@ -8832,7 +8790,7 @@
    "err_vs_line": 0.0644,
    "se_line": 0.1369,
    "err_vs_proj": 0.1337,
-   "shrunk_vs_line": 0.043,
+   "shrunk_vs_line": 0.0431,
    "z": 0.45,
    "K": {
     "matches": 5,
@@ -8853,7 +8811,7 @@
    "err_vs_line": 0.1043,
    "se_line": 0.1115,
    "err_vs_proj": -0.02,
-   "shrunk_vs_line": 0.0523,
+   "shrunk_vs_line": 0.0524,
    "z": 0.45,
    "K": {
     "matches": 5,
@@ -8992,7 +8950,7 @@
    "err_vs_line": 0.0436,
    "se_line": 0.1063,
    "err_vs_proj": 0.0862,
-   "shrunk_vs_line": 0.0341,
+   "shrunk_vs_line": 0.0342,
    "z": 0.44,
    "K": {
     "matches": 9,
@@ -9034,7 +8992,7 @@
    "err_vs_line": 0.217,
    "se_line": 0.0557,
    "err_vs_proj": 0.2998,
-   "shrunk_vs_line": 0.0623,
+   "shrunk_vs_line": 0.0624,
    "z": 0.44,
    "K": {
     "matches": 1,
@@ -9064,27 +9022,6 @@
    "HS": {
     "matches": 6,
     "err_vs_line": -0.0284
-   },
-   "flag": null
-  },
-  {
-   "player": "stressarN",
-   "title": "CS2",
-   "matches": 12,
-   "legs": 12,
-   "over_rate": 0.5,
-   "err_vs_line": 0.0548,
-   "se_line": 0.0934,
-   "err_vs_proj": 0.05,
-   "shrunk_vs_line": 0.0388,
-   "z": 0.43,
-   "K": {
-    "matches": 6,
-    "err_vs_line": 0.1505
-   },
-   "HS": {
-    "matches": 6,
-    "err_vs_line": -0.0409
    },
    "flag": null
   },
@@ -9291,7 +9228,7 @@
    "err_vs_line": 0.377,
    "se_line": null,
    "err_vs_proj": 0.1864,
-   "shrunk_vs_line": 0.0632,
+   "shrunk_vs_line": 0.0633,
    "z": 0.42,
    "K": {
     "matches": 1,
@@ -9329,7 +9266,7 @@
    "err_vs_line": 0.0861,
    "se_line": 0.0767,
    "err_vs_proj": 0.0172,
-   "shrunk_vs_line": 0.0471,
+   "shrunk_vs_line": 0.0472,
    "z": 0.42,
    "K": {
     "matches": 3,
@@ -9367,7 +9304,7 @@
    "err_vs_line": -0.2,
    "se_line": 0.2,
    "err_vs_proj": -0.0346,
-   "shrunk_vs_line": -0.0574,
+   "shrunk_vs_line": -0.0575,
    "z": -0.41,
    "K": {
     "matches": 2,
@@ -9498,7 +9435,7 @@
    "err_vs_line": 0.2003,
    "se_line": 0.0775,
    "err_vs_proj": 0.2555,
-   "shrunk_vs_line": 0.0575,
+   "shrunk_vs_line": 0.0576,
    "z": 0.41,
    "K": {
     "matches": 1,
@@ -9582,7 +9519,7 @@
    "err_vs_line": -0.1392,
    "se_line": 0.1482,
    "err_vs_proj": -0.1582,
-   "shrunk_vs_line": -0.0524,
+   "shrunk_vs_line": -0.0525,
    "z": -0.4,
    "K": {
     "matches": 2,
@@ -9696,7 +9633,7 @@
    "err_vs_line": 0.1892,
    "se_line": 0.0366,
    "err_vs_proj": 0.1213,
-   "shrunk_vs_line": 0.0543,
+   "shrunk_vs_line": 0.0544,
    "z": 0.39,
    "K": {
     "matches": 1,
@@ -9738,7 +9675,7 @@
    "err_vs_line": 0.1906,
    "se_line": 0.0997,
    "err_vs_proj": 0.138,
-   "shrunk_vs_line": 0.0547,
+   "shrunk_vs_line": 0.0548,
    "z": 0.39,
    "K": {
     "matches": 1,
@@ -9759,7 +9696,7 @@
    "err_vs_line": 0.1885,
    "se_line": 0.0272,
    "err_vs_proj": 0.1856,
-   "shrunk_vs_line": 0.0541,
+   "shrunk_vs_line": 0.0542,
    "z": 0.39,
    "K": {
     "matches": 1,
@@ -9780,11 +9717,32 @@
    "err_vs_line": 0.1861,
    "se_line": 0.0282,
    "err_vs_proj": 0.1508,
-   "shrunk_vs_line": 0.0534,
+   "shrunk_vs_line": 0.0535,
    "z": 0.38,
    "K": {
     "matches": 2,
     "err_vs_line": 0.1861
+   },
+   "flag": null
+  },
+  {
+   "player": "SHOCK",
+   "title": "CS2",
+   "matches": 13,
+   "legs": 13,
+   "over_rate": 0.538,
+   "err_vs_line": 0.0455,
+   "se_line": 0.0697,
+   "err_vs_proj": -0.0262,
+   "shrunk_vs_line": 0.033,
+   "z": 0.38,
+   "K": {
+    "matches": 7,
+    "err_vs_line": -0.0139
+   },
+   "HS": {
+    "matches": 6,
+    "err_vs_line": 0.1149
    },
    "flag": null
   },
@@ -9814,7 +9772,7 @@
    "err_vs_line": -0.069,
    "se_line": 0.157,
    "err_vs_proj": -0.0933,
-   "shrunk_vs_line": -0.0403,
+   "shrunk_vs_line": -0.0404,
    "z": -0.38,
    "K": {
     "matches": 7,
@@ -9848,7 +9806,7 @@
    "err_vs_line": -0.1333,
    "se_line": 0.0667,
    "err_vs_proj": -0.1375,
-   "shrunk_vs_line": -0.0502,
+   "shrunk_vs_line": -0.0503,
    "z": -0.38,
    "K": {
     "matches": 3,
@@ -9865,7 +9823,7 @@
    "err_vs_line": 0.3448,
    "se_line": null,
    "err_vs_proj": 0.1045,
-   "shrunk_vs_line": 0.0578,
+   "shrunk_vs_line": 0.0579,
    "z": 0.38,
    "K": {
     "matches": 1,
@@ -9903,7 +9861,7 @@
    "err_vs_line": -0.1871,
    "se_line": 0.0588,
    "err_vs_proj": -0.0415,
-   "shrunk_vs_line": -0.0537,
+   "shrunk_vs_line": -0.0538,
    "z": -0.38,
    "K": {
     "matches": 1,
@@ -9924,7 +9882,7 @@
    "err_vs_line": -0.1837,
    "se_line": 0.0408,
    "err_vs_proj": -0.2512,
-   "shrunk_vs_line": -0.0527,
+   "shrunk_vs_line": -0.0528,
    "z": -0.38,
    "K": {
     "matches": 1,
@@ -10059,7 +10017,7 @@
    "err_vs_line": 0.1257,
    "se_line": 0.2908,
    "err_vs_proj": 0.3034,
-   "shrunk_vs_line": 0.0473,
+   "shrunk_vs_line": 0.0474,
    "z": 0.36,
    "K": {
     "matches": 3,
@@ -10139,7 +10097,7 @@
    "err_vs_line": 0.0361,
    "se_line": 0.0678,
    "err_vs_proj": -0.0467,
-   "shrunk_vs_line": 0.0279,
+   "shrunk_vs_line": 0.028,
    "z": 0.35,
    "K": {
     "matches": 9,
@@ -10215,7 +10173,7 @@
    "err_vs_line": 0.1705,
    "se_line": 0.0795,
    "err_vs_proj": 0.0328,
-   "shrunk_vs_line": 0.0489,
+   "shrunk_vs_line": 0.049,
    "z": 0.35,
    "K": {
     "matches": 2,
@@ -10253,7 +10211,7 @@
    "err_vs_line": 0.1236,
    "se_line": 0.2038,
    "err_vs_proj": -0.146,
-   "shrunk_vs_line": 0.0465,
+   "shrunk_vs_line": 0.0466,
    "z": 0.35,
    "K": {
     "matches": 3,
@@ -10329,7 +10287,7 @@
    "err_vs_line": -0.3061,
    "se_line": null,
    "err_vs_proj": -0.3745,
-   "shrunk_vs_line": -0.0513,
+   "shrunk_vs_line": -0.0514,
    "z": -0.34,
    "K": {
     "matches": 1,
@@ -10384,7 +10342,7 @@
    "err_vs_line": 0.1188,
    "se_line": 0.0069,
    "err_vs_proj": 0.2515,
-   "shrunk_vs_line": 0.0447,
+   "shrunk_vs_line": 0.0448,
    "z": 0.34,
    "K": {
     "matches": 1,
@@ -10405,7 +10363,7 @@
    "err_vs_line": -0.0929,
    "se_line": 0.115,
    "err_vs_proj": -0.1834,
-   "shrunk_vs_line": -0.0414,
+   "shrunk_vs_line": -0.0415,
    "z": -0.33,
    "K": {
     "matches": 2,
@@ -10485,7 +10443,7 @@
    "err_vs_line": -0.1606,
    "se_line": 0.1061,
    "err_vs_proj": -0.0838,
-   "shrunk_vs_line": -0.0461,
+   "shrunk_vs_line": -0.0462,
    "z": -0.33,
    "K": {
     "matches": 1,
@@ -10523,7 +10481,7 @@
    "err_vs_line": -0.1164,
    "se_line": 0.1875,
    "err_vs_proj": -0.0336,
-   "shrunk_vs_line": -0.0438,
+   "shrunk_vs_line": -0.0439,
    "z": -0.33,
    "K": {
     "matches": 3,
@@ -10561,7 +10519,7 @@
    "err_vs_line": -0.1116,
    "se_line": 0.0337,
    "err_vs_proj": -0.1833,
-   "shrunk_vs_line": -0.042,
+   "shrunk_vs_line": -0.0421,
    "z": -0.32,
    "K": {
     "matches": 3,
@@ -10633,7 +10591,7 @@
    "err_vs_line": 0.1579,
    "se_line": 0.1053,
    "err_vs_proj": 0.0963,
-   "shrunk_vs_line": 0.0453,
+   "shrunk_vs_line": 0.0454,
    "z": 0.32,
    "K": {
     "matches": 1,
@@ -10671,7 +10629,7 @@
    "err_vs_line": -0.1509,
    "se_line": 0.0176,
    "err_vs_proj": -0.2927,
-   "shrunk_vs_line": -0.0433,
+   "shrunk_vs_line": -0.0434,
    "z": -0.31,
    "K": {
     "matches": 2,
@@ -10768,7 +10726,7 @@
    "err_vs_line": -0.28,
    "se_line": null,
    "err_vs_proj": -0.1651,
-   "shrunk_vs_line": -0.0469,
+   "shrunk_vs_line": -0.047,
    "z": -0.31,
    "K": {
     "matches": 1,
@@ -10819,7 +10777,7 @@
    "err_vs_line": -0.1516,
    "se_line": 0.1341,
    "err_vs_proj": -0.0991,
-   "shrunk_vs_line": -0.0435,
+   "shrunk_vs_line": -0.0436,
    "z": -0.31,
    "K": {
     "matches": 2,
@@ -10878,7 +10836,7 @@
    "err_vs_line": -0.0821,
    "se_line": 0.1199,
    "err_vs_proj": -0.2157,
-   "shrunk_vs_line": -0.0366,
+   "shrunk_vs_line": -0.0367,
    "z": -0.3,
    "K": {
     "matches": 2,
@@ -10920,7 +10878,7 @@
    "err_vs_line": 0.0387,
    "se_line": 0.0829,
    "err_vs_proj": 0.1099,
-   "shrunk_vs_line": 0.0273,
+   "shrunk_vs_line": 0.0274,
    "z": 0.3,
    "K": {
     "matches": 6,
@@ -10962,7 +10920,7 @@
    "err_vs_line": 0.2632,
    "se_line": null,
    "err_vs_proj": 0.165,
-   "shrunk_vs_line": 0.0441,
+   "shrunk_vs_line": 0.0442,
    "z": 0.29,
    "K": {
     "matches": 1,
@@ -11228,7 +11186,7 @@
    "err_vs_line": -0.0426,
    "se_line": 0.0995,
    "err_vs_proj": -0.0001,
-   "shrunk_vs_line": -0.0274,
+   "shrunk_vs_line": -0.0275,
    "z": -0.28,
    "K": {
     "matches": 9,
@@ -11325,7 +11283,7 @@
    "err_vs_line": 0.2459,
    "se_line": null,
    "err_vs_proj": 0.3552,
-   "shrunk_vs_line": 0.0412,
+   "shrunk_vs_line": 0.0413,
    "z": 0.27,
    "K": {
     "matches": 1,
@@ -11342,7 +11300,7 @@
    "err_vs_line": 0.1342,
    "se_line": 0.0271,
    "err_vs_proj": 0.065,
-   "shrunk_vs_line": 0.0385,
+   "shrunk_vs_line": 0.0386,
    "z": 0.27,
    "K": {
     "matches": 1,
@@ -11384,7 +11342,7 @@
    "err_vs_line": -0.2453,
    "se_line": null,
    "err_vs_proj": -0.1263,
-   "shrunk_vs_line": -0.0411,
+   "shrunk_vs_line": -0.0412,
    "z": -0.27,
    "K": {
     "matches": 1,
@@ -11532,6 +11490,27 @@
    "flag": null
   },
   {
+   "player": "stressarN",
+   "title": "CS2",
+   "matches": 14,
+   "legs": 14,
+   "over_rate": 0.429,
+   "err_vs_line": -0.0283,
+   "se_line": 0.0975,
+   "err_vs_proj": -0.0344,
+   "shrunk_vs_line": -0.0209,
+   "z": -0.25,
+   "K": {
+    "matches": 7,
+    "err_vs_line": 0.0521
+   },
+   "HS": {
+    "matches": 7,
+    "err_vs_line": -0.1086
+   },
+   "flag": null
+  },
+  {
    "player": "Stojkov",
    "title": "DOTA",
    "matches": 9,
@@ -11595,7 +11574,7 @@
    "err_vs_line": -0.1203,
    "se_line": 0.0727,
    "err_vs_proj": 0.0177,
-   "shrunk_vs_line": -0.0345,
+   "shrunk_vs_line": -0.0346,
    "z": -0.25,
    "K": {
     "matches": 2,
@@ -11675,7 +11654,7 @@
    "err_vs_line": 0.0877,
    "se_line": 0.0997,
    "err_vs_proj": 0.1182,
-   "shrunk_vs_line": 0.033,
+   "shrunk_vs_line": 0.0331,
    "z": 0.25,
    "K": {
     "matches": 2,
@@ -11789,7 +11768,7 @@
    "err_vs_line": -0.2203,
    "se_line": null,
    "err_vs_proj": -0.2819,
-   "shrunk_vs_line": -0.0369,
+   "shrunk_vs_line": -0.037,
    "z": -0.24,
    "K": {
     "matches": 1,
@@ -11806,7 +11785,7 @@
    "err_vs_line": 0.2174,
    "se_line": null,
    "err_vs_proj": 0.1589,
-   "shrunk_vs_line": 0.0364,
+   "shrunk_vs_line": 0.0365,
    "z": 0.24,
    "HS": {
     "matches": 1,
@@ -12098,6 +12077,27 @@
    "flag": null
   },
   {
+   "player": "kisserek",
+   "title": "CS2",
+   "matches": 14,
+   "legs": 14,
+   "over_rate": 0.643,
+   "err_vs_line": 0.0252,
+   "se_line": 0.0639,
+   "err_vs_proj": 0.0625,
+   "shrunk_vs_line": 0.0186,
+   "z": 0.22,
+   "K": {
+    "matches": 7,
+    "err_vs_line": 0.0437
+   },
+   "HS": {
+    "matches": 7,
+    "err_vs_line": 0.0067
+   },
+   "flag": null
+  },
+  {
    "player": "dav1deuS",
    "title": "CS2",
    "matches": 4,
@@ -12127,7 +12127,7 @@
    "err_vs_line": -0.2,
    "se_line": null,
    "err_vs_proj": -0.2089,
-   "shrunk_vs_line": -0.0335,
+   "shrunk_vs_line": -0.0336,
    "z": -0.22,
    "K": {
     "matches": 1,
@@ -12144,7 +12144,7 @@
    "err_vs_line": -0.2,
    "se_line": null,
    "err_vs_proj": -0.1456,
-   "shrunk_vs_line": -0.0335,
+   "shrunk_vs_line": -0.0336,
    "z": -0.22,
    "K": {
     "matches": 1,
@@ -12161,7 +12161,7 @@
    "err_vs_line": -0.2,
    "se_line": null,
    "err_vs_proj": -0.2126,
-   "shrunk_vs_line": -0.0335,
+   "shrunk_vs_line": -0.0336,
    "z": -0.22,
    "K": {
     "matches": 1,
@@ -12317,7 +12317,7 @@
    "err_vs_line": -0.1042,
    "se_line": 0.1196,
    "err_vs_proj": -0.1742,
-   "shrunk_vs_line": -0.0299,
+   "shrunk_vs_line": -0.03,
    "z": -0.21,
    "K": {
     "matches": 2,
@@ -12558,7 +12558,7 @@
    "err_vs_line": -0.1852,
    "se_line": null,
    "err_vs_proj": -0.0928,
-   "shrunk_vs_line": -0.031,
+   "shrunk_vs_line": -0.0311,
    "z": -0.2,
    "K": {
     "matches": 1,
@@ -12575,7 +12575,7 @@
    "err_vs_line": -0.0261,
    "se_line": 0.0869,
    "err_vs_proj": -0.0474,
-   "shrunk_vs_line": -0.0184,
+   "shrunk_vs_line": -0.0185,
    "z": -0.2,
    "K": {
     "matches": 6,
@@ -12634,11 +12634,32 @@
    "err_vs_line": 0.1852,
    "se_line": null,
    "err_vs_proj": 0.203,
-   "shrunk_vs_line": 0.031,
+   "shrunk_vs_line": 0.0311,
    "z": 0.2,
    "K": {
     "matches": 1,
     "err_vs_line": 0.1852
+   },
+   "flag": null
+  },
+  {
+   "player": "salazar",
+   "title": "CS2",
+   "matches": 11,
+   "legs": 11,
+   "over_rate": 0.455,
+   "err_vs_line": 0.0263,
+   "se_line": 0.1277,
+   "err_vs_proj": 0.0144,
+   "shrunk_vs_line": 0.0181,
+   "z": 0.19,
+   "K": {
+    "matches": 5,
+    "err_vs_line": -0.0236
+   },
+   "HS": {
+    "matches": 6,
+    "err_vs_line": 0.0678
    },
    "flag": null
   },
@@ -12689,7 +12710,7 @@
    "err_vs_line": 0.032,
    "se_line": 0.0866,
    "err_vs_proj": 0.0227,
-   "shrunk_vs_line": 0.0197,
+   "shrunk_vs_line": 0.0198,
    "z": 0.19,
    "K": {
     "matches": 4,
@@ -12731,7 +12752,7 @@
    "err_vs_line": -0.0918,
    "se_line": 0.0632,
    "err_vs_proj": -0.077,
-   "shrunk_vs_line": -0.0263,
+   "shrunk_vs_line": -0.0264,
    "z": -0.19,
    "K": {
     "matches": 2,
@@ -12912,7 +12933,7 @@
    "err_vs_line": 0.0628,
    "se_line": 0.5532,
    "err_vs_proj": 0.2844,
-   "shrunk_vs_line": 0.0236,
+   "shrunk_vs_line": 0.0237,
    "z": 0.18,
    "K": {
     "matches": 3,
@@ -13132,7 +13153,7 @@
    "err_vs_line": 0.1429,
    "se_line": null,
    "err_vs_proj": 0.2448,
-   "shrunk_vs_line": 0.0239,
+   "shrunk_vs_line": 0.024,
    "z": 0.16,
    "K": {
     "matches": 1,
@@ -13250,11 +13271,32 @@
    "err_vs_line": -0.1481,
    "se_line": null,
    "err_vs_proj": -0.1553,
-   "shrunk_vs_line": -0.0248,
+   "shrunk_vs_line": -0.0249,
    "z": -0.16,
    "K": {
     "matches": 1,
     "err_vs_line": -0.1481
+   },
+   "flag": null
+  },
+  {
+   "player": "ScrunK",
+   "title": "CS2",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 0.0,
+   "err_vs_line": -0.0759,
+   "se_line": 0.0546,
+   "err_vs_proj": 0.1113,
+   "shrunk_vs_line": -0.0218,
+   "z": -0.16,
+   "K": {
+    "matches": 1,
+    "err_vs_line": -0.0213
+   },
+   "HS": {
+    "matches": 1,
+    "err_vs_line": -0.1304
    },
    "flag": null
   },
@@ -13410,7 +13452,7 @@
    "err_vs_line": 0.075,
    "se_line": 0.325,
    "err_vs_proj": 0.0283,
-   "shrunk_vs_line": 0.0215,
+   "shrunk_vs_line": 0.0216,
    "z": 0.15,
    "K": {
     "matches": 2,
@@ -13483,27 +13525,6 @@
    "K": {
     "matches": 1,
     "err_vs_line": 0.1379
-   },
-   "flag": null
-  },
-  {
-   "player": "ScrunK",
-   "title": "CS2",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 0.0,
-   "err_vs_line": -0.0759,
-   "se_line": 0.0546,
-   "err_vs_proj": 0.1113,
-   "shrunk_vs_line": -0.0218,
-   "z": -0.15,
-   "K": {
-    "matches": 1,
-    "err_vs_line": -0.0213
-   },
-   "HS": {
-    "matches": 1,
-    "err_vs_line": -0.1304
    },
    "flag": null
   },
@@ -13626,6 +13647,27 @@
    "flag": null
   },
   {
+   "player": "MistR",
+   "title": "CS2",
+   "matches": 10,
+   "legs": 10,
+   "over_rate": 0.6,
+   "err_vs_line": -0.0198,
+   "se_line": 0.0887,
+   "err_vs_proj": 0.0035,
+   "shrunk_vs_line": -0.0132,
+   "z": -0.14,
+   "K": {
+    "matches": 5,
+    "err_vs_line": 0.0146
+   },
+   "HS": {
+    "matches": 5,
+    "err_vs_line": -0.0541
+   },
+   "flag": null
+  },
+  {
    "player": "Akeman",
    "title": "VAL",
    "matches": 4,
@@ -13719,6 +13761,23 @@
    "flag": null
   },
   {
+   "player": "luk xo",
+   "title": "VAL",
+   "matches": 2,
+   "legs": 2,
+   "over_rate": 0.5,
+   "err_vs_line": -0.0612,
+   "se_line": 0.2001,
+   "err_vs_proj": -0.1309,
+   "shrunk_vs_line": -0.0176,
+   "z": -0.13,
+   "K": {
+    "matches": 2,
+    "err_vs_line": -0.0612
+   },
+   "flag": null
+  },
+  {
    "player": "Derke",
    "title": "VAL",
    "matches": 3,
@@ -13732,27 +13791,6 @@
    "K": {
     "matches": 3,
     "err_vs_line": -0.0448
-   },
-   "flag": null
-  },
-  {
-   "player": "MistR",
-   "title": "CS2",
-   "matches": 8,
-   "legs": 8,
-   "over_rate": 0.625,
-   "err_vs_line": -0.0223,
-   "se_line": 0.112,
-   "err_vs_proj": -0.0094,
-   "shrunk_vs_line": -0.0137,
-   "z": -0.13,
-   "K": {
-    "matches": 4,
-    "err_vs_line": 0.0324
-   },
-   "HS": {
-    "matches": 4,
-    "err_vs_line": -0.0769
    },
    "flag": null
   },
@@ -13850,19 +13888,23 @@
    "flag": null
   },
   {
-   "player": "luk xo",
-   "title": "VAL",
+   "player": "Vacancy",
+   "title": "CS2",
    "matches": 2,
    "legs": 2,
-   "over_rate": 0.5,
+   "over_rate": 0.0,
    "err_vs_line": -0.0612,
-   "se_line": 0.2001,
-   "err_vs_proj": -0.1309,
+   "se_line": 0.0423,
+   "err_vs_proj": -0.1276,
    "shrunk_vs_line": -0.0176,
-   "z": -0.12,
+   "z": -0.13,
    "K": {
-    "matches": 2,
-    "err_vs_line": -0.0612
+    "matches": 1,
+    "err_vs_line": -0.0189
+   },
+   "HS": {
+    "matches": 1,
+    "err_vs_line": -0.1034
    },
    "flag": null
   },
@@ -13981,27 +14023,6 @@
    "flag": null
   },
   {
-   "player": "Vacancy",
-   "title": "CS2",
-   "matches": 2,
-   "legs": 2,
-   "over_rate": 0.0,
-   "err_vs_line": -0.0612,
-   "se_line": 0.0423,
-   "err_vs_proj": -0.1276,
-   "shrunk_vs_line": -0.0176,
-   "z": -0.12,
-   "K": {
-    "matches": 1,
-    "err_vs_line": -0.0189
-   },
-   "HS": {
-    "matches": 1,
-    "err_vs_line": -0.1034
-   },
-   "flag": null
-  },
-  {
    "player": "Caliste",
    "title": "LOL",
    "matches": 5,
@@ -14065,7 +14086,7 @@
    "err_vs_line": -0.0381,
    "se_line": 0.3989,
    "err_vs_proj": -0.1028,
-   "shrunk_vs_line": -0.0143,
+   "shrunk_vs_line": -0.0144,
    "z": -0.11,
    "K": {
     "matches": 3,
@@ -14124,7 +14145,7 @@
    "err_vs_line": -0.1034,
    "se_line": null,
    "err_vs_proj": -0.0521,
-   "shrunk_vs_line": -0.0173,
+   "shrunk_vs_line": -0.0174,
    "z": -0.11,
    "K": {
     "matches": 1,
@@ -14200,7 +14221,7 @@
    "err_vs_line": -0.0909,
    "se_line": null,
    "err_vs_proj": -0.2032,
-   "shrunk_vs_line": -0.0152,
+   "shrunk_vs_line": -0.0153,
    "z": -0.1,
    "K": {
     "matches": 1,
@@ -14415,7 +14436,7 @@
    "err_vs_line": -0.082,
    "se_line": null,
    "err_vs_proj": -0.1456,
-   "shrunk_vs_line": -0.0137,
+   "shrunk_vs_line": -0.0138,
    "z": -0.09,
    "K": {
     "matches": 1,
@@ -14842,27 +14863,6 @@
    "K": {
     "matches": 2,
     "err_vs_line": -0.0316
-   },
-   "flag": null
-  },
-  {
-   "player": "NickyB",
-   "title": "CS2",
-   "matches": 9,
-   "legs": 9,
-   "over_rate": 0.222,
-   "err_vs_line": -0.0086,
-   "se_line": 0.1354,
-   "err_vs_proj": -0.0256,
-   "shrunk_vs_line": -0.0055,
-   "z": -0.06,
-   "K": {
-    "matches": 5,
-    "err_vs_line": -0.0225
-   },
-   "HS": {
-    "matches": 4,
-    "err_vs_line": 0.0089
    },
    "flag": null
   },
@@ -15453,27 +15453,6 @@
    "flag": null
   },
   {
-   "player": "MoDo",
-   "title": "CS2",
-   "matches": 11,
-   "legs": 11,
-   "over_rate": 0.455,
-   "err_vs_line": 0.0031,
-   "se_line": 0.0818,
-   "err_vs_proj": 0.032,
-   "shrunk_vs_line": 0.0021,
-   "z": 0.02,
-   "K": {
-    "matches": 6,
-    "err_vs_line": -0.0636
-   },
-   "HS": {
-    "matches": 5,
-    "err_vs_line": 0.083
-   },
-   "flag": null
-  },
-  {
    "player": "Jcobbb",
    "title": "CS2",
    "matches": 12,
@@ -15698,6 +15677,27 @@
    "flag": null
   },
   {
+   "player": "Leakz",
+   "title": "CS2",
+   "matches": 10,
+   "legs": 10,
+   "over_rate": 0.6,
+   "err_vs_line": 0.0013,
+   "se_line": 0.1015,
+   "err_vs_proj": 0.0506,
+   "shrunk_vs_line": 0.0009,
+   "z": 0.01,
+   "K": {
+    "matches": 5,
+    "err_vs_line": -0.0291
+   },
+   "HS": {
+    "matches": 5,
+    "err_vs_line": 0.0318
+   },
+   "flag": null
+  },
+  {
    "player": "DemQQ",
    "title": "CS2",
    "matches": 6,
@@ -15715,27 +15715,6 @@
    "HS": {
     "matches": 3,
     "err_vs_line": 0.0418
-   },
-   "flag": null
-  },
-  {
-   "player": "kisserek",
-   "title": "CS2",
-   "matches": 12,
-   "legs": 12,
-   "over_rate": 0.583,
-   "err_vs_line": 0.001,
-   "se_line": 0.071,
-   "err_vs_proj": 0.0325,
-   "shrunk_vs_line": 0.0007,
-   "z": 0.01,
-   "K": {
-    "matches": 6,
-    "err_vs_line": 0.0425
-   },
-   "HS": {
-    "matches": 6,
-    "err_vs_line": -0.0405
    },
    "flag": null
   },
@@ -15854,6 +15833,27 @@
    "HS": {
     "matches": 1,
     "err_vs_line": 0.0303
+   },
+   "flag": null
+  },
+  {
+   "player": "NickyB",
+   "title": "CS2",
+   "matches": 11,
+   "legs": 10,
+   "over_rate": 0.3,
+   "err_vs_line": 0.0004,
+   "se_line": 0.1099,
+   "err_vs_proj": -0.0113,
+   "shrunk_vs_line": 0.0003,
+   "z": 0.0,
+   "K": {
+    "matches": 6,
+    "err_vs_line": -0.0051
+   },
+   "HS": {
+    "matches": 5,
+    "err_vs_line": 0.0071
    },
    "flag": null
   },
