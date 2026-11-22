@@ -1,0 +1,89 @@
+{
+ "schema": 1,
+ "kind": "map",
+ "source": "hltv.org",
+ "url": "https://www.hltv.org/stats/matches/mapstatsid/244845/sinners-vs-bbl",
+ "mapstatsid": 244845,
+ "captured_utc": "2026-11-22T02:14:31.333Z",
+ "teams": [
+  "BBL",
+  "SINNERS"
+ ],
+ "map": "Nuke",
+ "score": [
+  13,
+  5
+ ],
+ "players": [
+  {
+   "name": "IceBerg",
+   "team": "BBL",
+   "kills": 21,
+   "hs": 14,
+   "deaths": 11
+  },
+  {
+   "name": "MistR",
+   "team": "BBL",
+   "kills": 14,
+   "hs": 10,
+   "deaths": 9
+  },
+  {
+   "name": "NickyB",
+   "team": "BBL",
+   "kills": 15,
+   "hs": 7,
+   "deaths": 13
+  },
+  {
+   "name": "leakz",
+   "team": "BBL",
+   "kills": 11,
+   "hs": 6,
+   "deaths": 8
+  },
+  {
+   "name": "salazar",
+   "team": "BBL",
+   "kills": 7,
+   "hs": 3,
+   "deaths": 8
+  },
+  {
+   "name": "kisserek",
+   "team": "SINNERS",
+   "kills": 13,
+   "hs": 9,
+   "deaths": 15
+  },
+  {
+   "name": "SHOCK",
+   "team": "SINNERS",
+   "kills": 12,
+   "hs": 5,
+   "deaths": 14
+  },
+  {
+   "name": "beastik",
+   "team": "SINNERS",
+   "kills": 9,
+   "hs": 5,
+   "deaths": 13
+  },
+  {
+   "name": "MoDo",
+   "team": "SINNERS",
+   "kills": 13,
+   "hs": 5,
+   "deaths": 12
+  },
+  {
+   "name": "stressarN",
+   "team": "SINNERS",
+   "kills": 2,
+   "hs": 0,
+   "deaths": 14
+  }
+ ]
+}

@@ -212,9 +212,23 @@ def pull_val(slate, fps):
     return out
 
 
+def apply_forfeits(matches, slate, imports="data/imports"):
+    """A map a team forfeited is listed by the source (a score of 1-0, no table) but was not played, so a leg that needs it has no result. data/imports/<slate>/forfeits.json names it by hand:
+    [{"match": "CS2 · A vs B", "map": 2, "why": "..."}]; the match record then carries `forfeits` and leg_actuals voids every leg that needs that map. Re-applied after every pull."""
+    path = f"{imports}/{slate}/forfeits.json"
+    if not os.path.exists(path):
+        return matches
+    with open(path, encoding="utf-8") as f:
+        for e in json.load(f):
+            rec = matches.get(e["match"])
+            if rec and rec.get("status") == "finished":
+                rec["forfeits"] = sorted(set(rec.get("forfeits", [])) | {int(e["map"])})
+    return matches
+
+
 def leg_actuals(legs, players, matches):
     """Every leg of this title -> {status, actual, ...}. Statuses, in the order they are decided:
-    match not found / not finished · void: map not played (a Bo1 has no map 2) · no player stats at source (the source has the map, not the table)
+    match not found / not finished · void: map not played (a Bo1 has no map 2, or a forfeited map named in forfeits.json) · no player stats at source (the source has the map, not the table)
     · did not play (not in the map's table: a stand-in) · identity check failed · ok"""
     P = {p["pid"]: p for p in players}
     out = []
@@ -228,6 +242,9 @@ def leg_actuals(legs, players, matches):
             continue
         need = NEED[g["code"]]
         by_n = {mp["n"]: mp for mp in mr["maps"]}
+        if any(n in (mr.get("forfeits") or ()) for n in need):
+            out.append(dict(rec, status="void: map not played", detail="forfeit"))
+            continue
         if any(n not in by_n for n in need):
             out.append(dict(rec, status="void: map not played"))
             continue
@@ -271,11 +288,11 @@ def main():
     res = dict(slate=a.slate, generated=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), titles={}, legs=[])
     for t in a.titles.split(","):
         if t == "CS2":
-            m = pull_cs2(a.slate, fps)
+            m = apply_forfeits(pull_cs2(a.slate, fps), a.slate)
             res["titles"]["CS2"] = m
             res["legs"] += leg_actuals([g for g in fps["legs"] if g["title"] == "CS2"], fps["players"], m)
         elif t == "VAL":
-            m = pull_val(a.slate, fps)
+            m = apply_forfeits(pull_val(a.slate, fps), a.slate)
             res["titles"]["VAL"] = m
             res["legs"] += leg_actuals([g for g in fps["legs"] if g["title"] == "VAL"], fps["players"], m)
         elif t == "LOL":
