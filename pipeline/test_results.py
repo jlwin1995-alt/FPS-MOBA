@@ -172,5 +172,35 @@ class Settle(unittest.TestCase):
         self.assertIn("did not play", log[1]["Note"])
 
 
+
+class Forfeit(unittest.TestCase):
+    """A forfeited map is listed by the source (1-0, no table) but not played: the legs that need it are void, the legs that do not still settle."""
+    def setUp(self):
+        self.m = match([mp(1, game_players("AA", "BB")), mp(2, [], state=None)])
+
+    def test_a_map_named_in_forfeits_voids_the_legs_that_need_it(self):
+        self.m["forfeits"] = [2]
+        out = R.leg_actuals([LEG("K12")], PL, {"CS2 · AA vs BB": self.m})
+        self.assertEqual(out[0]["status"], "void: map not played")
+
+    def test_a_leg_that_needs_only_the_played_map_still_settles(self):
+        self.m["forfeits"] = [2]
+        out = R.leg_actuals([LEG("K1")], PL, {"CS2 · AA vs BB": self.m})
+        self.assertEqual(out[0]["status"], "ok")
+
+    def test_without_the_file_the_leg_is_not_voided_here(self):
+        out = R.leg_actuals([LEG("K12")], PL, {"CS2 · AA vs BB": self.m})
+        self.assertEqual(out[0]["status"], "no player stats at source")        # the source lists map 2 without a table; only a hand-written forfeits.json makes it a void
+
+    def test_apply_forfeits_reads_the_slates_file(self):
+        import tempfile, os
+        d = tempfile.mkdtemp()
+        os.makedirs(f"{d}/S")
+        json.dump([dict(match="CS2 · AA vs BB", map=2, why="test")], open(f"{d}/S/forfeits.json", "w"))
+        got = R.apply_forfeits({"CS2 · AA vs BB": self.m, "CS2 · CC vs DD": match([mp(1, [])], status="not finished")}, "S", d)
+        self.assertEqual(got["CS2 · AA vs BB"]["forfeits"], [2])
+        self.assertNotIn("forfeits", got["CS2 · CC vs DD"])
+
+
 if __name__ == "__main__":
     unittest.main()
