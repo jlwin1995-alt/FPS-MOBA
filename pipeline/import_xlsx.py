@@ -220,6 +220,9 @@ def main():
         require_stored_results("MOBA", ex2)
     if s1 != s2:
         raise SystemExit(f"the two workbooks are for different slates (FPS {s1}, MOBA {s2}): nothing imported")
+    if a.slate and a.slate != s1 and len(a.slate) == 11 and a.slate[:10] == s1 and a.slate[10].isalpha():
+        s1 = s2 = a.slate                                              # a second board of the same day (e.g. 2026-11-23b) is its own slate; the workbook still says the date
+        fps["slate"] = moba["slate"] = s1
     if a.slate and a.slate != s1:
         raise SystemExit(f"the folder is {a.slate} but the workbooks say {s1} (is this yesterday's workbook, or the Config SLATE_DATE not updated?): nothing imported")
     meta_path = f"{a.site}/data/meta.json"

@@ -204,3 +204,9 @@ class Forfeit(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SuffixSlate(unittest.TestCase):
+    def test_second_board_date(self):
+        board_start_utc = R.board_start_utc
+        self.assertEqual(board_start_utc("2026-11-23b", "Mon 04:00"), board_start_utc("2026-11-23", "Mon 04:00"))

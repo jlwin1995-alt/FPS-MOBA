@@ -1,0 +1,639 @@
+{
+ "slate": "2026-11-23b",
+ "frozen_utc": "2026-11-23T07:02:37+00:00",
+ "rules": {
+  "agree10": {
+   "name": "Both models agree, both lean >= 10 pts",
+   "n": 7,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "OVER",
+     "p_over": 0.6751,
+     "p_over_adj": 0.6854
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "OVER",
+     "p_over": 0.6137,
+     "p_over_adj": 0.6275
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Qlocuu",
+     "market": "Maps 1-2 HS",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3916,
+     "p_over_adj": 0.3702
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "Ag1l",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.6546,
+     "p_over_adj": 0.623
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "AquaRS",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "OVER",
+     "p_over": 0.6418,
+     "p_over_adj": 0.63
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "AquaRS",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "OVER",
+     "p_over": 0.6275,
+     "p_over_adj": 0.6133
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mir",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "OVER",
+     "p_over": 0.6159,
+     "p_over_adj": 0.6022
+    }
+   ]
+  },
+  "all_under": {
+   "name": "Every leg, under",
+   "n": 31,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "UNDER",
+     "p_over": 0.6751,
+     "p_over_adj": 0.6854
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "UNDER",
+     "p_over": 0.6137,
+     "p_over_adj": 0.6275
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Qlocuu",
+     "market": "Maps 1-2 HS",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3916,
+     "p_over_adj": 0.3702
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Prism",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.4002,
+     "p_over_adj": 0.3721
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Qlocuu",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.404,
+     "p_over_adj": 0.376
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Kylar",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.4157,
+     "p_over_adj": 0.4293
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Ex1st",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.5616,
+     "p_over_adj": 0.5395
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "KEi",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4548,
+     "p_over_adj": 0.4697
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Ex1st",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.4603,
+     "p_over_adj": 0.431
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "KEi",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.5305,
+     "p_over_adj": 0.5413
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Demho",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.5271,
+     "p_over_adj": 0.4985
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Demho",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "UNDER",
+     "p_over": 0.5102,
+     "p_over_adj": 0.4901
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Kylar",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.4956,
+     "p_over_adj": 0.5069
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "Ag1l",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.6546,
+     "p_over_adj": 0.623
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "AquaRS",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.6418,
+     "p_over_adj": 0.63
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "Ag1l",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.6283,
+     "p_over_adj": 0.5871
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "AquaRS",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.6275,
+     "p_over_adj": 0.6133
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mir",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.6159,
+     "p_over_adj": 0.6022
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "tO0RO",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.6067,
+     "p_over_adj": 0.5924
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "alex",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "UNDER",
+     "p_over": 0.591,
+     "p_over_adj": 0.5595
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mir",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.5798,
+     "p_over_adj": 0.5691
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mopoz",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "UNDER",
+     "p_over": 0.4225,
+     "p_over_adj": 0.3805
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "dav1g",
+     "market": "Maps 1-2 Kills",
+     "line": 29.5,
+     "side": "UNDER",
+     "p_over": 0.4391,
+     "p_over_adj": 0.3964
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "tO0RO",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "UNDER",
+     "p_over": 0.5608,
+     "p_over_adj": 0.5487
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "alex",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.551,
+     "p_over_adj": 0.5083
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "dav1g",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "UNDER",
+     "p_over": 0.4501,
+     "p_over_adj": 0.421
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "sausol",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.5453,
+     "p_over_adj": 0.5116
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "b1st",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.4628,
+     "p_over_adj": 0.453
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "sausol",
+     "market": "Maps 1-2 Kills",
+     "line": 27.5,
+     "side": "UNDER",
+     "p_over": 0.5296,
+     "p_over_adj": 0.4876
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "b1st",
+     "market": "Maps 1-2 Kills",
+     "line": 30.5,
+     "side": "UNDER",
+     "p_over": 0.529,
+     "p_over_adj": 0.5138
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mopoz",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.474,
+     "p_over_adj": 0.4397
+    }
+   ]
+  },
+  "under_core": {
+   "name": "Under shortlist (both models under, P(over) < 40%, line outside 20-25, PF L10 0.3-0.7, no Maps 1-3 kills)",
+   "n": 0,
+   "legs": []
+  },
+  "agree20": {
+   "name": "Both models agree, both lean >= 20 pts",
+   "n": 0,
+   "legs": []
+  },
+  "hs_side": {
+   "name": "Headshot legs, the model's side",
+   "n": 15,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "OVER",
+     "p_over": 0.6751,
+     "p_over_adj": 0.6854
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Qlocuu",
+     "market": "Maps 1-2 HS",
+     "line": 14,
+     "side": "UNDER",
+     "p_over": 0.3916,
+     "p_over_adj": 0.3702
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Ex1st",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.5616,
+     "p_over_adj": 0.5395
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "KEi",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.5305,
+     "p_over_adj": 0.5413
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Demho",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "OVER",
+     "p_over": 0.5102,
+     "p_over_adj": 0.4901
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Kylar",
+     "market": "Maps 1-2 HS",
+     "line": 16.5,
+     "side": "UNDER",
+     "p_over": 0.4956,
+     "p_over_adj": 0.5069
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "Ag1l",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.6546,
+     "p_over_adj": 0.623
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "AquaRS",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "OVER",
+     "p_over": 0.6418,
+     "p_over_adj": 0.63
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "alex",
+     "market": "Maps 1-2 HS",
+     "line": 13.5,
+     "side": "OVER",
+     "p_over": 0.591,
+     "p_over_adj": 0.5595
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mir",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.5798,
+     "p_over_adj": 0.5691
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "tO0RO",
+     "market": "Maps 1-2 HS",
+     "line": 17.5,
+     "side": "OVER",
+     "p_over": 0.5608,
+     "p_over_adj": 0.5487
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "dav1g",
+     "market": "Maps 1-2 HS",
+     "line": 10.5,
+     "side": "UNDER",
+     "p_over": 0.4501,
+     "p_over_adj": 0.421
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "sausol",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.5453,
+     "p_over_adj": 0.5116
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "b1st",
+     "market": "Maps 1-2 HS",
+     "line": 9.5,
+     "side": "UNDER",
+     "p_over": 0.4628,
+     "p_over_adj": 0.453
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "mopoz",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "UNDER",
+     "p_over": 0.474,
+     "p_over_adj": 0.4397
+    }
+   ]
+  },
+  "l10_over": {
+   "name": "Over where the last-10 hit rate is 0.8+",
+   "n": 5,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "OVER",
+     "p_over": 0.6751,
+     "p_over_adj": 0.6854
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 Kills",
+     "line": 25.5,
+     "side": "OVER",
+     "p_over": 0.6137,
+     "p_over_adj": 0.6275
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Qlocuu",
+     "market": "Maps 1-2 HS",
+     "line": 14,
+     "side": "OVER",
+     "p_over": 0.3916,
+     "p_over_adj": 0.3702
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Prism",
+     "market": "Maps 1-2 Kills",
+     "line": 28.5,
+     "side": "OVER",
+     "p_over": 0.4002,
+     "p_over_adj": 0.3721
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Demho",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "OVER",
+     "p_over": 0.5102,
+     "p_over_adj": 0.4901
+    }
+   ]
+  },
+  "l10_hs_over": {
+   "name": "Headshot over where the model leans over and the last-10 hit rate is 0.8+",
+   "n": 2,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "OVER",
+     "p_over": 0.6751,
+     "p_over_adj": 0.6854
+    },
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "Demho",
+     "market": "Maps 1-2 HS",
+     "line": 12.5,
+     "side": "OVER",
+     "p_over": 0.5102,
+     "p_over_adj": 0.4901
+    }
+   ]
+  },
+  "lean25_l10_over": {
+   "name": "Over where the model leans over 25+ pts, both models agree and the last-10 hit rate is 0.8+",
+   "n": 0,
+   "legs": []
+  },
+  "top12": {
+   "name": "Daily top-12 shortlist (H8/H16 legs, all rules agree, lean 15+, scored on frozen cell rates, 2 per match)",
+   "n": 2,
+   "legs": [
+    {
+     "match": "CS2 \u00b7 PHA vs APG",
+     "player": "TMB",
+     "market": "Maps 1-2 HS",
+     "line": 14.5,
+     "side": "OVER",
+     "p_over": 0.6751,
+     "p_over_adj": 0.6854,
+     "lean": 17.51,
+     "score": 56.31,
+     "rules": [
+      "agree10",
+      "hs_side",
+      "l10_hs_over",
+      "l10_over"
+     ]
+    },
+    {
+     "match": "CS2 \u00b7 VP vs IS",
+     "player": "Ag1l",
+     "market": "Maps 1-2 HS",
+     "line": 15.5,
+     "side": "OVER",
+     "p_over": 0.6546,
+     "p_over_adj": 0.623,
+     "lean": 15.46,
+     "score": 18.14,
+     "rules": [
+      "agree10",
+      "hs_side"
+     ]
+    }
+   ]
+  }
+ },
+ "moba_rules": {
+  "moba_lean20": {
+   "name": "MOBA: model leans >= 20 pts, model's side",
+   "n": 0,
+   "legs": []
+  }
+ },
+ "moba_frozen_utc": "2026-11-23T07:02:37+00:00",
+ "comparison": "every leg on the board (the base model's side)",
+ "late_matches": []
+}
