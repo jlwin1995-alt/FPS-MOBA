@@ -48,7 +48,7 @@ def fetch(slate, site="site", imports="data/imports", out="data/raw/odds"):
     fps, moba, where = load_board(slate, site, imports)
     boards = {"CS2": [m for m in fps["matches"] if m["title"] == "CS2"], "VAL": [m for m in fps["matches"] if m["title"] == "VAL"],
               "LOL": [m for m in moba["matches"] if m["id"].startswith("LOL")], "DOTA": [m for m in moba["matches"] if m["id"].startswith("DOTA")]}
-    d0 = dt.date.fromisoformat(slate)
+    d0 = dt.date.fromisoformat(slate[:10])
     os.makedirs(f"{out}/{slate}", exist_ok=True)
     got = []
     for title, board in boards.items():

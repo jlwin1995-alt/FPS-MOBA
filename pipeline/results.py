@@ -41,7 +41,7 @@ def board_start_utc(slate, label):
     The clock is US Central, daylight or standard as the date says (the change was 2026-11-01 02:00)."""
     parts = label.split()
     hh, mm = parts[-1].split(":")
-    base = dt.date.fromisoformat(slate)
+    base = dt.date.fromisoformat(slate[:10])
     day = base
     if len(parts) > 1 and parts[0][:3].title() in DAYS:
         wd = DAYS.index(parts[0][:3].title())
@@ -100,7 +100,7 @@ def apply_player_fixes(match_id, maps, fixes):
 
 def pull_cs2(slate, fps, imports="data/imports"):
     from .sources import bo3
-    d0 = dt.datetime.fromisoformat(slate)
+    d0 = dt.datetime.fromisoformat(slate[:10])
     ms = list(bo3.finished_matches((d0 - dt.timedelta(hours=6)).strftime("%Y-%m-%dT%H:%M"), (d0 + dt.timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M")))
     cands = [dict(id=m["id"], t1=[(m.get("team1") or {}).get("name"), (m.get("team1") or {}).get("slug")], t2=[(m.get("team2") or {}).get("name"), (m.get("team2") or {}).get("slug")],
                   start=iso_utc(m["start_date"]), ref=m) for m in ms if m.get("team1") and m.get("team2")]
@@ -124,7 +124,7 @@ def pull_cs2(slate, fps, imports="data/imports"):
 # ------------------------------------------------------------------ LoL
 def pull_lol(slate, moba, imports="data/imports"):
     from .sources import gol
-    d0 = dt.date.fromisoformat(slate)
+    d0 = dt.date.fromisoformat(slate[:10])
     board = [m for m in moba["matches"] if m["id"].startswith("LOL")]
     events = sorted({m["event"] for m in board})
     tl = json.loads(_gol_trlist())
@@ -157,7 +157,7 @@ def pull_dota(slate, moba, imports="data/imports"):
     board = [m for m in moba["matches"] if m["id"].startswith("DOTA")]
     if not board:
         return {}
-    d0 = dt.datetime.fromisoformat(slate).replace(tzinfo=dt.timezone.utc)
+    d0 = dt.datetime.fromisoformat(slate[:10]).replace(tzinfo=dt.timezone.utc)
     cands = [dict(id=sr["series_id"], t1=[sr["teams"][0]], t2=[sr["teams"][1]], start=dt.datetime.fromtimestamp(sr["start"], dt.timezone.utc).replace(tzinfo=None), ref=sr)
              for sr in opendota.pro_series(int((d0 - dt.timedelta(hours=6)).timestamp()))]
     links = link_matches(slate, board, cands, None)

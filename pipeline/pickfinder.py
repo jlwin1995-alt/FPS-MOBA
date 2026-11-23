@@ -63,7 +63,7 @@ def validate(cap):
     if m.get("schema") != SCHEMA:
         err("SCHEMA", "capture.json", f"schema {m.get('schema')!r}, expected {SCHEMA}")
     try:
-        cap_date = dt.date.fromisoformat(str(m.get("slate")))
+        cap_date = dt.date.fromisoformat(str(m.get("slate"))[:10])
     except ValueError:
         err("SCHEMA", "capture.json", "slate must be an ISO date")
         cap_date = dt.date.today()
