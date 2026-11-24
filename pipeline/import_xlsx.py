@@ -206,6 +206,7 @@ def main():
     ap.add_argument("--moba", default=None, help="omit on a day with no LoL/Dota workbook: the slate is built with no MOBA legs")
     ap.add_argument("--site", default="site")
     ap.add_argument("--imports", default="data/imports")
+    ap.add_argument("--live", action="store_true", help="make this slate the one the site shows even if a later-sorting slate is already live (e.g. the Map-1 board after a same-day suffix board)")
     ap.add_argument("--slate", default=None, help="the slate the upload folder is named for; the workbooks must say the same")
     a = ap.parse_args()
     s1, fps, ex1, log1 = import_fps(a.fps)
@@ -227,7 +228,7 @@ def main():
         raise SystemExit(f"the folder is {a.slate} but the workbooks say {s1} (is this yesterday's workbook, or the Config SLATE_DATE not updated?): nothing imported")
     meta_path = f"{a.site}/data/meta.json"
     cur = (read_json(meta_path) or {}).get("slate")
-    live = cur is None or s1 >= cur                                     # an older slate only feeds the Log
+    live = a.live or cur is None or s1 >= cur                                     # an older slate only feeds the Log
     if live:
         dump(f"{a.site}/data/fps.json", fps)
         dump(f"{a.site}/data/moba.json", moba)
