@@ -57,8 +57,9 @@ def site_data(variant="vetosim", shadow_dir="data/shadow", log_dir=LOG):
         for r in sh["rows"]:
             o = live.get(key(r)) or {}
             rows.append(dict(match=r["Match"], player=r["Player"], market=r["Market"], line=r["Line"],
-                             live_proj=o.get("Proj"), live_p=o.get("P(over)"), live_maps=o.get("Maps used"),
-                             sh_proj=r.get("Proj"), sh_p=r.get("P(over)"), sh_maps=r.get("Maps used"),
+                             title=o.get("Title"), l10=o.get("PF L10"),
+                             live_proj=o.get("Proj"), live_p=o.get("P(over)"), live_adj=o.get("P(over) adj"), live_maps=o.get("Maps used"),
+                             sh_proj=r.get("Proj"), sh_p=r.get("P(over)"), sh_adj=r.get("P(over) adj"), sh_maps=r.get("Maps used"),
                              actual=o.get("Actual"), result=o.get("Result")))
         slates[slate] = dict(built=sh.get("built"), source=sh.get("source"), matches=sh.get("matches"), rows=rows, compare=cmp.get(slate))
     return dict(variant=variant, registered=False, slates=slates)
