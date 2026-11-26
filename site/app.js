@@ -287,6 +287,21 @@ function summarise(rows, kind) {
     mae: mae("proj"), bias: bias("proj"), maeAdj: mae("adj"), maeMapfree: mae("mapfree"), maeMapfreeAdj: mae("mapfreeAdj"), maeNaive: mae("naive")};
 }
 // ---------- Evaluation (written by pipeline/evaluate.py after each settle) ----------
+// each registered rule's forward record by side and prop type (pipeline/rulecells.py): cuts of the same frozen plays, descriptive
+function ruleCells() {
+  const C = D.cells;
+  if (!C || !C.cells || !C.cells.length) return "";
+  const be = C.breakeven, ci = (h, n) => { const p = h / n, se = Math.sqrt(p * (1 - p) / n); return [Math.max(0, p - 1.96 * se), Math.min(1, p + 1.96 * se)]; };
+  const nm = id => (Rules.shown.find(x => x.id === id) || {}).name || id;
+  const rows = C.cells.map(c => ({...c, rate: c.hits / c.n, ci: ci(c.hits, c.n)}));
+  const cols = [{k: "h", h: "Rule", l: 1, t: "", f: r => `<span title="${esc(nm(r.rule))}">${r.h}</span>`}, {k: "side", h: "Side", l: 1}, {k: "prop", h: "Prop", l: 1},
+    {k: "rec", h: "Record", v: r => r.n, f: r => `${r.hits}/${r.n}`}, {k: "rate", h: "Rate", v: r => r.rate, f: r => pct1(r.rate)},
+    {k: "be", h: "vs breakeven", t: `Points above or below the ${num(be * 100, 2)}% a flex slip needs`, v: r => r.rate - be, f: r => `<span class="${r.rate >= be ? "good" : "bad"}">${(r.rate - be >= 0 ? "+" : "") + ((r.rate - be) * 100).toFixed(1)}</span>`},
+    {k: "ci", h: "95% interval", t: "Normal approximation; wide on a few plays, and these are many cuts of the same plays, so some cells will look good by chance", v: r => r.ci[0], f: r => `${Math.round(r.ci[0] * 100)}–${Math.round(r.ci[1] * 100)}%`}];
+  return `<h3>Rules by side and prop type</h3><p class="sub">Every registered rule's frozen plays through ${esc(C.through)} (${C.slates} slates), graded on the side the rule took; pushes and open legs excluded. Breakeven for a flex slip is about ${num(be * 100, 2)}%.
+    The cells are cuts of the same plays, so a few will look good by chance; the registered forward tests are the rules themselves, and none has a confirmed edge. Built by <code>python -m pipeline.rulecells</code>.</p>
+    ${table(cols, rows, {id: "rulecells", sort: {key: "rate", asc: false}})}`;
+}
 function evalSection() {
   const E = D.eval;
   if (!E || !E.slates || !E.slates.length) return "";
@@ -334,7 +349,7 @@ Pages["Scorecard"] = () => {
   return `<h2>Scorecard</h2><p class="sub">Every settled leg of the frozen Log. “Model side” counts only legs where P(over) cleared 50% ± EDGE_MIN; pushes are excluded. A paper ordering, not an edge, until this record says otherwise.</p>
     <div class="cards">${card(S.n, "legs settled")}${card(pc1(S.sidedHits, S.sided), "model side")}${card(pc1(S.pickHits, S.picks), "every leg, P≥50%")}${card(L(S.mae, 2), "MAE · projection")}${card(L(S.maeAdj, 2), "MAE · adj")}</div>
     <div class="two"><div><h3>By market</h3>${table(cols("Market"), grp("m", r => r.market, MARKETS), {id: "sc1"})}</div><div><h3>By slate</h3>${table(cols("Slate"), grp("s", r => r.slate, D.meta.slates), {id: "sc2"})}</div></div>
-    <h3>By title</h3>${table(cols("Title"), grp("t", r => r.match.split(" ")[0], ["CS2", "VAL", "LOL", "DOTA"]), {id: "sc3"})}${evalSection()}`;
+    <h3>By title</h3>${table(cols("Title"), grp("t", r => r.match.split(" ")[0], ["CS2", "VAL", "LOL", "DOTA"]), {id: "sc3"})}${ruleCells()}${evalSection()}`;
 };
 
 // ---------- Data ----------
@@ -494,6 +509,7 @@ window.addEventListener("hashchange", route);
     try { D.odds = await get("odds"); } catch (e) { D.odds = null; }
     try { D.players = await get("players"); } catch (e) { D.players = null; }
     try { D.shadow = await get("shadow"); } catch (e) { D.shadow = null; }
+    try { D.cells = await get("rulecells"); } catch (e) { D.cells = null; }
   } catch (e) { view().innerHTML = `<p class="bad">Could not load data (${esc(e.message)}). Run <code>python -m pipeline.import_xlsx</code>.</p>`; return; }
   document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · ${D.meta.moba_legs ? `MOBA built ${D.meta.moba_built} UTC` : "no LoL/Dota workbook today"}`;
   const b = document.getElementById("banner");
