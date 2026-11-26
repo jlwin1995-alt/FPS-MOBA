@@ -1,7 +1,7 @@
 "use strict";
-const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Players", "Data", "Config", "Methodology"];
+const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Players", "Shadow", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", rsame: false, slate: "", bmatch: "", imatch: "", perf: "", pl: "flag", plmin: "8"};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", rsame: false, slate: "", bmatch: "", imatch: "", perf: "", sh: "", pl: "flag", plmin: "8"};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -62,7 +62,7 @@ const passes = r => ruleOk(r) && (!F.title || r.title === F.title) && (!F.market
 document.addEventListener("input", e => { if (e.target.id === "q") { F.q = e.target.value; render(true, "q"); } });
 document.addEventListener("change", e => {
   const t = e.target, id = t.id;
-  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rmode", "perf", "pl", "plmin"].includes(id)) { F[id] = t.value; render(); }
+  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rmode", "perf", "pl", "plmin", "sh"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
   else if (id === "rsame") { F.rsame = t.checked; render(true); }
   else if (t.dataset.rule) { F.rules = t.checked ? [...new Set([...F.rules, t.dataset.rule])] : F.rules.filter(i => i !== t.dataset.rule); render(true); }
@@ -353,6 +353,33 @@ Pages["Data"] = () => {
     <div class="two"><div>${ck("FPS workbook · Data_Checks", D.fps)}</div><div>${ck("MOBA workbook · Data_Checks", D.moba)}</div></div><div class="doc">${DICT.map(sect).join("")}</div>`;
 };
 
+// ---------- Shadow: projections from a variant model, frozen before play and scored against the live model; never a rule ----------
+Pages["Shadow"] = () => {
+  const S = D.shadow, names = S ? Object.keys(S.slates) : [];
+  if (!names.length) return `<h2>Shadow</h2><div class="banner">No shadow projections yet. A shadow workbook is frozen with <code>data/shadow/&lt;variant&gt;/&lt;slate&gt;.json</code> and shown here by <code>python -m pipeline.shadow</code>.</div>`;
+  const s = names.includes(F.slate) ? F.slate : names[names.length - 1], d = S.slates[s], c = d.compare, q = F.q.trim().toLowerCase();
+  const side = p => p == null ? "" : p >= 0.5 ? "OVER" : "UNDER";
+  const rs = d.rows.map(r => ({...r, flip: r.live_p != null && r.sh_p != null && side(r.live_p) !== side(r.sh_p), dp: r.live_p == null || r.sh_p == null ? null : r.sh_p - r.live_p}))
+    .filter(r => (!F.title || r.match.split(" ")[0] === F.title) && (!F.market || r.market === F.market) && (!q || (r.player + r.match).toLowerCase().includes(q)) && (F.sh !== "flip" || r.flip));
+  const ok = (p, r) => r.result === "OVER" || r.result === "UNDER" ? (side(p) === r.result ? "✓" : "✗") : "";
+  const cols = [{k: "player", h: "Player", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "line", h: "Line", f: r => L(r.line)},
+    {k: "lp", h: "Live proj", f: r => L(r.live_proj, 2)}, {k: "sp", h: "Shadow proj", f: r => L(r.sh_proj, 2)},
+    {k: "lpo", h: "Live P(over)", f: r => pct1(r.live_p)}, {k: "spo", h: "Shadow P(over)", f: r => pct1(r.sh_p)},
+    {k: "dp", h: "Δ P", t: "Shadow minus live P(over), in points", v: r => r.dp == null ? null : Math.abs(r.dp), f: r => r.dp == null ? "" : (r.dp > 0 ? "+" : "") + (r.dp * 100).toFixed(1)},
+    {k: "ls", h: "Live side", l: 1, f: r => side(r.live_p)}, {k: "ss", h: "Shadow side", l: 1, f: r => r.flip ? `<b class="warn">${side(r.sh_p)}</b>` : side(r.sh_p)},
+    {k: "lm", h: "Live maps", l: 1, f: r => esc(r.live_maps || "")}, {k: "sm", h: "Shadow maps", l: 1, f: r => esc(r.sh_maps || "")},
+    {k: "act", h: "Actual", f: r => r.actual == null ? "" : L(r.actual, 0)}, {k: "res", h: "Result", l: 1, f: r => r.result || ""},
+    {k: "lok", h: "Live", f: r => ok(r.live_p, r)}, {k: "sok", h: "Shadow", f: r => ok(r.sh_p, r)}];
+  const sc = t => t ? `${t.hits}/${t.n} (${pct0(t.rate)}), Brier ${t.brier}` : "no graded legs yet";
+  const flips = d.rows.filter(r => r.live_p != null && r.sh_p != null && side(r.live_p) !== side(r.sh_p)).length;
+  const mt = Object.entries(d.matches || {}).map(([id, m]) => `<tr><td class="l">${esc(id)}</td><td class="l">${esc((m.maps || []).filter(Boolean).join(", "))}</td><td class="l">${esc(m.picks_from || "")}</td></tr>`).join("");
+  return `<h2>Shadow</h2><p class="sub">Variant <b>${esc(S.variant)}</b>: projections from a variant workbook, frozen into <code>data/shadow/${esc(S.variant)}/${s}.json</code> before play (the commit time is the record) and set beside the live frozen Log. <b>Not registered, not a rule</b>: it never feeds plays, the Scorecard or the evaluation. Scored by <code>python -m pipeline.shadow</code> after each settle.</p>
+    <div class="banner"><b>${esc(s)}</b>: sides differ on ${flips} of ${d.rows.length} legs. Live ${sc(c && c.live)}; shadow ${sc(c && c.shadow)}.${c && c.differ ? ` Where the sides differ (${c.differ} graded): live right ${c.differ_live_right}, shadow right ${c.differ_shadow_right}.` : ""} Lower Brier is better; one slate says almost nothing.</div>
+    <div class="bar">${sel("slate", "Slate", names.map(x => [x, x]), s)}<input id="q" placeholder="Search" value="${esc(F.q)}">${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"]], F.title)}${sel("market", "Market", [["", "All"], ...MARKETS.map(m => [m, m])], F.market)}${sel("sh", "Show", [["", "All legs"], ["flip", "Only where the side flips"]], F.sh)}</div>
+    ${table(cols, rs, {id: "shadow", sort: {key: "dp", asc: false}})}
+    <h3>Maps assumed per match (shadow)</h3><div class="tw"><table><thead><tr><th class="l">Match</th><th class="l">Map 1, 2, 3</th><th class="l">Source</th></tr></thead><tbody>${mt}</tbody></table></div>`;
+};
+
 // ---------- Players: who beats or misses the line ----------
 Pages["Players"] = () => {
   const P = D.players;
@@ -441,6 +468,7 @@ window.addEventListener("hashchange", route);
     try { D.eval = await get("evaluation"); } catch (e) { D.eval = null; }
     try { D.odds = await get("odds"); } catch (e) { D.odds = null; }
     try { D.players = await get("players"); } catch (e) { D.players = null; }
+    try { D.shadow = await get("shadow"); } catch (e) { D.shadow = null; }
   } catch (e) { view().innerHTML = `<p class="bad">Could not load data (${esc(e.message)}). Run <code>python -m pipeline.import_xlsx</code>.</p>`; return; }
   document.getElementById("asof").textContent = `${D.meta.slate} slate · FPS built ${D.meta.fps_built} UTC · ${D.meta.moba_legs ? `MOBA built ${D.meta.moba_built} UTC` : "no LoL/Dota workbook today"}`;
   const b = document.getElementById("banner");
