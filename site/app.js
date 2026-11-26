@@ -1,7 +1,7 @@
 "use strict";
 const TABS = ["Projections", "Board", "Matches", "Intel", "Log", "Scorecard", "Players", "Shadow", "Data", "Config", "Methodology"];
 const D = {logs: {}};
-const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", rsame: false, slate: "", bmatch: "", imatch: "", perf: "", sh: "", pl: "flag", plmin: "8"};
+const F = {q: "", title: "", market: "", match: "", side: "", flagged: false, rules: [], rmode: "all", rsame: false, slate: "", bmatch: "", imatch: "", perf: "", sh: "", shr: "shadow", pl: "flag", plmin: "8"};
 let CFGO = store.get("cfg", {fps: {}, moba: {}});                // your edits to the Config constants only
 let OVR = store.get("ovr", {fps: {}, moba: {}});                 // your edits to Matches: {kind: {matchId: {...}}}
 let ACT = store.get("act", {});                                  // Actuals you typed on this device
@@ -62,7 +62,7 @@ const passes = r => ruleOk(r) && (!F.title || r.title === F.title) && (!F.market
 document.addEventListener("input", e => { if (e.target.id === "q") { F.q = e.target.value; render(true, "q"); } });
 document.addEventListener("change", e => {
   const t = e.target, id = t.id;
-  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rmode", "perf", "pl", "plmin", "sh"].includes(id)) { F[id] = t.value; render(); }
+  if (["title", "market", "match", "side", "slate", "bmatch", "imatch", "rmode", "perf", "pl", "plmin", "sh", "shr"].includes(id)) { F[id] = t.value; render(); }
   else if (id === "flagged") { F.flagged = t.checked; render(); }
   else if (id === "rsame") { F.rsame = t.checked; render(true); }
   else if (t.dataset.rule) { F.rules = t.checked ? [...new Set([...F.rules, t.dataset.rule])] : F.rules.filter(i => i !== t.dataset.rule); render(true); }
@@ -359,23 +359,48 @@ Pages["Shadow"] = () => {
   if (!names.length) return `<h2>Shadow</h2><div class="banner">No shadow projections yet. A shadow workbook is frozen with <code>data/shadow/&lt;variant&gt;/&lt;slate&gt;.json</code> and shown here by <code>python -m pipeline.shadow</code>.</div>`;
   const s = names.includes(F.slate) ? F.slate : names[names.length - 1], d = S.slates[s], c = d.compare, q = F.q.trim().toLowerCase();
   const side = p => p == null ? "" : p >= 0.5 ? "OVER" : "UNDER";
-  const rs = d.rows.map(r => ({...r, flip: r.live_p != null && r.sh_p != null && side(r.live_p) !== side(r.sh_p), dp: r.live_p == null || r.sh_p == null ? null : r.sh_p - r.live_p}))
-    .filter(r => (!F.title || r.match.split(" ")[0] === F.title) && (!F.market || r.market === F.market) && (!q || (r.player + r.match).toLowerCase().includes(q)) && (F.sh !== "flip" || r.flip));
-  const ok = (p, r) => r.result === "OVER" || r.result === "UNDER" ? (side(p) === r.result ? "✓" : "✗") : "";
+  // the registered rules applied to each model's own numbers: the live frozen ones and the shadow ones (same rule code as the Projections tab)
+  const mk = (r, m) => ({title: r.title || r.match.split(" ")[0], match: r.match, player: r.player, market: r.market, line: r.line, l10: r.l10, po: m === "sh" ? r.sh_p : r.live_p, poAdj: m === "sh" ? r.sh_adj : r.live_adj});
+  const rows = d.rows.map(r => ({...r, flip: r.live_p != null && r.sh_p != null && side(r.live_p) !== side(r.sh_p), dp: r.live_p == null || r.sh_p == null ? null : r.sh_p - r.live_p,
+    vl: mk(r, "live"), vs: mk(r, "sh")}));
+  for (const [m, key] of [["live", "vl"], ["sh", "vs"]]) {
+    rows.forEach(r => { r["_r" + m] = Rules.of(r[key]); });
+    for (const c2 of Rules.top12(rows.map(r => r[key]))) { const r = rows.find(x => x[key] === c2.r); r["_r" + m] = [...r["_r" + m], {id: "top12", h: "H18", side: c2.side, name: Rules.TOP12_NAME}]; }
+  }
+  const basis = F.shr === "live" ? "live" : "shadow", rk = basis === "live" ? "_rlive" : "_rsh";
+  const ok = r => { if (!F.rules.length) return true; const rl = r[rk], ids = rl.map(x => x.id);
+    if (F.rmode === "any") return F.rules.some(i => ids.includes(i));
+    if (!F.rules.every(i => ids.includes(i))) return false;
+    return !F.rsame || new Set(F.rules.map(i => rl.find(x => x.id === i).side)).size === 1; };
+  const rs = rows.filter(r => ok(r) && (!F.title || r.match.split(" ")[0] === F.title) && (!F.market || r.market === F.market) && (!q || (r.player + r.match).toLowerCase().includes(q)) && (F.sh !== "flip" || r.flip));
+  const win = (p, r) => r.result === "OVER" || r.result === "UNDER" ? (side(p) === r.result ? "✓" : "✗") : "";
+  const rpill = l => l.filter(x => Rules.shown.some(y => y.id === x.id)).map(x => `<span class="pill ${x.side === "OVER" ? "lean-strong" : "lean-lean"}" title="${esc(x.name)}">${x.h} ${x.side === "OVER" ? "O" : "U"}</span>`).join(" ");
   const cols = [{k: "player", h: "Player", l: 1}, {k: "match", h: "Match", l: 1}, {k: "market", h: "Market", l: 1}, {k: "line", h: "Line", f: r => L(r.line)},
     {k: "lp", h: "Live proj", f: r => L(r.live_proj, 2)}, {k: "sp", h: "Shadow proj", f: r => L(r.sh_proj, 2)},
     {k: "lpo", h: "Live P(over)", f: r => pct1(r.live_p)}, {k: "spo", h: "Shadow P(over)", f: r => pct1(r.sh_p)},
     {k: "dp", h: "Δ P", t: "Shadow minus live P(over), in points", v: r => r.dp == null ? null : Math.abs(r.dp), f: r => r.dp == null ? "" : (r.dp > 0 ? "+" : "") + (r.dp * 100).toFixed(1)},
     {k: "ls", h: "Live side", l: 1, f: r => side(r.live_p)}, {k: "ss", h: "Shadow side", l: 1, f: r => r.flip ? `<b class="warn">${side(r.sh_p)}</b>` : side(r.sh_p)},
+    {k: "lr", h: "Live rules", l: 1, t: "Registered rules this leg falls under on the live frozen numbers", v: r => r._rlive.length, f: r => rpill(r._rlive)},
+    {k: "sr", h: "Shadow rules", l: 1, t: "Registered rules this leg would fall under on the shadow numbers", v: r => r._rsh.length, f: r => rpill(r._rsh)},
     {k: "lm", h: "Live maps", l: 1, f: r => esc(r.live_maps || "")}, {k: "sm", h: "Shadow maps", l: 1, f: r => esc(r.sh_maps || "")},
     {k: "act", h: "Actual", f: r => r.actual == null ? "" : L(r.actual, 0)}, {k: "res", h: "Result", l: 1, f: r => r.result || ""},
-    {k: "lok", h: "Live", f: r => ok(r.live_p, r)}, {k: "sok", h: "Shadow", f: r => ok(r.sh_p, r)}];
+    {k: "lok", h: "Live", f: r => win(r.live_p, r)}, {k: "sok", h: "Shadow", f: r => win(r.sh_p, r)}];
   const sc = t => t ? `${t.hits}/${t.n} (${pct0(t.rate)}), Brier ${t.brier}` : "no graded legs yet";
-  const flips = d.rows.filter(r => r.live_p != null && r.sh_p != null && side(r.live_p) !== side(r.sh_p)).length;
+  const flips = rows.filter(r => r.flip).length;
   const mt = Object.entries(d.matches || {}).map(([id, m]) => `<tr><td class="l">${esc(id)}</td><td class="l">${esc((m.maps || []).filter(Boolean).join(", "))}</td><td class="l">${esc(m.picks_from || "")}</td></tr>`).join("");
-  return `<h2>Shadow</h2><p class="sub">Variant <b>${esc(S.variant)}</b>: projections from a variant workbook, frozen into <code>data/shadow/${esc(S.variant)}/${s}.json</code> before play (the commit time is the record) and set beside the live frozen Log. <b>Not registered, not a rule</b>: it never feeds plays, the Scorecard or the evaluation. Scored by <code>python -m pipeline.shadow</code> after each settle.</p>
-    <div class="banner"><b>${esc(s)}</b>: sides differ on ${flips} of ${d.rows.length} legs. Live ${sc(c && c.live)}; shadow ${sc(c && c.shadow)}.${c && c.differ ? ` Where the sides differ (${c.differ} graded): live right ${c.differ_live_right}, shadow right ${c.differ_shadow_right}.` : ""} Lower Brier is better; one slate says almost nothing.</div>
-    <div class="bar">${sel("slate", "Slate", names.map(x => [x, x]), s)}<input id="q" placeholder="Search" value="${esc(F.q)}">${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"]], F.title)}${sel("market", "Market", [["", "All"], ...MARKETS.map(m => [m, m])], F.market)}${sel("sh", "Show", [["", "All legs"], ["flip", "Only where the side flips"]], F.sh)}</div>
+  // each rule's plays on the live numbers vs the shadow numbers, scored where settled (a play hits when the result is the rule's side)
+  const hit = (r, rk2, id) => { const x = r[rk2].find(y => y.id === id); return x && (r.result === "OVER" || r.result === "UNDER") ? (x.side === r.result ? 1 : 0) : null; };
+  const rr = Rules.shown.map(x => { const o = {h: x.h, name: x.name}; for (const [m, k2] of [["live", "_rlive"], ["sh", "_rsh"]]) { const ps = rows.filter(r => r[k2].some(y => y.id === x.id)), g = ps.map(r => hit(r, k2, x.id)).filter(v => v != null);
+      o[m] = {n: ps.length, g: g.length, h: g.reduce((a, b) => a + b, 0)}; } o.both = rows.filter(r => r._rlive.some(y => y.id === x.id) && r._rsh.some(y => y.id === x.id)).length; return o; });
+  const cell = t => `${t.n}${t.g ? ` <span class="mut">(${t.h}/${t.g} ${pct0(t.h / t.g)})</span>` : ""}`;
+  const chips = `<span class="rsel"><b>Rules</b> ${Rules.shown.map(x => { const n = rows.filter(r => r[rk].some(y => y.id === x.id)).length;
+    return `<label class="rchip ${F.rules.includes(x.id) ? "on" : ""}" title="${esc(x.name)}"><input type="checkbox" data-rule="${x.id}" ${F.rules.includes(x.id) ? "checked" : ""}> ${x.h} <span class="mut">${n}</span></label>`; }).join("")}
+    ${sel("rmode", "Match", [["all", "all ticked"], ["any", "any ticked"]], F.rmode)}${F.rmode === "all" && F.rules.length > 1 ? ` <label><input type="checkbox" id="rsame" ${F.rsame ? "checked" : ""}> same side</label>` : ""}${F.rules.length ? ` <button data-rclear="1">clear</button>` : ""}</span>`;
+  return `<h2>Shadow</h2><p class="sub">Variant <b>${esc(S.variant)}</b>: projections from a variant workbook, frozen into <code>data/shadow/${esc(S.variant)}/${s}.json</code> before play (the commit time is the record) and set beside the live frozen Log. <b>Not registered, not a rule</b>: it never feeds plays, the Scorecard or the evaluation. The registered rules are applied to each model's own numbers below; the live plays are the frozen record, the shadow plays are what the same rules would have picked. Scored by <code>python -m pipeline.shadow</code> after each settle.</p>
+    <div class="banner"><b>${esc(s)}</b>: sides differ on ${flips} of ${rows.length} legs. Live ${sc(c && c.live)}; shadow ${sc(c && c.shadow)}.${c && c.differ ? ` Where the sides differ (${c.differ} graded): live right ${c.differ_live_right}, shadow right ${c.differ_shadow_right}.` : ""} Lower Brier is better; one slate says almost nothing.</div>
+    <h3>Rule plays: live vs shadow</h3><div class="tw"><table><thead><tr><th class="l">Rule</th><th>Live plays</th><th>Shadow plays</th><th>In both</th></tr></thead><tbody>${rr.map(o => `<tr><td class="l" title="${esc(o.name)}">${o.h}</td><td>${cell(o.live)}</td><td>${cell(o.sh)}</td><td>${o.both}</td></tr>`).join("")}</tbody></table></div>
+    <div class="bar">${sel("slate", "Slate", names.map(x => [x, x]), s)}<input id="q" placeholder="Search" value="${esc(F.q)}">${sel("title", "Title", [["", "All"], ["CS2", "CS2"], ["VAL", "Valorant"]], F.title)}${sel("market", "Market", [["", "All"], ...MARKETS.map(m => [m, m])], F.market)}${sel("sh", "Show", [["", "All legs"], ["flip", "Only where the side flips"]], F.sh)}${sel("shr", "Rule filter on", [["shadow", "shadow numbers"], ["live", "live numbers"]], F.shr)}</div>
+    <div class="bar">${chips}</div>
     ${table(cols, rs, {id: "shadow", sort: {key: "dp", asc: false}})}
     <h3>Maps assumed per match (shadow)</h3><div class="tw"><table><thead><tr><th class="l">Match</th><th class="l">Map 1, 2, 3</th><th class="l">Source</th></tr></thead><tbody>${mt}</tbody></table></div>`;
 };
