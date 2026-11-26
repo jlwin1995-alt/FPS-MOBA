@@ -44,6 +44,24 @@ def compare(variant="vetosim", shadow_dir="data/shadow", log_dir=LOG):
     return out
 
 
+def freeze(variant, slate, xlsx, shadow_dir="data/shadow"):
+    """extract a variant workbook's Log rows into data/shadow/<variant>/<slate>.json (commit it before the first match: the commit time is the record)"""
+    from .import_xlsx import import_fps
+    s, fps, _, log = import_fps(xlsx)
+    if s != slate[:10]:
+        raise SystemExit(f"the shadow workbook says {s}, not {slate}: nothing written")
+    keep = ("Match", "Player", "Market", "Line", "Proj", "P(over)", "P(over) adj", "Maps used", "Rounds used")
+    out = dict(slate=slate, variant=variant, registered=False, source=os.path.basename(xlsx), built=fps.get("built"),
+               matches={m["id"]: dict(maps=[m.get("m1"), m.get("m2"), m.get("m3")], pick1=m.get("pick1"), picks_from=m.get("picks_from")) for m in fps["matches"]},
+               rows=[{k: r.get(k) for k in keep} for r in log])
+    path = os.path.join(shadow_dir, variant, f"{slate}.json")
+    if os.path.exists(path):
+        raise SystemExit(f"{path} already frozen: left as it is")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    json.dump(out, open(path, "w"), indent=1)
+    return path, len(out["rows"])
+
+
 def site_data(variant="vetosim", shadow_dir="data/shadow", log_dir=LOG):
     """the slim file the Shadow tab reads: every shadow leg next to the live frozen leg, with the result once settled, plus the comparison per slate"""
     cmp = compare(variant, shadow_dir, log_dir)
@@ -65,11 +83,21 @@ def site_data(variant="vetosim", shadow_dir="data/shadow", log_dir=LOG):
     return dict(variant=variant, registered=False, slates=slates)
 
 
+def S_freeze(a):
+    if not a.slate:
+        raise SystemExit("--freeze needs --slate")
+    return freeze(a.variant, a.slate, a.freeze)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", default="vetosim")
     ap.add_argument("--site", default="site/data/shadow.json", help="slim file for the Shadow tab; '' to skip")
+    ap.add_argument("--freeze", metavar="XLSX", help="freeze this variant workbook for --slate first")
+    ap.add_argument("--slate")
     a = ap.parse_args()
+    if a.freeze:
+        print("frozen %s: %d rows" % S_freeze(a))
     if a.site:
         os.makedirs(os.path.dirname(a.site), exist_ok=True)
         json.dump(site_data(a.variant), open(a.site, "w"), separators=(",", ":"), ensure_ascii=False)

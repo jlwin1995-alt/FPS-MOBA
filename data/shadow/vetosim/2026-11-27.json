@@ -1,0 +1,698 @@
+{
+ "slate": "2026-11-27",
+ "variant": "vetosim",
+ "registered": false,
+ "source": "FPS_Player_Model_2026-11-27_vetosim_SHADOW.xlsx",
+ "built": "2026-11-26 22:25",
+ "matches": {
+  "CS2 \u00b7 LVG vs HERO": {
+   "maps": [
+    "Dust2",
+    "Ancient",
+    "Inferno"
+   ],
+   "pick1": "Dust2 87%",
+   "picks_from": "HLTV veto sim (SHADOW, not registered)"
+  },
+  "CS2 \u00b7 IMP vs WC": {
+   "maps": [
+    "Nuke",
+    "Mirage",
+    "Inferno"
+   ],
+   "pick1": "Nuke 73%",
+   "picks_from": "HLTV veto sim (SHADOW, not registered)"
+  },
+  "CS2 \u00b7 M80 vs 100T": {
+   "maps": [
+    "Inferno",
+    "Dust2",
+    "Mirage"
+   ],
+   "pick1": "Inferno 59%",
+   "picks_from": "HLTV veto sim (SHADOW, not registered)"
+  }
+ },
+ "rows": [
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "chelo",
+   "Market": "Maps 1-2 HS",
+   "Line": 14.5,
+   "Proj": 14.42,
+   "P(over)": 0.4925,
+   "P(over) adj": 0.47,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "chelo",
+   "Market": "Maps 1-2 Kills",
+   "Line": 25.5,
+   "Proj": 26.36,
+   "P(over)": 0.5562,
+   "P(over) adj": 0.5283,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "decenty",
+   "Market": "Maps 1-2 HS",
+   "Line": 16.5,
+   "Proj": 15.9,
+   "P(over)": 0.4449,
+   "P(over) adj": 0.4211,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "decenty",
+   "Market": "Maps 1-2 Kills",
+   "Line": 30.5,
+   "Proj": 32.46,
+   "P(over)": 0.6144,
+   "P(over) adj": 0.5854,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "noway",
+   "Market": "Maps 1-2 HS",
+   "Line": 14,
+   "Proj": 13.43,
+   "P(over)": 0.3956,
+   "P(over) adj": 0.3739,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "noway",
+   "Market": "Maps 1-2 Kills",
+   "Line": 27,
+   "Proj": 26.15,
+   "P(over)": 0.412,
+   "P(over) adj": 0.3841,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "saadzin",
+   "Market": "Maps 1-2 HS",
+   "Line": 11,
+   "Proj": 10.38,
+   "P(over)": 0.3721,
+   "P(over) adj": 0.3528,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "saadzin",
+   "Market": "Maps 1-2 Kills",
+   "Line": 31,
+   "Proj": 29.96,
+   "P(over)": 0.4063,
+   "P(over) adj": 0.3766,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "VINI",
+   "Market": "Maps 1-2 HS",
+   "Line": 12,
+   "Proj": 11.74,
+   "P(over)": 0.418,
+   "P(over) adj": 0.3973,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "VINI",
+   "Market": "Maps 1-2 Kills",
+   "Line": 29,
+   "Proj": 29.6,
+   "P(over)": 0.5065,
+   "P(over) adj": 0.4767,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "cxzi",
+   "Market": "Maps 1-2 HS",
+   "Line": 12.5,
+   "Proj": 11.61,
+   "P(over)": 0.4054,
+   "P(over) adj": 0.3538,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "cxzi",
+   "Market": "Maps 1-2 Kills",
+   "Line": 26.5,
+   "Proj": 25.96,
+   "P(over)": 0.4644,
+   "P(over) adj": 0.3934,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "fr3nd",
+   "Market": "Maps 1-2 HS",
+   "Line": 9,
+   "Proj": 8.98,
+   "P(over)": 0.4355,
+   "P(over) adj": 0.3885,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "fr3nd",
+   "Market": "Maps 1-2 Kills",
+   "Line": 28,
+   "Proj": 29.45,
+   "P(over)": 0.5588,
+   "P(over) adj": 0.4841,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "HexT",
+   "Market": "Maps 1-2 HS",
+   "Line": 14,
+   "Proj": 13.77,
+   "P(over)": 0.4284,
+   "P(over) adj": 0.3724,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "HexT",
+   "Market": "Maps 1-2 Kills",
+   "Line": 28.5,
+   "Proj": 28.76,
+   "P(over)": 0.5162,
+   "P(over) adj": 0.4415,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "nEMANHA",
+   "Market": "Maps 1-2 HS",
+   "Line": 14.5,
+   "Proj": 14.36,
+   "P(over)": 0.4869,
+   "P(over) adj": 0.4294,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "nEMANHA",
+   "Market": "Maps 1-2 Kills",
+   "Line": 28.5,
+   "Proj": 29.49,
+   "P(over)": 0.561,
+   "P(over) adj": 0.4863,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "reck",
+   "Market": "Maps 1-2 HS",
+   "Line": 14.5,
+   "Proj": 15.41,
+   "P(over)": 0.5836,
+   "P(over) adj": 0.5267,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 IMP vs WC",
+   "Player": "reck",
+   "Market": "Maps 1-2 Kills",
+   "Line": 27,
+   "Proj": 30.27,
+   "P(over)": 0.665,
+   "P(over) adj": 0.5957,
+   "Maps used": "Nuke / Mirage",
+   "Rounds used": "21.4 / 21.3"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Brollan",
+   "Market": "Maps 1-2 HS",
+   "Line": 17,
+   "Proj": 14.64,
+   "P(over)": 0.2487,
+   "P(over) adj": 0.2556,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Brollan",
+   "Market": "Maps 1-2 Kills",
+   "Line": 30,
+   "Proj": 26.89,
+   "P(over)": 0.278,
+   "P(over) adj": 0.2868,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Chr1zN",
+   "Market": "Maps 1-2 HS",
+   "Line": 16.5,
+   "Proj": 14.7,
+   "P(over)": 0.3378,
+   "P(over) adj": 0.3445,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Chr1zN",
+   "Market": "Maps 1-2 Kills",
+   "Line": 27.5,
+   "Proj": 23.37,
+   "P(over)": 0.2354,
+   "P(over) adj": 0.2425,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Martinez",
+   "Market": "Maps 1-2 HS",
+   "Line": 11,
+   "Proj": 10,
+   "P(over)": 0.3283,
+   "P(over) adj": 0.3346,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Martinez",
+   "Market": "Maps 1-2 Kills",
+   "Line": 30,
+   "Proj": 27.51,
+   "P(over)": 0.315,
+   "P(over) adj": 0.3239,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "nilo",
+   "Market": "Maps 1-2 HS",
+   "Line": 18.5,
+   "Proj": 17.44,
+   "P(over)": 0.4098,
+   "P(over) adj": 0.4181,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "nilo",
+   "Market": "Maps 1-2 Kills",
+   "Line": 32,
+   "Proj": 29.12,
+   "P(over)": 0.2985,
+   "P(over) adj": 0.3077,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "susp",
+   "Market": "Maps 1-2 HS",
+   "Line": 16,
+   "Proj": 15.79,
+   "P(over)": 0.4362,
+   "P(over) adj": 0.4441,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "susp",
+   "Market": "Maps 1-2 Kills",
+   "Line": 27.5,
+   "Proj": 26.41,
+   "P(over)": 0.429,
+   "P(over) adj": 0.4385,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "C4LLM3SU3",
+   "Market": "Maps 1-2 HS",
+   "Line": 13,
+   "Proj": 14.87,
+   "P(over)": 0.6266,
+   "P(over) adj": 0.5363,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "C4LLM3SU3",
+   "Market": "Maps 1-2 Kills",
+   "Line": 25.5,
+   "Proj": 28.13,
+   "P(over)": 0.6627,
+   "P(over) adj": 0.5487,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "EmiliaQAQ",
+   "Market": "Maps 1-2 HS",
+   "Line": 16,
+   "Proj": 18.54,
+   "P(over)": 0.6642,
+   "P(over) adj": 0.5679,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "EmiliaQAQ",
+   "Market": "Maps 1-2 Kills",
+   "Line": 25,
+   "Proj": 29.39,
+   "P(over)": 0.7281,
+   "P(over) adj": 0.6216,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Starry",
+   "Market": "Maps 1-2 HS",
+   "Line": 17.5,
+   "Proj": 18.8,
+   "P(over)": 0.6059,
+   "P(over) adj": 0.5033,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Starry",
+   "Market": "Maps 1-2 Kills",
+   "Line": 27.5,
+   "Proj": 30.89,
+   "P(over)": 0.6967,
+   "P(over) adj": 0.5822,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Westmelon",
+   "Market": "Maps 1-2 HS",
+   "Line": 15.5,
+   "Proj": 19.12,
+   "P(over)": 0.7698,
+   "P(over) adj": 0.6897,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "Westmelon",
+   "Market": "Maps 1-2 Kills",
+   "Line": 25.5,
+   "Proj": 29.7,
+   "P(over)": 0.7428,
+   "P(over) adj": 0.6393,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "z4kr",
+   "Market": "Maps 1-2 HS",
+   "Line": 9,
+   "Proj": 9.12,
+   "P(over)": 0.4521,
+   "P(over) adj": 0.3737,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 LVG vs HERO",
+   "Player": "z4kr",
+   "Market": "Maps 1-2 Kills",
+   "Line": 26.5,
+   "Proj": 29.55,
+   "P(over)": 0.6822,
+   "P(over) adj": 0.5687,
+   "Maps used": "Dust2 / Ancient",
+   "Rounds used": "20.9 / 21.1"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "device",
+   "Market": "Maps 1-2 HS",
+   "Line": 10.5,
+   "Proj": 11.26,
+   "P(over)": 0.5835,
+   "P(over) adj": 0.5543,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "device",
+   "Market": "Maps 1-2 Kills",
+   "Line": 31,
+   "Proj": 29.89,
+   "P(over)": 0.4018,
+   "P(over) adj": 0.3593,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "Gizmy",
+   "Market": "Maps 1-2 HS",
+   "Line": 13.5,
+   "Proj": 15.12,
+   "P(over)": 0.6473,
+   "P(over) adj": 0.6184,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "Gizmy",
+   "Market": "Maps 1-2 Kills",
+   "Line": 25,
+   "Proj": 29.04,
+   "P(over)": 0.7106,
+   "P(over) adj": 0.6757,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "poiii",
+   "Market": "Maps 1-2 HS",
+   "Line": 18.5,
+   "Proj": 18.2,
+   "P(over)": 0.4744,
+   "P(over) adj": 0.4392,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "poiii",
+   "Market": "Maps 1-2 Kills",
+   "Line": 30.5,
+   "Proj": 31.55,
+   "P(over)": 0.5627,
+   "P(over) adj": 0.5201,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "rain",
+   "Market": "Maps 1-2 HS",
+   "Line": 15,
+   "Proj": 16.66,
+   "P(over)": 0.6012,
+   "P(over) adj": 0.5671,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "rain",
+   "Market": "Maps 1-2 Kills",
+   "Line": 28,
+   "Proj": 29.9,
+   "P(over)": 0.5859,
+   "P(over) adj": 0.5431,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "sirah",
+   "Market": "Maps 1-2 HS",
+   "Line": 16.5,
+   "Proj": 16.9,
+   "P(over)": 0.5353,
+   "P(over) adj": 0.5031,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "sirah",
+   "Market": "Maps 1-2 Kills",
+   "Line": 29,
+   "Proj": 31.69,
+   "P(over)": 0.629,
+   "P(over) adj": 0.5885,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "JBa",
+   "Market": "Maps 1-2 HS",
+   "Line": 16.5,
+   "Proj": 17.03,
+   "P(over)": 0.5462,
+   "P(over) adj": 0.5265,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "JBa",
+   "Market": "Maps 1-2 Kills",
+   "Line": 28.5,
+   "Proj": 28.58,
+   "P(over)": 0.5049,
+   "P(over) adj": 0.4801,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "lake",
+   "Market": "Maps 1-2 HS",
+   "Line": 14,
+   "Proj": 13.23,
+   "P(over)": 0.3741,
+   "P(over) adj": 0.3562,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "lake",
+   "Market": "Maps 1-2 Kills",
+   "Line": 30,
+   "Proj": 28.85,
+   "P(over)": 0.3978,
+   "P(over) adj": 0.3745,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "s1n",
+   "Market": "Maps 1-2 HS",
+   "Line": 15,
+   "Proj": 16.08,
+   "P(over)": 0.5514,
+   "P(over) adj": 0.5303,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "s1n",
+   "Market": "Maps 1-2 Kills",
+   "Line": 26,
+   "Proj": 27.64,
+   "P(over)": 0.5727,
+   "P(over) adj": 0.5481,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "slaxz-",
+   "Market": "Maps 1-2 HS",
+   "Line": 10,
+   "Proj": 9.68,
+   "P(over)": 0.4022,
+   "P(over) adj": 0.3877,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "slaxz-",
+   "Market": "Maps 1-2 Kills",
+   "Line": 29.5,
+   "Proj": 29.51,
+   "P(over)": 0.5006,
+   "P(over) adj": 0.4763,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "Swisher",
+   "Market": "Maps 1-2 HS",
+   "Line": 12.5,
+   "Proj": 12.6,
+   "P(over)": 0.5099,
+   "P(over) adj": 0.491,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  },
+  {
+   "Match": "CS2 \u00b7 M80 vs 100T",
+   "Player": "Swisher",
+   "Market": "Maps 1-2 Kills",
+   "Line": 25.5,
+   "Proj": 24.3,
+   "P(over)": 0.4185,
+   "P(over) adj": 0.3962,
+   "Maps used": "Inferno / Dust2",
+   "Rounds used": "21.3 / 21.5"
+  }
+ ]
+}
